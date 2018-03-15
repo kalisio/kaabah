@@ -10,8 +10,35 @@ resource "scaleway_server" "instance" {
   security_group = "${scaleway_security_group.instance_sg.id}"
   public_ip      = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 
+  /*
   volume {
     size_in_gb = 50
     type       = "l_ssd"
+  }
+  */
+
+  connection {
+    type = "ssh"
+    user = "root"
+  }
+
+  provisioner "file" {
+    source      = "docker-compose.yml"
+    destination = "/root"
+  }
+  provisioner "file" {
+    source      = "traefik.toml"
+    destination = "/root"
+  }
+  provisioner "file" {
+    source      = "acme.json"
+    destination = "/root"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+    	"docker network create traefik"
+      "docker-compose up -d",
+    ]
   }
 }

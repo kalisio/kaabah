@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik
+    restart: always
+    networks:
+      - traefik
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+    container_name: traefik
+
+  whoami:
+    image: emilevauge/whoami
+    container_name: whoami
+    networks:
+      - traefik
+      - default
+    labels:
+      - "traefik.backend=whoami"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.default.protocol=http"
+      - "traefik.frontend.rule=Host:localhost,kapp.kalisio.com"
+
+networks:
+  traefik:
+    external: true

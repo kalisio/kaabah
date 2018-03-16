@@ -1,5 +1,7 @@
 # kaabah
 
+[![Build Status](https://travis-ci.org/kalisio/kaabah.png?branch=master)](https://travis-ci.org/kalisio/kaabah)
+
 Terraform solution to deploy Docker-based infrastructures on Scaleway using Travis CI
 
 ## Installation

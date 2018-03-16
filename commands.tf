@@ -9,7 +9,7 @@ resource "null_resource" "deploy" {
     connection {
 	    type = "ssh"
 	    user = "root"
-	    private_key = "${file("ssh.pem")}"
+	    private_key = "${file('ssh.pem')}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"
 	  }
@@ -20,7 +20,7 @@ resource "null_resource" "deploy" {
     connection {
 	    type = "ssh"
 	    user = "root"
-	    private_key = "${file("ssh.pem")}"
+	    private_key = "${file('ssh.pem')}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"
 	  }
@@ -34,7 +34,7 @@ resource "null_resource" "deploy" {
     connection {
 	    type = "ssh"
 	    user = "root"
-	    private_key = "${file("ssh.pem")}"
+	    private_key = "${file('ssh.pem')}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"
 	  }

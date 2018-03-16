@@ -16,7 +16,7 @@ services:
     container_name: traefik
 
   whoami:
-    image: emilevauge/whoami
+    image: kalisio/whoami
     container_name: whoami
     networks:
       - traefik

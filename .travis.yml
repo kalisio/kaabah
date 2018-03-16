@@ -10,5 +10,7 @@ before_deploy:
   - rm -f terraform.zip
 
 deploy:
-  - terraform plan
-  - terraform apply
+  provider: script
+  script: bash scripts/deploy.sh
+  on:
+    branch: master

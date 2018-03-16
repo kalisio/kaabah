@@ -12,6 +12,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik.toml:/traefik.toml
+      - ./acme:/acme
     container_name: traefik
 
   whoami:
@@ -26,7 +27,9 @@ services:
       - "traefik.enable=true"
       - "traefik.port=80"
       - "traefik.default.protocol=http"
-      - "traefik.frontend.rule=Host:localhost,kapp.kalisio.com"
+      - "traefik.frontend.rule=Host:kapp.kalisio.com"
+      # For dev
+      # - "traefik.frontend.rule=Host:localhost"
 
 networks:
   traefik:

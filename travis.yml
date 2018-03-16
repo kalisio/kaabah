@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 8
+
+before_deploy:
+  # install terraform
+  - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
+  - sudo unzip terraform.zip -d /opt/terraform
+  - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+  - rm -f terraform.zip
+
+deploy:
+  - terraform plan
+  - terraform apply

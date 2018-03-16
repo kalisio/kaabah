@@ -7,14 +7,17 @@ services:
 script:
   - docker build -t kalisio/whoami .
 
+after_script:
+  - docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
+  - docker push kalisio/whoami
+
 before_deploy:
   # install terraform
   - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
   - sudo unzip terraform.zip -d /opt/terraform
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   - rm -f terraform.zip
-  - terraform init
-  
+
 deploy:
   provider: script
   script: bash deploy.sh

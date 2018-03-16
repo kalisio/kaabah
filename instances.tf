@@ -16,25 +16,4 @@ resource "scaleway_server" "instance" {
     type       = "l_ssd"
   }
   */
-
-  connection {
-    type = "ssh"
-    user = "root"
-  }
-
-  provisioner "file" {
-    source      = "docker-compose.yml"
-    destination = "/root"
-  }
-  provisioner "file" {
-    source      = "traefik.toml"
-    destination = "/root"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-    	"docker network create traefik",
-      "docker-compose up -d"
-    ]
-  }
 }

@@ -27,7 +27,7 @@ services:
       - "traefik.enable=true"
       - "traefik.port=80"
       - "traefik.default.protocol=http"
-      - "traefik.frontend.rule=Host:kapp.kalisio.xyz"
+      - "traefik.frontend.rule=Host:kaabah.kalisio.xyz"
       # For dev
       # - "traefik.frontend.rule=Host:localhost"
 

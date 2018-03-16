@@ -1,6 +1,11 @@
 language: node_js
 node_js:
   - 8
+services:
+- docker
+
+script:
+  - docker build -t kalisio/whoami .
 
 before_deploy:
   # install terraform
@@ -11,6 +16,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: bash scripts/deploy.sh
+  script: bash deploy.sh
   on:
     branch: master

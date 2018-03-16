@@ -1,0 +1,18 @@
+{
+  "name": "whoami",
+  "version": "1.0.0",
+  "description": "Node whoami server",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard 'index.js' 'lib/**.js'",
+    "start": "node index.js"
+  },
+  "author": "Alex Bardas <alex.bardas@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "standard": "^8.0.0"
+  }
+}

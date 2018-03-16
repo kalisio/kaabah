@@ -13,7 +13,8 @@ before_deploy:
   - sudo unzip terraform.zip -d /opt/terraform
   - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   - rm -f terraform.zip
-
+  - terraform init
+  
 deploy:
   provider: script
   script: bash deploy.sh

@@ -7,7 +7,7 @@ services:
 script:
   - docker build -t kalisio/whoami .
 
-after_script:
+after_success:
   - docker login -u="$DOCKER_USER" -p="$DOCKER_PASSWORD"
   - docker push kalisio/whoami
 

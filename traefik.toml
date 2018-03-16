@@ -20,12 +20,12 @@ defaultEntryPoints = ["https","http"]
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
-domain = "kalisio.com"
+domain = "kalisio.xyz"
 watch = true
 exposedbydefault = false
 
 [acme]
-email = "luc.claustres@kalisio.com"
+email = "luc.claustres@kalisio.xyz"
 storage = "acme/acme.json"
 entryPoint = "https"
 OnHostRule = true

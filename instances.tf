@@ -30,15 +30,11 @@ resource "scaleway_server" "instance" {
     source      = "traefik.toml"
     destination = "/root"
   }
-  provisioner "file" {
-    source      = "acme.json"
-    destination = "/root"
-  }
 
   provisioner "remote-exec" {
     inline = [
-    	"docker network create traefik"
-      "docker-compose up -d",
+    	"docker network create traefik",
+      "docker-compose up -d"
     ]
   }
 }

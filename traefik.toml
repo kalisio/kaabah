@@ -55,4 +55,3 @@ OnHostRule = true
   entryPoint = "http"
   [[acme.domains]]
   main = "kalisio.xyz"
-  sans = ["portainer.kalisio.xyz", "traefik.kalisio.xyz"]

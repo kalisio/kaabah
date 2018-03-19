@@ -72,6 +72,6 @@ First we create a "fake" domain by editing the `hosts` file (*/etc/hosts* under 
 127.0.0.1 kalisio.xyz
 ```
 
-Then edit the traefik ACME configuration to use the stagining *Let's encrypt* environment https://letsencrypt.org/docs/staging-environment/.
+Then edit the traefik ACME configuration to use the staging *Let's encrypt* environment https://letsencrypt.org/docs/staging-environment/.
 
 A Docker compose file with a `whoami` test app is also provided.

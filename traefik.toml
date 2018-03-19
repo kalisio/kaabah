@@ -1,7 +1,7 @@
 debug = false
 
 logLevel = "ERROR"
-defaultEntryPoints = ["https","http"]
+defaultEntryPoints = ["https", "http"]
 
 [entryPoints]
   [entryPoints.http]
@@ -12,9 +12,17 @@ defaultEntryPoints = ["https","http"]
   address = ":443"
   [entryPoints.https.tls]
   	[[entryPoints.https.tls.certificates]]
-  	# For dev
+  	# For dev tests with self-signed certificates
     #certFile = "./server.cert"
     #keyFile = "./server.key"
+  [entryPoints.admin]
+  address = ":8080"
+  # If we add auth we need to encrypt this file
+  #[entryPoints.admin.auth]
+  #   [entryPoints.admin.auth.basic]
+  #     users = [
+  #       "admin-traefik:xxx"
+  #     ]
 
 [retry]
 
@@ -24,10 +32,27 @@ domain = "kalisio.xyz"
 watch = true
 exposedbydefault = false
 
+[ping]
+entryPoint = "http"
+
+[metrics]
+  [metrics.prometheus]
+  entryPoint = "http"
+  buckets = [0.1,0.3,1.2,5.0]
+
+[api]
+entryPoint = "admin"
+dashboard = true
+
 [acme]
 email = "luc.claustres@kalisio.xyz"
 storage = "acme/acme.json"
 entryPoint = "https"
+# For dev tests
+caServer = "https://acme-staging.api.letsencrypt.org/directory"
 OnHostRule = true
-[acme.httpChallenge]
-entryPoint = "http"
+  [acme.httpChallenge]
+  entryPoint = "http"
+  [[acme.domains]]
+  main = "kalisio.xyz"
+  sans = ["portainer.kalisio.xyz", "traefik.kalisio.xyz"]

@@ -58,7 +58,7 @@ You can use it to connect via SSH and launch a service within the cluster.
 
 ## Battery-powered
 
-The project contains the commands to be executed on the remote infrastructure in order to install all required tools like [traefik](https://docs.traefik.io) reverse proxy or [portainer](https://portainer.readthedocs.io) container manager. To ensure the deploy scripts are executed on each apply you need to enforce terraform to do so because otherwise this will only be executed on the instance creation:
+The project contains the Docker compose file and commands to be executed on the remote infrastructure in order to install all required tools like [traefik](https://docs.traefik.io) reverse proxy or [portainer](https://portainer.readthedocs.io) container manager. To ensure the deploy scripts are executed on each apply you need to enforce terraform to do so because otherwise this will only be executed on the instance creation:
 ```
 terraform taint null_resource.deploy
 ```
@@ -73,3 +73,5 @@ First we create a "fake" domain by editing the `hosts` file (*/etc/hosts* under 
 ```
 
 Then edit the traefik ACME configuration to use the stagining *Let's encrypt* environment https://letsencrypt.org/docs/staging-environment/.
+
+A Docker compose file with a `whoami` test app is also provided.

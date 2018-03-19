@@ -15,6 +15,17 @@ resource "null_resource" "deploy" {
 	  }
   }
   provisioner "file" {
+    source      = "docker-compose.whoami.yml"
+    destination = "/root/docker-compose.whoami.yml"
+    connection {
+      type = "ssh"
+      user = "root"
+      private_key = "${file("ssh.pem")}"
+      host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
+      timeout = "30s"
+    }
+  }
+  provisioner "file" {
     source      = "traefik.toml"
     destination = "/root/traefik.toml"
     connection {

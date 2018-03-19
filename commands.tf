@@ -29,7 +29,7 @@ resource "null_resource" "deploy" {
   provisioner "remote-exec" {
     inline = [
     	"docker network create traefik",
-      "docker-compose up -d"
+      "docker-compose -f docker-compose.yml -f docker-compose.whoami.yml up -d"
     ]
     connection {
 	    type = "ssh"

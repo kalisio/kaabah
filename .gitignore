@@ -10,7 +10,10 @@ node_modules/
 
 # terraform
 .terraform
+
+# traefik
 acme
+logs
 
 # SSH key
 ssh.pem

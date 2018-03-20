@@ -44,6 +44,9 @@ entryPoint = "http"
 entryPoint = "admin"
 dashboard = true
 
+[accessLog]
+filePath = "/logs/access.log"
+
 [acme]
 email = "luc.claustres@kalisio.xyz"
 storage = "acme/acme.json"

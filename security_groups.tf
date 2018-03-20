@@ -1,6 +1,7 @@
 resource "scaleway_security_group" "instance_sg" {
-  name        = "${var.instance_name}-sg"
-  description = "Allow SSH, HTTP, HTTPS traffic"
+  name                    = "${var.instance_name}-sg"
+  description             = "Allow SSH, HTTP, HTTPS traffic"
+  enable_default_security = false
 }
 
 resource "scaleway_security_group_rule" "ssh_accept" {

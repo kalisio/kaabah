@@ -5,10 +5,10 @@ resource "null_resource" "deploy" {
 
   provisioner "file" {
     source      = "docker-compose.yml"
-    destination = "/root/docker-compose.yml"
+    destination = "~/docker-compose.yml"
     connection {
 	    type = "ssh"
-	    user = "root"
+	    user = "${var.SSH_USER}"
 	    private_key = "${file("ssh.pem")}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"
@@ -16,10 +16,10 @@ resource "null_resource" "deploy" {
   }
   provisioner "file" {
     source      = "docker-compose.whoami.yml"
-    destination = "/root/docker-compose.whoami.yml"
+    destination = "~/docker-compose.whoami.yml"
     connection {
       type = "ssh"
-      user = "root"
+      user = "${var.SSH_USER}"
       private_key = "${file("ssh.pem")}"
       host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
       timeout = "30s"
@@ -27,10 +27,10 @@ resource "null_resource" "deploy" {
   }
   provisioner "file" {
     source      = "traefik.toml"
-    destination = "/root/traefik.toml"
+    destination = "~/traefik.toml"
     connection {
 	    type = "ssh"
-	    user = "root"
+	    user = "${var.SSH_USER}"
 	    private_key = "${file("ssh.pem")}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"
@@ -44,7 +44,7 @@ resource "null_resource" "deploy" {
     ]
     connection {
 	    type = "ssh"
-	    user = "root"
+	    user = "${var.SSH_USER}"
 	    private_key = "${file("ssh.pem")}"
 	    host = "${element(scaleway_ip.instance_ip.*.ip, count.index)}"
 	    timeout = "30s"

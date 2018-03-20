@@ -1,5 +1,6 @@
 variable "SCALEWAY_ACCESS_KEY" {}
 variable "SCALEWAY_TOKEN" {}
+variable "SSH_USER" {}
 
 variable "region" {
   default = "par1"

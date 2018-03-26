@@ -52,7 +52,7 @@ email = "luc.claustres@kalisio.xyz"
 storage = "acme/acme.json"
 entryPoint = "https"
 # For dev tests
-caServer = "https://acme-staging.api.letsencrypt.org/directory"
+# caServer = "https://acme-staging.api.letsencrypt.org/directory"
 OnHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"

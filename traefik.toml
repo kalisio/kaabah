@@ -58,3 +58,5 @@ OnHostRule = true
   entryPoint = "http"
   [[acme.domains]]
   main = "kalisio.xyz"
+  [[acme.domains]]
+  main = "aktnmap.xyz"

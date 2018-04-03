@@ -40,6 +40,7 @@ resource "null_resource" "deploy" {
   provisioner "remote-exec" {
     inline = [
     	"docker network create traefik",
+      "echo INSTANCE_DOMAIN=${lookup(var.instance_domains, count.index + 1)} > .env",
       "docker-compose -f docker-compose.yml -f docker-compose.whoami.yml up -d"
     ]
     connection {

@@ -33,7 +33,7 @@ services:
       - 9000:9000
     volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /portainer:/data
+        - ./portainer:/data
     container_name: portainer
     labels:
       - "traefik.backend=portainer"

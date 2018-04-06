@@ -41,7 +41,7 @@ This will do the following:
 The naming convention for an instance is in `<INSTANCE_NAME>-<INDEX>` format, 
 running the project with 3 `scw` instances will create: scw-1, scw-3, scw-3. Each instance is mapped to a particular domain so that apps running on it (eg reverse proxy) are accessible through it.
 
-Customizing the instance specs via terraform variables instead of default values in *variables.tf*:
+Customize the instance specs via terraform variables instead of default values in *variables.tf*:
 
 ```bash
 terraform apply \
@@ -49,10 +49,10 @@ terraform apply \
 -var region=ams1 \
 -var instance_type=VC1S \
 -var instance_count=2 \
--var instance_domains='{1 = "dev.domain.com", 2 = "test.domain.com"}'
+-var instance_domains='{1 = "first.instance.domain", 2 = "second.instance.domain"}'
 ```
 
-You can scale up or down the cluster by modifying the `instance_count`. 
+You can scale up or down the cluster by modifying the `instance_count` and `instance_domains` map. 
 
 After running the Terraform plan you'll see several output variables like the public IPs of each instances. 
 You can use it to connect via SSH and launch a service within the cluster.

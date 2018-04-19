@@ -67,7 +67,7 @@ terraform taint null_resource.deploy.N
 
 A Docker compose file with a `whoami` test app is also provided and is accessible under `kaabah.instance.domain`.
 
-### Testing during development
+## Testing during development
 
 Due to the *Let's encrypt* configuration for HTTPS you cannot simply use `localhost` on your local machine, you need to run "behind" a domain.
 

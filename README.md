@@ -65,6 +65,8 @@ The project contains the Docker compose file and commands to be executed on the 
 terraform taint null_resource.deploy.N
 ```
 
+A Docker compose file with a `whoami` test app is also provided and is accessible under `kaabah.instance.domain`.
+
 ### Testing during development
 
 Due to the *Let's encrypt* configuration for HTTPS you cannot simply use `localhost` on your local machine, you need to run "behind" a domain.
@@ -74,6 +76,46 @@ First we create a "fake" domain by editing the `hosts` file (*/etc/hosts* under 
 127.0.0.1 kalisio.xyz
 ```
 
-Then edit the traefik ACME configuration to use the staging *Let's encrypt* environment https://letsencrypt.org/docs/staging-environment/.
+Then edit the traefik ACME configuration to use the staging *Let's encrypt* environment https://letsencrypt.org/docs/staging-environment/. Last but not least, since the `hosts` file does not allow to manage port redirections we need to do so using the operating system network tools.
 
-A Docker compose file with a `whoami` test app is also provided and is accessible under `kaabah.instance.domain`.
+### Windows
+
+To see what is currently running:
+```
+netstat -a -n -p TCP | grep "LISTENING"
+```
+
+To add port redirection for HTTP:
+```
+netsh interface portproxy add v4tov4 listenport=80 listenaddress=127.0.0.1 connectport=8080 connectaddress=127.0.0.1
+```
+
+To add port redirection for HTTPS:
+```
+netsh interface portproxy add v4tov4 listenport=443 listenaddress=127.0.0.1 connectport=8083 connectaddress=127.0.0.1
+```
+
+To see running proxied port:
+```
+netsh interface portproxy show v4tov4
+```
+
+To see remove proxied port:
+```
+netsh interface portproxy delete v4tov4 listenport=80 listenaddress=127.0.0.1
+```
+
+### Linux
+
+First enable port redirection:
+```
+echo "1" > /proc/sys/net/ipv4/ip_forward
+```
+
+Then add port redirect:
+```
+iptables -t nat -A PREROUTING -s 127.0.0.1 -p tcp --dport 80 -j REDIRECT --to 8080`
+iptables -t nat -A OUTPUT -s 127.0.0.1 -p tcp --dport 80 -j REDIRECT --to 8080`
+```
+
+To remove simply replace in the previous command the `-D` switch instead of the `-A` switch.

@@ -6,10 +6,6 @@ variable "region" {
   default = "par1"
 }
 
-variable "instance_type" {
-  default = "C2S"
-}
-
 variable "architectures" {
   default = {
     C1   = "arm"
@@ -22,18 +18,23 @@ variable "architectures" {
   }
 }
 
-variable "instance_name" {
-  default = "scw-ci"
+variable "docker_version" {
+  default = "17.06.0~ce-0~ubuntu"
 }
 
-variable "instance_count" {
+variable "manager_instance_type" {
+  default = "VC1S"
+}
+
+variable "worker_instance_type" {
+  default = "VC1S"
+}
+
+variable "worker_instance_count" {
   default = 2
 }
 
-variable "instance_domains" {
-  type    = "map"
-  default = {
-    "1" = "dev.kalisio.xyz",
-    "2" = "test.kalisio.xyz"
-  }
+variable "docker_api_ip" {
+  default = "127.0.0.1"
 }
+

@@ -19,6 +19,7 @@ resource "scaleway_server" "swarm_manager" {
 
   provisioner "remote-exec" {
     inline = [
+      "mkdir -p /${terraform.workspace}",
       "mkdir -p /etc/systemd/system/docker.service.d",
     ]
   }
@@ -29,22 +30,25 @@ resource "scaleway_server" "swarm_manager" {
   }
 
   provisioner "file" {
-    source      = "scripts/install-docker.sh"
-    destination = "/tmp/install-docker.sh"
+    source      = "scripts/"
+    destination = "/tmp"
   }
 
   provisioner "file" {
-    source      = "scripts/install-docker-compose.sh"
-    destination = "/tmp/install-docker-compose.sh"
+    source      = "services/"
+    destination = "/${terraform.workspace}"
   }
 
   provisioner "remote-exec" {
     inline = [
       "sed -e 's/SWARM_MANAGER_PRIVATE_IP/${self.private_ip}/g' /tmp/manager.tpl > /etc/systemd/system/docker.service.d/docker.conf",
-      "chmod +x /tmp/install-docker-ce.sh",
-      "/tmp/install-docker-ce.sh ${var.docker_version}",
+      "chmod +x /tmp/install-docker.sh",
+      "/tmp/install-docker.sh ${var.docker_version}",
+      "chmod +x /tmp/install-docker-compose.sh",
       "/tmp/install-docker-compose.sh ${var.docker_compose_version}",
       "docker swarm init --advertise-addr ${self.private_ip} --listen-addr ${self.private_ip}:2377",
+      "chmod +x /tmp/setup-services.sh",
+      "/tmp/setup-services.sh ${terraform.workspace}",
     ]
   }
 }

@@ -1,0 +1,174 @@
+version: '3.5'
+
+services:
+  traefik:
+    image: traefik
+    container_name: traefik
+    command: --api --docker --docker.domain=${DOMAIN}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/traefik/traefik.toml:/traefik.toml
+      - ./acme:/acme
+      - ./logs:/logs
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=traefik"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=8080"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:traefik.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/portainer:/data
+    ports:
+      - 9000:9000
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=portainer"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=9000"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:portainer.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./configs/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    depends_on:
+      - cadvisor
+    ports:
+      - 9090:9090
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=prometheus"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=9090"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:prometheus.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: nodeexporter
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - 9100:9100
+    networks:
+      - platform-network
+    restart: unless-stopped
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    container_name: blackboxexporter
+    command: 
+      - '--config.file=/config/blackbox.yml'
+    volumes: 
+      - ./configs/blackbox/:/config/
+    networks:
+      - platform-network
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://alertmanager.${PLATFORM}.${DOMAIN}'
+    volumes:
+      - ./configs/alertmanager/:/etc/alertmanager/
+    ports:
+      - 9093:9093
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=alertmanager"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=9093"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:alertmanager.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+  cadvisor:
+    image: google/cadvisor
+    container_name: cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    ports:
+      - 8081:8080
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=cadvisor"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=8080"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:cadvisor.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./configs/grafana/config.monitoring
+    depends_on:
+      - prometheus
+    ports:
+      - 3000:3000
+    networks:
+      - platform-network
+    labels:
+      - "traefik.backend=grafana"
+      - "traefik.enable=true"      
+      - "traefik.docker.network=${PLATFORM}_network"
+      - "traefik.port=3000"
+      - "traefik.frontend.entryPoints=http,https"
+      - "traefik.frontend.rule=Host:grafana.${PLATFORM}.${DOMAIN}"
+    restart: unless-stopped
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+networks:
+  platform-network:
+    name: ${PLATFORM}_network

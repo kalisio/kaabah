@@ -29,14 +29,14 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   provisioner "file" {
-    source      = "scripts/install-docker-ce.sh"
-    destination = "/tmp/install-docker-ce.sh"
+    source      = "scripts/install-docker.sh"
+    destination = "/tmp/install-docker.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/install-docker-ce.sh",
-      "/tmp/install-docker-ce.sh ${var.docker_version}",
+      "chmod +x /tmp/install-docker.sh",
+      "/tmp/install-docker.sh ${var.docker_version}",
       "docker swarm join  ${scaleway_server.swarm_manager.0.private_ip}:2377 --token $(docker -H ${scaleway_server.swarm_manager.0.private_ip}:2375 swarm join-token -q worker)",
     ]
   }

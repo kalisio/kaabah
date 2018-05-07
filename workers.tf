@@ -3,28 +3,29 @@ resource "scaleway_ip" "swarm_worker_ip" {
 }
 
 resource "scaleway_server" "swarm_worker" {
-  count          = "${var.worker_instance_count}"
-  name           = "${terraform.workspace}-worker-${count.index + 1}"
-  image          = "${data.scaleway_image.worker_image.id}"
-  type           = "${var.worker_instance_type}"
- // bootscript     = "${data.scaleway_bootscript.rancher.id}"
-  security_group = "${scaleway_security_group.swarm_workers.id}"
-  public_ip      = "${element(scaleway_ip.swarm_worker_ip.*.ip, count.index)}"
+  count               = "${var.worker_instance_count}"
+  name                = "${terraform.workspace}-worker-${count.index + 1}"
+  image               = "${data.scaleway_image.worker_image.id}"
+  type                = "${var.worker_instance_type}"
+  dynamic_ip_required = "true"
+  security_group      = "${scaleway_security_group.swarm_workers.id}"
 
   connection {
-    type = "ssh"
-    user = "root"
+    type        = "ssh"
+    user        = "root"
+    private_key = "${file("ssh.pem")}"
+    timeout     = "30s"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p /etc/systemd/system/docker.service.d",
+      "mkdir -p /etc/docker",
     ]
   }
 
   provisioner "file" {
-    content     = "${data.template_file.docker_conf.rendered}"
-    destination = "/etc/systemd/system/docker.service.d/docker.conf"
+    source      = "configs/docker/daemon_worker.json"
+    destination = "/etc/docker/daemon.json"
   }
 
   provisioner "file" {
@@ -36,7 +37,7 @@ resource "scaleway_server" "swarm_worker" {
     inline = [
       "chmod +x /tmp/install-docker-ce.sh",
       "/tmp/install-docker-ce.sh ${var.docker_version}",
-      "docker swarm join --token ${data.external.swarm_tokens.result.worker} ${scaleway_server.swarm_manager.0.private_ip}:2377",
+      "docker swarm join  ${scaleway_server.swarm_manager.0.private_ip}:2377 --token $(docker -H ${scaleway_server.swarm_manager.0.private_ip}:2375 swarm join-token -q worker)",
     ]
   }
 
@@ -84,14 +85,4 @@ resource "scaleway_server" "swarm_worker" {
       host = "${scaleway_ip.swarm_manager_ip.0.ip}"
     }
   }
-}
-
-data "external" "swarm_tokens" {
-  program = ["./scripts/fetch-tokens.sh"]
-
-  query = {
-    host = "${scaleway_ip.swarm_manager_ip.0.ip}"
-  }
-
-  depends_on = ["scaleway_server.swarm_manager"]
 }

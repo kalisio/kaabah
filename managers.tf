@@ -3,28 +3,29 @@ resource "scaleway_ip" "swarm_manager_ip" {
 }
 
 resource "scaleway_server" "swarm_manager" {
-  count          = 1
-  name           = "${terraform.workspace}-manager-${count.index + 1}"
-  image          = "${data.scaleway_image.manager_image.id}"
-  type           = "${var.manager_instance_type}"
- // bootscript     = "${data.scaleway_bootscript.rancher.id}"
-  security_group = "${scaleway_security_group.swarm_managers.id}"
-  public_ip      = "${element(scaleway_ip.swarm_manager_ip.*.ip, count.index)}"
+  count               = 1
+  name                = "${terraform.workspace}-manager-${count.index + 1}"
+  image               = "${data.scaleway_image.manager_image.id}"
+  type                = "${var.manager_instance_type}"
+  dynamic_ip_required = "true"
+  security_group      = "${scaleway_security_group.swarm_managers.id}"
 
   connection {
-    type = "ssh"
-    user = "root"
+    type        = "ssh"
+    user        = "root"
+    private_key = "${file("ssh.pem")}"
+    timeout     = "30s"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p /etc/systemd/system/docker.service.d",
+      "mkdir -p /etc/docker",
     ]
   }
 
   provisioner "file" {
-    content     = "${data.template_file.docker_conf.rendered}"
-    destination = "/etc/systemd/system/docker.service.d/docker.conf"
+    source      = "configs/docker/daemon_manager.tpl"
+    destination = "/etc/docker/daemon_manager.tpl"
   }
 
   provisioner "file" {
@@ -34,9 +35,10 @@ resource "scaleway_server" "swarm_manager" {
 
   provisioner "remote-exec" {
     inline = [
+      "sed -e 's/SWARM_MANAGER_PRIVATE_IP/${self.private_ip}/g' /etc/docker/daemon_manager.tpl > /etc/docker/daemon.json",
       "chmod +x /tmp/install-docker-ce.sh",
       "/tmp/install-docker-ce.sh ${var.docker_version}",
-      "docker swarm init --advertise-addr ${self.private_ip}",
+      "docker swarm init --advertise-addr ${self.private_ip} --listen-addr ${self.private_ip}:2377",
     ]
   }
 }

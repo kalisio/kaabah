@@ -27,11 +27,11 @@ variable "docker_compose_version" {
 }
 
 variable "manager_instance_type" {
-  default = "START1-M"
+  default = "C2M"
 }
 
 variable "worker_instance_type" {
-  default = "START1-S"
+  default = "C2S"
 }
 
 variable "worker_instance_count" {

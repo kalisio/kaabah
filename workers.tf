@@ -24,7 +24,7 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   provisioner "file" {
-    source      = "configs/docker/daemon_worker.json"
+    source      = "configs/docker/worker.json"
     destination = "/etc/docker/daemon.json"
   }
 

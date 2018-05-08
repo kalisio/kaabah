@@ -7,8 +7,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./configs/traefik/traefik.toml:/traefik.toml
-      - ./acme:/acme
-      - ./logs:/logs
     ports:
       - 80:80
       - 443:443
@@ -16,6 +14,10 @@ services:
     networks:
       - platform-network
     deploy:
+      replicas: 1
+      placement:
+        constraints:
+         - node.role == manager
       labels:
         - "traefik.backend=traefik"
         - "traefik.enable=true"      
@@ -23,8 +25,10 @@ services:
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:traefik.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
+      restart_policy:
+        condition: on-failure
 
 networks:
   platform-network:
-    name: ${PLATFORM}_network
+    external:
+      name: ${PLATFORM}_network

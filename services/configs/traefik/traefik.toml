@@ -17,7 +17,7 @@ filePath = "/logs/access.log"
 endpoint = "unix:///var/run/docker.sock"
 watch = true
 exposedbydefault = false
-swarmMode = true
+swarmmode = true
 
 [ping]
 entryPoint = "http"

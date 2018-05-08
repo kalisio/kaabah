@@ -3,7 +3,6 @@ version: '3.5'
 services:
   prometheus:
     image: prom/prometheus
-    container_name: prometheus
     volumes:
       - ./configs/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -18,18 +17,23 @@ services:
       - 9090:9090
     networks:
       - platform-network
-    labels:
-      - "traefik.backend=prometheus"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=9090"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:prometheus.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints: 
+          - node.role == manager
+      labels:
+        - "traefik.backend=prometheus"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.port=9090"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:prometheus.${PLATFORM}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
 
   node-exporter:
     image: prom/node-exporter
-    container_name: nodeexporter
     command: 
       - '--path.procfs=/host/proc' 
       - '--path.sysfs=/host/sys'
@@ -43,22 +47,28 @@ services:
       - 9100:9100
     networks:
       - platform-network
-    restart: unless-stopped
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
 
   blackbox-exporter:
     image: prom/blackbox-exporter
-    container_name: blackboxexporter
     command: 
       - '--config.file=/config/blackbox.yml'
     volumes: 
       - ./configs/blackbox/:/config/
     networks:
       - platform-network
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
 
   alertmanager:
     image: prom/alertmanager
-    container_name: alertmanager
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
@@ -69,18 +79,22 @@ services:
       - 9093:9093
     networks:
       - platform-network
-    labels:
-      - "traefik.backend=alertmanager"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=9093"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:alertmanager.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - "traefik.backend=alertmanager"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.port=9093"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:alertmanager.${PLATFORM}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
 
   cadvisor:
     image: google/cadvisor
-    container_name: cadvisor
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -90,18 +104,20 @@ services:
       - 8081:8080
     networks:
       - platform-network
-    labels:
-      - "traefik.backend=cadvisor"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=8080"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:cadvisor.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
+    deploy:
+      mode: global
+      labels:
+        - "traefik.backend=cadvisor"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.port=8080"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:cadvisor.${PLATFORM}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
 
   grafana:
     image: grafana/grafana
-    container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
       - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
@@ -113,14 +129,19 @@ services:
       - 3000:3000
     networks:
       - platform-network
-    labels:
-      - "traefik.backend=grafana"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=3000"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:grafana.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - "traefik.backend=grafana"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.port=3000"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:grafana.${PLATFORM}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
 
 volumes:
   prometheus_data: {}
@@ -128,4 +149,5 @@ volumes:
 
 networks:
   platform-network:
-    name: ${PLATFORM}_network
+    external:
+      name: ${PLATFORM}_network

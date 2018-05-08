@@ -1,7 +1,3 @@
-resource "scaleway_ip" "swarm_worker_ip" {
-  count = "${var.worker_instance_count}"
-}
-
 resource "scaleway_server" "swarm_worker" {
   count               = "${var.worker_instance_count}"
   name                = "${terraform.workspace}-worker-${count.index + 1}"
@@ -37,7 +33,7 @@ resource "scaleway_server" "swarm_worker" {
     inline = [
       "chmod +x /tmp/install-docker.sh",
       "/tmp/install-docker.sh ${var.docker_version}",
-      "docker swarm join  ${scaleway_server.swarm_manager.0.private_ip}:2377 --token $(docker -H ${scaleway_server.swarm_manager.0.private_ip}:2375 swarm join-token -q worker)",
+      "docker swarm join  ${scaleway_server.swarm_manager.private_ip}:2377 --token $(docker -H ${scaleway_server.swarm_manager.private_ip}:2375 swarm join-token -q worker)",
     ]
   }
 
@@ -54,7 +50,7 @@ resource "scaleway_server" "swarm_worker" {
     connection {
       type = "ssh"
       user = "root"
-      host = "${scaleway_ip.swarm_manager_ip.0.ip}"
+      host = "${scaleway_server.swarm_manager.public_ip}"
     }
   }
 
@@ -82,7 +78,7 @@ resource "scaleway_server" "swarm_worker" {
     connection {
       type = "ssh"
       user = "root"
-      host = "${scaleway_ip.swarm_manager_ip.0.ip}"
+      host = "${scaleway_server.swarm_manager.public_ip}"
     }
   }
 }

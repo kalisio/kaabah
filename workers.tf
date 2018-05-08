@@ -1,10 +1,14 @@
+resource "scaleway_ip" "swarm_worker_ip" {
+  count = "${var.worker_instance_count}"
+}
+
 resource "scaleway_server" "swarm_worker" {
-  count               = "${var.worker_instance_count}"
-  name                = "${terraform.workspace}-worker-${count.index + 1}"
-  image               = "${data.scaleway_image.worker_image.id}"
-  type                = "${var.worker_instance_type}"
-  dynamic_ip_required = "true"
-  security_group      = "${scaleway_security_group.swarm_workers.id}"
+  count          = "${var.worker_instance_count}"
+  name           = "${terraform.workspace}-worker-${count.index + 1}"
+  image          = "${data.scaleway_image.worker_image.id}"
+  type           = "${var.worker_instance_type}"
+  security_group = "${scaleway_security_group.swarm_workers.id}"
+  public_ip      = "${element(scaleway_ip.swarm_worker_ip.*.ip, count.index)}"
 
   connection {
     type        = "ssh"
@@ -20,7 +24,7 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   provisioner "file" {
-    source      = "configs/docker/worker.json"
+    source      = "configs/worker.json"
     destination = "/etc/docker/daemon.json"
   }
 

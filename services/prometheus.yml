@@ -1,49 +1,6 @@
 version: '3.5'
 
 services:
-  traefik:
-    image: traefik
-    container_name: traefik
-    command: --api --docker --docker.domain=${DOMAIN}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./configs/traefik/traefik.toml:/traefik.toml
-      - ./acme:/acme
-      - ./logs:/logs
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-    networks:
-      - platform-network
-    labels:
-      - "traefik.backend=traefik"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=8080"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:traefik.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
-
-  portainer:
-    image: portainer/portainer
-    container_name: portainer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./configs/portainer:/data
-    ports:
-      - 9000:9000
-    networks:
-      - platform-network
-    labels:
-      - "traefik.backend=portainer"
-      - "traefik.enable=true"      
-      - "traefik.docker.network=${PLATFORM}_network"
-      - "traefik.port=9000"
-      - "traefik.frontend.entryPoints=http,https"
-      - "traefik.frontend.rule=Host:portainer.${PLATFORM}.${DOMAIN}"
-    restart: unless-stopped
-
   prometheus:
     image: prom/prometheus
     container_name: prometheus

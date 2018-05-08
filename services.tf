@@ -22,9 +22,10 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
+      "cd /${terraform.workspace}",
       "echo PLATFORM=${terraform.workspace} > .env",
       "echo DOMAIN=kalisio.xyz >> .env",
-      "docker-compose -f /${terraform.workspace}/services.yml up -d",
+      "docker stack deploy -c traefik.yml -c portainer.yml -c prometheus.yml ${terraform.workspace}",
     ]
   }
 

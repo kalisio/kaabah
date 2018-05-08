@@ -1,9 +1,11 @@
+resource "scaleway_ip" "swarm_manager_ip" {}
+
 resource "scaleway_server" "swarm_manager" {
-  name                = "${terraform.workspace}-manager"
-  image               = "${data.scaleway_image.manager_image.id}"
-  type                = "${var.manager_instance_type}"
-  dynamic_ip_required = "true"
-  security_group      = "${scaleway_security_group.swarm_managers.id}"
+  name           = "${terraform.workspace}-manager"
+  image          = "${data.scaleway_image.manager_image.id}"
+  type           = "${var.manager_instance_type}"
+  security_group = "${scaleway_security_group.swarm_manager.id}"
+  public_ip      = "${scaleway_ip.swarm_manager_ip.ip}"
 
   connection {
     type        = "ssh"
@@ -19,7 +21,7 @@ resource "scaleway_server" "swarm_manager" {
   }
 
   provisioner "file" {
-    source      = "configs/docker/manager.tpl"
+    source      = "configs/manager.tpl"
     destination = "/tmp/manager.tpl"
   }
 

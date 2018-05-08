@@ -1,0 +1,34 @@
+version: '3.5'
+
+services:
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./configs/portainer:/data
+    ports:
+      - 9000:9000
+    networks:
+      - platform-network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        delay: 10s
+      labels:
+        - "traefik.backend=portainer"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.port=9000"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.rule=Host:portainer.${PLATFORM}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
+
+networks:
+  platform-network:
+    name: ${PLATFORM}_network

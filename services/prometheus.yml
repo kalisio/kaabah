@@ -23,7 +23,7 @@ services:
         - "traefik.enable=true"      
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9090"
-        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.entryPoints=http"
         - "traefik.frontend.rule=Host:prometheus.${WORKSPACE}.${DOMAIN}"
       restart_policy:
         condition: on-failure
@@ -84,7 +84,7 @@ services:
         - "traefik.enable=true"      
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9093"
-        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.entryPoints=http"
         - "traefik.frontend.rule=Host:alertmanager.${WORKSPACE}.${DOMAIN}"
       restart_policy:
         condition: on-failure
@@ -109,7 +109,7 @@ services:
         - "traefik.enable=true"      
         - "traefik.docker.network=swarm-network"
         - "traefik.port=8080"
-        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.entryPoints=http"
         - "traefik.frontend.rule=Host:cadvisor.${WORKSPACE}.${DOMAIN}"
       restart_policy:
         condition: on-failure
@@ -133,7 +133,7 @@ services:
         - "traefik.enable=true"      
         - "traefik.docker.network=swarm-network"
         - "traefik.port=3000"
-        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.entryPoints=http"
         - "traefik.frontend.rule=Host:grafana.${WORKSPACE}.${DOMAIN}"
       restart_policy:
         condition: on-failure

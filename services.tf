@@ -22,11 +22,8 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
-      "cd /${terraform.workspace}",
-      "export WORKSPACE=${terraform.workspace}",
-      "export DOMAIN=kalisio.xyz",
-      "docker network create -d overlay --attachable swarm-network",
-      "docker stack deploy -c traefik.yml -c portainer.yml -c prometheus.yml  ${terraform.workspace}",
+      "chmod +x /tmp/deploy-services.sh",
+      "/tmp/deploy-services.sh ${terraform.workspace} kalisio.xyz",
     ]
   }
 

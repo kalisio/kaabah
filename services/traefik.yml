@@ -3,7 +3,7 @@ version: '3.5'
 services:
   traefik:
     image: traefik
-    command: --docker.domain=${DOMAIN}
+    command: --api --docker.domain=${DOMAIN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./configs/traefik/traefik.toml:/traefik.toml

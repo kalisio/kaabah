@@ -5,10 +5,8 @@ services:
     image: portainer/portainer
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - 9000:9000
     networks:
-      - platform-network
+      - swarm-network
     deploy:
       replicas: 1
       placement:
@@ -17,14 +15,15 @@ services:
       labels:
         - "traefik.backend=portainer"
         - "traefik.enable=true"      
-        - "traefik.docker.network=${PLATFORM}_network"
+        - "traefik.docker.network=swarm-network"
         - "traefik.port=9000"
         - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.rule=Host:portainer.${PLATFORM}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:portainer.${WORKSPACE}.${DOMAIN}"
       restart_policy:
         condition: on-failure
+    depends_on:
+      - traefik
 
 networks:
-  platform-network:
-    external:
-      name: ${PLATFORM}_network
+  swarm-network:
+    external: true

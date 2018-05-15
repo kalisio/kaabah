@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /$1
+cd $1
 echo export WORKSPACE=$1 > .env
 echo export DOMAIN=$2 >> .env
 source .env

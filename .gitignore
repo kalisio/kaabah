@@ -13,5 +13,5 @@ terraform.tfstate.d
 acme
 logs
 
-# SSH key
-ssh.pem
+# secrets
+secrets/*.pem

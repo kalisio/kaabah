@@ -1,21 +1,15 @@
 variable "SCALEWAY_ACCESS_KEY" {}
 variable "SCALEWAY_TOKEN" {}
-variable "SSH_USER" {}
 
-variable "region" {
-  default = "par1"
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+
+variable "provider" {
+  default = "AWS"
 }
 
-variable "architectures" {
-  default = {
-    START-XS = "x86_64"
-    START1-S = "x86_64"
-    START1-M = "x86_64"
-    START1-L = "x86_64"
-    C2S      = "x86_64"
-    C2M      = "x86_64"
-    C2L      = "x86_64"
-  }
+variable "domain" {
+  default = "kalisio.xyz"
 }
 
 variable "docker_version" {
@@ -27,11 +21,21 @@ variable "docker_compose_version" {
 }
 
 variable "manager_instance_type" {
-  default = "C2M"
+  type = "map"
+
+  default = {
+    SCALEWAY = "C2M"
+    AWS      = "t2.micro"
+  }
 }
 
 variable "worker_instance_type" {
-  default = "C2S"
+  type = "map"
+
+  default = {
+    SCALEWAY = "C2S"
+    AWS      = "t2.micro"
+  }
 }
 
 variable "worker_instance_count" {

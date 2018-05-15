@@ -1,15 +1,27 @@
-provider "scaleway" {
-  organization = "${var.SCALEWAY_ACCESS_KEY}"
-  token        = "${var.SCALEWAY_TOKEN}"
-  region       = "${var.region}"
+module "Scaleway" {
+  source = "./modules/Scaleway"
+
+  scw_provider               = "${var.provider}"
+  scw_domain                 = "${var.domain}"
+  scw_access_key             = "${var.SCALEWAY_ACCESS_KEY}"
+  scw_token                  = "${var.SCALEWAY_TOKEN}"
+  scw_docker_version         = "${var.docker_version}"
+  scw_docker_compose_version = "${var.docker_compose_version}"
+  scw_manager_instance_type  = "${lookup(var.manager_instance_type, "SCALEWAY")}"
+  scw_worker_instance_type   = "${lookup(var.worker_instance_type, "SCALEWAY")}"
+  scw_worker_instance_count  = "${var.worker_instance_count}"
 }
 
-data "scaleway_image" "manager_image" {
-  architecture = "${lookup(var.architectures, var.manager_instance_type)}"
-  name         = "Ubuntu Xenial"
-}
+module "AWS" {
+  source = "./modules/AWS"
 
-data "scaleway_image" "worker_image" {
-  architecture = "${lookup(var.architectures, var.worker_instance_type)}"
-  name         = "Ubuntu Xenial"
+  aws_provider               = "${var.provider}"
+  aws_domain                 = "${var.domain}"
+  aws_access_key             = "${var.AWS_ACCESS_KEY}"
+  aws_secret_key             = "${var.AWS_SECRET_KEY}"
+  aws_docker_version         = "${var.docker_version}"
+  aws_docker_compose_version = "${var.docker_compose_version}"
+  aws_manager_instance_type  = "${lookup(var.manager_instance_type, "AWS")}"
+  aws_worker_instance_type   = "${lookup(var.worker_instance_type, "AWS")}"
+  aws_worker_instance_count  = "${var.worker_instance_count}"
 }

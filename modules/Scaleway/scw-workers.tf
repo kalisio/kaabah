@@ -53,7 +53,7 @@ resource "scaleway_server" "swarm_worker" {
 
     connection {
       type = "ssh"
-      user = "root"
+      user = "${var.scw_ssh_user}"
       host = "${scaleway_server.swarm_manager.public_ip}"
     }
   }
@@ -81,7 +81,7 @@ resource "scaleway_server" "swarm_worker" {
 
     connection {
       type = "ssh"
-      user = "root"
+      user = "${var.scw_ssh_user}"
       host = "${scaleway_server.swarm_manager.public_ip}"
     }
   }

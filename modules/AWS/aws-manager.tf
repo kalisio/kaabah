@@ -6,10 +6,6 @@ resource "aws_instance" "swarm_manager" {
   security_groups             = ["${aws_security_group.swarm_manager.name}"]
   associate_public_ip_address = true
 
-  tags {
-    Name = "swarm_manager"
-  }
-
   connection {
     type        = "ssh"
     user        = "${var.aws_ssh_user}"
@@ -42,5 +38,9 @@ resource "aws_instance" "swarm_manager" {
       "sudo /tmp/install-docker-compose.sh ${var.aws_docker_compose_version}",
       "sudo docker swarm init --advertise-addr ${self.private_ip} --listen-addr ${self.private_ip}:2377",
     ]
+  }
+
+  tags {
+    Name = "${terraform.workspace}-manager"
   }
 }

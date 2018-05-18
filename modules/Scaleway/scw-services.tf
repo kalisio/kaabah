@@ -6,26 +6,26 @@ resource "null_resource" "deploy_services" {
   connection {
     type        = "ssh"
     user        = "${var.scw_ssh_user}"
-    private_key = "${file("secrets/scaleway.pem")}"
+    private_key = "${file(var.scw_ssh_key)}"
     host        = "${scaleway_server.swarm_manager.public_ip}"
     timeout     = "30s"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p ${terraform.workspace}",
+      "mkdir -p services",
     ]
   }
 
   provisioner "file" {
     source      = "services/"
-    destination = "${terraform.workspace}"
+    destination = "services"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/deploy-services.sh",
-      "/tmp/deploy-services.sh ${terraform.workspace} ${var.scw_domain}",
+      "sh /tmp/install-services.sh ${terraform.workspace} ${var.scw_domain}",
+      "cd services && ./deploy.sh",
     ]
   }
 

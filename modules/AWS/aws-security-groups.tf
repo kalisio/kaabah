@@ -1,6 +1,6 @@
 resource "aws_security_group" "swarm_manager" {
   count       = "${var.aws_provider == "AWS" ? 1 : 0}"
-  name        = "swarm-group"
+  name        = "${terraform.workspace}"
   description = "Default security group that allows inbound and outbound traffic from all instances in the VPC"
 
   ingress {
@@ -34,6 +34,6 @@ resource "aws_security_group" "swarm_manager" {
   }
 
   tags {
-    Name = "swarm-example"
+    Name = "${terraform.workspace}"
   }
 }

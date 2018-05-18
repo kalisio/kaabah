@@ -1,7 +1,7 @@
 resource "aws_instance" "swarm_worker" {
   count                       = "${var.aws_provider == "AWS" ? var.aws_worker_instance_count : 0}"
-  key_name                    = "AWS"
-  ami                         = "${var.aws_ami}"
+  key_name                    = "${var.aws_key_name}"
+  ami                         = "${var.aws_image}"
   instance_type               = "${var.aws_manager_instance_type}"
   security_groups             = ["${aws_security_group.swarm_manager.name}"]
   associate_public_ip_address = true
@@ -9,7 +9,7 @@ resource "aws_instance" "swarm_worker" {
   connection {
     type        = "ssh"
     user        = "${var.aws_ssh_user}"
-    private_key = "${file("secrets/aws.pem")}"
+    private_key = "${file(var.aws_ssh_key)}"
     timeout     = "30s"
   }
 
@@ -18,41 +18,15 @@ resource "aws_instance" "swarm_worker" {
     destination = " /tmp/daemon.json"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo mkdir -p /etc/docker",
-      "sudo mv /tmp/daemon.json /etc/docker/daemon.json",
-    ]
-  }
-
   provisioner "file" {
-    source      = "scripts/install-docker.sh"
-    destination = "/tmp/install-docker.sh"
+    source      = "scripts/"
+    destination = "/tmp"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/install-docker.sh",
-      "sudo /tmp/install-docker.sh ${var.aws_docker_version}",
-      "sudo docker swarm join  ${aws_instance.swarm_manager.private_ip}:2377 --token $(docker -H ${aws_instance.swarm_manager.private_ip}:2375 swarm join-token -q worker)",
+      "sudo sh /tmp/install-worker.sh ${var.aws_docker_version} ${aws_instance.swarm_manager.private_ip}",
     ]
-  }
-
-  # drain worker on destroy
-  provisioner "remote-exec" {
-    when = "destroy"
-
-    inline = [
-      "sudo docker node update --availability drain ${self.tags.Name}",
-    ]
-
-    on_failure = "continue"
-
-    connection {
-      type = "ssh"
-      user = "${var.aws_ssh_user}"
-      host = "${aws_instance.swarm_manager.public_ip}"
-    }
   }
 
   # leave swarm on destroy

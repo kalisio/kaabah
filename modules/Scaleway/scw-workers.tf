@@ -13,49 +13,24 @@ resource "scaleway_server" "swarm_worker" {
   connection {
     type        = "ssh"
     user        = "${var.scw_ssh_user}"
-    private_key = "${file("secrets/scaleway.pem")}"
+    private_key = "${file(var.scw_ssh_key)}"
     timeout     = "30s"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p /etc/docker",
-    ]
   }
 
   provisioner "file" {
     source      = "configs/worker.json"
-    destination = "/etc/docker/daemon.json"
+    destination = "/tmp/daemon.json"
   }
 
   provisioner "file" {
-    source      = "scripts/install-docker.sh"
-    destination = "/tmp/install-docker.sh"
+    source      = "scripts/"
+    destination = "/tmp"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/install-docker.sh",
-      "/tmp/install-docker.sh ${var.scw_docker_version}",
-      "docker swarm join  ${scaleway_server.swarm_manager.private_ip}:2377 --token $(docker -H ${scaleway_server.swarm_manager.private_ip}:2375 swarm join-token -q worker)",
+      "sh /tmp/install-worker.sh ${var.scw_docker_version} ${scaleway_server.swarm_manager.private_ip}",
     ]
-  }
-
-  # drain worker on destroy
-  provisioner "remote-exec" {
-    when = "destroy"
-
-    inline = [
-      "docker node update --availability drain ${self.name}",
-    ]
-
-    on_failure = "continue"
-
-    connection {
-      type = "ssh"
-      user = "${var.scw_ssh_user}"
-      host = "${scaleway_server.swarm_manager.public_ip}"
-    }
   }
 
   # leave swarm on destroy

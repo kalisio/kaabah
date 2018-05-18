@@ -16,13 +16,7 @@ variable "docker_version" {
   default = "18.03.1~ce-0~ubuntu"
 }
 
-variable "docker_compose_version" {
-  default = "1.21.2"
-}
-
 variable "manager_instance_type" {
-  type = "map"
-
   default = {
     SCALEWAY = "C2M"
     AWS      = "t2.micro"
@@ -30,8 +24,6 @@ variable "manager_instance_type" {
 }
 
 variable "worker_instance_type" {
-  type = "map"
-
   default = {
     SCALEWAY = "C2S"
     AWS      = "t2.micro"
@@ -39,5 +31,13 @@ variable "worker_instance_type" {
 }
 
 variable "worker_instance_count" {
-  default = 2
+  default = 1
+}
+
+variable "ssh_key" {
+  default = "secrets/kalisio.pem"
+}
+
+variable "aws_key_name" {
+  default = "kalisio"
 }

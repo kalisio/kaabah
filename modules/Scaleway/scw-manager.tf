@@ -1,4 +1,4 @@
-resource "scaleway_ip" "swarm_manager_ip" {
+resource "scaleway_ip" "swarm_manager" {
   count = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
 }
 
@@ -8,19 +8,13 @@ resource "scaleway_server" "swarm_manager" {
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.scw_manager_instance_type}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
-  public_ip      = "${scaleway_ip.swarm_manager_ip.ip}"
+  public_ip      = "${scaleway_ip.swarm_manager.ip}"
 
   connection {
     type        = "ssh"
     user        = "${var.scw_ssh_user}"
-    private_key = "${file("secrets/scaleway.pem")}"
+    private_key = "${file(var.scw_ssh_key)}"
     timeout     = "30s"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "mkdir -p /etc/systemd/system/docker.service.d",
-    ]
   }
 
   provisioner "file" {
@@ -35,12 +29,7 @@ resource "scaleway_server" "swarm_manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sed -e 's/SWARM_MANAGER_PRIVATE_IP/${self.private_ip}/g' /tmp/manager.tpl > /etc/systemd/system/docker.service.d/docker.conf",
-      "chmod +x /tmp/install-docker.sh",
-      "/tmp/install-docker.sh ${var.scw_docker_version}",
-      "chmod +x /tmp/install-docker-compose.sh",
-      "/tmp/install-docker-compose.sh ${var.scw_docker_compose_version}",
-      "docker swarm init --advertise-addr ${self.private_ip} --listen-addr ${self.private_ip}:2377",
+      "sh /tmp/install-manager.sh ${var.scw_docker_version} ${self.private_ip}",
     ]
   }
 }

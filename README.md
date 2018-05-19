@@ -9,7 +9,7 @@ Terraform solution to deploy Docker-based infrastructures on Scaleway using Trav
 ```bash
 $ git clone https://github.com/kalisio/kaabah.git
 $ cd kaabah
-$ terraform init
+$ terraform init -backend-config="path/to/your/backend.conf"
 ```
 
 Before running the project you'll have to defined an access token for Terraform to connect to the Scaleway API. 

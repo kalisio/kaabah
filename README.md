@@ -30,7 +30,7 @@ Create a cluster of instances:
 terraform plan
 
 # run the plan
-terraform apply 
+terraform apply -var-file app.tfvars
 ```
 
 This will do the following:

@@ -4,6 +4,8 @@ variable aws_provider {
 
 variable aws_domain {}
 
+variable aws_subdomain {}
+
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 

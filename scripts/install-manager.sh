@@ -4,7 +4,7 @@ MANAGER_PRIVATE_IP=$2
 
 # Setup the docker configuration
 mkdir -p /etc/systemd/system/docker.service.d
-sed -e "s/SWARM_MANAGER_PRIVATE_IP/$MANAGER_PRIVATE_IP/g" /tmp/manager.tpl > /etc/systemd/system/docker.service.d/docker.conf
+sed -e "s/SWARM_MANAGER_PRIVATE_IP/$MANAGER_PRIVATE_IP/g" /tmp/configs/manager.tpl > /etc/systemd/system/docker.service.d/docker.conf
 
 # Install docker
 sh /tmp/install-docker.sh $DOCKER_VERSION

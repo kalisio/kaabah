@@ -4,7 +4,7 @@ MANAGER_PRIVATE_IP=$2
 
 # Setup docker configuration
 mkdir -p /etc/docker
-mv /tmp/daemon.json /etc/docker/daemon.json
+mv /tmp/configs/worker.json /etc/docker/daemon.json
 
 # Install docker
 sh /tmp/install-docker.sh $DOCKER_VERSION

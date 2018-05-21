@@ -18,11 +18,6 @@ resource "scaleway_server" "swarm_manager" {
   }
 
   provisioner "file" {
-    source      = "configs/manager.tpl"
-    destination = "/tmp/manager.tpl"
-  }
-
-  provisioner "file" {
     source      = "scripts/"
     destination = "/tmp"
   }

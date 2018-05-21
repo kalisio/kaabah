@@ -4,6 +4,8 @@ variable scw_provider {
 
 variable scw_domain {}
 
+variable scw_subdomain {}
+
 variable "scw_access_key" {}
 
 variable "scw_token" {}

@@ -5,11 +5,15 @@ variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
 
 variable "provider" {
-  default = "AWS"
+  default = "SCALEWAY"
 }
 
 variable "domain" {
   default = "kalisio.xyz"
+}
+
+variable "subdomain" {
+  default = ""
 }
 
 variable "docker_version" {
@@ -17,17 +21,11 @@ variable "docker_version" {
 }
 
 variable "manager_instance_type" {
-  default = {
-    SCALEWAY = "C2M"
-    AWS      = "t2.micro"
-  }
+  default = "C2S"
 }
 
 variable "worker_instance_type" {
-  default = {
-    SCALEWAY = "C2S"
-    AWS      = "t2.micro"
-  }
+  default = "C2S"
 }
 
 variable "worker_instance_count" {

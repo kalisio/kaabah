@@ -18,11 +18,6 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   provisioner "file" {
-    source      = "configs/worker.json"
-    destination = "/tmp/daemon.json"
-  }
-
-  provisioner "file" {
     source      = "scripts/"
     destination = "/tmp"
   }

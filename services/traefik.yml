@@ -34,7 +34,7 @@ services:
         - "traefik.docker.network=swarm-network"
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http"
-        - "traefik.frontend.rule=Host:traefik.${WORKSPACE}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:traefik.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure
 

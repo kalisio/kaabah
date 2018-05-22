@@ -2,9 +2,11 @@
 
 ## What is it ?
 
-<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to manager a [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). In addition, it powers your infrastructure with a stack of services such as [Traefik](https://traefik.io/), [portainer](https://portainer.io/) and [Prometheus](https://prometheus.io/) to let you exploit your cluster easily.
+<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to manager a [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). In addition, your infrastructure is powered with a stack of services including [Traefik](https://traefik.io/), [portainer](https://portainer.io/) and [Prometheus](https://prometheus.io/) to help you exploit your cluster easily.
 
 The overall approach is based on the use of [Terrafrom Workspaces](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Since each workspace could be considered as an instance of the infrastructure with its onw configuration, Kaabah let you manage as many infrastructure as you require.
+
+![Kaahbah overview](/assets/kaabah-overview.png)
 
 ## How to use it ?
 

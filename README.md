@@ -2,10 +2,12 @@
 
 [![Build Status](https://travis-ci.org/kalisio/kaabah.png?branch=master)](https://travis-ci.org/kalisio/kaabah)
 
-<b>Kaabah</b> is an a [Terraform](https://www.terraform.io/) based solution to deploy a [Docker Swarm](https://docs.docker.com/engine/swarm/)) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com).In addition your infrastructure is powered with a stack of services such as [Traefik](https://traefik.io/), [portainer](https://portainer.io/) and [Prometheus](https://prometheus.io/) to let you exploit your cluster easily.
+<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to manager a [Docker Swarm](https://docs.docker.com/engine/swarm/)) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com).In addition your infrastructure is powered with a stack of services such as [Traefik](https://traefik.io/), [portainer](https://portainer.io/) and [Prometheus](https://prometheus.io/) to let you exploit your cluster easily.
 
 
 ## Diving deeper
+
+The overall approach is based on the use of Terrafrom [Workspaces](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Since each workspace could be considered as an instance of the infrastructure with its onw configuration, Kaabah let you manage as many infrastructure as you require.
 
 ```bash
 $ git clone https://github.com/kalisio/kaabah.git

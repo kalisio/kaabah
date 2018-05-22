@@ -6,7 +6,7 @@
 
 The overall approach is based on the use of [Terrafrom Workspaces](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Since each workspace could be considered as an instance of the infrastructure with its onw configuration, Kaabah let you manage as many infrastructure as you require.
 
-![Kaahbah overview](/assets/kaabah-overview.png)
+![Kaabah overview](/assets/kaabah-overview.png)
 
 ## How to use it ?
 

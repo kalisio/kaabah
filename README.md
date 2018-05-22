@@ -2,9 +2,10 @@
 
 [![Build Status](https://travis-ci.org/kalisio/kaabah.png?branch=master)](https://travis-ci.org/kalisio/kaabah)
 
-Terraform solution to deploy Docker-based infrastructures on Scaleway using Travis CI.
+<b>Kaabah</b> is an a [Terraform](https://www.terraform.io/) based solution to deploy a [Docker Swarm](https://docs.docker.com/engine/swarm/)) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com).In addition your infrastructure is powered with a stack of services such as [Traefik](https://traefik.io/), [portainer](https://portainer.io/) and [Prometheus](https://prometheus.io/) to let you exploit your cluster easily.
 
-## Installation
+
+## Diving deeper
 
 ```bash
 $ git clone https://github.com/kalisio/kaabah.git

@@ -10,7 +10,7 @@
 
 The overall approach is based on the use of Terraform Workspaces. As a reminder, a Workspace  is a collection of everything Terraform needs to run: a configuration of your infrastructure (i.e. <b>kaabah</b>), values for that configuration's variables, and state data to keep track of operations. Therefore a Workplace could be considered as an instance of the the infrastructure with its own environment. Follow this [link](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) to read more about Terraform Workspaces and best practices. 
 
-Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Assuming, we name the Terrafor Workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
+Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the Terrafor Workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
 
 ![Kaabah overview](./assets/kaabah-overview.png)
 
@@ -20,7 +20,7 @@ Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters 
 * route the traffic to the Docker Swarm: [traefik](https://traefik.io/)
 * manage the services deployed on the Docker Swarm: [portainer](https://portainer.io/)
 * monitor the Docker Swarm: [prometheus](https://prometheus.io/)
-* analyze the Docker Swarm metrics: [grafana]((https://grafana.com/)
+* analyze the Docker Swarm metrics: [grafana](https://grafana.com/)
 
 The following diagram illustrates a Swarm cluster composed of four nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 

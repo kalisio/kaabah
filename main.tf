@@ -10,6 +10,7 @@ module "Scaleway" {
   source = "./modules/Scaleway"
 
   scw_provider              = "${var.provider}"
+  scw_contact               = "${var.contact}"
   scw_domain                = "${var.domain}"
   scw_subdomain             = "${var.subdomain != "" ? var.subdomain : local.subdomain}"
   scw_access_key            = "${var.SCALEWAY_ACCESS_KEY}"
@@ -25,6 +26,7 @@ module "AWS" {
   source = "./modules/AWS"
 
   aws_provider              = "${var.provider}"
+  aws_contact               = "${var.contact}"
   aws_domain                = "${var.domain}"
   aws_subdomain             = "${var.subdomain != "" ? var.subdomain : local.subdomain}"
   aws_access_key            = "${var.AWS_ACCESS_KEY}"

@@ -29,8 +29,9 @@ And it exposes the following variables:
 | `AWS_ACCESS_KEY` | Your AWS access key |
 | `AWS_SECRET_KEY` | Your AWS secret key |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. The default value is `Scaleway` |
+| `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 | `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
-| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
+| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.` (i.e. the output of `app-dev` will be `app.dev`). |
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |

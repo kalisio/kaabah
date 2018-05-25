@@ -1,11 +1,13 @@
 #!/bin/bash
-SUBDOMAIN=$1
-DOMAIN=$2
+CONTACT=$1
+SUBDOMAIN=$2
+DOMAIN=$3
 
 cd $HOME/services
 
-echo SUBDOMAIN=$SUBDOMAIN > services.env
-echo DOMAIN=$DOMAIN >> services.env
+echo CONTACT=$CONTACT > .env
+echo SUBDOMAIN=$SUBDOMAIN >> .env
+echo DOMAIN=$DOMAIN >> .env
 
 cp /tmp/deploy-services.sh deploy.sh
 chmod +x deploy.sh

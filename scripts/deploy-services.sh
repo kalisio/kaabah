@@ -1,6 +1,6 @@
 #!/bin/bash
 set -a
-. ./services.env
+. ./.env
 set +a
 
 SWARM_NETWORK=`docker network ls | grep swarm-network`

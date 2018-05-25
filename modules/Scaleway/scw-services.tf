@@ -24,7 +24,7 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-services.sh ${var.scw_subdomain} ${var.scw_domain}",
+      "sh /tmp/install-services.sh ${var.scw_contact} ${var.scw_subdomain} ${var.scw_domain}",
       "cd services && ./deploy.sh",
     ]
   }

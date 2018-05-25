@@ -8,6 +8,10 @@ variable "provider" {
   default = "SCALEWAY"
 }
 
+variable contact {
+  default = "contact@kalisio.com"
+}
+
 variable "domain" {
   default = "kalisio.xyz"
 }

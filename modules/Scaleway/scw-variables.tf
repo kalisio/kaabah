@@ -2,6 +2,8 @@ variable scw_provider {
   default = ""
 }
 
+variable scw_contact {}
+
 variable scw_domain {}
 
 variable scw_subdomain {}

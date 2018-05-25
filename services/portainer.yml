@@ -17,7 +17,7 @@ services:
         - "traefik.enable=true"      
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9000"
-        - "traefik.frontend.entryPoints=http"
+        - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.rule=Host:portainer.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure

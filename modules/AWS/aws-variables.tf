@@ -2,6 +2,8 @@ variable aws_provider {
   default = ""
 }
 
+variable aws_contact {}
+
 variable aws_domain {}
 
 variable aws_subdomain {}

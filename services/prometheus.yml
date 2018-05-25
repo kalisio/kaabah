@@ -104,13 +104,6 @@ services:
       - swarm-network
     deploy:
       mode: global
-      labels:
-        - "traefik.backend=cadvisor"
-        - "traefik.enable=true"      
-        - "traefik.docker.network=swarm-network"
-        - "traefik.port=8080"
-        - "traefik.frontend.entryPoints=http"
-        - "traefik.frontend.rule=Host:cadvisor.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure
 

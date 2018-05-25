@@ -129,9 +129,9 @@ We recommend to create a `tfvars` file to override the default variables for you
 ```
 provider = "SCALEWAY"
 
-manager_instance_type = "C2M"
+manager_instance_type = "START1-S"
 
-worker_instance_type = "C2S"
+worker_instance_type = "START1-S"
 
 worker_instance_count = 2
 ```
@@ -144,9 +144,33 @@ Within your workspace, apply Terraform with your specific configuration:
 terraform apply -var-file app-dev.tfvars
 ```
 
+After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.
+
 #### Check the infrastructure
 
-TODO
+Connect to the manager using ssh and type the following command:
+
+```bash
+root@app-dev-manager:~# docker node ls
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+rwwms640br7eworemnzm71kas *   app-dev-manager    Ready               Active              Leader              18.03.1-ce
+cncd3bj11drznaih0zgsxoi2y     app-dev-worker-1   Ready               Active                                  18.03.1-ce
+4fup9ac9pklv5h81v0o99w40h     app-dev-worker-2   Ready               Active                                  18.03.1-ce
+```
+and
+
+```bash
+root@app-dev-manager:~# docker service ls
+ID                  NAME                         MODE                REPLICAS            IMAGE                           PORTS
+jwyzwgo2mjyb        services_alertmanager        replicated          1/1                 prom/alertmanager:latest
+a35bnom5voa1        services_blackbox-exporter   replicated          1/1                 prom/blackbox-exporter:latest
+sr7c26casj5o        services_cadvisor            global              3/3                 google/cadvisor:latest          *:8081->8080/tcp
+yp94tsujdftq        services_grafana             replicated          1/1                 grafana/grafana:latest
+jql9o8nawlkm        services_node-exporter       global              3/3                 prom/node-exporter:latest
+0jl7slbb6tll        services_portainer           replicated          1/1                 portainer/portainer:latest
+hgeulxbwkex2        services_prometheus          replicated          1/1                 prom/prometheus:latest
+ltstocwymexj        services_traefik             replicated          1/1                 traefik:latest
+```
 
 #### Deploy your application
 

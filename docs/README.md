@@ -58,12 +58,13 @@ The instances are named according the following convention:
 
 ### Traefik routing
 
-Traefik allows to route the traffic from internet to the Docker Swarm infrastructure. By default, traefik is configured to:
-* accepts HTTPS requests
-* redirects HTTP requests to HTTPS
-* generates and renews [Let's Encrypt](https://letsencrypt.org/) certificates
-* routes the requests to the services according the following rules:
-* 
+traefik allows to route the traffic from internet to the Docker Swarm infrastructure. It is preconfigured with:
+* 2 entrypoints
+* 4 frontends to access the services: traefik (ui), portainer, prometheus and grafana. The frontends rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
+
+![traefik routing](./assets/kaabah-traefik.svg)
+
+:: traefik is also configured to generate and renew [Let's Encrypt](https://letsencrypt.org/) certificates
 
 ## How to use it ?
 

@@ -64,7 +64,7 @@ traefik allows to route the traffic from internet to the Docker Swarm infrastruc
 
 ![traefik routing](./assets/kaabah-traefik.svg)
 
-:: traefik is also configured to generate and renew [Let's Encrypt](https://letsencrypt.org/) certificates
+> traefik is also configured to generate and renew [Let's Encrypt](https://letsencrypt.org/) certificates
 
 ## How to use it ?
 

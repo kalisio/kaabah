@@ -12,7 +12,7 @@ The overall approach is based on the use of Terraform Workspaces. As a reminder,
 
 Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
 
-![Kaabah overview](./assets/kaabah-overview.png)
+![Kaabah overview](./assets/kaabah-overview.svg)
 
 ### Terraform configuration
 
@@ -25,18 +25,18 @@ And it exposes the following variables:
 | Variables | Description |
 |--- | --- |
 | `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |
-| <b>SCALEWAY_TOKEN</b> | Your Scaleway token |
-| <b>AWS_ACCESS_KEY</b> | Your AWS access key |
-| <b>AWS_SECRET_KEY</b> | Your AWS secret key |
-| <b>provider</b> | The provider to host the infrastructure. It must be <i>AWS</i> or <i>Scaleway</i>. The default value is <i>Scaleway</i> |
-| <b>domain</b> | The domain to be added to the traefik rules. The default value is <i>kalisio.xyz</i> |
-| <b>subdomain</b> | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
-| <b>docker_version</b> | The version of the Docker engine to be installed. The default value is <i>18.03.1~ce-0~ubuntu</i> |
-| <b>manager_instance_type</b> | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
-| <b>worker_instance_type</b> | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
-| <b>worker_instance_count | The number of worker instances. The default value is <i>1</i> |
-| <b>ssh_key</b> | The path to the the ssh key required to get connected to the instances. The default value is <i>secrets/kalisio.pem</i> |
-| <b>aws_key_name</b> | The AWS name of the ssh key to be used when creating the instance. the default value is <i>kalisio</i> |
+| `SCALEWAY_TOKEN` | Your Scaleway token |
+| `AWS_ACCESS_KEY` | Your AWS access key |
+| `AWS_SECRET_KEY` | Your AWS secret key |
+| `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. The default value is `Scaleway` |
+| `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
+| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
+| `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
+| `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
+| `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
+| `worker_instance_count | The number of worker instances. The default value is `1` |
+| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `secrets/kalisio.pem` |
+| `aws_key_name` | The AWS name of the ssh key to be used when creating the instance. the default value is `kalisio` |
 
 These variables can be overridden to match your environments. See the section [How to use it ?](## How to use it ?)
 
@@ -48,13 +48,22 @@ These variables can be overridden to match your environments. See the section [H
 * monitor the Docker Swarm: [prometheus](https://prometheus.io/)
 * analyze the Docker Swarm metrics: [grafana](https://grafana.com/)
 
-The following diagram illustrates a Swarm cluster composed of four nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
+The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
 ![swarm concept](./assets/kaabah-swarm.png)
 
+The instances are named according the following convention:
+*  `<WORKSAPCE>-manager`
+*  `<WORKSAPCE>-woker-<INDEX>`
+
 ### Traefik routing
 
-Traefik 
+Traefik allows to route the traffic from internet to the Docker Swarm infrastructure. By default, traefik is configured to:
+* accepts HTTPS requests
+* redirects HTTP requests to HTTPS
+* generates and renews [Let's Encrypt](https://letsencrypt.org/) certificates
+* routes the requests to the services according the following rules:
+* 
 
 ## How to use it ?
 
@@ -130,18 +139,8 @@ Within your workspace, apply Terraform with your specific configuration:
 terraform apply -var-file app-dev.tfvars
 ```
 
-Roughly, this will produce the following:
-* reserves public IPs for each nodes (manager and workers)
-* creates a security group for the instances allowing SSH, HTTP/S inbound traffic and private Docker swarm traffic.
-* provision one Xenial Ubuntu instance as the docker manager with the naming convention:  `<WORKSAPCE>-manage`
-* provision 2 Xenial Ubuntu instances as the docker workers with the naming convetion: `<WORKSPACE>-worker-<INDEX>`
-
 #### Check the services
 
-The infrastructure is powered with the following services:
-* the reverse proxy [traefik](https://docs.traefik.io)
-* the container manager [portainer](https://portainer.readthedocs.io) 
-* the monitoring solution [prometheus](https://prometheus.io) 
 
 
 

@@ -58,9 +58,13 @@ The instances are named according the following convention:
 
 ### Traefik routing
 
-traefik allows to route the traffic from internet to the Docker Swarm infrastructure. It is preconfigured with:
-* 2 entrypoints
-* 4 frontends to access the services: traefik (ui), portainer, prometheus and grafana. The frontends rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
+<b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure. It is preconfigured with:
+* 2 entrypoints: 
+  * Allows HTTPS requests
+  * Allows and redirects HTTP request to HTTPS
+* 4 frontends to access the services: <b>traefik (ui)</b>, <b>portainer</b>, <b>prometheus</b> and <b>grafana</b>. The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
+
+Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the <b>traefik</b> configuration will be as the following diagram:
 
 ![traefik routing](./assets/kaabah-traefik.svg)
 
@@ -140,7 +144,7 @@ Within your workspace, apply Terraform with your specific configuration:
 terraform apply -var-file app-dev.tfvars
 ```
 
-#### Check the services
+#### Use the services
 
 
 

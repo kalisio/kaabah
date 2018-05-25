@@ -50,7 +50,7 @@ These variables can be overridden to match your environments. See the section [H
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
-![swarm concept](./assets/kaabah-swarm.png)
+![swarm concept](./assets/kaabah-swarm.svg)
 
 The instances are named according the following convention:
 *  `<WORKSAPCE>-manager`

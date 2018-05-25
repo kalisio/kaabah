@@ -117,7 +117,7 @@ $ terraform init -backend-config="path/to/your/backend.config"
 #### Create a workspace
 
 ```bash
-terraform workspace new my-app
+terraform workspace new app-dev
 ```
 
 Terraform will automatically switch to the created workspace `my-test`
@@ -148,7 +148,7 @@ After a while, your cluster should be created and the corresponding Terraform st
 
 #### Check the infrastructure
 
-Connect to the manager using ssh and type the following command:
+Get connected to the manager of your infrastructure using `ssh` and type the following commands:
 
 ```bash
 root@app-dev-manager:~# docker node ls
@@ -157,8 +157,6 @@ rwwms640br7eworemnzm71kas *   app-dev-manager    Ready               Active     
 cncd3bj11drznaih0zgsxoi2y     app-dev-worker-1   Ready               Active                                  18.03.1-ce
 4fup9ac9pklv5h81v0o99w40h     app-dev-worker-2   Ready               Active                                  18.03.1-ce
 ```
-and
-
 ```bash
 root@app-dev-manager:~# docker service ls
 ID                  NAME                         MODE                REPLICAS            IMAGE                           PORTS

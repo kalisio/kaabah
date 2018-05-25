@@ -24,21 +24,21 @@ And it exposes the following variables:
 
 | Variables | Description |
 |--- | --- |
-| SCALEWAY_ACCESS_KEY | Your Scaleway access key |
-| SCALEWAY_TOKEN | Your Scaleway token |
-| AWS_ACCESS_KEY | Your AWS access key |
-| AWS_SECRET_KEY | Your AWS secret key |
-| provider | The provider to host the infrastructure. It must be <i>AWS</i> or <i>Scaleway</i>. The default value is <i>Scaleway</i> |
-| domain | The domain to be added to the traefik rules. The default value is <i>kalisio.xyz</i> |
-| subdomain | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
-| docker_version | The version of the Docker engine to be installed. The default value is <i>18.03.1~ce-0~ubuntu</i> |
-| manager_instance_type | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
-| worker_instance_type | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
-| worker_instance_count | The number of worker instances. The default value is <i>1</i> |
-| ssh_key | The path to the the ssh key required to get connected to the instances. The default value is <i>secrets/kalisio.pem</i> |
-| aws_key_name | The AWS name of the ssh key to be used when creating the instance. the default value is <i>kalisio</i> |
+| `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |
+| <b>SCALEWAY_TOKEN</b> | Your Scaleway token |
+| <b>AWS_ACCESS_KEY</b> | Your AWS access key |
+| <b>AWS_SECRET_KEY</b> | Your AWS secret key |
+| <b>provider</b> | The provider to host the infrastructure. It must be <i>AWS</i> or <i>Scaleway</i>. The default value is <i>Scaleway</i> |
+| <b>domain</b> | The domain to be added to the traefik rules. The default value is <i>kalisio.xyz</i> |
+| <b>subdomain</b> | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
+| <b>docker_version</b> | The version of the Docker engine to be installed. The default value is <i>18.03.1~ce-0~ubuntu</i> |
+| <b>manager_instance_type</b> | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
+| <b>worker_instance_type</b> | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
+| <b>worker_instance_count | The number of worker instances. The default value is <i>1</i> |
+| <b>ssh_key</b> | The path to the the ssh key required to get connected to the instances. The default value is <i>secrets/kalisio.pem</i> |
+| <b>aws_key_name</b> | The AWS name of the ssh key to be used when creating the instance. the default value is <i>kalisio</i> |
 
-These variables can be overridden 
+These variables can be overridden to match your environments. See the section [How to use it ?](## How to use it ?)
 
 ### Docker Swarm
 
@@ -51,6 +51,10 @@ These variables can be overridden
 The following diagram illustrates a Swarm cluster composed of four nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
 ![swarm concept](./assets/kaabah-swarm.png)
+
+### Traefik routing
+
+Traefik 
 
 ## How to use it ?
 
@@ -88,7 +92,7 @@ region = "the region of the bucket"
 key    = "the key to the states"
 ```
 
-4. Initialise Terraform
+1. Initialize Terraform
 
 ```bash
 $ terraform init -backend-config="path/to/your/backend.config"
@@ -99,8 +103,10 @@ $ terraform init -backend-config="path/to/your/backend.config"
 #### Create a workspace
 
 ```bash
-terraform workspace new app-dev
+terraform workspace new my-test
 ```
+
+Terraform will automatically switch to the created workspace `my-test`
 
 #### Configure the workspace
 

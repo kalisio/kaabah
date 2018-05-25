@@ -8,7 +8,7 @@ resource "null_resource" "deploy_services" {
     user        = "${var.scw_ssh_user}"
     private_key = "${file(var.scw_ssh_key)}"
     host        = "${scaleway_server.swarm_manager.public_ip}"
-    timeout     = "30s"
+    timeout     = "120s"
   }
 
   provisioner "remote-exec" {

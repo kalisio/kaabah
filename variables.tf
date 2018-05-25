@@ -21,15 +21,22 @@ variable "docker_version" {
 }
 
 variable "manager_instance_type" {
-  default = "C2S"
+  default = "START1-S"
 }
 
 variable "worker_instance_type" {
-  default = "C2S"
+  default = "START1-S"
 }
 
 variable "worker_instance_count" {
   default = 1
+}
+
+variable "ssh_user" {
+  default = {
+    SCALEWAY = "root"
+    AWS      = "ubuntu"
+  }
 }
 
 variable "ssh_key" {

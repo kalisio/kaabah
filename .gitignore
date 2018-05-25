@@ -5,13 +5,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# vscode
+.vscode
+
 # terraform
 .terraform
 terraform.tfstate.d
-
-# traefik
-acme
-logs
 
 # secrets
 secrets/*.*

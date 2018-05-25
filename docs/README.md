@@ -14,6 +14,32 @@ Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters 
 
 ![Kaabah overview](./assets/kaabah-overview.png)
 
+### Terraform configuration
+
+The Terraform configuration is composed of 2 modules:
+* the <b>AWS</b> module which has the responsibility to create the Docker Swarm infrastructure on AWS
+* the <b>Scaleway</b> module has the responsibility to create the Docker Swarm infrastructure on Scaleway
+
+And it exposes the following variables:
+
+| Variables | Description |
+|--- | --- |
+| SCALEWAY_ACCESS_KEY | Your Scaleway access key |
+| SCALEWAY_TOKEN | Your Scaleway token |
+| AWS_ACCESS_KEY | Your AWS access key |
+| AWS_SECRET_KEY | Your AWS secret key |
+| provider | The provider to host the infrastructure. It must be <i>AWS</i> or <i>Scaleway</i>. The default value is <i>Scaleway</i> |
+| domain | The domain to be added to the traefik rules. The default value is <i>kalisio.xyz</i> |
+| subdomain | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name |
+| docker_version | The version of the Docker engine to be installed. The default value is <i>18.03.1~ce-0~ubuntu</i> |
+| manager_instance_type | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
+| worker_instance_type | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is <i>START1-S</i> |
+| worker_instance_count | The number of worker instances. The default value is <i>1</i> |
+| ssh_key | The path to the the ssh key required to get connected to the instances. The default value is <i>secrets/kalisio.pem</i> |
+| aws_key_name | The AWS name of the ssh key to be used when creating the instance. the default value is <i>kalisio</i> |
+
+These variables can be overridden 
+
 ### Docker Swarm
 
 <b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with a stack of high level services that allows you to:

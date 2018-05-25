@@ -14,7 +14,7 @@ resource "scaleway_server" "swarm_worker" {
     type        = "ssh"
     user        = "${var.scw_ssh_user}"
     private_key = "${file(var.scw_ssh_key)}"
-    timeout     = "30s"
+    timeout     = "120s"
   }
 
   provisioner "file" {

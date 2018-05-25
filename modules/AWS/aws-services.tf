@@ -8,7 +8,7 @@ resource "null_resource" "deploy_services" {
     user        = "${var.aws_ssh_user}"
     private_key = "${file(var.aws_ssh_key)}"
     host        = "${aws_eip.swarm_manager.public_ip}"
-    timeout     = "30s"
+    timeout     = "120s"
   }
 
   provisioner "remote-exec" {

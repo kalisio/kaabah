@@ -18,7 +18,7 @@ resource "aws_instance" "swarm_manager" {
     type        = "ssh"
     user        = "${var.aws_ssh_user}"
     private_key = "${file(var.aws_ssh_key)}"
-    timeout     = "30s"
+    timeout     = "120s"
   }
 
   provisioner "file" {

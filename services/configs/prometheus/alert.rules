@@ -20,12 +20,3 @@ groups:
     annotations:
       summary: "Instance {{ $labels.instance }} under high load"
       description: "{{ $labels.instance }} of job {{ $labels.job }} is under high load."
-
-  - alert: container_down
-    expr: absent(((time() - container_last_seen{name="tileservergl"}) < 30))
-    for: 1m
-    labels:
-      severity: page
-    annotations:
-      description: "Instance= {{$labels.instance}}, Service/Job ={{$labels.job}} is down for more than 2 sec."
-      summary: "Instance {{$labels.instance}} down."

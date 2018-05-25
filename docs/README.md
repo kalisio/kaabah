@@ -144,7 +144,14 @@ Within your workspace, apply Terraform with your specific configuration:
 terraform apply -var-file app-dev.tfvars
 ```
 
-#### Use the services
+#### Check the infrastructure
+
+TODO
+
+#### Deploy your application
+
+TODO
+
 
 
 

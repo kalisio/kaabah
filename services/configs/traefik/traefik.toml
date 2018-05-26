@@ -40,6 +40,7 @@ dashboard = true
 [acme]
 storage = "acme/acme.json"
 entryPoint = "https"
+onDemand = true
 # For dev tests
 caServer = "https://acme-staging.api.letsencrypt.org/directory"
 OnHostRule = true

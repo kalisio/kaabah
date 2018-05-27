@@ -24,6 +24,7 @@ services:
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9090"
         - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:prometheus.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure
@@ -69,7 +70,7 @@ services:
     command:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
-      - '--web.external-url=http://alertmanager.${SUBDOMAIN}.${DOMAIN}'
+      - '--web.external-url=https://alertmanager.${SUBDOMAIN}.${DOMAIN}'
     volumes:
       - ./configs/alertmanager/:/etc/alertmanager/
     networks:
@@ -85,6 +86,7 @@ services:
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9093"
         - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:alertmanager.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure
@@ -127,6 +129,7 @@ services:
         - "traefik.docker.network=swarm-network"
         - "traefik.port=3000"
         - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure

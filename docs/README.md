@@ -28,18 +28,21 @@ And it exposes the following variables:
 | `SCALEWAY_TOKEN` | Your Scaleway token |
 | `AWS_ACCESS_KEY` | Your AWS access key |
 | `AWS_SECRET_KEY` | Your AWS secret key |
+| `AUTH_USER` | Your authentication identity to access the services |
+| `AUTH_PASSWORD` | Your authentication password to access the services. It must be encrypted and for now only <b>SHA1</b> encryption is supported |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. The default value is `Scaleway` |
-| `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 | `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.` (i.e. the output of `app-dev` will be `app.dev`). |
+| `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
+| `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
 | `worker_instance_count | The number of worker instances. The default value is `1` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `secrets/kalisio.pem` |
-| `aws_key_name` | The AWS name of the ssh key to be used when creating the instance. the default value is `kalisio` |
+| `aws_key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 
-These variables can be overridden to match your environments. See the section [How to use it ?](## How to use it ?)
+These variables can be overridden to match your environment requirements. See the section [How to use it ?](## How to use it ?)
 
 ### Docker Swarm
 
@@ -63,11 +66,19 @@ The instances are named according the following convention:
 * 2 entrypoints: 
   * to allow HTTPS requests
   * to allow and redirect HTTP request to HTTPS
-* 4 frontends to access the services: <b>traefik (ui)</b>, <b>portainer</b>, <b>prometheus</b> and <b>grafana</b>. The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
+* 5 frontends to access the services: 
+  * <b>traefik (ui)</b> 
+  * <b>portainer</b>, 
+  * <b>prometheus</b>
+  * <b>alertmanager</b>
+  * <b>grafana</b>. 
+The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
 
 Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the <b>traefik</b> configuration will be as the following diagram:
 
 ![traefik routing](./assets/kaabah-traefik.svg)
+
+### Security concerns
 
 > traefik is also configured to generate and renew [Let's Encrypt](https://letsencrypt.org/) certificates
 
@@ -87,18 +98,25 @@ $ cd kaabah
 1. Define your Scaleway credentials
 
 ```bash
-$ export TF_VAR_SCALEWAY_ACCESS_KEY="<ACCESS-KEY>"
-$ export TF_VAR_SCALEWAY_TOKEN="<ACCESS-TOKEN>" 
+$export TF_VAR_SCALEWAY_ACCESS_KEY="<ACCESS-KEY>"
+$export TF_VAR_SCALEWAY_TOKEN="<ACCESS-TOKEN>" 
 ```
 
 2. Define your AWS credentials
 
 ```bash
-$ export TF_VAR_AWS_ACCESS_KEY="<ACCESS-KEY>"
-$ export TF_VAR_AWS_SECRET_KEY="<SECRET-KEY>" 
+$export TF_VAR_AWS_ACCESS_KEY="<ACCESS-KEY>"
+$export TF_VAR_AWS_SECRET_KEY="<SECRET-KEY>" 
 ```
 
-3. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
+3. Define your authentication parameters
+
+```bash
+$export TF_VAR_KAABAH_AUTH_USER="<AUTH_USER>"
+$export TF_VAR_KAABAH_AUTH_PASSWORD="<ENCRYPTED_AUTH_PASSWORD>"
+```
+
+4. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
 
 Create a file `backend.config` with the following properties:
 ```
@@ -107,7 +125,7 @@ region = "the region of the bucket"
 key    = "the key to the states"
 ```
 
-1. Initialize Terraform
+5. Initialize Terraform
 
 ```bash
 $ terraform init -backend-config="path/to/your/backend.config"
@@ -135,6 +153,8 @@ manager_instance_type = "START1-S"
 worker_instance_type = "START1-S"
 
 worker_instance_count = 2
+
+ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 ```
 
 #### Apply the changes

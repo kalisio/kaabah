@@ -3,6 +3,7 @@ version: '3.5'
 services:
   portainer:
     image: portainer/portainer
+    command: --no-auth
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
@@ -18,6 +19,7 @@ services:
         - "traefik.docker.network=swarm-network"
         - "traefik.port=9000"
         - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:portainer.${SUBDOMAIN}.${DOMAIN}"
       restart_policy:
         condition: on-failure

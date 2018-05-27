@@ -24,7 +24,7 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-services.sh ${var.aws_contact} ${var.aws_subdomain} ${var.aws_domain}",
+      "sh /tmp/install-services.sh ${var.aws_subdomain} ${var.aws_domain} ${var.aws_ca_server} ${var.aws_contact} ${var.aws_auth_user} ${var.aws_auth_password}",
       "cd services && sudo ./deploy.sh",
     ]
   }

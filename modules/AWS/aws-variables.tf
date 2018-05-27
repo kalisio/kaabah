@@ -2,11 +2,17 @@ variable aws_provider {
   default = ""
 }
 
-variable aws_contact {}
-
 variable aws_domain {}
 
 variable aws_subdomain {}
+
+variable aws_ca_server {}
+
+variable aws_contact {}
+
+variable aws_auth_user {}
+
+variable aws_auth_password {}
 
 variable "aws_access_key" {}
 variable "aws_secret_key" {}

@@ -2,11 +2,17 @@ variable scw_provider {
   default = ""
 }
 
-variable scw_contact {}
-
 variable scw_domain {}
 
 variable scw_subdomain {}
+
+variable scw_ca_server {}
+
+variable scw_contact {}
+
+variable scw_auth_user {}
+
+variable scw_auth_password {}
 
 variable "scw_access_key" {}
 

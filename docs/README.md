@@ -60,9 +60,13 @@ The instances are named according the following convention:
 *  `<WORKSAPCE>-manager`
 *  `<WORKSAPCE>-woker-<INDEX>`
 
-### Traefik routing
+### traefik
 
-<b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure. <b>Kabbah</b> specializes the <b>traefik</b> configuration with:
+<b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
+
+> Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
+
+By default, <b>Kabbah</b> specializes the <b>traefik</b> configuration with:
 * 2 entrypoints: 
   * to allow HTTPS requests
   * to allow and redirect HTTP request to HTTPS
@@ -74,13 +78,12 @@ The instances are named according the following convention:
   * <b>grafana</b>. 
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
 
+It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that <b>portainer</b> and <b>grafana</b> authentication have been disabled.
+
 Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the <b>traefik</b> configuration will be as the following diagram:
 
 ![traefik routing](./assets/kaabah-traefik.svg)
 
-### Security concerns
-
-> traefik is also configured to generate and renew [Let's Encrypt](https://letsencrypt.org/) certificates
 
 ## How to use it ?
 

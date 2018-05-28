@@ -16,7 +16,7 @@ The overall approach is based on the use of Terraform Workspaces. As a reminder,
 
 Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
 
-![Kaabah overview](./assets/kaabah-overview.svg)
+![Kaabah overview](./assets/kaabah-terraform.svg)
 
 ### Terraform configuration
 

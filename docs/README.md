@@ -6,7 +6,7 @@
 
 ![Kaabah overview](./assets/kaabah-overview.svg)
 
-> The Kaabah project was initiated by Kalision to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
+> The Kaabah project was initiated by Kalisio to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
 [![kalisio](./assets/kalisio-banner.png)](https://kalisio.com)<br/>
 <i>Unleashing the potential of spatial information</i>
 

@@ -4,6 +4,8 @@
 
 <b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to create and manage a [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructure either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com) bootstrapped with high level services such. This bouquet of services includes [traefik](https://traefik.io/), [portainer](https://portainer.io/), [prometheus](https://prometheus.io/) and [grafana](https://grafana.com/) in order to help you operate your cluster easily.
 
+![Kaabah overview](./assets/kaabah-overview.svg)
+
 > The Kaabah project was initiated by Kalision to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
 [![kalisio](./assets/kalisio-banner.png)](https://kalisio.com)<br/>
 <i>Unleashing the potential of spatial information</i>
@@ -16,7 +18,7 @@ The overall approach is based on the use of Terraform Workspaces. As a reminder,
 
 Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
 
-![Kaabah overview](./assets/kaabah-terraform.svg)
+![Kaabah terraform](./assets/kaabah-terraform.svg)
 
 ### Terraform configuration
 

@@ -44,6 +44,10 @@ variable "worker_instance_count" {
   default = 1
 }
 
+variable "worker_additional_volume_count" {
+  default = 0
+}
+
 variable "ssh_key" {
   default = "secrets/kalisio.pem"
 }

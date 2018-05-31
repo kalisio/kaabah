@@ -100,8 +100,6 @@ services:
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    ports:
-      - 8081:8080
     networks:
       - swarm-network
     deploy:

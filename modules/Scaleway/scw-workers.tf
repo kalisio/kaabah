@@ -10,6 +10,11 @@ resource "scaleway_server" "swarm_worker" {
   security_group = "${scaleway_security_group.swarm_workers.id}"
   public_ip      = "${element(scaleway_ip.swarm_worker_ip.*.ip, count.index)}"
 
+  volume {
+    size_in_gb = "${lookup(var.scw_additional_volume_size, var.scw_worker_instance_type)}"
+    type       = "l_ssd"
+  }
+
   connection {
     type        = "ssh"
     user        = "${var.scw_ssh_user}"

@@ -34,6 +34,8 @@ variable "scw_worker_instance_type" {}
 
 variable "scw_worker_instance_count" {}
 
+variable "scw_worker_additional_volume_count" {}
+
 variable "scw_ssh_user" {
   default = "root"
 }
@@ -49,5 +51,17 @@ variable "scw_architectures" {
     C2S      = "x86_64"
     C2M      = "x86_64"
     C2L      = "x86_64"
+  }
+}
+
+variable "scw_additional_volume_size" {
+  default = {
+    START-XS = 0
+    START1-S = 0
+    START1-M = 50
+    START1-L = 150
+    C2S      = 0
+    C2M      = 0
+    C2L      = 0
   }
 }

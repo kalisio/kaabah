@@ -1,11 +1,11 @@
 resource "scaleway_security_group" "swarm_manager" {
-  count       = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count       = "${var.provider == "SCALEWAY" ? 1 : 0}"
   name        = "${terraform.workspace}-manager"
   description = "Allow HTTP/S, SSH and Docker swarm traffic"
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_2375" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -15,7 +15,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2375" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -25,7 +25,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -35,7 +35,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -45,7 +45,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -55,7 +55,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789" {
 }
 
 resource "scaleway_security_group_rule" "ssh_accept" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
@@ -65,7 +65,7 @@ resource "scaleway_security_group_rule" "ssh_accept" {
 }
 
 resource "scaleway_security_group_rule" "http_accept" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
 
   action    = "accept"
@@ -76,7 +76,7 @@ resource "scaleway_security_group_rule" "http_accept" {
 }
 
 resource "scaleway_security_group_rule" "https_accept" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
 
   action    = "accept"
@@ -87,13 +87,13 @@ resource "scaleway_security_group_rule" "https_accept" {
 }
 
 resource "scaleway_security_group" "swarm_workers" {
-  count       = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count       = "${var.provider == "SCALEWAY" ? 1 : 0}"
   name        = "${terraform.workspace}-workers"
   description = "Allow SSH traffic and Docker swarm traffic"
 }
 
 resource "scaleway_security_group_rule" "ssh_accept_workers" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
 
   action    = "accept"
@@ -104,7 +104,7 @@ resource "scaleway_security_group_rule" "ssh_accept_workers" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377_workers" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
   action         = "accept"
   direction      = "inbound"
@@ -114,7 +114,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377_workers" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946_workers" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
   action         = "accept"
   direction      = "inbound"
@@ -124,7 +124,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946_workers" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946_workers" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
   action         = "accept"
   direction      = "inbound"
@@ -134,7 +134,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946_workers" {
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_workers" {
-  count          = "${var.scw_provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
   action         = "accept"
   direction      = "inbound"

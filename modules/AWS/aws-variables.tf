@@ -1,42 +1,57 @@
-variable aws_provider {
+variable provider {
   default = ""
 }
 
-variable aws_domain {}
+variable domain {}
 
-variable aws_subdomain {}
+variable subdomain {}
 
-variable aws_ca_server {}
+variable ca_server {}
 
-variable aws_contact {}
+variable contact {}
 
-variable aws_auth_user {}
+variable auth_user {}
 
-variable aws_auth_password {}
+variable auth_password {}
 
-variable "aws_access_key" {}
-variable "aws_secret_key" {}
+variable "access_key" {}
+variable "secret_key" {}
 
-variable "aws_region" {
+variable "region" {
   default = "eu-central-1"
 }
 
-variable "aws_image" {
+variable "availability_zone" {
+  default = "eu-central-1b"
+}
+
+variable "image" {
   default = "ami-7c412f13"
 }
 
-variable "aws_docker_version" {}
+variable "instance_volume_size" {
+  default = 50
+}
 
-variable "aws_manager_instance_type" {}
+variable "docker_version" {}
 
-variable "aws_worker_instance_type" {}
+variable "manager_instance_type" {}
 
-variable "aws_worker_instance_count" {}
+variable "worker_instance_type" {}
 
-variable "aws_ssh_user" {
+variable "worker_instance_count" {}
+
+variable "worker_additional_volume_count" {}
+variable "worker_additional_volume_size" {}
+
+variable "ssh_user" {
   default = "ubuntu"
 }
 
-variable "aws_ssh_key" {}
+variable "ssh_key" {}
 
-variable "aws_key_name" {}
+variable "key_name" {}
+
+variable "device_names" {
+  default = ["/dev/sdf", "/dev/sdg", "/dev/sdh", "/dev/sdi", "/dev/sdj", "/dev/sdk", "/dev/sdl", "/dev/sdm", "/dev/sdn", "/dev/sdo"]
+}

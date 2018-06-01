@@ -9,7 +9,7 @@ variable "KAABAH_AUTH_USER" {}
 variable "KAABAH_AUTH_PASSWORD" {}
 
 variable "provider" {
-  default = "SCALEWAY"
+  default = ""
 }
 
 variable "domain" {
@@ -48,8 +48,12 @@ variable "worker_additional_volume_count" {
   default = 0
 }
 
+variable "worker_additional_volume_size" {
+  default = 50
+}
+
 variable "ssh_key" {
-  default = "secrets/kalisio.pem"
+  default = "ssh.pem"
 }
 
 variable "aws_key_name" {

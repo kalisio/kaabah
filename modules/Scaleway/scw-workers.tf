@@ -1,29 +1,29 @@
 resource "scaleway_ip" "swarm_worker_ip" {
-  count = "${var.scw_provider == "SCALEWAY" ? var.scw_worker_instance_count : 0}"
+  count = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
 }
 
 resource "scaleway_server" "swarm_worker" {
-  count          = "${var.scw_provider == "SCALEWAY" ? var.scw_worker_instance_count : 0}"
+  count          = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
   name           = "${terraform.workspace}-worker-${count.index + 1}"
   image          = "${data.scaleway_image.worker_image.id}"
-  type           = "${var.scw_worker_instance_type}"
+  type           = "${var.worker_instance_type}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
   public_ip      = "${element(scaleway_ip.swarm_worker_ip.*.ip, count.index)}"
 
   volume {
-    size_in_gb = "${lookup(var.scw_additional_volume_size, var.scw_worker_instance_type)}"
+    size_in_gb = "${lookup(var.additional_volume_size, var.worker_instance_type)}"
     type       = "l_ssd"
   }
 
   connection {
     type        = "ssh"
-    user        = "${var.scw_ssh_user}"
-    private_key = "${file(var.scw_ssh_key)}"
+    user        = "${var.ssh_user}"
+    private_key = "${file(var.ssh_key)}"
     timeout     = "120s"
   }
 
   provisioner "file" {
-    source      = "${var.aws_ssh_key}"
+    source      = "${var.ssh_key}"
     destination = "~/.ssh/${terraform.workspace}.pem"
   }
 
@@ -34,7 +34,7 @@ resource "scaleway_server" "swarm_worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-worker.sh ${var.scw_docker_version} ${scaleway_server.swarm_manager.private_ip}",
+      "sh /tmp/install-worker.sh ${var.docker_version} ${scaleway_server.swarm_manager.private_ip}",
     ]
   }
 
@@ -61,7 +61,7 @@ resource "scaleway_server" "swarm_worker" {
 
     connection {
       type = "ssh"
-      user = "${var.scw_ssh_user}"
+      user = "${var.ssh_user}"
       host = "${scaleway_server.swarm_manager.public_ip}"
     }
   }

@@ -46,7 +46,7 @@ And it exposes the following variables:
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
 | `worker_instance_count` | The number of worker instances. The default value is `1` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `secrets/kalisio.pem` |
-| `aws_key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
+| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 
 These variables can be overridden to match your environment requirements. See the section [How to use it ?](## How to use it ?)
 

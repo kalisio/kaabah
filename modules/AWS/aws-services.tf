@@ -1,12 +1,12 @@
 # Create a null resource is a trick to ensure the commands are send on each apply
 # Otherwise they are only run when provisioning new resources
 resource "null_resource" "deploy_services" {
-  count = "${var.aws_provider == "AWS" ? 1 : 0}"
+  count = "${var.provider == "AWS" ? 1 : 0}"
 
   connection {
     type        = "ssh"
-    user        = "${var.aws_ssh_user}"
-    private_key = "${file(var.aws_ssh_key)}"
+    user        = "${var.ssh_user}"
+    private_key = "${file(var.ssh_key)}"
     host        = "${aws_eip.swarm_manager.public_ip}"
     timeout     = "120s"
   }
@@ -24,7 +24,7 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-services.sh ${var.aws_subdomain} ${var.aws_domain} ${var.aws_ca_server} ${var.aws_contact} ${var.aws_auth_user} ${var.aws_auth_password}",
+      "sh /tmp/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} ${var.auth_password}",
       "cd services && sudo ./deploy.sh",
     ]
   }

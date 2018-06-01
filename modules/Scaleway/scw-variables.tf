@@ -1,48 +1,50 @@
-variable scw_provider {
+variable provider {
   default = ""
 }
 
-variable scw_domain {}
+variable domain {}
 
-variable scw_subdomain {}
+variable subdomain {}
 
-variable scw_ca_server {}
+variable ca_server {}
 
-variable scw_contact {}
+variable contact {}
 
-variable scw_auth_user {}
+variable auth_user {}
 
-variable scw_auth_password {}
+variable auth_password {}
 
-variable "scw_access_key" {}
+variable "access_key" {}
 
-variable "scw_token" {}
+variable "token" {}
 
-variable "scw_region" {
+variable "region" {
   default = "par1"
 }
 
-variable "scw_image" {
+variable "image" {
   default = "Ubuntu Xenial"
 }
 
-variable "scw_docker_version" {}
+variable "docker_version" {}
 
-variable "scw_manager_instance_type" {}
+variable "manager_instance_type" {}
 
-variable "scw_worker_instance_type" {}
+variable "worker_instance_type" {}
 
-variable "scw_worker_instance_count" {}
+variable "worker_instance_count" {}
 
-variable "scw_worker_additional_volume_count" {}
+variable "worker_additional_volume_count" {}
 
-variable "scw_ssh_user" {
+variable "worker_additional_volume_size" {}
+
+variable "ssh_user" {
   default = "root"
 }
 
-variable "scw_ssh_key" {}
+variable "ssh_key" {}
 
-variable "scw_architectures" {
+variable "architectures" {
   default = {
     START-XS = "x86_64"
     START1-S = "x86_64"
@@ -54,7 +56,7 @@ variable "scw_architectures" {
   }
 }
 
-variable "scw_additional_volume_size" {
+variable "additional_volume_size" {
   default = {
     START-XS = 0
     START1-S = 0

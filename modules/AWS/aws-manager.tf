@@ -22,6 +22,11 @@ resource "aws_instance" "swarm_manager" {
   }
 
   provisioner "file" {
+    source      = "${var.aws_ssh_key}"
+    destination = "~/.ssh/${terraform.workspace}.pem"
+  }
+
+  provisioner "file" {
     source      = "scripts/"
     destination = "/tmp"
   }

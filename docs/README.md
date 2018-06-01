@@ -32,7 +32,7 @@ And it exposes the following variables:
 |--- | --- |
 | `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |
 | `SCALEWAY_TOKEN` | Your Scaleway token |
-| `AWS_ACCESS_KEY` | Your AWS access key |
+| `AWS_ACCESS_KEY` | Your AWS access key. This is important to note that your credential must allows access to AWS EC2 and S3 services |
 | `AWS_SECRET_KEY` | Your AWS secret key |
 | `AUTH_USER` | Your authentication identity to access the services |
 | `AUTH_PASSWORD` | Your authentication password to access the services. It must be encrypted and for now only <b>SHA1</b> encryption is supported |
@@ -44,7 +44,7 @@ And it exposes the following variables:
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. The default value is `START1-S` |
-| `worker_instance_count | The number of worker instances. The default value is `1` |
+| `worker_instance_count` | The number of worker instances. The default value is `1` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `secrets/kalisio.pem` |
 | `aws_key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 
@@ -53,10 +53,11 @@ These variables can be overridden to match your environment requirements. See th
 ### Docker Swarm
 
 <b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with a stack of high level services that allows you to:
-* route the traffic to the Docker Swarm: [traefik](https://traefik.io/)
-* manage the services deployed on the Docker Swarm: [portainer](https://portainer.io/)
-* monitor the Docker Swarm: [prometheus](https://prometheus.io/)
-* analyze the Docker Swarm metrics: [grafana](https://grafana.com/)
+* route the traffic to the cluster and ensure SSL termination using [traefik](https://traefik.io/)
+* manage the services deployed on the cluster using [portainer](https://portainer.io/)
+* monitor the cluster using [prometheus](https://prometheus.io/)
+* analyze the cluster metrics using [grafana](https://grafana.com/)
+* share files among the nodes of the cluster using [Docker volume plugin for sshfs](https://github.com/vieux/docker-volume-sshfs)
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 

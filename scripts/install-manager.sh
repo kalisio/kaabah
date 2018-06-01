@@ -9,8 +9,5 @@ sed -e "s/SWARM_MANAGER_PRIVATE_IP/$MANAGER_PRIVATE_IP/g" /tmp/configs/manager.t
 # Install docker
 sh /tmp/install-docker.sh $DOCKER_VERSION
 
-# Add user to the docker group
-usermod -aG docker `whoami`
-
 # Initialise the manager
 docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377

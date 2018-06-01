@@ -11,5 +11,6 @@ NODE_ID="$(docker inspect -f "{{.NodeID}}" ${TASK_ID})"
 NODE_IP="$(docker inspect -f {{.Status.Addr}} ${NODE_ID})"
 
 eval "$(ssh-agent -s)"
-chmod 600 $3
+ssh-add ~/.ssh/$3
+
 ssh -o StrictHostKeyChecking=no root@${NODE_IP} docker exec ${CONT_ID} bash -c "${COMMAND}"

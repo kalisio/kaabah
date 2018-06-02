@@ -4,7 +4,7 @@ then
 	echo "Skipping check stage"
 else
   # Install Terraform
-  curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.7_linux_amd64.zip" -o terraform.zip
+  curl -fSL "https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip" -o terraform.zip
   sudo unzip terraform.zip -d /opt/terraform
   sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   rm -f terraform.zip

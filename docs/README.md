@@ -9,5 +9,5 @@ features:
   details: Exploit your infrastructures with the simplicity of Docker Swarm
 - title: Battery powered
   details: Powered by a stack of mature services to route your traffic, manage your services and monitor your infrastructures
-footer: MIT Licensed | Copyright © 2018-Kalisio
+footer: [!Kalisio](./assets/kalisio-banner.png)<br>MIT Licensed | Copyright © 2018-Kalisio
 ---

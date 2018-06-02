@@ -15,7 +15,10 @@ node_modules
 .terraform
 terraform.tfstate.d
 
-# secrets
+# VuePress
+docs/.vuepress/dist
+
+# secret files
 *.pem
 backend.config
 

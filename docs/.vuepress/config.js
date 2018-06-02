@@ -2,6 +2,10 @@ module.exports = {
   base: '/kaabah/',
   title: 'Kaabah',
   description: 'A cloud agnostic solution to build and operate Docker Swarm infrastructures',
+  head: [
+    ['link', { rel: 'icon', href: `/kalisio-logo.png` }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }]
+  ],
   serviceWorker: true,
   theme: 'vue',
   themeConfig: {

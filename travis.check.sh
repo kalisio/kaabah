@@ -5,8 +5,8 @@ then
 else
   # Install Terraform
   curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
-  unzip terraform.zip -d /opt/terraform
-  ln -s /opt/terraform/terraform /usr/bin/terraform
+  sudo unzip terraform.zip -d /opt/terraform
+  sudo ln -s /opt/terraform/terraform /usr/bin/terraform
   rm -f terraform.zip
   # Initialize terraform 
   terraform init -backend-config="backend.config"

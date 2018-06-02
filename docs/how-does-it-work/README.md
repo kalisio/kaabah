@@ -63,7 +63,9 @@ The instances are named according the following convention:
 
 <b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
 
-> Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
+::: warning
+Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
+:::
 
 By default, <b>Kabbah</b> specializes the <b>traefik</b> configuration with:
 * 2 entrypoints: 

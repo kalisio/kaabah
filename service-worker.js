@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "36be1e1770cf245a1c36c397ec6142c5"
+    "revision": "abac1c17a5f62e640418173eb800a6b0"
   },
   {
     "url": "assets/css/5.styles.683aaab6.css",
@@ -68,28 +68,48 @@ self.__precacheManifest = [
     "revision": "bbffbb2c51787496e9fd75a6c62c40d9"
   },
   {
-    "url": "assets/js/app.929007d4.js",
-    "revision": "a9554fbc930235fa86db2fbedab20036"
+    "url": "assets/js/app.2952dbe5.js",
+    "revision": "01cd307214e1addb8517f0e38fbe51c4"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "5cd37b9cbe23a69a9e7a80391aa3e4d3"
+    "revision": "9d44415a6edce615e0e09eebb2e72bf3"
   },
   {
     "url": "how-to-use-it/index.html",
-    "revision": "006e1e6294eea9aa265a094fe5b86abc"
+    "revision": "13f6fce441ea9b9f81cd55edaf0109b1"
+  },
+  {
+    "url": "images/kaabah-overview.svg",
+    "revision": "e8d8ef98228a9042bc7e673b680e0834"
+  },
+  {
+    "url": "images/kaabah-swarm.svg",
+    "revision": "d67d6932d2eadf22716ac6ed7866033e"
+  },
+  {
+    "url": "images/kaabah-terraform.svg",
+    "revision": "555a6e1874a33aa44d51fdb799ff8d10"
+  },
+  {
+    "url": "images/kaabah-traefik.svg",
+    "revision": "96292850fde5e2c3e334b02f22d41661"
+  },
+  {
+    "url": "images/kalisio-banner.png",
+    "revision": "425849b00260b83ac5af89dac83bb4e3"
   },
   {
     "url": "index.html",
-    "revision": "d9724f6157ddbb34956602b2aacf0b03"
+    "revision": "095730bfa8ecaede9c15b002fe0f1f74"
   },
   {
     "url": "README_old.html",
-    "revision": "0988717d2f25211a5b91c945d5f198cc"
+    "revision": "011b8a9af8d28cfc90fe2c9467892966"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "42117c203ad82bfc5e571b5c75ca33d6"
+    "revision": "52a4de15c83d5d85e3d517b9315f18b0"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

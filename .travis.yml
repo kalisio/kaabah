@@ -17,6 +17,7 @@ jobs:
     language: node_js
     node_js:
     - '8'
+    sudo: required 
     install: true
     script:
     - bash travis.check.sh

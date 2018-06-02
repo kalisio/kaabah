@@ -1,11 +1,5 @@
 #!/bin/bash
 
-# Initilalize terraform
-terraform init -backend-config="backend.config"
-if [ $? -ne 0 ]; then
-  exit 1
-fi
-
 # List the workspaces
 terraform workspace list > workspaces_list
 if [ $? -ne 0 ]; then

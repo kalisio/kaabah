@@ -13,6 +13,19 @@ stages:
 jobs:
   include:
 
+  - stage: CHECK
+    language: node_js
+    node_js:
+    - '8'
+    install: 
+    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
+    - sudo unzip terraform.zip -d /opt/terraform
+    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+    - rm -f terraform.zip
+    script:
+    - terraform init -backend-config="backend.config"
+    - sh utilities/terracheck.sh
+
   - stage: PRESS
     language: node_js
     node_js:
@@ -30,14 +43,4 @@ jobs:
       on:
         branch: swarm
 
-  - stage: CHECK
-    language: node_js
-    node_js:
-    - '8'
-    install: 
-    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
-    - sudo unzip terraform.zip -d /opt/terraform
-    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-    - rm -f terraform.zip
-    script:
-    - sh utilities/terracheck.sh
+

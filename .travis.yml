@@ -8,7 +8,7 @@ notifications:
 
 stages:
 - name: CHECK
-- name: PRESS
+- name: PUBLISH
 
 jobs:
   include:
@@ -17,23 +17,17 @@ jobs:
     language: node_js
     node_js:
     - '8'
-    install: 
-    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
-    - sudo unzip terraform.zip -d /opt/terraform
-    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-    - rm -f terraform.zip
+    install: true
     script:
-    - terraform init -backend-config="backend.config"
-    - sh utilities/terracheck.sh
+    - bash travis.check.sh
 
-  - stage: PRESS
+  - stage: PUBLISH
     language: node_js
     node_js:
     - '8'
     install: true
     script:
-    - yarn install
-    - npm run docs:build
+    - bash travis.publish.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist
@@ -42,5 +36,7 @@ jobs:
       keep-history: true
       on:
         branch: swarm
+        condition: "$PUBLISH = true"
+
 
 

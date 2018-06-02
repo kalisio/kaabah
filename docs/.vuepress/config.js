@@ -1,7 +1,7 @@
 module.exports = {
   base: '/kaabah/',
   title: 'Kaabah',
-  description: 'A cloud agnostic solution to build and operate Docker Swarm infrastructures',
+  description: 'A Terraform solution to build and operate Docker Swarm infrastructures',
   head: [
     ['link', { rel: 'icon', href: `/icons/kalisio-logo-64x64.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]

@@ -16,5 +16,7 @@ node_modules
 terraform.tfstate.d
 
 # secrets
-secrets/*.*
+*.pem
+backend.config
+
 

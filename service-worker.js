@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "8ea8115026f44e36eac44c2f0a4c6a25"
+    "revision": "517f0fd3cff201f1b8fe62c6228dc506"
   },
   {
     "url": "assets/css/4.styles.ef9ed187.css",
@@ -64,36 +64,36 @@ self.__precacheManifest = [
     "revision": "fe4c42714e7645e89c5af1eb2fa6eac6"
   },
   {
-    "url": "assets/js/app.14ace856.js",
-    "revision": "f3033fa15e6f0cf233d03ddedad6f0ef"
+    "url": "assets/js/app.348e1a99.js",
+    "revision": "a456fa5925f1af9f17f380e8674b57b2"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "71c349ec1402aeff1bd7a928a8706480"
+    "revision": "8186c82fc71776f598c435882bcd6daa"
   },
   {
     "url": "how-to-use-it/index.html",
-    "revision": "5f9a5b88bb332fca9ae989654cb3522f"
-  },
-  {
-    "url": "icons/kalisio-logo-256x256.png",
-    "revision": "5d8a749b1865a4a845fbaaab972dd315"
-  },
-  {
-    "url": "icons/kalisio-logo-512x512.png",
-    "revision": "6f108455a9a95bca6278dfaa58eaa8ec"
-  },
-  {
-    "url": "icons/kalisio-logo-64x64.png",
-    "revision": "2065682e5cd8f7ac0e1db3eec6f2078e"
+    "revision": "fafa9c798d32c7128b5be678ae4d29a8"
   },
   {
     "url": "index.html",
-    "revision": "ab14194d0543bc0fea8c2ab19817e69c"
+    "revision": "d5d742ab5cdf9fea93f64dc74143b32b"
+  },
+  {
+    "url": "kalisio-logo-256x256.png",
+    "revision": "5d8a749b1865a4a845fbaaab972dd315"
+  },
+  {
+    "url": "kalisio-logo-512x512.png",
+    "revision": "6f108455a9a95bca6278dfaa58eaa8ec"
+  },
+  {
+    "url": "kalisio-logo-64x64.png",
+    "revision": "2065682e5cd8f7ac0e1db3eec6f2078e"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "e1fa4ebd758d963386a63361cb7327dd"
+    "revision": "b3b3003e1d94e9579dd9e1f58ad391e0"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

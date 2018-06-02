@@ -3,12 +3,12 @@
   "short_name": "Kaabah",
   "icons": [
     {
-      "src": "/icons/kalisio-logo-256x256.png",
+      "src": "/kalisio-logo-256x256.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "/icons/kalisio-logo-512x512.png",
+      "src": "/kalisio-logo-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }

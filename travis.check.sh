@@ -21,13 +21,7 @@ else
     if [[ $wspace != *"default"* ]]
     then
       terraform workspace select $wspace
-      if [ $? -ne 0 ]; then
-        exit 1
-      fi
       terraform plan -var-file "workspaces/$wspace.tfvars"
-      if [ $? -ne 0 ]; then
-        exit 1
-      fi
     fi
   done
 fi

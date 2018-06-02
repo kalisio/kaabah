@@ -7,13 +7,13 @@ if [ $? -ne 0 ]; then
 fi
 
 # List the workspaces
-terraform workspace list > workspaces
+terraform workspace list > workspaces_list
 if [ $? -ne 0 ]; then
   exit 1
 fi
 
 # Check the workspaces
-head -n -1 workspaces | while read workspace
+head -n -1 workspacess_list | while read workspace
 do
   if [[ $workspace != *"default"* ]]
   then

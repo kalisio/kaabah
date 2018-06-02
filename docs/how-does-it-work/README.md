@@ -67,16 +67,16 @@ The instances are named according the following convention:
 Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
 :::
 
-By default, <b>Kabbah</b> specializes the <b>traefik</b> configuration with:
+By default, <b>Kaabah</b> specializes the <b>traefik</b> configuration with:
 * 2 entrypoints: 
   * to allow HTTPS requests
   * to allow and redirect HTTP request to HTTPS
 * 5 frontends to access the services: 
   * <b>traefik (ui)</b> 
-  * <b>portainer</b>, 
-  * <b>prometheus</b>
-  * <b>alertmanager</b>
-  * <b>grafana</b>. 
+  * <b>Portainer</b>, 
+  * <b>Prometheus</b>
+  * <b>Alertmanager</b>
+  * <b>Grafana</b>. 
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
 
 It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that <b>portainer</b> and <b>grafana</b> authentication have been disabled.

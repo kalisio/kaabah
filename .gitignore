@@ -20,6 +20,6 @@ docs/.vuepress/dist
 
 # secret files
 *.pem
-backend.config
+
 
 

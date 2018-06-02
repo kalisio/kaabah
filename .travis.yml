@@ -20,7 +20,7 @@ jobs:
     install: true
     script:
     - yarn install
-    - npm run press:build
+    - npm run docs:build
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist

@@ -7,7 +7,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Check the workspaces
-head -n -1 workspacess_list | while read workspace
+head -n -1 workspaces_list | while read workspace
 do
   if [[ $workspace != *"default"* ]]
   then

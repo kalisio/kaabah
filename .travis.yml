@@ -1,8 +1,3 @@
-language: node_js
-node_js:
-- 8
-services:
-- docker
 notifications:
   email: false
   slack:
@@ -10,12 +5,39 @@ notifications:
       secure: nzKJCv7Aekdllh8hqBJcwEzXVt7Qo1u0rH8/oJRq8MPGIlPNIebikC20KMy2SISo5ygI8ULebMzEePPuMin4NFs1YyLQ6aNOyITaY/EQGq9oTfDshOX5ZNACw2RLsjx6DHM9XJyITYbGJ2KLyhUY6UyVGoDKKV9ybANtObNv4qao0P4SYOWK9z/O5WWvXEuGI9ks3LIuO9b/y1Kd8iK+4Zrff9orIWXWrHWyvBhEMfGqesX81JZr7XIXTIU3Y5CPU2574rM6mU4imywmOOa5SywUEXZzI3NfSkyFbqelMwPJA8m7xSTiyuL4UbeFGpqPhNQjexdcNDWcHp+JTNbXhedq2yRZXA8mYhrFPgmLChosRxameFKKxviy5ut171KwGiO8h35FpKOYRxBtQKdpE1TVOt5hpsOFpEPcDPjnCRpBmS7zER4LVgkFwRAy389Vb3keZLpLee6UZOUexjqjr9evof17Q0AT2MfKThPvjOYywWjhF7LBqfceDwlvucEtZ/pcOeMODYcJUka57/87RY2ufY6JJRHQ7836++HWtQbmeJXNXfyB3j+b5se29D3Bw8OfqNMGdMq0Iex3Fmlj2XJ7jGpuHcaLQ2SEaJilPf4GdYzPb4QF8hwnVEBQwPiPJymrLVWKXG18SB9jLTht1PCe/xZ3/zgtl/ExskU7Gfs=
     on_success: always
     on_failure: always
-before_install:
-script:
-- curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
-- sudo unzip terraform.zip -d /opt/terraform
-- sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-- rm -f terraform.zip
-- sh utilities/terracheck.sh
 
+stages:
+- name: CHECK
+- name: PRESS
 
+jobs:
+  include:
+
+  - stage: PRESS
+    language: node_js
+    node_js:
+    - '8'
+    install: true
+    script:
+    - yarn install
+    - npm run press:build
+    deploy:
+      provider: pages
+      local-dir: docs/.vuepress/dist
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+      keep-history: true
+      on:
+        branch: swarm
+
+  - stage: CHECK
+    language: node_js
+    node_js:
+    - '8'
+    install: 
+    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
+    - sudo unzip terraform.zip -d /opt/terraform
+    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+    - rm -f terraform.zip
+    script:
+    - sh utilities/terracheck.sh

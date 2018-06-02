@@ -10,7 +10,7 @@ The overall approach is based on the use of Terraform Workspaces. As a reminder,
 
 Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
 
-![Kaabah terraform](./images/kaabah-terraform.svg)
+![Kaabah terraform](./../assets/kaabah-terraform.svg)
 
 ## Terraform configuration
 
@@ -53,7 +53,7 @@ These variables can be overridden to match your environment requirements. See th
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
-![swarm concept](./images/kaabah-swarm.svg)
+![swarm concept](./../assets/kaabah-swarm.svg)
 
 The instances are named according the following convention:
 *  `<WORKSAPCE>-manager`
@@ -81,4 +81,4 @@ It also support basic authentication to access the services using the variables 
 
 Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the <b>traefik</b> configuration will be as the following diagram:
 
-![traefik routing](./images/kaabah-traefik.svg)
+![traefik routing](./../assets/kaabah-traefik.svg)

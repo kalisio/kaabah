@@ -46,13 +46,13 @@ key    = "the key to the states"
 ```
 
 ::: warning
-You must have the credentials set to access the desired bucket on AWS S3. Otherwise **Terraform** won't initialize. Follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
+You must have the credentials set to access the desired bucket on AWS S3 otherwise **Terraform** won't initialize. If needed, follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
 :::
 
 5. Initialize Terraform
 
 ```bash
-$ terraform init -backend-config="path/to/your/backend.config"
+$terraform init -backend-config="path/to/your/backend.config"
 ```
 
 ## Usage
@@ -60,7 +60,7 @@ $ terraform init -backend-config="path/to/your/backend.config"
 ### Create a workspace
 
 ```bash
-terraform workspace new demo-dev
+$terraform workspace new demo-dev
 ```
 
 Terraform will automatically switch to the created workspace `demo-dev`
@@ -89,8 +89,8 @@ ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 
 Within your workspace, apply Terraform with your specific configuration:
 
-```
-terraform apply -var-file demo-dev.tfvars
+```bash
+$terraform apply -var-file demo-dev.tfvars
 ```
 
 After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.

@@ -38,7 +38,7 @@ jobs:
       keep-history: true
       on:
         branch: swarm
-        condition: "$PUBLISH = true"
+        condition: "$TRAVIS_COMMIT_MESSAGE != *[skip publish]*"
 
 
 

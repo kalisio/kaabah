@@ -8,8 +8,8 @@ sidebar: auto
 
 ![Kaabah overview](./../assets/kaabah-overview.svg)
 
-::: tip Note
-The Kaabah project was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
+::: tip Sponsored by Kalisio
+**Kaabah** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
 ![kalisio](./../assets/kalisio-banner.png)<br/>
-<i>Unleashing the potential of spatial information</i>
+*Unleashing the potential of spatial information*
 ::: 

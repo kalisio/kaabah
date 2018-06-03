@@ -24,7 +24,6 @@ jobs:
     - bash travis.check.sh
 
   - stage: PUBLISH
-    if: 
     language: node_js
     node_js:
     - '8'
@@ -39,7 +38,3 @@ jobs:
       keep-history: true
       on:
         branch: swarm
-
-
-
-

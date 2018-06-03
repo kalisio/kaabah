@@ -10,4 +10,8 @@ features:
 - title: Battery powered
   details: Powered by a stack of services to route your traffic including SSL termination, manage your containers and monitor your infrastructure
 footer: MIT Licensed | Copyright © 2018-Kalisio
----
+
+
+<p align="center">
+  <a href="http://www.kalisio.xyz"><img src="https://s3.eu-central-1.amazonaws.com/kalisio-artwork/kalisio/kalisio-logo-256x112.png"></a>
+</p>

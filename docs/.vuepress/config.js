@@ -22,6 +22,10 @@ module.exports = {
       {
         text: 'How to use it ?',
         link: '/how-to-use-it/'
+      },
+      {
+        text: 'GitHub',
+        link: 'https://github.com/kalisio/kaabah'
       }
     ]
   }

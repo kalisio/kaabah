@@ -33,11 +33,11 @@ variable "docker_version" {
 }
 
 variable "manager_instance_type" {
-  default = "START1-S"
+  default = ""
 }
 
 variable "worker_instance_type" {
-  default = "START1-S"
+  default = ""
 }
 
 variable "worker_instance_count" {
@@ -49,7 +49,7 @@ variable "worker_additional_volume_count" {
 }
 
 variable "worker_additional_volume_size" {
-  default = 50
+  default = 150
 }
 
 variable "ssh_key" {

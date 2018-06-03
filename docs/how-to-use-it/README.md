@@ -45,6 +45,10 @@ region = "the region of the bucket"
 key    = "the key to the states"
 ```
 
+::: warning
+You must have the credentials set to access the desired bucket on AWS S3. Otherwise **Terraform** won't initialize. Follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
+:::
+
 5. Initialize Terraform
 
 ```bash
@@ -56,23 +60,27 @@ $ terraform init -backend-config="path/to/your/backend.config"
 ### Create a workspace
 
 ```bash
-terraform workspace new app-dev
+terraform workspace new demo-dev
 ```
 
-Terraform will automatically switch to the created workspace `my-test`
+Terraform will automatically switch to the created workspace `demo-dev`
 
 ### Configure the workspace
 
-We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `app-dev.tfvars` file may look like this:
+We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `demo-dev.tfvars` file may look like this:
 
 ```
 provider = "SCALEWAY"
 
-manager_instance_type = "START1-S"
+manager_instance_type = "t2.nano"
 
-worker_instance_type = "START1-S"
+worker_instance_type = "t2.nano"
 
-worker_instance_count = 2
+worker_instance_count = 3
+
+worker_additional_volume_size = 50
+
+worker_additional_volume_count = 2
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 ```
@@ -82,7 +90,7 @@ ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 Within your workspace, apply Terraform with your specific configuration:
 
 ```
-terraform apply -var-file app-dev.tfvars
+terraform apply -var-file demo-dev.tfvars
 ```
 
 After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.

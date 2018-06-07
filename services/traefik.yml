@@ -18,10 +18,6 @@ services:
         protocol: tcp
         published: 443
         mode: host
-      - target: 8080
-        protocol: tcp
-        published: 8080
-        mode: host
     networks:
       - swarm-network
     deploy:

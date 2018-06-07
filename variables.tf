@@ -21,7 +21,7 @@ variable "subdomain" {
 }
 
 variable "ca_server" {
-  default = ""
+  default = "https://acme-v02.api.letsencrypt.org/directory"
 }
 
 variable contact {

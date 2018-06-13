@@ -146,7 +146,7 @@ ltstocwymexj        services_traefik             replicated          1/1        
 1. Create the mount point: `mkdir -p /mnt/data`
 2. Format the additional volume: `mkfs -t ext4 /dev/nbd2`
 3. Retrieve the UUID of your additional volume: `blkid`
-4. Create the *systemd* mount file: `nano /etc/systemd/system/mnt-data.mount` with the following content
+4. Create the *systemd* mount file: `nano /etc/systemd/system/mnt-data.mount` and add the following content:
 ```
 [Unit]
 Description=Mount NDB Volume at boot

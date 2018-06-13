@@ -24,8 +24,9 @@ resource "null_resource" "deploy_services" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} ${var.auth_password}",
-      "cd services && sudo ./deploy.sh",
+      "set -a && . ./.bash_profile && set +a",
+      "sh /tmp/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} ${var.auth_password} ${terraform.workspace}",
+      "cd services && sudo ./deploy-services.sh",
     ]
   }
 

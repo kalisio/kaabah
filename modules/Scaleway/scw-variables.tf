@@ -28,6 +28,11 @@ variable "image" {
 
 variable "docker_version" {}
 
+variable "docker_tls_ca_key" {}
+
+variable "docker_tls_ca_cert" {}
+variable "docker_tls_ca_pass" {}
+
 variable "manager_instance_type" {}
 
 variable "worker_instance_type" {}

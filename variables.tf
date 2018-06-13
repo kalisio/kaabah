@@ -32,6 +32,18 @@ variable "docker_version" {
   default = "18.03.1~ce-0~ubuntu"
 }
 
+variable "docker_tls_ca_key" {
+  default = "ca.key"
+}
+
+variable "docker_tls_ca_cert" {
+  default = "ca.cert"
+}
+
+variable "docker_tls_ca_pass" {
+  default = "ca.pass"
+}
+
 variable "manager_instance_type" {
   default = ""
 }

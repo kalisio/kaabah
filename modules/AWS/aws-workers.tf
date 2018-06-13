@@ -21,7 +21,22 @@ resource "aws_instance" "swarm_worker" {
 
   provisioner "file" {
     source      = "${var.ssh_key}"
-    destination = "~/.ssh/${terraform.workspace}.pem"
+    destination = "~/.ssh/ssh.pem"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_cert}"
+    destination = "/tmp/ca.cert"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_key}"
+    destination = "/tmp/ca.key"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_pass}"
+    destination = "/tmp/ca.pass"
   }
 
   provisioner "file" {
@@ -31,22 +46,22 @@ resource "aws_instance" "swarm_worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh /tmp/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip}",
+      "sudo sh /tmp/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${basename(var.ssh_key)}",
     ]
   }
 
-  # leave swarm on destroy
+  #  Leave swarm
   provisioner "remote-exec" {
     when = "destroy"
 
     inline = [
-      "sudo docker swarm leave",
+      "sudo sh /tmp/remove-worker.sh ${aws_instance.swarm_manager.private_ip}",
     ]
 
     on_failure = "continue"
   }
 
-  # remove node on destroy
+  # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     when = "destroy"
 

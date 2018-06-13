@@ -4,7 +4,7 @@ resource "scaleway_ip" "swarm_worker_ip" {
 
 resource "scaleway_server" "swarm_worker" {
   count          = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
-  name           = "${terraform.workspace}-worker-${count.index + 1}"
+  name           = "${terraform.workspace}-worker-${count.index}"
   image          = "${data.scaleway_image.worker_image.id}"
   type           = "${var.worker_instance_type}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
@@ -24,7 +24,22 @@ resource "scaleway_server" "swarm_worker" {
 
   provisioner "file" {
     source      = "${var.ssh_key}"
-    destination = "~/.ssh/${terraform.workspace}.pem"
+    destination = "~/.ssh/ssh.pem"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_cert}"
+    destination = "/tmp/ca.cert"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_key}"
+    destination = "/tmp/ca.key"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_pass}"
+    destination = "/tmp/ca.pass"
   }
 
   provisioner "file" {
@@ -43,13 +58,13 @@ resource "scaleway_server" "swarm_worker" {
     when = "destroy"
 
     inline = [
-      "docker swarm leave",
+      "sh /tmp/remove-worker.sh",
     ]
 
     on_failure = "continue"
   }
 
-  # remove node on destroy
+  # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     when = "destroy"
 

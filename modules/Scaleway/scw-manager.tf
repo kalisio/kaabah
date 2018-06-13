@@ -24,7 +24,22 @@ resource "scaleway_server" "swarm_manager" {
 
   provisioner "file" {
     source      = "${var.ssh_key}"
-    destination = "~/.ssh/${terraform.workspace}.pem"
+    destination = "~/.ssh/ssh.pem"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_cert}"
+    destination = "/tmp/ca.cert"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_key}"
+    destination = "/tmp/ca.key"
+  }
+
+  provisioner "file" {
+    source      = "${var.docker_tls_ca_pass}"
+    destination = "/tmp/ca.pass"
   }
 
   provisioner "file" {

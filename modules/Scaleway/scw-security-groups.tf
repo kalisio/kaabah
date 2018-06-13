@@ -4,14 +4,14 @@ resource "scaleway_security_group" "swarm_manager" {
   description = "Allow HTTP/S, SSH and Docker swarm traffic"
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_2375" {
+resource "scaleway_security_group_rule" "internal_in_accept_TCP_2376" {
   count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
   action         = "accept"
   direction      = "inbound"
   ip_range       = "10.0.0.0/8"
   protocol       = "TCP"
-  port           = "2375"
+  port           = "2376"
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377" {

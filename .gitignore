@@ -19,6 +19,11 @@ docs/.vuepress/dist
 
 # secret files
 *.pem
+ca.key
+ca.cert
+ca.pass
+
+
 
 
 

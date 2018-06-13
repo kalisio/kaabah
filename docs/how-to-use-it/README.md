@@ -4,6 +4,25 @@ sidebar: auto
 
 # How to use it ?
 
+## Prerequisites
+
+::: warning Certificate Authority
+
+*Kaabah* ensures TLS authentication for Docker daemon and requires a Certificate Authority. More precisely, to use *Kaabah*, you need the following files:
+- `ca.key`: the private key 
+- `ca.cert`: the public key
+- `ca.pass`: the passphrase file
+
+The following [script] (https://gist.github.com/cnouguier/c5cb4ba99ad45bced4476e2d175342a1) could be helpful to create the required files. It is based on [OpenSSL](https://www.openssl.org/).
+:::
+
+::: warning AWS S3 Credentials
+
+You must have the credentials set to access the desired bucket on AWS S3 otherwise **Terraform** won't initialize. 
+
+If needed, follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
+::: 
+
 ## Installation
 
 ### Clone the Github repository
@@ -44,10 +63,6 @@ bucket = "the name of the bucket"
 region = "the region of the bucket"
 key    = "the key to the states"
 ```
-
-::: warning
-You must have the credentials set to access the desired bucket on AWS S3 otherwise **Terraform** won't initialize. If needed, follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
-:::
 
 5. Initialize Terraform
 
@@ -118,7 +133,3 @@ jql9o8nawlkm        services_node-exporter       global              3/3        
 hgeulxbwkex2        services_prometheus          replicated          1/1                 prom/prometheus:latest
 ltstocwymexj        services_traefik             replicated          1/1                 traefik:latest
 ```
-
-## Deploy your application
-
-TODO

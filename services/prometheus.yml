@@ -140,4 +140,6 @@ volumes:
 
 networks:
   swarm-network:
+    name: ${SWARM_NETWORK}
     external: true
+    

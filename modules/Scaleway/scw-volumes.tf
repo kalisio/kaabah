@@ -1,6 +1,6 @@
 resource "scaleway_volume" "swarm_volume" {
   count      = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
-  name       = "${terraform.workspace}-volume-${count.index + 1}"
+  name       = "${terraform.workspace}-volume-${count.index}"
   size_in_gb = "${var.worker_additional_volume_size}"
   type       = "l_ssd"
 }

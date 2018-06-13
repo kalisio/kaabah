@@ -5,7 +5,7 @@ resource "aws_ebs_volume" "swarm_volume" {
   type              = "gp2"
 
   tags {
-    Name = "${terraform.workspace}-volume-${count.index + 1}"
+    Name = "${terraform.workspace}-volume-${count.index}"
   }
 }
 

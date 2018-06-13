@@ -12,6 +12,7 @@ sidebar: auto
 - the private key
 - the public key
 - the passphrase file
+
 You can use the following [script](https://gist.github.com/cnouguier/c5cb4ba99ad45bced4476e2d175342a1) to create the required files. 
 :::
 

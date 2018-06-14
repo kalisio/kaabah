@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.2.0/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "74eb59238e7301ba0d57c9800eac2953"
+    "revision": "32219552f74d46f48f1d56e35ee64c7e"
   },
   {
     "url": "assets/css/5.styles.c888f2fb.css",
@@ -60,28 +60,28 @@ self.__precacheManifest = [
     "revision": "d1ba33996997061737141efbd0e16c79"
   },
   {
-    "url": "assets/js/3.92b2e3bf.js",
-    "revision": "28e9097f33226b8eb746bc1df7fd38ff"
+    "url": "assets/js/3.ffe7da8a.js",
+    "revision": "3c6b2c61b6c939b77ce4201ab11f41e1"
   },
   {
     "url": "assets/js/4.24c47045.js",
     "revision": "1a9d37fc2df7ee6933af179f2fb73896"
   },
   {
-    "url": "assets/js/app.7b1ca4bc.js",
-    "revision": "41de306f0b833a82b2fac4f1660c252f"
+    "url": "assets/js/app.e72e97cc.js",
+    "revision": "9cb43c3a524392483c7e46ae669d9e84"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "a2edf40e426140affebc81bffba345c5"
+    "revision": "c612ed4548793ad2fbf2e411868a3bbe"
   },
   {
     "url": "how-to-use-it/index.html",
-    "revision": "d7aa8bbafe730e2a06e04d9edf13ca5d"
+    "revision": "fdc268e97d52d41b12b4a8b44d8744ef"
   },
   {
     "url": "index.html",
-    "revision": "861b62350ec93769c7ffedc7cb864d56"
+    "revision": "3a5bd953fbfb9b5710fc08ee4e67b70e"
   },
   {
     "url": "kalisio-logo-256x256.png",
@@ -97,11 +97,11 @@ self.__precacheManifest = [
   },
   {
     "url": "license/index.html",
-    "revision": "6bb0894d2ea1fad910be200fe1935c06"
+    "revision": "fe8fa5773698aa8372bebba1ab3585f7"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "1c4e299d5b3287e2cd4269b773c350d3"
+    "revision": "5ded55be0551ed198629eb570105c110"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

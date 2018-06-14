@@ -8,7 +8,7 @@ sidebar: auto
 
 ::: tip Certificate Authority
 
-*Kaabah* ensures TLS authentication for Docker daemon and requires a Certificate Authority. More precisely, to use *Kaabah*, you need the following files:
+**Kaabah** ensures TLS authentication for Docker daemon and requires a Certificate Authority. More precisely, to use **Kaabah**, you need the following files:
 - the private key
 - the public key
 - the passphrase file
@@ -17,7 +17,7 @@ You can use the following [script](https://gist.github.com/cnouguier/c5cb4ba99ad
 :::
 
 ::: tip SSH key
-*Kaabah* uses SSH to operate on the various nodes. Consequently you need the private key used to connect to the different instances.
+**Kaabah** uses SSH to operate on the various nodes. Consequently you need the private key used to connect to the different instances.
 Such a key are emitted by the providers (i.e. Scaleway and AWS)
 :::
 
@@ -147,7 +147,7 @@ ltstocwymexj        services_traefik             replicated          1/1        
 1. Create the mount point: `mkdir -p /mnt/data`
 2. Format the additional volume: `mkfs -t ext4 /dev/nbd2`
 3. Retrieve the UUID of your additional volume: `blkid`
-4. Create the *systemd* mount file: `nano /etc/systemd/system/mnt-data.mount` and add the following content:
+4. Create the **systemd** mount file: `nano /etc/systemd/system/mnt-data.mount` and add the following content:
 ```
 [Unit]
 Description=Mount NDB Volume at boot
@@ -161,7 +161,7 @@ Options=defaults
 [Install]
 WantedBy=multi-user.target
 ```
-5. Reload *systemd*: `systemctl daemon-reload`
+5. Reload **systemd**: `systemctl daemon-reload`
 6. Mount the volume: `systemctl start mnt-data.mount`
 7. Enable automatic mount during boot: `systemctl enable mnt-data.mount` 
 

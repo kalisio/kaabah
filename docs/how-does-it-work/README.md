@@ -6,17 +6,17 @@ sidebar: auto
 
 ## Overview
 
-The overall approach is based on the use of Terraform Workspaces. As a reminder, a Workspace  is a collection of everything Terraform needs to run: a configuration of your infrastructure (i.e. <b>kaabah</b>), values for that configuration's variables, and state data to keep track of operations. Therefore a Workplace could be considered as an instance of the the infrastructure with its own environment. Follow this [link](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) to read more about Terraform Workspaces and best practices. 
+The overall approach is based on the use of Terraform Workspaces. As a reminder, a Workspace  is a collection of everything Terraform needs to run: a configuration of your infrastructure (i.e. **kaabah**), values for that configuration's variables, and state data to keep track of operations. Therefore a Workplace could be considered as an instance of the the infrastructure with its own environment. Follow this [link](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) to read more about Terraform Workspaces and best practices. 
 
-Starting from this premise, <b>Kaabah</b> allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of <b>Kaabah</b>
+Starting from this premise, **Kaabah** allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of **Kaabah**:
 
 ![Kaabah terraform](./../assets/kaabah-terraform.svg)
 
 ## Terraform configuration
 
 The Terraform configuration is composed of 2 modules:
-* the <b>AWS</b> module which has the responsibility to create the Docker Swarm infrastructure on AWS
-* the <b>Scaleway</b> module has the responsibility to create the Docker Swarm infrastructure on Scaleway
+- the **AWS** module which has the responsibility to create the Docker Swarm infrastructure on AWS
+- the **Scaleway** module has the responsibility to create the Docker Swarm infrastructure on Scaleway
 
 And it exposes the following variables:
 
@@ -47,19 +47,19 @@ These variables can be overridden to match your environment requirements. See th
 ## Docker Swarm
 
 <b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with a stack of high level services that allows you to:
-* route the traffic to the cluster and ensure SSL termination using [traefik](https://traefik.io/)
-* manage the services deployed on the cluster using [portainer](https://portainer.io/)
-* monitor the cluster using [prometheus](https://prometheus.io/)
-* analyze the cluster metrics using [grafana](https://grafana.com/)
-* share files among the nodes of the cluster using [Docker volume plugin for sshfs](https://github.com/vieux/docker-volume-sshfs)
+- route the traffic to the cluster and ensure SSL termination using [traefik](https://traefik.io/)
+- manage the services deployed on the cluster using [portainer](https://portainer.io/)
+- monitor the cluster using [prometheus](https://prometheus.io/)
+- analyze the cluster metrics using [grafana](https://grafana.com/)
+- share files among the nodes of the cluster using [Docker volume plugin for sshfs](https://github.com/vieux/docker-volume-sshfs)
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
 ![swarm concept](./../assets/kaabah-swarm.svg)
 
 The instances are named according the following convention:
-*  `<WORKSPACE>-manager`
-*  `<WORKSPACE>-woker-<INDEX>`
+-  `<WORKSPACE>-manager`
+-  `<WORKSPACE>-woker-<INDEX>`
 
 ## Traefik
 
@@ -74,15 +74,15 @@ By default, <b>Kaabah</b> specializes the <b>traefik</b> configuration with:
   * to allow HTTPS requests
   * to allow and redirect HTTP request to HTTPS
 * 5 frontends to access the services: 
-  * *traefik (dashboard)*
-  * *Portainer*
-  * *Prometheus*
-  * *Alertmanager*
-  * *Grafana* 
+  - **traefik (dashboard)**
+  - **Portainer**
+  - **Prometheus**
+  - **Alertmanager**
+  - **Grafana** 
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
 
-It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that *portainer* and *grafana* authentication have been disabled.
+It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that **portainer** and **grafana** authentication have been disabled.
 
-Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the *traefik* configuration will be as the following diagram:
+Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as the following diagram:
 
 ![traefik routing](./../assets/kaabah-traefik.svg)

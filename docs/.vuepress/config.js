@@ -25,7 +25,7 @@ module.exports = {
       },
       {
         text: 'License',
-        link: 'LICENSE.md'
+        link: '/LICENSE.md'
       },
       {
         text: 'GitHub',

@@ -24,6 +24,10 @@ module.exports = {
         link: '/how-to-use-it/'
       },
       {
+        text: 'License',
+        link: 'LICENSE.md'
+      },
+      {
         text: 'GitHub',
         link: 'https://github.com/kalisio/kaabah'
       }

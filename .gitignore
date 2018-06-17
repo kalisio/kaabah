@@ -10,6 +10,9 @@ yarn-error.log*
 # Node modules
 node_modules
 
+# VuePress
+docs/.vuepress/dist
+
 # terraform
 .terraform
 terraform.tfstate.d

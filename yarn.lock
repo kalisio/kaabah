@@ -5677,6 +5677,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-carousel@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/vue-carousel/-/vue-carousel-0.8.1.tgz#1bcd1ab3b11b117498c7bdc5221caf96dcd24ec2"
+
 vue-hot-reload-api@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
@@ -5742,9 +5746,11 @@ vuepress-html-webpack-plugin@^3.2.0:
     toposort "^1.0.0"
     util.promisify "1.0.0"
 
-vuepress-theme-vue@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vuepress-theme-vue/-/vuepress-theme-vue-1.0.3.tgz#8465434401bc99325de53ba038e1eed2d2ec84b9"
+"vuepress-theme-kalisio@https://github.com/kalisio/vuepress-theme-kalisio":
+  version "0.0.1"
+  resolved "https://github.com/kalisio/vuepress-theme-kalisio#6474dc2d8dae7a2edb55c683d2a020277aa15bed"
+  dependencies:
+    vue-carousel "^0.8.1"
 
 vuepress@^0.10.0:
   version "0.10.0"

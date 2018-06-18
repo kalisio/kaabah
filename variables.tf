@@ -27,13 +27,14 @@ variable "instance_name" {
 }
 
 variable "instance_count" {
-  default = 2
+  default = 3
 }
 
 variable "instance_domains" {
   type    = "map"
   default = {
     "1" = "dev.kalisio.xyz",
-    "2" = "test.kalisio.xyz"
+    "2" = "test.kalisio.xyz",
+    "3" = "test.kalisio.xyz"
   }
 }

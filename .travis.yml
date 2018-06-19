@@ -29,6 +29,7 @@ jobs:
     - '8'
     install: true
     script:
+    - yarn install
     - bash travis.publish.sh
     deploy:
       provider: pages

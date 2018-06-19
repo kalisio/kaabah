@@ -32,6 +32,10 @@ variable "docker_version" {
   default = "18.03.1~ce-0~ubuntu"
 }
 
+variable "docker_network" {
+  default = ""
+}
+
 variable "docker_tls_ca_key" {
   default = "ca.key"
 }

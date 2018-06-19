@@ -12,7 +12,7 @@ services:
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       replicas: 1
       placement:
@@ -21,7 +21,7 @@ services:
       labels:
         - "traefik.backend=prometheus"
         - "traefik.enable=true"      
-        - "traefik.docker.network=swarm-network"
+        - "traefik.docker.network=kaabah-network"
         - "traefik.port=9090"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -43,7 +43,7 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       mode: global
       restart_policy:
@@ -56,7 +56,7 @@ services:
     volumes: 
       - ./configs/blackbox/:/config/
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       replicas: 1
       placement:
@@ -74,7 +74,7 @@ services:
     volumes:
       - ./configs/alertmanager/:/etc/alertmanager/
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       replicas: 1
       placement:
@@ -83,7 +83,7 @@ services:
       labels:
         - "traefik.backend=alertmanager"
         - "traefik.enable=true"      
-        - "traefik.docker.network=swarm-network"
+        - "traefik.docker.network=kaabah-network"
         - "traefik.port=9093"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -101,7 +101,7 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       mode: global
       restart_policy:
@@ -115,7 +115,7 @@ services:
     env_file:
       - ./configs/grafana/config.monitoring
     networks:
-      - swarm-network
+      - kaabah-network
     deploy:
       replicas: 1
       placement:
@@ -124,7 +124,7 @@ services:
       labels:
         - "traefik.backend=grafana"
         - "traefik.enable=true"      
-        - "traefik.docker.network=swarm-network"
+        - "traefik.docker.network=kaabah-network"
         - "traefik.port=3000"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
@@ -139,7 +139,7 @@ volumes:
   grafana_data: {}
 
 networks:
-  swarm-network:
-    name: ${SWARM_NETWORK}
+  kaabah-network:
+    name: ${DOCKER_NETWORK}
     external: true
     

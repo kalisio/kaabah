@@ -5,7 +5,7 @@
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "test": "echo \"No test specified\" && exit 0"
+    "test": "echo \"No test specified\""
   },
   "devDependencies": {
     "vuepress": "^0.10.0",

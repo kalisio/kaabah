@@ -27,7 +27,8 @@ jobs:
     language: node_js
     node_js:
     - '8'
-    after_script:
+    script:
+    - yarn install
     - npm run docs:build
     deploy:
       provider: pages

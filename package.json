@@ -1,12 +1,15 @@
 {
+  "name": "kaabah",
+  "version": "0.0.1",
+  "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "scripts": {
     "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "test": "echo \"No test specified\" && exit 0"
   },
   "devDependencies": {
-    "vuepress": "^0.10.0"
-  },
-  "dependencies": {
+    "vuepress": "^0.10.0",
     "vuepress-theme-kalisio": "https://github.com/kalisio/vuepress-theme-kalisio"
-  }
+  },
+  "dependencies": {}
 }

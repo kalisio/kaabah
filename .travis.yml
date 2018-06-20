@@ -27,7 +27,6 @@ jobs:
     language: node_js
     node_js:
     - '8'
-    install: true
     after_script:
     - npm run docs:build
     deploy:

@@ -1,5 +1,9 @@
 provider = "SCALEWAY"
 
+domain = "aktnmap.xyz"
+
+subdomain = "dev"
+
 manager_instance_type = "START1-S"
 
 worker_instance_type = "START1-S"

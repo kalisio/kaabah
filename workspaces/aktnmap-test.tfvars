@@ -1,5 +1,9 @@
 provider = "AWS"
 
+domain = "aktnmap.xyz"
+
+subdomain = "test"
+
 manager_instance_type = "t2.nano"
 
 worker_instance_type = "t2.nano"

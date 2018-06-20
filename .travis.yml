@@ -29,7 +29,7 @@ jobs:
     - '8'
     install: true
     after_script:
-    - bash travis.publish.sh
+    - npm run docs:build
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist

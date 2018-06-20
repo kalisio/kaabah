@@ -27,7 +27,7 @@ jobs:
     language: node_js
     node_js:
     - '8'
-    install: true:
+    install: true
     after_script:
     - bash travis.publish.sh
     deploy:

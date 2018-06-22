@@ -77,13 +77,13 @@ $terraform init -backend-config="path/to/your/backend.config"
 ## Usage
 
 ::: warning Manager IP address
-**Kaabah** will ask you to provide the IP address of the Swarm manager. On **Scaleway** you need to provide a [Reserved IP](https://www.scaleway.com/docs/deal-with-private-reserved-ips/#-Create-and-attach-a-reserved-IP-address). On **AWS** you need to provide an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). 
+**Kaabah** requests the IP address of the Swarm manager to be defined. On **Scaleway** you need to provide a [Reserved IP](https://www.scaleway.com/docs/deal-with-private-reserved-ips/#-Create-and-attach-a-reserved-IP-address). On **AWS** you need to provide an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). 
 :::
 
 ::: warning ACME certificates
 To ensure ACME certificates generation, **traefik** has to be reachable by **Let's Encrypt** through port 80. You can refer to [ACME configuration (httpChallenge)](https://docs.traefik.io/configuration/acme/#httpchallenge) for further information. 
 
-Please take care your DNS is correctly configured. A **A Record** should map your domain to the manager IP address.
+Please take care your DNS is correctly configured. A **A Record** should map your domain to the Swarm manager IP address.
 
 
 :::

@@ -2,6 +2,10 @@ terraform {
   backend "s3" {}
 }
 
+provider "null" {
+  version = "~> 1.0.0"
+}
+
 locals {
   subdomain      = "${replace(terraform.workspace, "-",".")}"
   docker_network = "${element(split("-", terraform.workspace), 0)}"

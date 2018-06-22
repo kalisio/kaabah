@@ -78,6 +78,15 @@ $terraform init -backend-config="path/to/your/backend.config"
 
 ### Create a workspace
 
+::: warning Manager IP address
+**Kaabah** will ask you to provide the IP address of the Swarm manager. On **Scaleway** you need to provide a [Reserved IP](https://www.scaleway.com/docs/deal-with-private-reserved-ips/#-Create-and-attach-a-reserved-IP-address). On **AWS** you need to provide an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). 
+:::
+
+::: warning DNS
+To ensure the ACME certificate generation by **Let's Encrypt**, **traefik** must be reachable through your DNS. Please take care your DNS is correctly configured. 
+A **A Record** should map your domain to the manager IP address.
+:::
+
 ```bash
 $terraform workspace new demo-dev
 ```
@@ -90,6 +99,8 @@ We recommend to create a `tfvars` file to override the default variables for you
 
 ```
 provider = "SCALEWAY"
+
+manager_ip = 
 
 manager_instance_type = "t2.nano"
 

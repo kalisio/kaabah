@@ -43,6 +43,8 @@ variable "docker_tls_ca_cert" {}
 
 variable "docker_tls_ca_pass" {}
 
+variable "manager_ip" {}
+
 variable "manager_instance_type" {}
 
 variable "worker_instance_type" {}
@@ -50,6 +52,7 @@ variable "worker_instance_type" {}
 variable "worker_instance_count" {}
 
 variable "worker_additional_volume_count" {}
+
 variable "worker_additional_volume_size" {}
 
 variable "ssh_user" {

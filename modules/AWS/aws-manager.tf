@@ -1,10 +1,7 @@
-resource "aws_eip" "swarm_manager" {
-  count    = "${var.provider == "AWS" ? 1 : 0}"
-  instance = "${aws_instance.swarm_manager.id}"
-
-  tags {
-    Name = "${terraform.workspace}-manager"
-  }
+resource "aws_eip_association" "swarm_manager" {
+  count       = "${var.provider == "AWS" ? 1 : 0}"
+  instance_id = "${aws_instance.swarm_manager.id}"
+  public_ip   = "${var.manager_ip}"
 }
 
 resource "aws_instance" "swarm_manager" {

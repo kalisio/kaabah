@@ -1,4 +1,4 @@
-resource "scaleway_ip" "swarm_worker_ip" {
+resource "scaleway_ip" "swarm_worker" {
   count = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
 }
 
@@ -8,7 +8,7 @@ resource "scaleway_server" "swarm_worker" {
   image          = "${data.scaleway_image.worker_image.id}"
   type           = "${var.worker_instance_type}"
   security_group = "${scaleway_security_group.swarm_workers.id}"
-  public_ip      = "${element(scaleway_ip.swarm_worker_ip.*.ip, count.index)}"
+  public_ip      = "${element(scaleway_ip.swarm_worker.*.ip, count.index)}"
 
   volume {
     size_in_gb = "${lookup(var.additional_volume_size, var.worker_instance_type)}"

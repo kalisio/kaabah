@@ -1,5 +1,5 @@
 resource "scaleway_ip" "swarm_manager" {
-  count = "${var.provider == "SCALEWAY" ? 1 : 0}"
+  count = "${var.provider == "SCALEWAY" && var.manager_ip =="" ? 1 : 0}"
 }
 
 resource "scaleway_server" "swarm_manager" {
@@ -8,7 +8,7 @@ resource "scaleway_server" "swarm_manager" {
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
   security_group = "${scaleway_security_group.swarm_manager.id}"
-  public_ip      = "${scaleway_ip.swarm_manager.ip}"
+  public_ip      = "${var.manager_ip}"
 
   volume {
     size_in_gb = "${lookup(var.additional_volume_size, var.manager_instance_type)}"

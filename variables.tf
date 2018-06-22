@@ -48,6 +48,10 @@ variable "docker_tls_ca_pass" {
   default = "ca.pass"
 }
 
+variable "manager_ip" {
+  default = ""
+}
+
 variable "manager_instance_type" {
   default = ""
 }

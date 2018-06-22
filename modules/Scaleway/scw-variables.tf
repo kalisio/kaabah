@@ -33,7 +33,10 @@ variable "docker_network" {}
 variable "docker_tls_ca_key" {}
 
 variable "docker_tls_ca_cert" {}
+
 variable "docker_tls_ca_pass" {}
+
+variable "manager_ip" {}
 
 variable "manager_instance_type" {}
 

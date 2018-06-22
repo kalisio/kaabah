@@ -7,7 +7,7 @@ resource "null_resource" "deploy_services" {
     type        = "ssh"
     user        = "${var.ssh_user}"
     private_key = "${file(var.ssh_key)}"
-    host        = "${aws_eip.swarm_manager.public_ip}"
+    host        = "${var.manager_ip}"
     timeout     = "120s"
   }
 

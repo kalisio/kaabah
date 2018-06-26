@@ -1,14 +1,14 @@
-provider = "SCALEWAY"
+provider = "AWS"
 
 domain = "aktnmap.xyz"
 
 subdomain = "dev"
 
-manager_ip = "51.15.233.111"
+manager_ip = "18.185.30.204"
 
-manager_instance_type = "START1-S"
+manager_instance_type = "t2.medium"
 
-worker_instance_type = "START1-M"
+worker_instance_type = "t2.medium"
 
 worker_instance_count = 1
 

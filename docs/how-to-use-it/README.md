@@ -123,7 +123,7 @@ ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 Within your workspace, apply Terraform with your specific configuration:
 
 ```bash
-$terraform apply -var-file demo-dev.tfvars
+$terraform apply -var-file="path/to/your/config.tfvars"
 ```
 
 After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.
@@ -133,14 +133,14 @@ After a while, your cluster should be created and the corresponding Terraform st
 Get connected to the manager of your infrastructure using `ssh` and type the following commands:
 
 ```bash
-root@app-dev-manager:~# docker node ls
+$docker node ls
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 rwwms640br7eworemnzm71kas *   app-dev-manager    Ready               Active              Leader              18.03.1-ce
 cncd3bj11drznaih0zgsxoi2y     app-dev-worker-1   Ready               Active                                  18.03.1-ce
 4fup9ac9pklv5h81v0o99w40h     app-dev-worker-2   Ready               Active                                  18.03.1-ce
 ```
 ```bash
-root@app-dev-manager:~# docker service ls
+$docker service ls
 ID                  NAME                         MODE                REPLICAS            IMAGE                           PORTS
 jwyzwgo2mjyb        services_alertmanager        replicated          1/1                 prom/alertmanager:latest
 a35bnom5voa1        services_blackbox-exporter   replicated          1/1                 prom/blackbox-exporter:latest
@@ -156,7 +156,7 @@ ltstocwymexj        services_traefik             replicated          1/1        
 
 ### Scaleway
 
-#### Attach an additional volume
+#### Use an additional volume
 
 1. Create the mount point: `mkdir -p /mnt/data`
 2. Format the additional volume: `mkfs -t ext4 /dev/nbd2`
@@ -179,4 +179,19 @@ WantedBy=multi-user.target
 6. Mount the volume: `systemctl start mnt-data.mount`
 7. Enable automatic mount during boot: `systemctl enable mnt-data.mount` 
 
-Check this [tutorial](https://www.scaleway.com/docs/attach-and-detach-a-volume-to-an-existing-server/) for further information.
+See the [following article](https://www.scaleway.com/docs/attach-and-detach-a-volume-to-an-existing-server/) for details.
+
+### AWS
+
+#### Use an additional volume
+
+1. Create the mount point: `sudo mkdir -p /mnt/data`
+2. Determine the name of the device assigned to the volume: `lsblk`  
+3. Format the additional volume: `sudo mkfs -t ext4 /dev/xvdf`
+4. Update the `ftsab` to mount the volume automatically: `sudo nano /etc/fstab` and add the following line:
+```
+/dev/xvdf /mnt/data ext4 defaults,noatime 1 1
+```
+5. Mount the volume: `sudo mount -a`
+
+See the [following article](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html) for details.

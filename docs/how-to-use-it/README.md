@@ -154,6 +154,14 @@ ltstocwymexj        services_traefik             replicated          1/1        
 
 ## Tips
 
+### Docker swarm
+
+#### How to find out why service can't start ?
+
+```bash
+$docker service ps --no-trunc {serviceName}
+```
+
 ### Scaleway
 
 #### Use an additional volume

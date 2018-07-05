@@ -2,23 +2,22 @@
 sidebar: auto
 ---
 
-# How to use it ?
+# Getting started
 
 ## Prerequisites
 
 ::: tip Certificate Authority
 
-**Kaabah** ensures TLS authentication for Docker daemon and requires a Certificate Authority. More precisely, to use **Kaabah**, you need the following files:
-- the private key
-- the public key
-- the passphrase file
+**Kaabah** ensures TLS authentication for Docker daemon and requires a Certificate Authority (CA). More precisely, to use **Kaabah**, you need the following files:
+- the CA private key
+- the CA public key
+- the CA passphrase file
 
 You can use the following [script](https://gist.github.com/cnouguier/c5cb4ba99ad45bced4476e2d175342a1) to create the required files. 
 :::
 
 ::: tip SSH key
-**Kaabah** uses SSH to operate on the various nodes. Consequently you need the private key used to connect to the different instances.
-Such a key are emitted by the providers (i.e. Scaleway and AWS)
+**Kaabah** uses SSH to operate on the various nodes and consequently you need the private key to connect to the different instances. These keys are emitted by the providers (i.e. Scaleway and AWS)
 :::
 
 ::: tip AWS S3 Credentials
@@ -84,8 +83,6 @@ $terraform init -backend-config="path/to/your/backend.config"
 To ensure ACME certificates generation, **traefik** has to be reachable by **Let's Encrypt** through port 80. You can refer to [ACME configuration (httpChallenge)](https://docs.traefik.io/configuration/acme/#httpchallenge) for further information. 
 
 Please take care your DNS is correctly configured. A **A Record** should map your domain to the Swarm manager IP address.
-
-
 :::
 
 ### Create a workspace
@@ -139,6 +136,7 @@ rwwms640br7eworemnzm71kas *   app-dev-manager    Ready               Active     
 cncd3bj11drznaih0zgsxoi2y     app-dev-worker-1   Ready               Active                                  18.03.1-ce
 4fup9ac9pklv5h81v0o99w40h     app-dev-worker-2   Ready               Active                                  18.03.1-ce
 ```
+
 ```bash
 $docker service ls
 ID                  NAME                         MODE                REPLICAS            IMAGE                           PORTS
@@ -152,54 +150,3 @@ hgeulxbwkex2        services_prometheus          replicated          1/1        
 ltstocwymexj        services_traefik             replicated          1/1                 traefik:latest
 ```
 
-## Tips
-
-### Docker swarm
-
-#### How to find out why service can't start ?
-
-```bash
-$docker service ps --no-trunc {serviceName}
-```
-
-### Scaleway
-
-#### Use an additional volume
-
-1. Create the mount point: `mkdir -p /mnt/data`
-2. Format the additional volume: `mkfs -t ext4 /dev/nbd2`
-3. Retrieve the UUID of your additional volume: `blkid`
-4. Create the **systemd** mount file: `nano /etc/systemd/system/mnt-data.mount` and add the following content:
-```
-[Unit]
-Description=Mount NDB Volume at boot
-
-[Mount]
-What=UUID="16575a81-bb2c-46f3-9ad8-3bbe20157f7c"
-Where=/mnt/data
-Type=ext4
-Options=defaults
-
-[Install]
-WantedBy=multi-user.target
-```
-5. Reload **systemd**: `systemctl daemon-reload`
-6. Mount the volume: `systemctl start mnt-data.mount`
-7. Enable automatic mount during boot: `systemctl enable mnt-data.mount` 
-
-See the [following article](https://www.scaleway.com/docs/attach-and-detach-a-volume-to-an-existing-server/) for details.
-
-### AWS
-
-#### Use an additional volume
-
-1. Create the mount point: `sudo mkdir -p /mnt/data`
-2. Determine the name of the device assigned to the volume: `lsblk`  
-3. Format the additional volume: `sudo mkfs -t ext4 /dev/xvdf`
-4. Update the `ftsab` to mount the volume automatically: `sudo nano /etc/fstab` and add the following line:
-```
-/dev/xvdf /mnt/data ext4 defaults,noatime 1 1
-```
-5. Mount the volume: `sudo mount -a`
-
-See the [following article](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html) for details.

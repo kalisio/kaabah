@@ -21,7 +21,10 @@ module.exports = {
       },
       {
         text: 'How to use it ?',
-        link: '/how-to-use-it/'
+        items: [
+          { text: 'Getting started', link: '/how-to-use-it/getting-started.md' },
+          { text: 'Tips', link: '/how-to-use-it/tips' }
+        ]
       },
       {
         text: 'License',

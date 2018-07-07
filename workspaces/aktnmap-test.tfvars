@@ -4,9 +4,11 @@ domain = "aktnmap.xyz"
 
 subdomain = "test"
 
-manager_instance_type = "t2.nano"
+manager_ip = "18.185.30.204"
 
-worker_instance_type = "t2.nano"
+manager_instance_type = "m5.large"
+
+worker_instance_type = "m5.large"
 
 worker_instance_count = 1
 

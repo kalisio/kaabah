@@ -1,7 +1,8 @@
 resource "scaleway_security_group" "swarm_manager" {
-  count       = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  name        = "${terraform.workspace}-manager"
-  description = "Allow HTTP/S, SSH and Docker swarm traffic"
+  count                   = "${var.provider == "SCALEWAY" ? 1 : 0}"
+  name                    = "${terraform.workspace}-manager"
+  description             = "Allow HTTP/S, SSH and Docker swarm traffic"
+  enable_default_security = false
 }
 
 resource "scaleway_security_group_rule" "internal_in_accept_TCP_2376" {

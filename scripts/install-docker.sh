@@ -10,6 +10,3 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 # install Docker CE
 apt-get update -y
 apt-get install -y docker-ce=$DOCKER_VERSION
-
-# install sshfs driver
-docker plugin install --grant-all-permissions vieux/sshfs sshkey.source=$HOME/.ssh/

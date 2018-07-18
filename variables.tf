@@ -1,40 +1,81 @@
 variable "SCALEWAY_ACCESS_KEY" {}
 variable "SCALEWAY_TOKEN" {}
-variable "SSH_USER" {}
 
-variable "region" {
-  default = "par1"
+variable "AWS_ACCESS_KEY" {}
+variable "AWS_SECRET_KEY" {}
+
+variable "KAABAH_AUTH_USER" {}
+
+variable "KAABAH_AUTH_PASSWORD" {}
+
+variable "provider" {
+  default = ""
 }
 
-variable "instance_type" {
-  default = "C2S"
+variable "domain" {
+  default = "kalisio.xyz"
 }
 
-variable "architectures" {
-  default = {
-    C1   = "arm"
-    VC1S = "x86_64"
-    VC1M = "x86_64"
-    VC1L = "x86_64"
-    C2S  = "x86_64"
-    C2M  = "x86_64"
-    C2L  = "x86_64"
-  }
+variable "subdomain" {
+  default = ""
 }
 
-variable "instance_name" {
-  default = "scw-ci"
+variable "ca_server" {
+  default = "https://acme-v02.api.letsencrypt.org/directory"
 }
 
-variable "instance_count" {
-  default = 3
+variable contact {
+  default = "contact@kalisio.com"
 }
 
-variable "instance_domains" {
-  type    = "map"
-  default = {
-    "1" = "dev.kalisio.xyz",
-    "2" = "test.kalisio.xyz",
-    "3" = "test.kalisio.xyz"
-  }
+variable "docker_version" {
+  default = "18.03.1~ce-0~ubuntu"
+}
+
+variable "docker_network" {
+  default = ""
+}
+
+variable "docker_tls_ca_key" {
+  default = "ca.key"
+}
+
+variable "docker_tls_ca_cert" {
+  default = "ca.cert"
+}
+
+variable "docker_tls_ca_pass" {
+  default = "ca.pass"
+}
+
+variable "manager_ip" {
+  default = ""
+}
+
+variable "manager_instance_type" {
+  default = ""
+}
+
+variable "worker_instance_type" {
+  default = ""
+}
+
+variable "worker_instance_count" {
+  default = 1
+}
+
+variable "worker_additional_volume_count" {
+  default = 0
+}
+
+variable "worker_additional_volume_size" {
+  default = 150
+}
+
+variable "ssh_key" {
+  default = "ssh.pem"
+}
+
+variable "aws_key_name" {
+  default = "kalisio"
 }

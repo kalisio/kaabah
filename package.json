@@ -1,18 +1,15 @@
 {
-  "name": "whoami",
-  "version": "1.0.0",
-  "description": "Node whoami server",
-  "main": "index.js",
+  "name": "kaabah",
+  "version": "0.0.1",
+  "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "scripts": {
-    "test": "standard 'index.js' 'lib/**.js'",
-    "start": "node index.js"
-  },
-  "author": "Alex Bardas <alex.bardas@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "express": "^4.14.0"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "standard": "^8.0.0"
-  }
+    "vuepress": "^0.10.0",
+    "vuepress-theme-kalisio": "https://github.com/kalisio/vuepress-theme-kalisio"
+  },
+  "dependencies": {}
 }

@@ -1,0 +1,50 @@
+debug = false
+
+defaultEntryPoints = ["https", "http"]
+
+
+[traefikLog]
+filePath = "/logs/traefik.log"
+
+[accessLog]
+filePath = "/logs/access.log"
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+  [entryPoints.https]
+  address = ":443"
+  [entryPoints.https.tls]
+    [[entryPoints.https.tls.certificates]]
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+watch = true
+exposedbydefault = false
+swarmmode = true
+
+[ping]
+entryPoint = "http"
+
+[metrics]
+  [metrics.prometheus]
+  entryPoint = "http"
+  buckets = [0.1,0.3,1.2,5.0]
+
+[api]
+entryPoint = "traefik"
+dashboard = true
+
+[acme]
+storage = "acme/acme.json"
+entryPoint = "https"
+onDemand = true
+OnHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+
+
+

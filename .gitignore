@@ -1,19 +1,32 @@
+# vscode
+.vscode
+
 # Logs
-logs
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Dependency directories
-node_modules/
+# Node modules
+node_modules
+
+# VuePress
+docs/.vuepress/dist
 
 # terraform
 .terraform
+terraform.tfstate.d
 
-# traefik
-acme
-logs
+# VuePress
+docs/.vuepress/dist
 
-# SSH key
-ssh.pem
+# secret files
+*.pem
+ca.key
+ca.cert
+ca.pass
+
+
+
+
+

@@ -1,0 +1,145 @@
+version: '3.5'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./configs/prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - kaabah-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints: 
+          - node.role == manager
+      labels:
+        - "traefik.backend=prometheus"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=kaabah-network"
+        - "traefik.port=9090"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.frontend.rule=Host:prometheus.${SUBDOMAIN}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - traefik
+
+  node-exporter:
+    image: prom/node-exporter
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - kaabah-network
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter
+    command: 
+      - '--config.file=/config/blackbox.yml'
+    volumes: 
+      - ./configs/blackbox/:/config/
+    networks:
+      - kaabah-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+
+  alertmanager:
+    image: prom/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=https://alertmanager.${SUBDOMAIN}.${DOMAIN}'
+    volumes:
+      - ./configs/alertmanager/:/etc/alertmanager/
+    networks:
+      - kaabah-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.backend=alertmanager"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=kaabah-network"
+        - "traefik.port=9093"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.frontend.rule=Host:alertmanager.${SUBDOMAIN}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - prometheus
+
+  cadvisor:
+    image: google/cadvisor
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - kaabah-network
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ./configs/grafana/config.monitoring
+    networks:
+      - kaabah-network
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - "traefik.backend=grafana"
+        - "traefik.enable=true"      
+        - "traefik.docker.network=kaabah-network"
+        - "traefik.port=3000"
+        - "traefik.frontend.entryPoints=http,https"
+        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
+        - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}.${DOMAIN}"
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - prometheus
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
+networks:
+  kaabah-network:
+    name: ${DOCKER_NETWORK}
+    external: true
+    

@@ -18,7 +18,9 @@ echo AUTH_PASSWORD=$AUTH_PASSWORD >> .env
 echo DOCKER_NETWORK=$DOCKER_NETWORK >> .env
 
 cp /tmp/deploy-services.sh .
+cp /tmp/remove-services.sh .
 chmod +x deploy-services.sh
+chmod +x remove-services.sh
 
 
 

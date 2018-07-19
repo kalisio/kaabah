@@ -26,7 +26,7 @@ $sudo apt install -y nodejs
 
 ### How to install AWS CLI ?
 
-````bash
+```bash
 $sudo apt install python-pip
 $pip install awscli --upgrade --user
 ```

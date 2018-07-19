@@ -1,6 +1,6 @@
 provider = "AWS"
 
-manager_ip = "18.194.116.122"
+manager_ip = "18.197.221.247"
 
 manager_instance_type = "t2.medium"
 

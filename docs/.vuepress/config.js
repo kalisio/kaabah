@@ -34,7 +34,7 @@ module.exports = {
         items: [
           { text: 'GitHub', link: 'https://github.com/kalisio/kaabah' },
           { text: 'Contributing', link: '/CONTRIBUTING.md' },
-          { text: 'License', link: '/LICENSE.md/' }
+          { text: 'License', link: '/LICENSE.md' }
         ]
       }
     ]

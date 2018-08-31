@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "06acd044a45fd3a98aed887fd1221dd5"
+    "revision": "a1c08ebab98b68cf3629007258310c2f"
   },
   {
     "url": "assets/css/0.styles.8280e1ab.css",
@@ -64,8 +64,8 @@ self.__precacheManifest = [
     "revision": "f1a3362f68b87d61831693a9cd502248"
   },
   {
-    "url": "assets/js/4.75569306.js",
-    "revision": "1766c9e0e0a651b3eabf3a2d9b9dd3e8"
+    "url": "assets/js/4.ca126ddb.js",
+    "revision": "576a11c097ffb5e6052958ef844dd15b"
   },
   {
     "url": "assets/js/5.629da084.js",
@@ -88,40 +88,40 @@ self.__precacheManifest = [
     "revision": "e83bf96414ef30c979cbdb64a367e337"
   },
   {
-    "url": "assets/js/app.dabe45de.js",
-    "revision": "c186f3e8f17f6f79733c93a365dbfc18"
+    "url": "assets/js/app.a1ac7b8c.js",
+    "revision": "64781a4145ceacc6f2c929e428310b16"
   },
   {
     "url": "CONTRIBUTING.html",
-    "revision": "d04be053852e93170fc64550070499b4"
+    "revision": "0a549a53fcdbe970b4c96ee58a727e62"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "011bc66d86abe254dab00fed924d3bc2"
+    "revision": "ad7c13db445986cdebd0e7375563db73"
   },
   {
     "url": "how-to-use-it/getting-started.html",
-    "revision": "6aa9fb0d36034469c24483f12b61f0ab"
+    "revision": "dc3a8285b9c0b8532e9788fcba234d23"
   },
   {
     "url": "how-to-use-it/tips.html",
-    "revision": "e6b86691cce0e47274d05f075979d3da"
+    "revision": "4fbc3dbc045a746325d8803b6f11c7e8"
   },
   {
     "url": "index.html",
-    "revision": "60c32834742cdfef0ab4f935259c546b"
+    "revision": "a0d2685fbf343be5e560ebf1fda8d92e"
   },
   {
     "url": "LICENSE.html",
-    "revision": "b9bd9f48c4c5b658adf8100039658e65"
+    "revision": "63404e2d93b781b40edfec62251c9413"
   },
   {
     "url": "license/index.html",
-    "revision": "820d428598c20a4757efed85cbc1ac65"
+    "revision": "bcdc263ca608a97a2b388744c7dbd455"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "3cdd97602cf8b258720876d2272633dc"
+    "revision": "8444b7ad8d5e181ec6b90a1a15d6e584"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

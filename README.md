@@ -1,13 +1,12 @@
 # Kaabah
 
-![Kaabah](https://s3.eu-central-1.amazonaws.com/kalisioscope/kdk/kdk-logo-black-256x84.png)
 A Terraform solution to build and operate Docker Swarm infrastructures
 
 ## Documentation
 
 The full documentation is available [here](https://kalisio.github.io/kaabah/)
 
-> The documentation is generated using [VuePress](https://vuepress.vuejs.org/)
+> The documentation website is generated using [VuePress](https://vuepress.vuejs.org/)
 
 ## Contributing
 

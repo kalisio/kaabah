@@ -6,10 +6,13 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-icon-64x64.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  serviceWorker: false,
+  serviceWorker: true,
   theme: 'kalisio',
   themeConfig: {
     docsDir: 'docs',
+    serviceWorker: {
+      updatePopup: true
+    },
     nav: [
       {
         text: 'What is it ?',
@@ -27,12 +30,12 @@ module.exports = {
         ]
       },
       {
-        text: 'License',
-        link: '/license/'
-      },
-      {
-        text: 'GitHub',
-        link: 'https://github.com/kalisio/kaabah'
+        text: '?',
+        items: [
+          { text: 'GitHub', link: 'https://github.com/kalisio/kaabah' },
+          { text: 'Contributing', link: '/CONTRIBUTING.md' },
+          { text: 'License', link: '/LICENSE.md/' }
+        ]
       }
     ]
   }

@@ -30,7 +30,7 @@ module.exports = {
         ]
       },
       {
-        text: '?',
+        text: '  ?',
         items: [
           { text: 'GitHub', link: 'https://github.com/kalisio/kaabah' },
           { text: 'Contributing', link: '/CONTRIBUTING.md' },

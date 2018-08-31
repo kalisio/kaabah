@@ -1,7 +1,5 @@
 # Contributing to Kaabah
 
-Thank you for contributing to **Kaabah**
-
 ## Report a bug
 
 Before creating an issue please make sure you have checked out the docs, you might want to also try searching Github. It's pretty likely someone has already asked a similar question.

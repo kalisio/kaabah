@@ -60,6 +60,7 @@ module "AWS" {
   worker_instance_count          = "${var.worker_instance_count}"
   worker_additional_volume_count = "${var.worker_additional_volume_count}"
   worker_additional_volume_size  = "${var.worker_additional_volume_size}"
+  worker_additional_volume_type  = "${var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"}"
   ssh_key                        = "${var.ssh_key}"
   key_name                       = "${var.aws_key_name}"
 }

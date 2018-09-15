@@ -72,6 +72,10 @@ variable "worker_additional_volume_size" {
   default = 150
 }
 
+variable "worker_additional_volume_type" {
+  default = ""
+}
+
 variable "ssh_key" {
   default = "ssh.pem"
 }

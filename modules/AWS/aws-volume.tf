@@ -2,7 +2,7 @@ resource "aws_ebs_volume" "swarm_volume" {
   count             = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
   availability_zone = "${var.availability_zone}"
   size              = "${var.worker_additional_volume_size}"
-  type              = "gp2"
+  type              = "${var.worker_additional_volume_type}"
 
   tags {
     Name = "${terraform.workspace}-volume-${count.index}"

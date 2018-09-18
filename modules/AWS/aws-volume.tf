@@ -10,22 +10,22 @@ resource "aws_ebs_volume" "swarm_volume" {
 }
 
 resource "aws_volume_attachment" "swarm_volume_attachement" {
-  count       = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
-  device_name = "${var.device_names[count.index % var.worker_additional_volume_count]}"
-  instance_id = "${aws_instance.swarm_worker.*.id[count.index / var.worker_additional_volume_count]}"
-  volume_id   = "${aws_ebs_volume.swarm_volume.*.id[count.index]}"
-  force_detach = true
+  count         = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
+  device_name   = "${var.device_names[count.index % var.worker_additional_volume_count]}"
+  instance_id   = "${aws_instance.swarm_worker.*.id[count.index / var.worker_additional_volume_count]}"
+  volume_id     = "${aws_ebs_volume.swarm_volume.*.id[count.index]}"
+  force_detach  = true
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh /tmp/mount-volume.sh ${replace(self.device_name, "s", "xv")} DATA${count.index % var.worker_additional_volume_count}",
+      "sudo sh /tmp/mount-volume.sh ${local.worker_use_nvme_device ? var.nvme_devices[count.index % var.worker_additional_volume_count] : var.standard_devices[count.index % var.worker_additional_volume_count]} data${count.index % var.worker_additional_volume_count} $USER",
     ]
 
     connection {
-      type = "ssh"
-      user = "${var.ssh_user}"
+      type        = "ssh"
+      user        = "${var.ssh_user}"
       private_key = "${file(var.ssh_key)}"
-      host = "${aws_instance.swarm_worker.*.public_ip[count.index / var.worker_additional_volume_count]}"
+      host        = "${aws_instance.swarm_worker.*.public_ip[count.index / var.worker_additional_volume_count]}"
     }
   }
 }

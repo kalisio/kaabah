@@ -2,9 +2,9 @@ provider = "AWS"
 
 manager_ip = "18.194.116.122"
 
-manager_instance_type = "t2.medium"
+manager_instance_type = "t3.medium"
 
-worker_instance_type = "t2.medium"
+worker_instance_type = "t3.medium"
 
 worker_instance_count = 3
 

@@ -6,8 +6,7 @@ resource "aws_instance" "swarm_worker" {
   security_groups             = ["${aws_security_group.swarm_manager.name}"]
   associate_public_ip_address = true
 
-  ebs_block_device {
-    device_name = "/dev/sda1"
+  root_block_device {
     volume_type = "gp2"
     volume_size = "${var.instance_volume_size}"
   }

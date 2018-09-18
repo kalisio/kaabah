@@ -11,8 +11,7 @@ resource "aws_instance" "swarm_manager" {
   instance_type   = "${var.manager_instance_type}"
   security_groups = ["${aws_security_group.swarm_manager.name}"]
 
-  ebs_block_device {
-    device_name = "/dev/sda1"
+  root_block_device {
     volume_type = "gp2"
     volume_size = "${var.instance_volume_size}"
   }

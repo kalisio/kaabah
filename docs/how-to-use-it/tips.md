@@ -6,17 +6,6 @@ sidebar: auto
 
 ## Ubuntu
 
-### How to install SSHF ?
-
-```bash
-$sudo apt-get install sshfs
-```
-
-Edit fuse configuration to enable the `allow_other` option:
-
-1. Edit the file `fuse.conf` : `sudo nano /etc/fuse.conf`
-2. Uncomment the line: `#user_allow_other`
-
 ### How to install Node.js (>8) & Yarn ?
 
 ```bash

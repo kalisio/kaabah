@@ -40,7 +40,7 @@ And it exposes the following variables:
 | `worker_instance_count` | The number of worker instances. The default value is `1` |
 | `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
 | `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB. The default value is `150` |
-| `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](see https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
+| `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
 | `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 

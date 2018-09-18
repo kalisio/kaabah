@@ -20,4 +20,5 @@ bash /tmp/install-docker.sh $DOCKER_VERSION
 docker swarm join $MANAGER_PRIVATE_IP:2377 \
   --token $(docker --tlsverify --tlscacert=.docker/ca.pem --tlscert=.docker/cert.pem --tlskey=.docker/key.pem -H=$MANAGER_PRIVATE_IP:2376 swarm join-token -q worker)
 
-
+# Install sshfs
+bash /tmp/install-sshfs.sh

@@ -53,7 +53,7 @@ These variables can be overridden to match your environment requirements. See th
 - manage the services deployed on the cluster using [portainer](https://portainer.io/)
 - monitor the cluster using [prometheus](https://prometheus.io/)
 - analyze the cluster metrics using [grafana](https://grafana.com/)
-- share files among the nodes of the cluster using [Docker volume plugin for sshfs](https://github.com/vieux/docker-volume-sshfs)
+- share files among the nodes of the cluster using [sshfs](https://fr.wikipedia.org/wiki/Secure_shell_file_system)
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 

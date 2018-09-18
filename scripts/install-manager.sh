@@ -28,4 +28,6 @@ bash /tmp/install-docker.sh $DOCKER_VERSION
 # Initialise swarm
 docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
 
+# Install sshfs
+bash /tmp/install-sshfs.sh
 

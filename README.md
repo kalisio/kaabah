@@ -1,4 +1,4 @@
-# Kaabah
+[# Kaabah](https://kalisio.github.io/kaabah/)
 
 _A Terraform solution to build and operate Docker Swarm infrastructures_
 
@@ -26,7 +26,7 @@ The command `npm run release:<type>`, where  `<type>` is either `patch`, `minor`
 
 This project is sponsored by 
 
-![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)
+[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
 
 ## License
 

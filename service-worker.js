@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "de47b6f1be5a88ac79d26372c572c58c"
+    "revision": "6ef00c376793edb6575e7d9a49976126"
   },
   {
     "url": "assets/css/0.styles.8280e1ab.css",
@@ -84,36 +84,36 @@ self.__precacheManifest = [
     "revision": "a69ea71c325b1e605cffd05dc5736c88"
   },
   {
-    "url": "assets/js/app.da5f6921.js",
-    "revision": "2cd0877f0d1c489c9cf9341bc5f76084"
+    "url": "assets/js/app.d9e47884.js",
+    "revision": "8009de8034a93d6da58a6977d84a909b"
   },
   {
     "url": "CONTRIBUTING.html",
-    "revision": "d972ad3ae43562c6ed6d13ab529768b8"
+    "revision": "9f7101602c5fd91d4c14cf944172a710"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "7bdec14e4dc920e075f384b5bb16b2f1"
+    "revision": "965019183f88c2410527e8384daab2e7"
   },
   {
     "url": "how-to-use-it/getting-started.html",
-    "revision": "27444cb0b017ac613d2cd27d9859cd6a"
+    "revision": "7f0bfdb9d52d43831337b1fc10c398fe"
   },
   {
     "url": "how-to-use-it/tips.html",
-    "revision": "7041b6528bc281eb85cce2e9d6e8261a"
+    "revision": "5450037001b3e9904a76abc85b947602"
   },
   {
     "url": "index.html",
-    "revision": "6df2c52434e4518788c8a3d69ead79d6"
+    "revision": "fcf064da07227680c66f8bfe08deee0b"
   },
   {
     "url": "LICENSE.html",
-    "revision": "6990e1791faeb3961a9fac54abfb83d0"
+    "revision": "bfe14ace95427401fa0d54f554ae93b5"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "ad09efd55a63f0676b48d0c21e594dc9"
+    "revision": "9ede968fca54e3477d2f5bc57dd2ffa8"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

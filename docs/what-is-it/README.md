@@ -4,7 +4,12 @@ sidebar: auto
 
 # What is it ?
 
-<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to build and operate [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructures either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). These infrastructures are bootstrapped with high level services such as [traefik](https://traefik.io/), [portainer](https://portainer.io/), [prometheus](https://prometheus.io/) and [grafana](https://grafana.com/) in order to help you operate your cluster easily.
+<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to build and operate [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructures either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). In order to help you operate your cluster easily, these infrastructures are bootstrapped with the following services:
+* [registry](https://docs.docker.com/registry/): a private registry to use as part of your infrastructure
+* [traefik](https://traefik.io/): the native cloud edge router !
+* [portainer](https://portainer.io/): a simple management UI for Docker 
+* [prometheus](https://prometheus.io/): a monitoring system
+* [grafana](https://grafana.com/): the analytics platform for all your metrics
 
 ![Kaabah overview](./../assets/kaabah-overview.svg)
 

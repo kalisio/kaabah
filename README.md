@@ -1,6 +1,6 @@
 # Kaabah
 
-A Terraform solution to build and operate Docker Swarm infrastructures
+_A Terraform solution to build and operate Docker Swarm infrastructures_
 
 ## Documentation
 

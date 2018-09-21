@@ -77,3 +77,18 @@ variable "additional_volume_size" {
     C2L      = 0
   }
 }
+
+variable "device_names" {
+  default = [
+    "/dev/vda2",
+    "/dev/vda3",
+    "/dev/vda4",
+    "/dev/vda5",
+    "/dev/vda6",
+    "/dev/vda7",
+    "/dev/vda8",
+    "/dev/vda9",
+    "/dev/vda10",
+    "/dev/vda11"
+  ]
+}

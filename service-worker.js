@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "abed077e140bc757e07138b60fecb523"
+    "revision": "c9eb9d1c88ccd40e36a824321e71bb7b"
   },
   {
     "url": "assets/css/0.styles.8280e1ab.css",
@@ -72,8 +72,8 @@ self.__precacheManifest = [
     "revision": "351013ae67f803c3b01f84caeb4433e2"
   },
   {
-    "url": "assets/js/7.8421df83.js",
-    "revision": "4db96c302c7ca0c3025d5e03e0559c88"
+    "url": "assets/js/7.d8229216.js",
+    "revision": "dac53d6cb00d34a916e5ba052f22b667"
   },
   {
     "url": "assets/js/8.af007864.js",
@@ -84,36 +84,36 @@ self.__precacheManifest = [
     "revision": "d7c3a4323fce14b2dd92223a8983b6e1"
   },
   {
-    "url": "assets/js/app.6e20c603.js",
-    "revision": "97101c5d8396af261ae3edcafbca73ad"
+    "url": "assets/js/app.9189ae92.js",
+    "revision": "ec059ea0864e4a816c26c039bba57e05"
   },
   {
     "url": "CONTRIBUTING.html",
-    "revision": "f4735e8a8e9a5a9b2ec7f857833782c2"
+    "revision": "b5f24a83b44955d1f31066a8d6b9f346"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "88868cf0d49b0b3550c37af20c63239a"
+    "revision": "00ad2e4fe7950702503ea16468509036"
   },
   {
     "url": "how-to-use-it/getting-started.html",
-    "revision": "f64687ba5930cc86197ca88eefbaa065"
+    "revision": "2df2d3158cc5e23efef994f5a0634c1a"
   },
   {
     "url": "how-to-use-it/tips.html",
-    "revision": "689d327f8fec0580c11eeac61b3468e6"
+    "revision": "ee9ce38beabfacb7b06227d8dde42135"
   },
   {
     "url": "index.html",
-    "revision": "55c069adcfe8dca8bc1d7951f4ae16f9"
+    "revision": "835d3623c1ee6fbe99fad2577c3df3e4"
   },
   {
     "url": "LICENSE.html",
-    "revision": "6b2c278872fa33eb6c51c8d0a769122b"
+    "revision": "210cdbff63fa572c04d62e1833c03e1c"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "0357d14a8cc42e5d90e03a6cfc6009fa"
+    "revision": "fa3cd124a9d2eabeeec676330ca395e6"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

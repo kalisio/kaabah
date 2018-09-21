@@ -12,9 +12,9 @@ Starting from this premise, **Kaabah** allows you to manage as many clusters as 
 
 ![Kaabah terraform](./../assets/kaabah-terraform.svg)
 
-## Terraform configuration
+## Terraform 
 
-The Terraform configuration is composed of 2 modules:
+The Terraform code is composed of 2 modules:
 - the **AWS** module which has the responsibility to create the Docker Swarm infrastructure on AWS
 - the **Scaleway** module has the responsibility to create the Docker Swarm infrastructure on Scaleway
 
@@ -49,11 +49,11 @@ These variables can be overridden to match your environment requirements. See th
 ## Docker Swarm
 
 <b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with a stack of high level services that allows you to:
-- route the traffic to the cluster and ensure SSL termination using [traefik](https://traefik.io/)
-- manage the services deployed on the cluster using [portainer](https://portainer.io/)
-- monitor the cluster using [prometheus](https://prometheus.io/)
-- analyze the cluster metrics using [grafana](https://grafana.com/)
-- share files among the nodes of the cluster using [sshfs](https://fr.wikipedia.org/wiki/Secure_shell_file_system)
+- route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
+- manage the services deployed on the cluster using [Portainer](https://portainer.io/)
+- monitor the cluster using [Prometheus](https://prometheus.io/)
+- analyze the cluster metrics using [Grafana](https://grafana.com/)
+- share files among the nodes of the cluster using [SSHFS](https://fr.wikipedia.org/wiki/Secure_shell_file_system)
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 

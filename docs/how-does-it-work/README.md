@@ -44,7 +44,7 @@ And it exposes the following variables:
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
 | `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 
-These variables can be overridden to match your environment requirements. See the section [How to use it ?](## How to use it ?)
+These variables can be overridden to match your environment requirements. See the section [How to use it ?](./../how-to-use-it/getting-started.md)
 
 ## Docker Swarm
 
@@ -68,7 +68,7 @@ The instances are named according the following convention:
 <b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
 
 ::: warning
-Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
+Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` variable to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
 :::
 
 By default, <b>Kaabah</b> specializes the <b>traefik</b> configuration with:
@@ -81,6 +81,7 @@ By default, <b>Kaabah</b> specializes the <b>traefik</b> configuration with:
   - **Prometheus**
   - **Alertmanager**
   - **Grafana** 
+
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
 
 It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that **portainer** and **grafana** authentication have been disabled.

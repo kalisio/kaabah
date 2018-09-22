@@ -1,5 +1,5 @@
 provider "scaleway" {
-  version = "~> 1.4.0"
+  version = "~> 1.6.0"
 
   organization = "${var.access_key}"
   token        = "${var.token}"

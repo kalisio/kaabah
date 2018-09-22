@@ -11,10 +11,13 @@ sidebar: auto
 * [Prometheus](https://prometheus.io/): a monitoring system
 * [Grafana](https://grafana.com/): the analytics platform for all your metrics
 
+
 ![Kaabah overview](./../assets/kaabah-overview.svg)
 
+
 ::: tip Sponsored by Kalisio
-**Kaabah** was initiated by [Kalisio](https://kalisio.com) to provide us with the necessary tools to manage the different infrastructures we need to support our development.<br/><br/>
-![kalisio](./../assets/kalisio-banner.png)<br/>
+
+[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
+
 *Unleashing the potential of spatial information*
-::: 
+:::

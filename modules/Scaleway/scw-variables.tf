@@ -80,15 +80,15 @@ variable "additional_volume_size" {
 
 variable "device_names" {
   default = [
-    "/dev/vda2",
-    "/dev/vda3",
-    "/dev/vda4",
-    "/dev/vda5",
-    "/dev/vda6",
-    "/dev/vda7",
-    "/dev/vda8",
-    "/dev/vda9",
-    "/dev/vda10",
-    "/dev/vda11"
+    "/dev/nbd2",
+    "/dev/nbd3",
+    "/dev/nbd4",
+    "/dev/nbd5",
+    "/dev/nbd6",
+    "/dev/nbd7",
+    "/dev/nbd8",
+    "/dev/nbd9",
+    "/dev/nbd10",
+    "/dev/nbd11"
   ]
 }

@@ -2,7 +2,7 @@
 sidebar: auto
 ---
 
-::: Prerequisites 
+::: warning Prerequisites 
 **Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
 :::
 
@@ -19,7 +19,7 @@ sidebar: auto
   * [Prometheus](https://prometheus.io/)
   * [Grafana](https://grafana.com/)
   
-### Global approach
+## Global approach
 
 **Kaabah** is designed to take advantage of Terraform Workspaces and its usage relies on the recommend practices as presented in this [article](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Thus, we assume a workspace is used to store the configuration of your infrastructure for each environment. 
 

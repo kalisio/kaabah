@@ -2,11 +2,11 @@ provider = "SCALEWAY"
 
 manager_ip = "51.15.193.229"
 
-manager_instance_type = "START1-S"
+manager_instance_type = "START1-M"
 
-worker_instance_type = "START1-S"
+worker_instance_type = "C2S"
 
-worker_instance_count = 1
+worker_instance_count = 3
 
 worker_additional_volume_count = 1
 

@@ -1,6 +1,6 @@
 # [Kaabah](https://kalisio.github.io/kaabah/)
 
-_A Terraform solution to build and operate Docker Swarm infrastructures_
+_A Terraform solution to design, build and operate Docker Swarm infrastructures_
 
 ## Documentation
 

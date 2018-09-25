@@ -4,22 +4,13 @@ sidebar: auto
 
 # What is it ?
 
-<b>Kaabah</b> is a [Terraform](https://www.terraform.io/) based solution to build and operate [Docker Swarm](https://docs.docker.com/engine/swarm/) infrastructures either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). 
+**Kaabah** is a [Terraform](https://www.terraform.io/) based solution to design, build and operate [Docker Swarm](https://docs.docker.com/engine/swarm/) cluster either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com. 
 
-In order to help you operate your cluster easily, these infrastructures are bootstrapped with the following services:
-* [Registry](https://docs.docker.com/registry/): a private registry to use as part of your infrastructure
-* [Traefik](https://traefik.io/): the native cloud edge router !
-* [Portainer](https://portainer.io/): a simple management UI for Docker 
-* [Prometheus](https://prometheus.io/): a monitoring system
-* [Grafana](https://grafana.com/): the analytics platform for all your metrics
-
-
+But even more, **Kaabah** bootstraps your cluster with well know Open Source solutions to let you operate it with ease. More precisely, **Kaabah** allows you to:
+* Deploy and manage the services on your infrastructure using [Registry](https://docs.docker.com/registry/) and [Portainer](https://portainer.io/)
+* Route the traffic to your services ensuring SSL termination using [Traefik](https://traefik.io) and [Let's Encrypt](https://letsencrypt.org/)
+* Monitor the states of your infrastructure as well as the health check of your services using [Prometheus](https://prometheus.io/)
+* Collect metrics and analyze them using [Grafana](https://grafana.com/)
+  
 ![Kaabah overview](./../assets/kaabah-overview.svg)
 
-
-::: tip Sponsored by Kalisio
-
-[![Kalisio](https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png)](https://kalisio.com)
-
-*Unleashing the potential of spatial information*
-:::

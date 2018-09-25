@@ -2,15 +2,35 @@
 sidebar: auto
 ---
 
-# How does it work ?
+::: Prerequisites 
+**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
+:::
 
-## Overview
+## Main concepts
 
-The overall approach is based on the use of Terraform Workspaces. As a reminder, a Workspace  is a collection of everything Terraform needs to run: a configuration of your infrastructure (i.e. **kaabah**), values for that configuration's variables, and state data to keep track of operations. Therefore a Workplace could be considered as an instance of the the infrastructure with its own environment. Follow this [link](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) to read more about Terraform Workspaces and best practices. 
+**Kaabah** let you manipulate the 
+* *Configuration*: a set of Terraform variables used to design your infrastructure: the cloud provider, the number of workers, the number of volumes...
+* *Workspace*: a collection of everything Terraform needs to manager an infrastructure: the configuration and state data to keep track of operations. A workplace c
+* *Cluster*: a Docker Swarm infrastructure built using **Kaabah*. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
+* *Service*: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
+  * [Registry](https://docs.docker.com/registry/)
+  * [Traefik](https://traefik.io)
+  * [Portainer](https://portainer.io/)
+  * [Prometheus](https://prometheus.io/)
+  * [Grafana](https://grafana.com/)
+  
 
-Starting from this premise, **Kaabah** allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Moreover, you have the capability to use Scaleway or AWS to host your infrastructure. Assuming, we name the our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of **Kaabah**:
+
+
+**Kaabah** is designed to take advantage of Terraform [Workspace](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). As a reminder, a Workspace  is a collection of everything Terraform needs to run: a configuration of your infrastructure, values for that configuration's variables, and state data to keep track of operations. Therefore a Workplace could be considered as an instance of the the infrastructure with its own environment. 
+
+Starting from this premise, **Kaabah** allows you to manage as many clusters as your projects require and stores their states in a bucket on Amazon S3. Assuming, we name our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall approach of **Kaabah**:
+
 
 ![Kaabah terraform](./../assets/kaabah-terraform.svg)
+
+## 
+Given a Workspace, **Kaabah** is able to 
 
 ## Terraform 
 

@@ -12,7 +12,7 @@ features:
 footer: MIT Licensed | Copyright © 2018-Kalisio
 ---
 
-<p align="center">
+<center>
   <h4>Sponsored by</h4>
   <a href="https://kalisio.com"><img src="https://s3.eu-central-1.amazonaws.com/kalisioscope/kalisio/kalisio-logo-black-256x84.png"></a>
-</p>
+</center>

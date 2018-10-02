@@ -96,8 +96,7 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
-    env_file:
-      - ./configs/grafana/config.monitoring
+      - ./configs/grafana/grafana.ini:/etc/grafana/grafana.ini
     networks:
       - kaabah-network
     deploy:

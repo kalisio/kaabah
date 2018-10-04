@@ -7,5 +7,5 @@ EXISTING_DOCKER_NETWORK=`docker network ls | grep $DOCKER_NETWORK`
 if [ "$EXISTING_DOCKER_NETWORK" = "" ]; then
   docker network create -d overlay --attachable $DOCKER_NETWORK
 fi
-docker stack deploy -c traefik.yml -c portainer.yml -c prometheus.yml -c registry.yml kaabah
+docker stack deploy -c deploy/traefik.yml -c deploy/portainer.yml -c deploy/prometheus.yml -c deploy/grafana.yml -c deploy/registry.yml kaabah
 

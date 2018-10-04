@@ -4,7 +4,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./configs/prometheus/:/etc/prometheus/
+      - ./../configs/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -56,7 +56,7 @@ services:
       - '--storage.path=/alertmanager'
       - '--web.external-url=https://alertmanager.${SUBDOMAIN}.${DOMAIN}'
     volumes:
-      - ./configs/alertmanager/:/etc/alertmanager/
+      - ./../configs/alertmanager/:/etc/alertmanager/
     networks:
       - kaabah-network
     deploy:
@@ -91,35 +91,8 @@ services:
       restart_policy:
         condition: on-failure
 
-  grafana:
-    image: grafana/grafana
-    volumes:
-      - grafana_data:/var/lib/grafana
-      - ./configs/grafana/provisioning/:/etc/grafana/provisioning/
-      - ./configs/grafana/grafana.ini:/etc/grafana/grafana.ini
-    networks:
-      - kaabah-network
-    deploy:
-      replicas: 1
-      placement:
-        constraints:
-          - node.role == manager
-      labels:
-        - "traefik.backend=grafana"
-        - "traefik.enable=true"      
-        - "traefik.docker.network=kaabah-network"
-        - "traefik.port=3000"
-        - "traefik.frontend.entryPoints=http,https"
-        - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}.${DOMAIN}"
-      restart_policy:
-        condition: on-failure
-    depends_on:
-      - prometheus
-
 volumes:
   prometheus_data: {}
-  grafana_data: {}
 
 networks:
   kaabah-network:

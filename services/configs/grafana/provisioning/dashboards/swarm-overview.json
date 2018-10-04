@@ -53,7 +53,6 @@
   },
   "description": "Overview of the most important Docker Swarm metrics",
   "editable": true,
-  "gnetId": 609,
   "graphTooltip": 1,
   "iteration": 1538576416552,
   "links": [],
@@ -67,7 +66,7 @@
       "decimals": 2,
       "editable": true,
       "error": false,
-      "fill": 5,
+      "fill": 10,
       "grid": {},
       "gridPos": {
         "h": 7,

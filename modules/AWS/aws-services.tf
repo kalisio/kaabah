@@ -1,6 +1,6 @@
 # Create a null resource is a trick to ensure the commands are send on each apply
 # Otherwise they are only run when provisioning new resources
-resource "null_resource" "deploy_services" {
+resource "null_resource" "services" {
   count = "${var.provider == "AWS" ? 1 : 0}"
 
   connection {

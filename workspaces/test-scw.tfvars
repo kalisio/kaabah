@@ -8,7 +8,7 @@ worker_instance_type = "C2S"
 
 worker_instance_count = 3
 
-worker_additional_volume_count = 0
+worker_additional_volume_count = 1
 
 worker_additional_volume_size = 150
 

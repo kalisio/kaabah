@@ -19,7 +19,7 @@ $terraform taint -module=AWS null_resource.worker_labels.1
 # Taint the labels attached to the manager
 $terraform taint -module=AWS null_resource.manager_labels
 # Edit the current tfvars file and apply the changes
- $terraform apply -var-file="workspaces/<file>.tfvars"
+$terraform apply -var-file="workspaces/<file>.tfvars"
 ```
 
 ### Using the registry

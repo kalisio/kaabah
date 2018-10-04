@@ -22,15 +22,9 @@ resource "null_resource" "swarm_worker_volume_mount" {
     timeout     = "300s"
   }
 
-  # Need to re-provision the mount-volume.sh script as on Scaleway attaching volumes requires 
-  # the servers to be powered and consequently it clears /tmp directory.
-  provisioner "file" {
-    source      = "scripts/mount-volume.sh"
-    destination = "/tmp/mount-volume.sh"
-  }
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/mount-volume.sh ${var.device_names[count.index % var.worker_additional_volume_count]} data${count.index % var.worker_additional_volume_count}",
+      "sh ~/.kaabah/mount-volume.sh ${var.device_names[count.index % var.worker_additional_volume_count]} data${count.index % var.worker_additional_volume_count}",
     ]
   }
 

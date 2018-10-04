@@ -23,36 +23,42 @@ resource "aws_instance" "swarm_worker" {
     destination = "~/.ssh/ssh.pem"
   }
 
+  provisioner "remote-exec" {
+    inline = [
+      "mkdir ~/.kaabah",
+    ]
+  }
+
   provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
-    destination = "/tmp/ca.cert"
+    destination = "~/.kaabah/ca.cert"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_key}"
-    destination = "/tmp/ca.key"
+    destination = "~/.kaabah/ca.key"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_pass}"
-    destination = "/tmp/ca.pass"
+    destination = "~/.kaabah/ca.pass"
   }
 
   provisioner "file" {
     source      = "scripts/"
-    destination = "/tmp"
+    destination = "~/.kaabah"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh /tmp/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${basename(var.ssh_key)}",
+      "sudo bash ~/.kaabah/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${basename(var.ssh_key)}",
     ]
   }
 
   #  Leave swarm
   provisioner "remote-exec" {
     inline = [
-      "sudo sh /tmp/remove-worker.sh ${aws_instance.swarm_manager.private_ip}",
+      "sudo bash ~/.kaabah/remove-worker.sh ${aws_instance.swarm_manager.private_ip}",
     ]
     when       = "destroy"
     on_failure = "continue"

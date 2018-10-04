@@ -27,29 +27,35 @@ resource "scaleway_server" "swarm_manager" {
     destination = "~/.ssh/ssh.pem"
   }
 
+ provisioner "remote-exec" {
+    inline = [
+      "mkdir ~/.kaabah",
+    ]
+  }
+
   provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
-    destination = "/tmp/ca.cert"
+    destination = "~/.kaabah/ca.cert"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_key}"
-    destination = "/tmp/ca.key"
+    destination = "~/.kaabah/ca.key"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_pass}"
-    destination = "/tmp/ca.pass"
+    destination = "~/.kaabah/ca.pass"
   }
 
   provisioner "file" {
     source      = "scripts/"
-    destination = "/tmp"
+    destination = "~/.kaabah"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/install-manager.sh ${var.docker_version} ${self.private_ip}",
+      "bash ~/.kaabah/install-manager.sh ${var.docker_version} ${self.private_ip}",
     ]
   }
 }

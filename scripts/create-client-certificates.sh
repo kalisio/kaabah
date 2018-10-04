@@ -1,29 +1,29 @@
 #!/bin/bash
 
-mkdir ~/.docker
+mkdir $HOME/.docker
 
 # Copy CA public key
-cp /tmp/ca.cert ~/.docker/ca.pem
+cp $HOME/.kaabah/ca.cert ~/.docker/ca.pem
 
 # Generate private key
 openssl req -new \
-  -newkey rsa:4096 -keyout ~/.docker/key.pem -nodes \
-  -out /tmp/client.csr -subj "/CN=$HOSTNAME"
+  -newkey rsa:4096 -keyout $HOME/.docker/key.pem -nodes \
+  -out $HOME/.kaabah/client.csr -subj "/CN=$HOSTNAME"
 
 # Generate public key
 EXTFILE="extendedKeyUsage = clientAuth"
 openssl x509 -req \
   -days 1825 -sha256 \
-  -in /tmp/client.csr -passin file:/tmp/ca.pass \
-  -CA /tmp/ca.cert -CAkey /tmp/ca.key -CAcreateserial \
-  -out ~/.docker/cert.pem \
+  -in $HOME/.kaabah/client.csr -passin file:$HOME/.kaabah/ca.pass \
+  -CA $HOME/.kaabah/ca.cert -CAkey $HOME/.kaabah/ca.key -CAcreateserial \
+  -out $HOME/.docker/cert.pem \
   -extfile <(echo -e "${EXTFILE}")
   
 # Fix certificates permissions
 chmod 600 \
-  ~/.docker/ca.pem \
-  ~/.docker/key.pem \
-  ~/.docker/cert.pem
+  $HOME/.docker/ca.pem \
+  $HOME/.docker/key.pem \
+  $HOME/.docker/cert.pem
 
 # Clean temporary files
-rm /tmp/client.csr
+rm $HOME/.kaabah/client.csr

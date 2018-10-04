@@ -49,7 +49,7 @@ variable "manager_instance_type" {}
 
 variable "manager_labels" {}
 
-variable "manager_script" {}
+variable "manager_user_script" {}
 
 variable "worker_instance_type" {}
 
@@ -65,7 +65,7 @@ variable "worker_labels" {
   type = "list"
 }
 
-variable "worker_scripts" {
+variable "worker_user_scripts" {
   type = "list"
 }
 

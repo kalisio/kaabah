@@ -60,7 +60,7 @@ variable "manager_labels" {
   default = ""
 }
 
-variable "manager_script" {
+variable "manager_user_script" {
   default = ""
 }
 
@@ -89,7 +89,7 @@ variable "worker_labels" {
   default = []
 }
 
-variable "worker_scripts" {
+variable "worker_user_scripts" {
   type = "list"
   default = []
 }

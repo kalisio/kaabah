@@ -56,6 +56,14 @@ variable "manager_instance_type" {
   default = ""
 }
 
+variable "manager_labels" {
+  default = ""
+}
+
+variable "manager_script" {
+  default = ""
+}
+
 variable "worker_instance_type" {
   default = ""
 }
@@ -74,6 +82,16 @@ variable "worker_additional_volume_size" {
 
 variable "worker_additional_volume_type" {
   default = ""
+}
+
+variable "worker_labels" {
+  type = "list"
+  default = []
+}
+
+variable "worker_scripts" {
+  type = "list"
+  default = []
 }
 
 variable "ssh_key" {

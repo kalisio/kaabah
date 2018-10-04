@@ -7,7 +7,7 @@ AUTH_USER=$5
 AUTH_PASSWORD=$6
 DOCKER_NETWORK=$7
 
-cd $HOME/services
+cd $HOME/kaabah
 
 echo SUBDOMAIN=$SUBDOMAIN > .env
 echo DOMAIN=$DOMAIN >> .env

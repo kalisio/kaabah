@@ -8,11 +8,11 @@ sidebar: auto
 
 ## Main concepts
 
-**Kaabah** let you manipulate the 4 main entities:
-* *Configuration*: a set of Terraform variables used to design your infrastructure: the cloud provider, the number of workers, the number of volumes...
-* *Workspace*: a collection of everything Terraform needs to manager an infrastructure: the configuration and state data to keep track of operations.
-* *Cluster*: a Docker Swarm infrastructure built using **Kaabah*. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
-* *Service*: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
+**Kaabah** let you manipulate 4 kind of entities:
+* **Configuration**: a set of Terraform variables used to design your infrastructure: the cloud provider, the number of workers, the number of volumes...
+* **Workspace**: a collection of everything Terraform needs to manager an infrastructure: the configuration and state data to keep track of operations.
+* **Cluster**: a Docker Swarm infrastructure built using **Kaabah*. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
+* **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
   * [Registry](https://docs.docker.com/registry/)
   * [Traefik](https://traefik.io)
   * [Portainer](https://portainer.io/)
@@ -53,11 +53,13 @@ And it exposes the following variables:
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
 | `docker_network` | The name of the Docker network to be created. The default value is the name of the Terraform workspace without the environment part. For instance, the Docker network for the workspace `app-dev` will be `app` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
+| `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""` |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `worker_instance_count` | The number of worker instances. The default value is `1` |
 | `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
 | `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to baremetal instances only. The default value is `150` |
 | `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
+| `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
 | `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
 
@@ -82,16 +84,16 @@ The instances are named according the following convention:
 
 ## Traefik
 
-<b>traefik</b> allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
+**traefik** allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
 
 ::: warning
 Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` variable to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
 :::
 
-By default, <b>Kaabah</b> specializes the <b>traefik</b> configuration with:
+By default, **Kaabah** specializes the **traefik** configuration with:
 * 2 entrypoints: 
-  * to allow HTTPS requests
-  * to allow and redirect HTTP request to HTTPS
+  * to allow HTTPS requests (port 443)
+  * to redirect HTTP (port 80) request to HTTPS (port 443)
 * 5 frontends to access the services: 
   - **traefik (dashboard)**
   - **Portainer**
@@ -103,6 +105,20 @@ The frontend rules depend on the `subdomain` and `donain` variables defined in t
 
 It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that **portainer** and **grafana** authentication have been disabled.
 
-Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as the following diagram:
+Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
 
 ![traefik routing](./../assets/kaabah-traefik.svg)
+
+## Prometheus
+
+## Grafana
+
+By default, **Grafana** is shipped with the following customisation:
+* UI: 
+  * Login form disabled: indeed the access to **Grafana** requires to be authenticated (basic auth). This requirement is defined using Traefik frontend rule.
+  * The default user is granted the `EDITOR` permissions.
+* Datasources: the Prometheus datasource is included by default. 
+* Dashboards: 2 dashboards are provided by default:
+  * Cluster overview which allow to visualize the main metrics of the cluster nodes
+  * Swarm overview which allow to visualize the main metrics of the Docker swarm   
+  

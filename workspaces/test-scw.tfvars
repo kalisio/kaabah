@@ -12,4 +12,6 @@ worker_additional_volume_count = 1
 
 worker_additional_volume_size = 150
 
+worker_labels=["worker0=true apps=true", "", "worker2=true"]
+
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"

@@ -11,8 +11,16 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sh /tmp/create-labels.sh add ${element(scaleway_server.swarm_manager.*.private_ip, 0)} \"${var.manager_labels}\""
+      "sudo sh /tmp/add-labels.sh ${element(scaleway_server.swarm_manager.*.private_ip, 0)} \"${var.manager_labels}\""
     ]
+  }
+
+  provisioner "remote-exec" {
+    inline     = [
+      "sudo sh /tmp/clean-labels.sh ${element(scaleway_server.swarm_manager.*.private_ip, 0)}"
+    ]
+    when       = "destroy"
+    on_failure = "continue"
   }
 
   depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
@@ -31,8 +39,16 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh /tmp/create-labels.sh add ${element(scaleway_server.swarm_worker.*.private_ip, count.index)} \"${var.worker_labels[count.index]}\""
+      "sh /tmp/add-labels.sh ${element(scaleway_server.swarm_worker.*.private_ip, count.index)} \"${var.worker_labels[count.index]}\""
     ]
+  }
+
+  provisioner "remote-exec" {
+    inline     = [ 
+      "sudo sh /tmp/clean-labels.sh ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}" 
+    ]
+    when       = "destroy"
+    on_failure = "continue"
   }
 
   depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]

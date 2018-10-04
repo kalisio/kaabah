@@ -12,6 +12,8 @@ If you desire to update the labels on your cluster and keep track of the changes
 1. taint the resources attached to the labels you want to change
 2. update your variables file
 3. apply the changes
+
+For instance:
    
 ```bash
 # Taint the labels attached to the worker 1
@@ -35,16 +37,16 @@ $docker tag <image> 127.0.0.1:5000/<image>:<tag>
 $docker push 127.0.0.1:5000/<image>:<tag>
 ```
 
-One the image pushed in the registry, you can use it to create a service:
+Once the image is pushed in the registry, you can use it to create a service:
 
 ```bash
 $docker service create --replicas 4 --name <service> 127.0.0.4:5000/<image>:<tag>
 ```
 
-Or deploy the service within a stack:
+or deploy the service within a stack:
 
 ```bash
-$docker stack deploy -c <service.yml> <stack>
+$docker stack deploy -c <service.yml> -c <other-service.yml> ... <stack>
 ```
 
 where <service.yml> is a **Docker Compose** file with the following skeleton:

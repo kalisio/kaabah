@@ -8,10 +8,10 @@ worker_instance_type = "C2S"
 
 worker_instance_count = 3
 
-worker_additional_volume_count = 1
+worker_additional_volume_count = 0
 
 worker_additional_volume_size = 150
 
-worker_labels=["worker0=true apps=true", "", "worker2=true"]
+worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"]
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"

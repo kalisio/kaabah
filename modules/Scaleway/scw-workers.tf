@@ -55,25 +55,21 @@ resource "scaleway_server" "swarm_worker" {
 
   # leave swarm on destroy
   provisioner "remote-exec" {
-    when = "destroy"
-
     inline = [
       "sh /tmp/remove-worker.sh",
     ]
-
+    when       = "destroy"
     on_failure = "continue"
   }
 
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
-    when = "destroy"
-
     inline = [
       "docker node rm --force ${self.name}",
     ]
-
+    when       = "destroy"
     on_failure = "continue"
-
+    
     connection {
       type = "ssh"
       user = "${var.ssh_user}"

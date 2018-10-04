@@ -51,25 +51,21 @@ resource "aws_instance" "swarm_worker" {
 
   #  Leave swarm
   provisioner "remote-exec" {
-    when = "destroy"
-
     inline = [
       "sudo sh /tmp/remove-worker.sh ${aws_instance.swarm_manager.private_ip}",
     ]
-
+    when       = "destroy"
     on_failure = "continue"
   }
 
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
-    when = "destroy"
-
     inline = [
       "sudo docker node rm --force ${self.tags.Name}",
     ]
-
+    when       = "destroy"
     on_failure = "continue"
-
+    
     connection {
       type = "ssh"
       user = "${var.ssh_user}"

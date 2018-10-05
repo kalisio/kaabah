@@ -84,6 +84,10 @@ variable "worker_additional_volume_type" {
   default = ""
 }
 
+variable "worker_additional_volume_mount_point" {
+  default = "data"
+}
+
 variable "worker_labels" {
   type = "list"
   default = []

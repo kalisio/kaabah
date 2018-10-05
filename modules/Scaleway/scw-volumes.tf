@@ -24,7 +24,7 @@ resource "null_resource" "swarm_worker_volume_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh ~/.kaabah/mount-volume.sh ${var.device_names[count.index % var.worker_additional_volume_count]} data${count.index % var.worker_additional_volume_count}",
+      "bash ~/.kaabah/mount-volume.sh ${var.device_names[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)}",
     ]
   }
 

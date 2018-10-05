@@ -3,10 +3,6 @@ DEVICE_NAME=$1
 MOUNT_POINT=$2
 OWNER=$3
 
-echo $DEVICE_NAME
-echo $MOUNT_POINT
-echo $OWNER
-
 # Format the volume
 mkfs -t ext4 $DEVICE_NAME
 

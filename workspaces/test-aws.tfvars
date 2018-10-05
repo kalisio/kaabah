@@ -14,7 +14,9 @@ worker_additional_volume_count = 1
 
 worker_additional_volume_size = 1000
 
-worker_additional_volume_type = "io1"
+worker_additional_volume_type = "st1"
+
+worker_additional_volume_mount_point = "DATA"
 
 worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"]
 

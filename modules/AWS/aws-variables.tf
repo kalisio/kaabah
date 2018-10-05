@@ -61,6 +61,8 @@ variable "worker_additional_volume_size" {}
 
 variable "worker_additional_volume_type" {}
 
+variable worker_additional_volume_mount_point {}
+
 variable "worker_labels" {
   type = "list"
 }

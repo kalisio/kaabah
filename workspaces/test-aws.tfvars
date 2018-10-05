@@ -6,17 +6,18 @@ manager_instance_type = "t2.small"
 
 manager_user_script = "workspaces/test-script.sh"
 
-worker_instance_type = "t2.small"
+worker_instance_type = "t3.large"
 
-worker_instance_count = 1
+worker_instance_count = 3
 
 worker_additional_volume_count = 1
 
 worker_additional_volume_size = 1000
 
-#worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"]
-worker_labels=["worker0=true"]
+worker_additional_volume_type = "io1"
 
-worker_user_scripts=["workspaces/test-script.sh"]
+worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"]
+
+worker_user_scripts=["workspaces/test-script.sh", "workspaces/test-script.sh", "workspaces/test-script.sh"]
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"

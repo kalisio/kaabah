@@ -1,6 +1,4 @@
-# Create a null resource is a trick to ensure the commands are send on each apply
-# Otherwise they are only run when provisioning new resources
-resource "null_resource" "deploy_services" {
+resource "null_resource" "services" {
   count = "${var.provider == "SCALEWAY" ? 1 : 0}"
 
   connection {
@@ -22,10 +20,15 @@ resource "null_resource" "deploy_services" {
     destination = "kaabah"
   }
 
+  provisioner "file" {
+    source      = "${var.extensions_dir != "" ? format("%s/", var.extensions_dir) : "scripts/null-extensions/"}"
+    destination = "kaabah"
+  }
+
   provisioner "remote-exec" {
     inline = [
       "set -a && . ./.bash_profile && set +a",
-      "bash ~/.kaabah/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} ${var.auth_password} ${var.docker_network}",
+      "bash ~/.kaabah/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} \"${var.auth_password}\" ${var.docker_network}",
       "cd kaabah && ./deploy-services.sh",
     ]
   }

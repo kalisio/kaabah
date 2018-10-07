@@ -71,6 +71,8 @@ variable "worker_user_scripts" {
   type = "list"
 }
 
+variable "extensions_dir" {}
+
 variable "ssh_user" {
   default = "ubuntu"
 }

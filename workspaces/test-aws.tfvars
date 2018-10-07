@@ -22,4 +22,6 @@ worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"
 
 worker_user_scripts=["workspaces/test-script.sh", "workspaces/test-script.sh", "workspaces/test-script.sh"]
 
+extensions_dir = "workspaces/extensions"
+
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"

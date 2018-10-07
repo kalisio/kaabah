@@ -98,6 +98,10 @@ variable "worker_user_scripts" {
   default = []
 }
 
+variable extensions_dir {
+  default = ""
+}
+
 variable "ssh_key" {
   default = "ssh.pem"
 }

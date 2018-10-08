@@ -2,6 +2,7 @@
 #!/bin/bash
 NODE_ID=$1
 COMMAND=$2
+SSH_KEY=$3
 
 usage()
 {
@@ -29,5 +30,7 @@ fi
 NODE_IP="$(docker inspect -f {{.Status.Addr}} ${NODE_ID})"
 
 eval "$(ssh-agent -s)"
-chmod 600 $3
+chmod 600 $HOME/.ssh/$SSH_KEY
+ssh-add $HOME/.ssh/$SSH_KEY
+
 ssh -o StrictHostKeyChecking=no $USER@${NODE_IP} bash -c "${COMMAND}"

@@ -52,11 +52,11 @@ services:
   alertmanager:
     image: prom/alertmanager
     command:
-      - '--config.file=/etc/alertmanager/config.yml'
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
       - '--web.external-url=https://alertmanager.${SUBDOMAIN}.${DOMAIN}'
     volumes:
-      - ./../configs/alertmanager/:/etc/alertmanager/
+      - ./../configs/prometheus/:/etc/alertmanager/
     networks:
       - kaabah-network
     deploy:

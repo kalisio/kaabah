@@ -1,0 +1,33 @@
+
+#!/bin/bash
+NODE_ID=$1
+COMMAND=$2
+
+usage()
+{
+cat << EOF
+This script executes a command on the given node
+usage: k-node-exec <node_id> <command>
+EOF
+}
+
+if [ -z "$NODE_ID" ]; then
+   usage
+   exit 1
+fi
+
+if [ -z "$COMMAND" ]; then
+   usage
+   exit 1
+fi
+
+if [ -z "$PEM_KEY" ]; then
+   usage
+   exit 1
+fi
+
+NODE_IP="$(docker inspect -f {{.Status.Addr}} ${NODE_ID})"
+
+eval "$(ssh-agent -s)"
+chmod 600 $3
+ssh -o StrictHostKeyChecking=no $USER@${NODE_IP} bash -c "${COMMAND}"

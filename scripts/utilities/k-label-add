@@ -1,0 +1,27 @@
+#!/bin/bash
+NODE_ID=$1
+LABELS=$2
+
+usage()
+{
+cat << EOF
+This script adds the specified labels to a given node
+usage: k-label-add <node_id> <labels>
+EOF
+}
+
+if [ -z "$NODE_ID" ]; then
+   usage
+   exit 1
+fi
+
+if [ -z "$LABELS" ]; then
+   usage
+   exit 1
+fi
+
+for LABEL in $LABELS; do
+  if [ "$LABEL" != "" ]; then
+    docker node update --label-add $LABEL $NODE_ID
+  fi
+done

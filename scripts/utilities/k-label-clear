@@ -1,0 +1,22 @@
+#!/bin/bash
+NODE_ID=$1
+
+usage()
+{
+cat << EOF
+This script clears the labels attached to a given node
+usage: k-label-clear <node_id>
+EOF
+}
+
+if [ -z "$NODE_ID" ]; then
+   usage
+   exit 1
+fi
+
+LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }} {{end}}' $NODE_ID`
+for LABEL in $LABELS; do
+  if [ "$LABEL" != "" ]; then
+    docker node update --label-rm $LABEL $NODE_ID
+  fi
+done

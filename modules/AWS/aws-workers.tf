@@ -67,7 +67,7 @@ resource "aws_instance" "swarm_worker" {
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [
-      "sudo docker node rm --force ${self.tags.Name}",
+      "sudo docker node rm --force `sudo k-node-find ${self.private_ip}`",
     ]
     when       = "destroy"
     on_failure = "continue"

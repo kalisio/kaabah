@@ -71,7 +71,7 @@ resource "scaleway_server" "swarm_worker" {
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [
-      "docker node rm --force ${self.name}",
+      "docker node rm --force `k-node-find ${self.private_ip}`",
     ]
     when       = "destroy"
     on_failure = "continue"

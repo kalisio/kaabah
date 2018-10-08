@@ -1,0 +1,17 @@
+#!/bin/bash
+NODE_IP=$1
+
+usage()
+{
+cat << EOF
+This script returns the node ID corresponding to the given node IP address
+usage: k-node-find <node_ip>
+EOF
+}
+
+if [ -z "$NODE_IP" ]; then
+   usage
+   exit 1
+fi
+
+docker node ls -q | xargs docker node inspect -f '{{ .ID }} {{ .Status.Addr }}' | grep $NODE_IP | cut -d" " -f1

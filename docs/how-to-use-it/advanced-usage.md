@@ -62,7 +62,7 @@ or
 $docker stack deploy -c <service.yml> -c <other-service.yml> ... <stack>
 ```
 
-where <service.yml> is a **Docker Compose file** with the following skeleton:
+where `<service.yml>` is a **Docker Compose file** with the following skeleton:
 
 ```yaml
 version: '3.5'

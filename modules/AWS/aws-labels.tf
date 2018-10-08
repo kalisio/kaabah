@@ -11,13 +11,13 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/add-labels.sh ${element(aws_instance.swarm_manager.*.private_ip, 0)} \"${var.manager_labels}\""
+      "sudo k-label-add `sudo k-node-find ${element(aws_instance.swarm_manager.*.private_ip, 0)}` \"${var.manager_labels}\""
     ]
   }
 
   provisioner "remote-exec" {
     inline     = [ 
-      "sudo bash ~/.kaabah/clean-labels.sh ${element(aws_instance.swarm_manager.*.private_ip, 0)}" 
+      "sudo k-label-clear `sudo k-node-find ${element(aws_instance.swarm_manager.*.private_ip, 0)}`" 
     ]
     when       = "destroy"
     on_failure = "continue"
@@ -39,13 +39,13 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/add-labels.sh ${element(aws_instance.swarm_worker.*.private_ip, count.index)} \"${var.worker_labels[count.index]}\""
+      "sudo k-label-add `sudo k-node-find ${element(aws_instance.swarm_worker.*.private_ip, count.index)}` \"${var.worker_labels[count.index]}\""
     ]
   }
 
   provisioner "remote-exec" {
     inline     = [ 
-      "sudo bash ~/.kaabah/clean-labels.sh ${element(aws_instance.swarm_worker.*.private_ip, count.index)}" 
+      "sudo k-label-clear `sudo k-node-find ${element(aws_instance.swarm_worker.*.private_ip, count.index)}`"
     ]
     when       = "destroy"
     on_failure = "continue"

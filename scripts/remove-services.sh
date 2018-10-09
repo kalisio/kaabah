@@ -1,3 +1,3 @@
 #!/bin/bash
-docker stack rm services
+docker stack rm kaabah
 

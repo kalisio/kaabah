@@ -2,6 +2,7 @@ resource "aws_instance" "swarm_worker" {
   count                       = "${var.provider == "AWS" ? var.worker_instance_count : 0}"
   key_name                    = "${var.key_name}"
   ami                         = "${var.image}"
+  availability_zone           = "${var.availability_zone}"
   instance_type               = "${var.manager_instance_type}"
   security_groups             = ["${aws_security_group.swarm_manager.name}"]
   associate_public_ip_address = true

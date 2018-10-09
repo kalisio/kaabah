@@ -5,11 +5,12 @@ resource "aws_eip_association" "swarm_manager" {
 }
 
 resource "aws_instance" "swarm_manager" {
-  count           = "${var.provider == "AWS" ? 1 : 0}"
-  key_name        = "${var.key_name}"
-  ami             = "${var.image}"
-  instance_type   = "${var.manager_instance_type}"
-  security_groups = ["${aws_security_group.swarm_manager.name}"]
+  count             = "${var.provider == "AWS" ? 1 : 0}"
+  key_name          = "${var.key_name}"
+  ami               = "${var.image}"
+  availability_zone = "${var.availability_zone}"
+  instance_type     = "${var.manager_instance_type}"
+  security_groups   = ["${aws_security_group.swarm_manager.name}"]
 
   root_block_device {
     volume_type = "gp2"

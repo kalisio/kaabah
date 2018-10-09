@@ -28,6 +28,14 @@ variable contact {
   default = "contact@kalisio.com"
 }
 
+variable auth_user {
+  default = ""
+}
+
+variable auth_password {
+  default = ""
+}
+
 variable "docker_version" {
   default = "18.03.1~ce-0~ubuntu"
 }

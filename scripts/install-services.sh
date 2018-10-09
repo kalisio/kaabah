@@ -14,7 +14,7 @@ echo DOMAIN=$DOMAIN >> .env
 echo CA_SERVER=$CA_SERVER >> .env
 echo CONTACT=$CONTACT >> .env
 echo AUTH_USER=$AUTH_USER >> .env
-echo AUTH_PASSWORD=$AUTH_PASSWORD >> .env
+echo AUTH_PASSWORD=\'$AUTH_PASSWORD\' >> .env
 echo DOCKER_NETWORK=$DOCKER_NETWORK >> .env
 
 cp ~/.kaabah/deploy-services.sh .

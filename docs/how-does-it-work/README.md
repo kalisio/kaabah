@@ -44,7 +44,7 @@ And it exposes the following variables:
 | `AWS_ACCESS_KEY` | Your AWS access key. This is important to note that your credential must allows access to AWS EC2 and S3 services |
 | `AWS_SECRET_KEY` | Your AWS secret key |
 | `AUTH_USER` | Your authentication identity to access the services |
-| `AUTH_PASSWORD` | Your authentication password to access the services. It must be encrypted and for now only <b>SHA1</b> encryption is supported |
+| `AUTH_PASSWORD` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value |
 | `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev` |

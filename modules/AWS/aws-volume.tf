@@ -29,9 +29,7 @@ resource "null_resource" "swarm_worker_volume_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      # FIXME: https://github.com/kalisio/kaabah/issues/31
-      "sudo bash ~/.kaabah/mount-volume.sh ${local.worker_use_nvme_device ? var.nvme_devices[count.index % var.worker_additional_volume_count] : var.standard_devices[count.index % var.worker_additional_volume_count]} data${count.index % var.worker_additional_volume_count} $USER",
-      #"sudo bash ~/.kaabah/mount-volume.sh ${var.standard_devices[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)} $USER",
+      "sudo bash ~/.kaabah/mount-volume.sh ${local.worker_use_nvme_device ? var.nvme_devices[count.index % var.worker_additional_volume_count] : var.standard_devices[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)} $USER",
     ]
   }
 

@@ -31,8 +31,8 @@ docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PR
 # Install sshfs
 bash $HOME/.kaabah/install-sshfs.sh
 
-# Install utilities
-cp $HOME/.kaabah/utilities/* /usr/local/sbin/.
+# Install helper commands
+cp $HOME/.kaabah/helper-commands/* /usr/local/sbin/.
 for UTILITY in /usr/local/sbin//k-*; do
   chmod +x $UTILITY
 done

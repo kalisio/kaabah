@@ -1,0 +1,12 @@
+#!/bin/bash
+
+usage()
+{
+cat << EOF
+Lists the worker nodes
+usage: k-worker-list
+EOF
+}
+
+# list the nodes
+docker node ls -f role=worker

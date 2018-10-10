@@ -1,0 +1,20 @@
+!/bin/bash
+COMMAND=$1
+
+usage()
+{
+cat << EOF
+Executes the given command on each worker
+usage: k-worker-exec <command>
+EOF
+}
+
+if [ -z "$COMMAND" ]; then
+   usage
+   exit 1
+fi
+
+WORKER_IDS=`docker node ls -q -f role=worker`
+for WORKER_ID in $WORKER_IDS; do
+  k-node-exec $WORKER_ID "$COMMAND"
+done

@@ -4,7 +4,7 @@ NODE_IP=$1
 usage()
 {
 cat << EOF
-This script returns the node ID corresponding to the given node IP address
+Returns the node ID corresponding to the given node IP address
 usage: k-node-find <node_ip>
 EOF
 }

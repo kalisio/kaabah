@@ -4,7 +4,7 @@ NODE_ID=$1
 usage()
 {
 cat << EOF
-This script clears the labels attached to a given node
+Clears the labels attached to a given node
 usage: k-label-clear <node_id>
 EOF
 }
@@ -17,6 +17,6 @@ fi
 LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }} {{end}}' $NODE_ID`
 for LABEL in $LABELS; do
   if [ "$LABEL" != "" ]; then
-    docker node update --label-rm $LABEL $NODE_ID
+    docker node update --label-rm $LABEL $NODE_ID > /dev/null
   fi
 done

@@ -1,0 +1,17 @@
+#!/bin/bash
+SERVICE_ID=$1
+
+usage()
+{
+cat << EOF
+Checks the status of the given service
+usage: k-service-checl <service_id>
+EOF
+}
+
+if [ -z "$SERVICE_ID" ]; then
+   usage
+   exit 1
+fi
+
+docker service ps --no-trunc $SERVICE_ID

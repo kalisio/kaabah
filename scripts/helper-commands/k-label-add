@@ -5,7 +5,7 @@ LABELS=$2
 usage()
 {
 cat << EOF
-This script adds the specified labels to a given node
+Adds the specified labels to a given node
 usage: k-label-add <node_id> <labels>
 EOF
 }
@@ -22,6 +22,6 @@ fi
 
 for LABEL in $LABELS; do
   if [ "$LABEL" != "" ]; then
-    docker node update --label-add $LABEL $NODE_ID
+    docker node update --label-add $LABEL $NODE_ID > /dev/null
   fi
 done

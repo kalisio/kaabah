@@ -1,0 +1,21 @@
+groups:
+- name: mem-usage
+  rules:
+
+  - alert: high_swap_memory_usage
+    expr: (((node_memory_SwapTotal-node_memory_SwapFree)/node_memory_SwapTotal)*100) > 85
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high swap memory usage"
+      description: "{{ $labels.instance }} is under high swap memory usage than 5 minutes."
+
+  - alert: high_memory_usage
+    expr: (((node_memory_MemTotal-node_memory_MemFree-node_memory_Cached)/(node_memory_MemTotal)*100)) > 85
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high memory usage"
+      description: "{{ $labels.instance }} is under high memory usage than 5 minutes."

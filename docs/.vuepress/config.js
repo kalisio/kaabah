@@ -27,7 +27,7 @@ module.exports = {
         items: [
           { text: 'Getting started', link: '/how-to-use-it/getting-started.md' },
           { text: 'Advanced usage', link: '/how-to-use-it/advanced-usage.md' },
-          { text: 'Helper commands', link: '/how-to-use-it/helper-commands.md'}
+          { text: 'Helper commands', link: '/how-to-use-it/helper-commands.md'},
           { text: 'Tips', link: '/how-to-use-it/tips' }
         ]
       },

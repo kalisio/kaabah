@@ -20,7 +20,7 @@ worker_additional_volume_mount_point = "DATA"
 
 worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 
-worker_user_scripts=["tests/user-script.sh", "test/user-script.sh"]
+worker_user_scripts=["tests/user-script.sh", "tests/user-script.sh"]
 
 extensions_dir = "tests/extensions"
 

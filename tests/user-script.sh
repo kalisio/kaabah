@@ -1,2 +1,5 @@
 #!/bin/bash
-echo $HOSTNAME >> ~/hostname
+
+# install AWS cli
+sudo apt install python-pip
+sudo pip install awscli --upgrade --user

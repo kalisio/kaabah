@@ -11,7 +11,7 @@ sidebar: auto
 **Kaabah** let you manipulate 4 kind of entities:
 * **Configuration**: a set of Terraform variables used to design your infrastructure: the cloud provider, the number of workers, the number of volumes...
 * **Workspace**: a collection of everything Terraform needs to manager an infrastructure: the configuration and state data to keep track of operations.
-* **Cluster**: a Docker Swarm infrastructure built using **Kaabah*. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
+* **Cluster**: a Docker Swarm infrastructure built using **Kaabah**. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
   * [Registry](https://docs.docker.com/registry/)
   * [Traefik](https://traefik.io)

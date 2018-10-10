@@ -11,9 +11,7 @@ global:
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
-  - 'alert.rules'
-  # - "first.rules"
-  # - "second.rules"
+  - 'rules/*.yml'
 
 # alert
 alerting:
@@ -47,17 +45,3 @@ scrape_configs:
     static_configs:
     - targets: ['traefik']
 
- # - job_name: 'blackbox-kargo'
- #   metrics_path: /probe
- #   params:
- #     module: [http_trivial] 
- #   static_configs:
- #     - targets:
- #       - your url to test
- #   relabel_configs:
- #     - source_labels: [__address__]
- #       target_label: __param_target
- #     - source_labels: [__param_target]
- #       target_label: instance
- #     - target_label: __address__
- #       replacement: blackbox-exporter:9115

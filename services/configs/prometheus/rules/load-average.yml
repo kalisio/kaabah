@@ -1,0 +1,12 @@
+groups:
+- name: load-average
+  rules:
+
+  - alert: high_load_average
+    expr: (node_load5 / count without (cpu, mode) (node_cpu{mode="system"})) > 1
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high load"
+      description: "{{ $labels.instance }} is under high load for more than 5 minutes."

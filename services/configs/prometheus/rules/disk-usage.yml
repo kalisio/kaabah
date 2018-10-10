@@ -1,0 +1,12 @@
+groups:
+- name: disk-usage
+  rules:
+
+  - alert: disk_fill_in_4_hours
+    expr: predict_linear(node_filesystem_free{job="node-exporter"}[1h], 4 * 3600) < 0
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} is getting low on free disk space"
+      description: "{{ $labels.instance }} is getting low on free disk space."

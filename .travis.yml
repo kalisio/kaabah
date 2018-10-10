@@ -13,15 +13,15 @@ stages:
 jobs:
   include:
 
-  - stage: CHECK
-    language: node_js
-    node_js:
-    - '8'
-    sudo: required 
-    install:
-    - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in ssh.pem.enc -out ssh.pem -d
-    #script:
-    #- bash travis.check.sh
+  #- stage: CHECK
+  #  language: node_js
+  #  node_js:
+  #  - '8'
+  #  sudo: required 
+  #  install:
+  #  - openssl aes-256-cbc -K $encrypted_12c8071d2874_key -iv $encrypted_12c8071d2874_iv -in ssh.pem.enc -out ssh.pem -d
+  #  script:
+  #  - bash travis.check.sh
 
   - stage: PUBLISH
     language: node_js

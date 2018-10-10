@@ -11,13 +11,9 @@ These commands are installed in `/usr/local/sbin` and can be used out of the box
 
 ## k-label-add
 
+`usage: k-label-add <node_id> <labels>`
+
 Adds the specified labels to a given node
-
-### Usage
-
-`k-label-add <node_id> <labels>`
-
-### Example
 
 ```bash
 $k-label-add 87vv4tmksirt646er0l1jk66h "label1=value1 label2=value label3=value3"
@@ -25,13 +21,9 @@ $k-label-add 87vv4tmksirt646er0l1jk66h "label1=value1 label2=value label3=value3
 
 ## k-label-clear
 
+`usage: k-label-clear <node_id>`
+
 Clears the labels attached to a given node
-
-### Usage
-
-`k-label-clear <node_id>`
-
-### Example
 
 ```bash
 $k-label-clear 87vv4tmksirt646er0l1jk66h
@@ -39,13 +31,9 @@ $k-label-clear 87vv4tmksirt646er0l1jk66h
 
 ## k-label-list
 
+`usage: k-label-list <node_id>`
+
 Lists the labels attached to a given node
-
-### Usage
-
-`k-label-list <node_id>`
-
-### Example
 
 ```bash
 $k-label-list 87vv4tmksirt646er0l1jk66h 
@@ -54,27 +42,19 @@ label1=value1 label2=value label3=value3
 
 ## k-node-exec
 
+`usage: k-node-exec <node_id> <command>`
+
 Executes a command on the given node
 
-### Usage
-
-`k-node-exec <node_id> <command>`
-
-### Example
-
 ```bash
-$k-node-exec  "ping "
+$k-node-exec "echo 'foo bar' > foobar"
 ```
 
 ## k-node-find
 
+`usage: k-node-find <node_ip>`
+
 Returns the node ID corresponding to the given node IP address
-
-### Usage
-
-`k-node-find <node_ip>`
-
-### Example
 
 ```bash
 $k-node-find 172.31.34.218
@@ -83,17 +63,13 @@ $k-node-find 172.31.34.218
 
 ## k-service-check
 
+`usage: k-serice-check <service_id|service_name>`
+
 Checks the status of the given service.
 
 ::: tip 
-It is useful for determining why a service can't start
+This command is often used to find why a service can't start
 :::
-
-### Usage
-
-`k-serice-check <service_id|service_name>`
-
-### Example
 
 ```bash
 $k-service-check kaabah_portainer
@@ -103,13 +79,9 @@ ne6otm12od24hmj576bj8322c   kaabah_portainer.1   portainer/portainer:latest@sha2
 
 ## k-worker-list
 
+`usage: k-worker-list`
+
 Displays the worker nodes 
-
-### Usage
-
-`k-worker-list`
-
-### Example
 
 ```bash
 $k-worker-list
@@ -120,28 +92,16 @@ wyo0dvb85bn0ziw58v0o8u4tl     ip-172-31-39-133    Ready               Active    
 
 ## k-worker-foreach
 
-Executes a command on each worker
+`usage: k-worker-foreach <command>`
 
-### Usage
-
-`k-worker-foreach`
-
-### Example
+Executes the given command on each worker
 
 ```bash
-$k-worker-foreach "echo 'a command' > command"
+$k-worker-foreach "echo 'foo bar'" > foobar"
 ```
 
 ## k-swarm-info
 
+`usage: k-swarm-info`
+
 Displays the main information about the cluster
-
-### Usage
-
-`k-swarm-info`
-
-### Example
-
-```bash
-$k-swarm-info
-```

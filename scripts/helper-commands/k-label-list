@@ -4,7 +4,7 @@ NODE_ID=$1
 usage()
 {
 cat << EOF
-This script lists the labels attached to a given node
+Lists the labels attached to a given node
 usage: k-label-list <node_id>
 EOF
 }

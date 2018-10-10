@@ -1,13 +1,14 @@
-
 #!/bin/bash
 NODE_ID=$1
 COMMAND=$2
-SSH_KEY=$3
+
+K_USER=${SUDO_USER:-$USER}
+K_HOME=/home/$K_USER
 
 usage()
 {
 cat << EOF
-This script executes a command on the given node
+Executes a command on the given node
 usage: k-node-exec <node_id> <command>
 EOF
 }
@@ -22,15 +23,9 @@ if [ -z "$COMMAND" ]; then
    exit 1
 fi
 
-if [ -z "$PEM_KEY" ]; then
-   usage
-   exit 1
-fi
+NODE_IP="$(sudo docker inspect -f {{.Status.Addr}} ${NODE_ID})"
 
-NODE_IP="$(docker inspect -f {{.Status.Addr}} ${NODE_ID})"
+eval "$(ssh-agent -s)" > /dev/null
+ssh-add $K_HOME/.ssh/ssh.pem > /dev/null 2>&1
 
-eval "$(ssh-agent -s)"
-chmod 600 $HOME/.ssh/$SSH_KEY
-ssh-add $HOME/.ssh/$SSH_KEY
-
-ssh -o StrictHostKeyChecking=no $USER@${NODE_IP} bash -c "${COMMAND}"
+ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP bash -c "$COMMAND" > /dev/null

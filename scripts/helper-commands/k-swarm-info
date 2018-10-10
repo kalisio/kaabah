@@ -1,6 +1,18 @@
 #!/bin/bash
 
+usage()
+{
+cat << EOF
+Displays the main information on the cluster
+usage: k-node-find <node_ip>
+EOF
+}
+
+# list the nodes
 docker node ls
 
+# list the labels
+
+# list the services
 docker service ls
 

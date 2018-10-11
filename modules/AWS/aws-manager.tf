@@ -10,7 +10,7 @@ resource "aws_instance" "swarm_manager" {
   ami               = "${var.image}"
   availability_zone = "${var.availability_zone}"
   instance_type     = "${var.manager_instance_type}"
-  security_groups   = ["${aws_security_group.swarm_manager.name}"]
+  security_groups   = ["${aws_security_group.security_group_manager.name}"]
 
   root_block_device {
     volume_type = "gp2"

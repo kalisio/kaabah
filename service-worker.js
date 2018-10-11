@@ -21,7 +21,7 @@ importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "2c7244a9559b7aca75ab5612c24eff8f"
+    "revision": "48206749decd3b19b9704c87b09d4d0e"
   },
   {
     "url": "assets/css/0.styles.8280e1ab.css",
@@ -92,44 +92,44 @@ self.__precacheManifest = [
     "revision": "0e4ad3283eeed379797435e4bf307063"
   },
   {
-    "url": "assets/js/app.f10d6449.js",
-    "revision": "c10e667b160b88635ec086c0a60dfcf2"
+    "url": "assets/js/app.4932cf11.js",
+    "revision": "d8013df98a9b6c03bc9fd7b2836bcd2c"
   },
   {
     "url": "CONTRIBUTING.html",
-    "revision": "7a800aed2ff5bb07b4a87954ff0a933a"
+    "revision": "9cb24b831a70ad28c8502de1de5df396"
   },
   {
     "url": "how-does-it-work/index.html",
-    "revision": "7a4c6d4a3474603f482753f863daf8f0"
+    "revision": "2a845a3a5f6e8611fe8510c1bbc7caf7"
   },
   {
     "url": "how-to-use-it/advanced-usage.html",
-    "revision": "ef482a3730506f1f33594ee4ff558ed3"
+    "revision": "2d9b469fe677ba7d7f39a8fd196b915d"
   },
   {
     "url": "how-to-use-it/getting-started.html",
-    "revision": "8818c2026dc7504b13bd52ad862174bf"
+    "revision": "da405894baffaedef118df20ce658291"
   },
   {
     "url": "how-to-use-it/helper-commands.html",
-    "revision": "34a3301ec8692fb1e9104b067abf51dc"
+    "revision": "fa2ad0fe88456903ee233286feb4c9e0"
   },
   {
     "url": "how-to-use-it/tips.html",
-    "revision": "1a4a5f26b3614e004fea5c5023978a12"
+    "revision": "f95b44f22eaf52b91d8d90167d20cce3"
   },
   {
     "url": "index.html",
-    "revision": "cc316bbba618a85a89cb4519c51f81d5"
+    "revision": "fc27b0e53fbde3f692a93fc22bda30d7"
   },
   {
     "url": "LICENSE.html",
-    "revision": "2366651a604f914fe1718c3faec57044"
+    "revision": "2be84d5a0d5d7dcd875868c940e9bc22"
   },
   {
     "url": "what-is-it/index.html",
-    "revision": "4e7bf82f044d92a98ef7a50029bfc14d"
+    "revision": "3a4bafca47faccd7e4943d2df74f6858"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

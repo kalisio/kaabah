@@ -7,7 +7,7 @@ resource "scaleway_server" "swarm_manager" {
   name           = "${terraform.workspace}-manager"
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
-  security_group = "${scaleway_security_group.swarm_manager.id}"
+  security_group = "${scaleway_security_group.security_group_manager.id}"
   public_ip      = "${var.manager_ip}"
 
   volume {
@@ -19,7 +19,7 @@ resource "scaleway_server" "swarm_manager" {
     type        = "ssh"
     user        = "${var.ssh_user}"
     private_key = "${file(var.ssh_key)}"
-    timeout     = "120s"
+    timeout     = "300s"
   }
 
   provisioner "file" {

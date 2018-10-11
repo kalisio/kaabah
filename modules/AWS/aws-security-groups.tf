@@ -1,6 +1,45 @@
+resource "aws_default_vpc" "swarm_vpc" {
+  count       = "${var.provider == "AWS" ? 1 : 0}"
+}
+
 resource "aws_security_group" "security_group_manager" {
   count       = "${var.provider == "AWS" ? 1 : 0}"
   name        = "${terraform.workspace}_manager"
+
+  ingress {
+    from_port   = 2376
+    to_port     = 2376
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 2377
+    to_port     = 2377
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 7946
+    to_port     = 7946
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 7946
+    to_port     = 7946
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 4789
+    to_port     = 4789
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
 
   ingress {
     from_port   = "80"
@@ -28,7 +67,6 @@ resource "aws_security_group" "security_group_manager" {
     to_port     = "0"
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    self        = true
   }
 
   tags {
@@ -39,6 +77,34 @@ resource "aws_security_group" "security_group_manager" {
 resource "aws_security_group" "security_group_worker" {
   count       = "${var.provider == "AWS" ? 1 : 0}"
   name        = "${terraform.workspace}_worker"
+
+  ingress {
+    from_port   = 2377
+    to_port     = 2377
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 7946
+    to_port     = 7946
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 7946
+    to_port     = 7946
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 4789
+    to_port     = 4789
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+  }
 
   ingress {
     from_port   = 22
@@ -52,7 +118,6 @@ resource "aws_security_group" "security_group_worker" {
     to_port     = "0"
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    self        = true
   }
 
   tags {

@@ -7,7 +7,7 @@ resource "scaleway_server" "swarm_worker" {
   name           = "${terraform.workspace}-worker-${count.index}"
   image          = "${data.scaleway_image.worker_image.id}"
   type           = "${var.worker_instance_type}"
-  security_group = "${scaleway_security_group.swarm_workers.id}"
+  security_group = "${scaleway_security_group.security_group_worker.id}"
   public_ip      = "${element(scaleway_ip.swarm_worker.*.ip, count.index)}"
 
   volume {
@@ -19,7 +19,7 @@ resource "scaleway_server" "swarm_worker" {
     type        = "ssh"
     user        = "${var.ssh_user}"
     private_key = "${file(var.ssh_key)}"
-    timeout     = "120s"
+    timeout     = "300s"
   }
 
   provisioner "file" {

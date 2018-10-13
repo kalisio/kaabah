@@ -11,16 +11,9 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
+      "k-label-clear `k-node-find ${element(scaleway_server.swarm_manager.*.private_ip, 0)}`",
       "k-label-add `k-node-find ${element(scaleway_server.swarm_manager.*.private_ip, 0)}` \"${var.manager_labels}\""
     ]
-  }
-
-  provisioner "remote-exec" {
-    inline     = [
-      "k-label-clear `k-node-find ${element(scaleway_server.swarm_manager.*.private_ip, 0)}`"
-    ]
-    when       = "destroy"
-    on_failure = "continue"
   }
 
   depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
@@ -39,16 +32,9 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
+      "k-label-clear `k-node-find ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}`",
       "k-label-add `k-node-find ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}` \"${var.worker_labels[count.index]}\""
     ]
-  }
-
-  provisioner "remote-exec" {
-    inline     = [ 
-      "k-label-clear `k-node-find ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}`"
-    ]
-    when       = "destroy"
-    on_failure = "continue"
   }
 
   depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]

@@ -7,6 +7,9 @@ bash $HOME/.kaabah/create-server-certificates.sh $MANAGER_PRIVATE_IP
 bash $HOME/.kaabah/create-client-certificates.sh
 rm ~/.kaabah/ca.*
 
+# Secure ssh key permissions
+chmod 600 $HOME/.ssh/ssh.pem
+
 # Setup Docker configuration to enable TLS protection
 mkdir -p /etc/systemd/system/docker.service.d
 cp $HOME/.kaabah/docker-configs/override.conf /etc/systemd/system/docker.service.d/.

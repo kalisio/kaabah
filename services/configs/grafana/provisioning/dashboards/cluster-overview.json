@@ -722,7 +722,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "100.0 - 100 * (node_filesystem_avail_bytes{instance=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size_bytes{instance=~'$node',device !~'tmpfs',device!~'by-uuid'}) or 100.0 - 100 * (node_filesystem_avail{instance=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size{instance=~'$node',device !~'tmpfs',device!~'by-uuid'})",
+          "expr": "100 * (node_filesystem_avail_bytes{instance=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size_bytes{instance=~'$node',device !~'tmpfs',device!~'by-uuid'}) or 100.0 - 100 * (node_filesystem_avail{instance=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_size{instance=~'$node',device !~'tmpfs',device!~'by-uuid'})",
           "interval": "",
           "intervalFactor": 2,
           "legendFormat": "{{mountpoint}}",
@@ -736,6 +736,98 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Disk Space Used",
+      "tooltip": {
+        "msResolution": true,
+        "shared": true,
+        "sort": 0,
+        "value_type": "cumulative"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "logBase": 1,
+          "max": 100,
+          "min": 0,
+          "show": true
+        },
+        {
+          "format": "short",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "Prometheus",
+      "decimals": 3,
+      "editable": true,
+      "error": false,
+      "fill": 1,
+      "grid": {},
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 10,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 2,
+      "links": [],
+      "minSpan": 4,
+      "nullPointMode": "connected",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "repeat": "node",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "100 * (node_filesystem_files_free{instance=~'$node',device !~'tmpfs',device!~'by-uuid'} / node_filesystem_files{instance=~'$node',device !~'tmpfs',device!~'by-uuid'})",
+          "interval": "",
+          "intervalFactor": 2,
+          "legendFormat": "{{mountpoint}}",
+          "metric": "",
+          "refId": "A",
+          "step": 1200,
+          "target": ""
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Free Files",
       "tooltip": {
         "msResolution": true,
         "shared": true,

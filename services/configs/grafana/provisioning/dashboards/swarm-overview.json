@@ -380,14 +380,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_network_receive_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$interval])) by (name, container_label_com_docker_swarm_task_name)",
+          "expr": "sum(rate(container_network_receive_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$__interval])) by (name, container_label_com_docker_swarm_task_name)",
           "intervalFactor": 2,
           "legendFormat": "{{task_name}}",
           "refId": "A",
           "step": 240
         },
         {
-          "expr": "- rate(container_network_transmit_bytes_total{name=~\".+\"}[$interval])",
+          "expr": "- rate(container_network_transmit_bytes_total{name=~\".+\"})",
           "hide": true,
           "intervalFactor": 2,
           "legendFormat": "{{name}}",
@@ -481,7 +481,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(container_network_transmit_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$interval])) by (name, container_label_com_docker_swarm_task_name)",
+          "expr": "sum(rate(container_network_transmit_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$__interval])) by (name, container_label_com_docker_swarm_task_name)",
           "format": "time_series",
           "intervalFactor": 2,
           "legendFormat": "{{task_name}}",
@@ -489,7 +489,7 @@
           "step": 240
         },
         {
-          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"}[$interval])",
+          "expr": "rate(container_network_transmit_bytes_total{id=\"/\"})",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 2,
@@ -617,107 +617,6 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
-      },
-
-      {
-        "auto": true,
-        "auto_count": 50,
-        "auto_min": "50s",
-        "current": {
-          "text": "auto",
-          "value": "$__auto_interval_interval"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": false,
-        "label": "Interval",
-        "multi": false,
-        "name": "interval",
-        "options": [
-          {
-            "selected": true,
-            "text": "auto",
-            "value": "$__auto_interval_interval"
-          },
-          {
-            "selected": false,
-            "text": "30s",
-            "value": "30s"
-          },
-          {
-            "selected": false,
-            "text": "1m",
-            "value": "1m"
-          },
-          {
-            "selected": false,
-            "text": "2m",
-            "value": "2m"
-          },
-          {
-            "selected": false,
-            "text": "3m",
-            "value": "3m"
-          },
-          {
-            "selected": false,
-            "text": "5m",
-            "value": "5m"
-          },
-          {
-            "selected": false,
-            "text": "7m",
-            "value": "7m"
-          },
-          {
-            "selected": false,
-            "text": "10m",
-            "value": "10m"
-          },
-          {
-            "selected": false,
-            "text": "30m",
-            "value": "30m"
-          },
-          {
-            "selected": false,
-            "text": "1h",
-            "value": "1h"
-          },
-          {
-            "selected": false,
-            "text": "6h",
-            "value": "6h"
-          },
-          {
-            "selected": false,
-            "text": "12h",
-            "value": "12h"
-          },
-          {
-            "selected": false,
-            "text": "1d",
-            "value": "1d"
-          },
-          {
-            "selected": false,
-            "text": "7d",
-            "value": "7d"
-          },
-          {
-            "selected": false,
-            "text": "14d",
-            "value": "14d"
-          },
-          {
-            "selected": false,
-            "text": "30d",
-            "value": "30d"
-          }
-        ],
-        "query": "30s,1m,2m,3m,5m,7m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
-        "refresh": 2,
-        "type": "interval"
       }
     ]
   },

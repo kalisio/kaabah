@@ -880,7 +880,7 @@
   "schemaVersion": 16,
   "style": "dark",
   "tags": [
-    "prometheus"
+    "node-exporter"
   ],
   "templating": {
     "list": [

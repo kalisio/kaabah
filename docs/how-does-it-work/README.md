@@ -9,9 +9,9 @@ sidebar: auto
 ## Main concepts
 
 **Kaabah** let you manipulate 4 kind of entities:
-* **Configuration**: a set of Terraform variables used to design your infrastructure: the cloud provider, the number of workers, the number of volumes...
-* **Workspace**: a collection of everything Terraform needs to manager an infrastructure: the configuration and state data to keep track of operations.
-* **Cluster**: a Docker Swarm infrastructure built using **Kaabah**. Such an infrastructure is composed a manager node and a set of worker nodes. By default, **Kaabah** will protect your cluster with TLS certificates. 
+* **Workspace**: a collection of everything **Kaabah** needs to create and manage an infrastructure.
+* **Configuration**: a set of Terraform variables used to design your infrastructure.
+* **Cluster**: a Docker Swarm infrastructure built using **Kaabah**.
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
   * [Registry](https://docs.docker.com/registry/)
   * [Traefik](https://traefik.io)
@@ -19,7 +19,7 @@ sidebar: auto
   * [Prometheus](https://prometheus.io/)
   * [Grafana](https://grafana.com/)
   
-## Global approach
+## Workspace
 
 **Kaabah** is designed to take advantage of Terraform Workspaces and its usage relies on the recommend practices as presented in this [article](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Thus, we assume a workspace is used to store the configuration of your infrastructure for each environment. 
 
@@ -29,54 +29,42 @@ Starting from this premise, **Kaabah** lets you to manage as many clusters as yo
 
 In this diagram, the states of the different workspaces are stored within a dedicated bucket on amazon S3, but you are free to use any other Terraform [backends](https://www.terraform.io/docs/backends/).
 
-## Terraform 
+## Configuration
 
-The Terraform code is composed of 2 modules:
-- the **AWS** module which implements the Docker Swarm infrastructure on AWS
-- the **Scaleway** module which implements the Docker Swarm infrastructure on Scaleway
+The **Kaabah** configuration file is a **Terraform** variable file describing the characteristics of the desired infrastructure.
 
-And it exposes the following variables:
+Here is an example of a configuration file:
 
-| Variables | Description |
-|--- | --- |
-| `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |
-| `SCALEWAY_TOKEN` | Your Scaleway token |
-| `AWS_ACCESS_KEY` | Your AWS access key. This is important to note that your credential must allows access to AWS EC2 and S3 services |
-| `AWS_SECRET_KEY` | Your AWS secret key |
-| `AUTH_USER` | Your authentication identity to access the services |
-| `AUTH_PASSWORD` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it |
-| `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value |
-| `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
-| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev` |
-| `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
-| `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
-| `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
-| `docker_network` | The name of the Docker network to be created. The default value is the name of the Terraform workspace without the environment part. For instance, the Docker network for the workspace `app-dev` will be `app` |
-| `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
-| `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""` |
-| `manager_user_script` | The user script to be executed when when the manager is ready. It must be the file path to the script. The default value is `""` |
-| `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
-| `worker_instance_count` | The number of worker instances. The default value is `1` |
-| `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
-| `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to baremetal instances only. The default value is `150` |
-| `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
-| `worker_additional_volume_mount_point` | The mount point used to mount the devices. The prefix `/dev/` is automatically added and the default value is `data` |
-| `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
-| `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
-| `extensions_dir` | The directory to provision to extend the services. The default value is `""` |
-| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
-| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
+```ini
+provider = "AWS"
 
-These variables can be overridden to match your environment requirements. See the section [How to use it ?](./../how-to-use-it/getting-started.md)
+manager_ip = "3.115.176.41"
 
-## Docker Swarm
+manager_instance_type = "t2.small"
 
-<b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with a stack of high level services that allows you to:
-- route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
-- manage the services deployed on the cluster using [Portainer](https://portainer.io/)
-- monitor the cluster using [Prometheus](https://prometheus.io/)
-- analyze the cluster metrics using [Grafana](https://grafana.com/)
-- share files among the nodes of the cluster using [SSHFS](https://fr.wikipedia.org/wiki/Secure_shell_file_system)
+worker_instance_type = "t3.large"
+
+worker_instance_count = 3
+
+worker_additional_volume_count = 2
+
+worker_additional_volume_size = 500
+
+worker_additional_volume_type = "st1"
+
+worker_additional_volume_mount_point = "DATA"
+
+```
+
+Assuming the current workspace is `app-dev`, then when applying such a configuration, **Kaabah** will generate a Docker Swarm infrastructure on `AWS` (`provider` variable) composed of:
+* one manager node, `app-dev-manager`, of type `t2.small` with the public IP address `3.115.176.41`.
+* `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and this volume is accessible through the mount point: `/mnt/DATA0` and `/mnt/DATA1`.
+
+**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as adding labels, running user scripts... Have a look at the complete list of [variables](./../how-to-use-it/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
+
+## Cluster
+
+<b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with 
 
 The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
 
@@ -86,7 +74,22 @@ The instances are named according the following convention:
 -  `<WORKSPACE>-manager`
 -  `<WORKSPACE>-woker-<INDEX>`
 
-## Traefik
+### Security
+
+_TODO_
+
+
+## Service
+
+As mentioned in the introduction, **Kaabah** bootstraps your cluster with a stack of high level services that allows you to:
+- route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
+- manage the services deployed on the cluster using [Portainer](https://portainer.io/)
+- monitor the cluster using [Prometheus](https://prometheus.io/)
+- analyze the cluster metrics using [Grafana](https://grafana.com/)
+
+In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services section](./how-to-use-it/advanced-usage.md) to learn how to do it.
+
+### Traefik
 
 **traefik** allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
 
@@ -113,9 +116,15 @@ Considering a Terraform workspace named `app-dev`, the default subdomain will be
 
 ![traefik routing](./../assets/kaabah-traefik.svg)
 
-## Prometheus
+### Portainer
 
-## Grafana
+_TODO_
+
+### Prometheus
+
+_TODO_
+
+### Grafana
 
 By default, **Grafana** is shipped with the following customisation:
 * UI: 
@@ -126,3 +135,4 @@ By default, **Grafana** is shipped with the following customisation:
   * Cluster overview which allow to visualize the main metrics of the cluster nodes
   * Swarm overview which allow to visualize the main metrics of the Docker swarm   
   
+###

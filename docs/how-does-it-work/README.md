@@ -6,12 +6,12 @@ sidebar: auto
 **Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
 :::
 
-## Main concepts
+## Key concepts
 
 **Kaabah** let you manipulate 4 kind of entities:
 * **Workspace**: a collection of everything **Kaabah** needs to create and manage an infrastructure.
 * **Configuration**: a set of Terraform variables used to design your infrastructure.
-* **Cluster**: a Docker Swarm infrastructure built using **Kaabah**.
+* **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) infrastructure built using **Kaabah**.
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
   * [Registry](https://docs.docker.com/registry/)
   * [Traefik](https://traefik.io)
@@ -21,7 +21,13 @@ sidebar: auto
   
 ## Workspace
 
-**Kaabah** is designed to take advantage of Terraform Workspaces and its usage relies on the recommend practices as presented in this [article](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure). Thus, we assume a workspace is used to store the configuration of your infrastructure for each environment. 
+**Kaabah** is designed to take advantage of Terraform Workspaces. Indeed, **Kaabah** relies on the [Terraform recommend practices]((https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) and assume a **Workspace** is used to store the required data needed to build and manage an infrastructure for a specific environment (staging, production...):
+* the configuration of the infrastructure.
+* the SSH private key to get connected to the infrastructure
+* the extensions to the services you want to be installed by **Kaabah**
+* the user scripts you want to be executed when creating the infrastructure
+* the SSH private key to get connected to the infrastructure
+* the Terraform states of the infrastructure.
 
 Starting from this premise, **Kaabah** lets you to manage as many clusters as your projects require. If we decide to name our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of **Kaabah**:
 
@@ -29,13 +35,16 @@ Starting from this premise, **Kaabah** lets you to manage as many clusters as yo
 
 In this diagram, the states of the different workspaces are stored within a dedicated bucket on amazon S3, but you are free to use any other Terraform [backends](https://www.terraform.io/docs/backends/).
 
+
+
+
 ## Configuration
 
 The **Kaabah** configuration file is a **Terraform** variable file describing the characteristics of the desired infrastructure.
 
 Here is an example of a configuration file:
 
-```ini
+```conf
 provider = "AWS"
 
 manager_ip = "3.115.176.41"
@@ -60,26 +69,47 @@ Assuming the current workspace is `app-dev`, then when applying such a configura
 * one manager node, `app-dev-manager`, of type `t2.small` with the public IP address `3.115.176.41`.
 * `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and this volume is accessible through the mount point: `/mnt/DATA0` and `/mnt/DATA1`.
 
-**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as adding labels, running user scripts... Have a look at the complete list of [variables](./../how-to-use-it/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
+**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as specifying a domain name, adding labels, running user scripts... Have a look at the complete list of [variables](./../how-to-use-it/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
 
 ## Cluster
 
-<b>Kaabah</b> provides the Terraform and Docker configuration to create and manage a Docker Swarm with 
-
-The following diagram illustrates a Swarm cluster composed of 4 nodes including a <b>manager</b> and 3 <b>workers</b> and the corresponding stack of services.
+The **cluster** consists in of multiple Docker hosts which run in **swarm** mode and act as manager (to manage membership and delegation) and workers (which run services). 
 
 ![swarm concept](./../assets/kaabah-swarm.svg)
 
-The instances are named according the following convention:
+### Instances
+
+When generated from a given `<WORKSPACE>`, the instances are named according the following convention:
 -  `<WORKSPACE>-manager`
 -  `<WORKSPACE>-woker-<INDEX>`
 
+You can add some labels to the nodes using the `manager_labels` and `worker_labels` variables.
+
+### Volumes
+
+When needed extra disk spaces, you can attach additional volumes to the workers. These volumes are automatically attached, formatted (ext4 file system) and mounted on the workers. By default the volumes attached on a worker are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `data` mount point by overriding the `worker_additional_volume_mount_point` variable.
+
+### Security Groups
+
+By default, **Kaabah** creates 2 security groups:
+* the manager security group allowing:
+  * SSH traffic (port 22).
+  * HTTP traffic (port 80).
+  * HTTPS traffic (port 443).
+  * Docker swarm traffic. The traffic is limited to your private network.
+* the workers security group with the following rules:
+  * SSH traffic (port 22)
+  * Docker swarm traffic. The traffic is limited to your private network.
+  
+### Docker network
+
+The traffic between the nodes is relying on a Docker network of type of **Overlay**. The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
+
 ### Security
 
-_TODO_
+In Swarm mode, the nodes communicate using an HTTP socket and therefore it is highly recommended to protect the the Docker daemon. **Kaabah** will do it for you ! Therefore the Docker daemon only allows connections from clients authenticated by a certificate signed by a CA specific to your infrastructure. **Kaabah** generates automatically the required CA, server and client keys using [OpenSSL](https://www.openssl.org/).
 
-
-## Service
+## Services
 
 As mentioned in the introduction, **Kaabah** bootstraps your cluster with a stack of high level services that allows you to:
 - route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
@@ -126,7 +156,7 @@ _TODO_
 
 ### Grafana
 
-By default, **Grafana** is shipped with the following customisation:
+By default, **Grafana** is shipped with the following customization:
 * UI: 
   * Login form disabled: indeed the access to **Grafana** requires to be authenticated (basic auth). This requirement is defined using Traefik frontend rule.
   * The default user is granted the `EDITOR` permissions.

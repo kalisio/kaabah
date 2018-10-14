@@ -13,12 +13,12 @@ sidebar: auto
 * **Configuration**: a set of Terraform variables used to design your infrastructure.
 * **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) infrastructure built using **Kaabah**.
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
-  * [Registry](https://docs.docker.com/registry/)
   * [Traefik](https://traefik.io)
-  * [Portainer](https://portainer.io/)
-  * [Prometheus](https://prometheus.io/)
-  * [Grafana](https://grafana.com/)
-  
+  * [Portainer](https://portainer.io)
+  * [Prometheus](https://prometheus.io)
+  * [Grafana](https://grafana.com)
+  * [Registry](https://docs.docker.com/registry)
+  * 
 ## Workspace
 
 **Kaabah** is designed to take advantage of Terraform Workspaces. Indeed, **Kaabah** relies on the [Terraform recommend practices]((https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) and assume a **Workspace** is used to store the required data needed to build and manage an infrastructure for a specific environment (staging, production...):
@@ -103,23 +103,35 @@ By default, **Kaabah** creates 2 security groups:
   
 ### Docker network
 
-The traffic between the nodes is relying on a Docker network of type of **Overlay**. The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
+The traffic between the nodes is relying on a Docker network of type of **Overlay**. 
+
+The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
 
 ### Security
 
-In Swarm mode, the nodes communicate using an HTTP socket and therefore it is highly recommended to protect the the Docker daemon. **Kaabah** will do it for you ! Therefore the Docker daemon only allows connections from clients authenticated by a certificate signed by a CA specific to your infrastructure. **Kaabah** generates automatically the required CA, server and client keys using [OpenSSL](https://www.openssl.org/).
+In Swarm mode, the nodes communicate using an HTTP socket and therefore it is highly recommended to protect the the Docker daemon. **Kaabah** will do it for you ! Therefore the Docker daemon only allows connections from clients authenticated by a certificate signed by a Certificate Authority (CA). 
+
+When creating the cluster, **Kaabah** handles the creation of the server and client keys but it requires you to provide this CA. Check out the [Getting started section](./../how-to-use-it/getting-started.md) to learn how to generate this CA.
+
+::: tip OpenSSL
+**Kaabah** relies on [OpenSSL](https://www.openssl.org/) to generate the server and client keys.
+:::
 
 ## Services
 
-As mentioned in the introduction, **Kaabah** bootstraps your cluster with a stack of high level services that allows you to:
+As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack of high level services that allows you to:
 - route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
 - manage the services deployed on the cluster using [Portainer](https://portainer.io/)
 - monitor the cluster using [Prometheus](https://prometheus.io/)
 - analyze the cluster metrics using [Grafana](https://grafana.com/)
 
+::: tip Note
+The access to the UI of the different services is protected using Basic Authentication. The 
+:::
+
 In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services section](./how-to-use-it/advanced-usage.md) to learn how to do it.
 
-### Traefik
+### [Traefik](https://traefik.io)
 
 **traefik** allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
 
@@ -138,31 +150,34 @@ By default, **Kaabah** specializes the **traefik** configuration with:
   - **Alertmanager**
   - **Grafana** 
 
-The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration.
-
-It also support basic authentication to access the services using the variables `AUTH_USER` and `AUTH_PASSWORD`. This means that **portainer** and **grafana** authentication have been disabled.
-
-Considering a Terraform workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
+The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration. Considering a workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
 
 ![traefik routing](./../assets/kaabah-traefik.svg)
 
-### Portainer
+### [Portainer](https://portainer.io)
 
-_TODO_
+There is not too much to say on **Portainer**. Just play with the UI !
 
-### Prometheus
+### [Prometheus](https://prometheus.io)
 
-_TODO_
+The **Prometheus** monitoring solution is shipped with the following components:
+* [node-exporter](https://github.com/prometheus/node_exporter) and [cAdvisor](https://github.com/google/cadvisor) which collect, respectively, the metrics of the cluster's hosts and the services deployed on the Docker swarm.
+* [Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) which handles the alerts.
+  
 
-### Grafana
+### [Grafana](https://grafana.com)
 
-By default, **Grafana** is shipped with the following customization:
+**Grafana** allows you to visualize the metrics stored in the **Prometheus** databases through dedicated dashboards.
+
+By default, **Grafana** is shipped with the following customizations:
 * UI: 
   * Login form disabled: indeed the access to **Grafana** requires to be authenticated (basic auth). This requirement is defined using Traefik frontend rule.
-  * The default user is granted the `EDITOR` permissions.
+  * Once authenticated, the default user is granted the `EDITOR` permissions.
 * Datasources: the Prometheus datasource is included by default. 
 * Dashboards: 2 dashboards are provided by default:
   * Cluster overview which allow to visualize the main metrics of the cluster nodes
   * Swarm overview which allow to visualize the main metrics of the Docker swarm   
   
-###
+### [Registry](https://docs.docker.com/registry)
+
+_TODO_

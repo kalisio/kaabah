@@ -18,7 +18,7 @@ sidebar: auto
   * [Prometheus](https://prometheus.io)
   * [Grafana](https://grafana.com)
   * [Registry](https://docs.docker.com/registry)
-  * 
+  
 ## Workspace
 
 **Kaabah** is designed to take advantage of Terraform Workspaces. Indeed, **Kaabah** relies on the [Terraform recommend practices]((https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) and assume a **Workspace** is used to store the required data needed to build and manage an infrastructure for a specific environment (staging, production...):
@@ -44,7 +44,7 @@ The **Kaabah** configuration file is a **Terraform** variable file describing th
 
 Here is an example of a configuration file:
 
-```conf
+```ini
 provider = "AWS"
 
 manager_ip = "3.115.176.41"
@@ -180,4 +180,7 @@ By default, **Grafana** is shipped with the following customizations:
   
 ### [Registry](https://docs.docker.com/registry)
 
-_TODO_
+The **Registry** helps you build local images on your cluster and deploy them as a service.
+
+Read the section [Using the Registry](./../how-to-use-it/adavanced-usage.md###using-the-registry)
+

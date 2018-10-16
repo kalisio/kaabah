@@ -16,7 +16,7 @@ resource "null_resource" "manager_user_script" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/${basename(var.manager_user_script)}"
+      "bash ~/.kaabah/${basename(var.manager_user_script)}"
     ]
   }
 
@@ -40,7 +40,7 @@ resource "null_resource" "worker_user_scripts" {
   }
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/${basename(var.worker_user_scripts[count.index])}"
+      "bash ~/.kaabah/${basename(var.worker_user_scripts[count.index])}"
     ]
   }
 

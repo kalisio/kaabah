@@ -67,7 +67,7 @@ worker_additional_volume_mount_point = "DATA"
 
 Assuming the current workspace is `app-dev`, then when applying such a configuration, **Kaabah** will generate a Docker Swarm infrastructure on `AWS` (`provider` variable) composed of:
 * one manager node, `app-dev-manager`, of type `t2.small` with the public IP address `3.115.176.41`.
-* `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and this volume is accessible through the mount point: `/mnt/DATA0` and `/mnt/DATA1`.
+* `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and these volumes are accessible through the mount points: `/mnt/DATA0` and `/mnt/DATA1`.
 
 **Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as specifying a domain name, adding labels, running user scripts... Have a look at the complete list of [variables](./../how-to-use-it/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
 
@@ -129,7 +129,7 @@ As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack o
 The access to the UI of the different services is protected using Basic Authentication. The 
 :::
 
-In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services section](./how-to-use-it/advanced-usage.md) to learn how to do it.
+In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services](./how-to-use-it/advanced-usage.md#extending-the-services) section to learn how to do it.
 
 ### [Traefik](https://traefik.io)
 
@@ -182,5 +182,5 @@ By default, **Grafana** is shipped with the following customizations:
 
 The **Registry** helps you build local images on your cluster and deploy them as a service.
 
-Read the section [Using the Registry](./../how-to-use-it/adavanced-usage.md###using-the-registry)
+Read the [Using the Registry](./../how-to-use-it/adavanced-usage.md#using-the-registry) section.
 

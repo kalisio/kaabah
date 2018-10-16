@@ -12,13 +12,17 @@ sidebar: auto
 * **Workspace**: a collection of everything **Kaabah** needs to create and manage an infrastructure.
 * **Configuration**: a set of Terraform variables used to design your infrastructure.
 * **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) infrastructure built using **Kaabah**.
-* **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services:
+* **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services which helps operating the **Cluster**:
   * [Traefik](https://traefik.io)
   * [Portainer](https://portainer.io)
   * [Prometheus](https://prometheus.io)
   * [Grafana](https://grafana.com)
   * [Registry](https://docs.docker.com/registry)
   
+The following image illustrates how these entities interact:
+
+![Kaabah principle](./../assets/kaabah-principle.svg)
+
 ## Workspace
 
 **Kaabah** is designed to take advantage of Terraform Workspaces. Indeed, **Kaabah** relies on the [Terraform recommend practices]((https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) and assume a **Workspace** is used to store the required data needed to build and manage an infrastructure for a specific environment (staging, production...):
@@ -34,9 +38,6 @@ Starting from this premise, **Kaabah** lets you to manage as many clusters as yo
 ![Kaabah terraform](./../assets/kaabah-terraform.svg)
 
 In this diagram, the states of the different workspaces are stored within a dedicated bucket on amazon S3, but you are free to use any other Terraform [backends](https://www.terraform.io/docs/backends/).
-
-
-
 
 ## Configuration
 

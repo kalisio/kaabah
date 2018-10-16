@@ -735,7 +735,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Disk Space Used",
+      "title": "Free Disk Space",
       "tooltip": {
         "msResolution": true,
         "shared": true,

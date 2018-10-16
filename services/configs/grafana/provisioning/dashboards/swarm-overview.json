@@ -106,7 +106,7 @@
           "hide": false,
           "interval": "",
           "intervalFactor": 2,
-          "legendFormat": "{{task_name}}",
+          "legendFormat": "{{container_label_com_docker_swarm_service_name}}",
           "metric": "",
           "refId": "A",
           "step": 240
@@ -281,7 +281,7 @@
           "expr": "sum(container_memory_usage_bytes{container_label_com_docker_stack_namespace=~\"$stack_namespace\",container_label_com_docker_swarm_service_name =~\"$service_name\",container_label_com_docker_swarm_node_id=~\"$node\"}) by (name, container_label_com_docker_swarm_task_name)",
           "hide": false,
           "intervalFactor": 2,
-          "legendFormat": "{{task_name}}",
+          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
           "refId": "A",
           "step": 240
         },
@@ -382,7 +382,7 @@
         {
           "expr": "sum(rate(container_network_receive_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$__interval])) by (name, container_label_com_docker_swarm_task_name)",
           "intervalFactor": 2,
-          "legendFormat": "{{task_name}}",
+          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
           "refId": "A",
           "step": 240
         },
@@ -484,7 +484,7 @@
           "expr": "sum(rate(container_network_transmit_bytes_total{container_label_com_docker_swarm_node_id=~\"$node\"}[$__interval])) by (name, container_label_com_docker_swarm_task_name)",
           "format": "time_series",
           "intervalFactor": 2,
-          "legendFormat": "{{task_name}}",
+          "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
           "refId": "A",
           "step": 240
         },

@@ -1,0 +1,20 @@
+
+
+#!/bin/bash
+COMMAND=$1
+
+usage()
+{
+cat << EOF
+Clears the swarm
+usage: k-swarm-clear
+EOF
+}
+
+# Delete the unused images
+docker image prune -f
+k-worker-foreach "docker image prune -f"
+
+# Delete the unused volumes
+docker volume prune -f
+k-worker-foreach "docker image prune -f"

@@ -100,6 +100,12 @@ Executes the given command on each worker
 $k-worker-foreach "echo 'foo bar'" > foobar"
 ```
 
+## k-swarm-clear
+
+`usage: k-swarm-clear`
+
+Removes the unused images and volumes on the nodes
+
 ## k-swarm-info
 
 `usage: k-swarm-info`

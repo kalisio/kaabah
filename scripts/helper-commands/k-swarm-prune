@@ -7,7 +7,7 @@ usage()
 {
 cat << EOF
 Clears the swarm
-usage: k-swarm-clear
+usage: k-swarm-prune
 EOF
 }
 

@@ -104,7 +104,7 @@ $k-worker-foreach "echo 'foo bar'" > foobar"
 
 `usage: k-swarm-prune`
 
-Removes the unused images and volumes on the nodes
+Removes the unused images, volumes and networks on the nodes
 
 ## k-swarm-info
 

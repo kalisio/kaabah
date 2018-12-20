@@ -2,7 +2,7 @@ groups:
 - name: disk-usage
   rules:
 
-  - alert: root_disk_files_free
+  - alert: root_free_files
     expr: node_filesystem_files_free{mountpoint="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} < 0.25
     for: 30s
     labels:
@@ -11,9 +11,9 @@ groups:
       summary: "Instance {{ $labels.instance }} root disk is getting low on inodes"
       description: "{{ $labels.instance }} root disk is getting low on inodes (current value is: {{ $value }})"
 
-  - alert: disk_fill_in_4_hours
-    expr: predict_linear(node_filesystem_free{job="node-exporter"}[1h], 4 * 3600) < 0
-    for: 2m
+  - alert: root_free_disk_space
+    expr: node_filesystem_avail_bytes{mountpoint="/rootfs"} / node_filesystem_size_byte{mountpoint="/rootfs"} < 0.25
+    for: 30s
     labels:
       severity: page
     annotations:

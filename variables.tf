@@ -37,11 +37,11 @@ variable auth_password {
 }
 
 variable "docker_version" {
-  default = "18.03.1~ce-0~ubuntu"
+  default = "18.06.1~ce~3-0~ubuntu"
 }
 
 variable "docker_network" {
-  default = ""
+  default = "kaabah"
 }
 
 variable "docker_tls_ca_key" {

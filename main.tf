@@ -8,7 +8,6 @@ provider "null" {
 
 locals {
   subdomain      = "${replace(terraform.workspace, "-",".")}"
-  docker_network = "${element(split("-", terraform.workspace), 0)}"
 }
 
 module "Scaleway" {
@@ -24,7 +23,7 @@ module "Scaleway" {
   access_key                            = "${var.SCALEWAY_ACCESS_KEY}"
   token                                 = "${var.SCALEWAY_TOKEN}"
   docker_version                        = "${var.docker_version}"
-  docker_network                        = "${var.docker_network != "" ? var.docker_network : local.docker_network}"
+  docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
   docker_tls_ca_cert                    = "${var.docker_tls_ca_cert}"
   docker_tls_ca_pass                    = "${var.docker_tls_ca_pass}"
@@ -56,7 +55,7 @@ module "AWS" {
   access_key                            = "${var.AWS_ACCESS_KEY}"
   secret_key                            = "${var.AWS_SECRET_KEY}"
   docker_version                        = "${var.docker_version}"
-  docker_network                        = "${var.docker_network != "" ? var.docker_network : local.docker_network}"
+  docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
   docker_tls_ca_cert                    = "${var.docker_tls_ca_cert}"
   docker_tls_ca_pass                    = "${var.docker_tls_ca_pass}"

@@ -11,8 +11,8 @@
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev` |
 | `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
-| `docker_version` | The version of the Docker engine to be installed. The default value is `18.03.1~ce-0~ubuntu` |
-| `docker_network` | The name of the Docker network to be created. The default value is the name of the Terraform workspace without the environment part. For instance, the Docker network for the workspace `app-dev` will be `app` |
+| `docker_version` | The version of the Docker engine to be installed. The default value is `18.06.1ce3-0~ubuntu` |
+| `docker_network` | The name of the Docker network to be created. The default value is `kaabah` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""` |
 | `manager_user_script` | The user script to be executed when when the manager is ready. It must be the file path to the script. The default value is `""` |

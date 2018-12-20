@@ -18,3 +18,7 @@ k-worker-foreach "docker image prune -f"
 # Delete the unused volumes
 docker volume prune -f
 k-worker-foreach "docker image prune -f"
+
+# Delete the unused networks 
+docker network prune -f
+k-worker-foreach "docker network prune -f"

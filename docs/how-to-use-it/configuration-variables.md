@@ -25,5 +25,6 @@
 | `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
 | `extensions_dir` | The directory to provision to extend the services. The default value is `""` |
+| `ssh_ip_whitelist` | The IP addresses from where you can can connect to the hosts. The default value is `0.0.0.0/0` |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
 | `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |

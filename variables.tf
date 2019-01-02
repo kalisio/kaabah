@@ -110,6 +110,10 @@ variable extensions_dir {
   default = ""
 }
 
+variable "ssh_ip_whitelist" {
+  default = "0.0.0.0/0"
+}
+
 variable "ssh_key" {
   default = "ssh.pem"
 }

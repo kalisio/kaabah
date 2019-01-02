@@ -39,6 +39,7 @@ module "Scaleway" {
   worker_labels                         = "${var.worker_labels}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
   extensions_dir                        = "${var.extensions_dir}"
+  ssh_ip_whitelist                      = "${var.ssh_ip_whitelist}"
   ssh_key                               = "${var.ssh_key}"
 }
 
@@ -72,6 +73,7 @@ module "AWS" {
   worker_labels                         = "${var.worker_labels}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
   extensions_dir                        = "${var.extensions_dir}"
+  ssh_ip_whitelist                      = "${var.ssh_ip_whitelist}"
   ssh_key                               = "${var.ssh_key}"
   key_name                              = "${var.aws_key_name}"
 }

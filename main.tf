@@ -15,7 +15,7 @@ module "Scaleway" {
 
   provider                              = "${var.provider}"
   domain                                = "${var.domain}"
-  subdomain                             = "${var.subdomain != "" ? var.subdomain : local.subdomain}"
+  subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
   ca_server                             = "${var.ca_server}"
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user != "" ? var.auth_user : var.KAABAH_AUTH_USER}"
@@ -48,7 +48,7 @@ module "AWS" {
 
   provider                              = "${var.provider}"
   domain                                = "${var.domain}"
-  subdomain                             = "${var.subdomain != "" ? var.subdomain : local.subdomain}"
+  subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
   ca_server                             = "${var.ca_server}"
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user != "" ? var.auth_user : var.KAABAH_AUTH_USER}"

@@ -8,7 +8,7 @@
 | `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. If not defined in the file, **Kaabah** will try to define it from the environment variable `TF_AUTH_PASSWORD` |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value |
 | `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
-| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev` |
+| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
 | `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.06.1ce3-0~ubuntu` |

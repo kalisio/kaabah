@@ -32,7 +32,7 @@ services:
         - "traefik.port=8080"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:traefik.${SUBDOMAIN}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:traefik.${SUBDOMAIN}"
       restart_policy:
         condition: on-failure
 

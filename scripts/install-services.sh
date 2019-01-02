@@ -1,6 +1,6 @@
 #!/bin/bash
-SUBDOMAIN=$1
-DOMAIN=$2
+DOMAIN=$1
+SUBDOMAIN=$2
 CA_SERVER=$3
 CONTACT=$4
 AUTH_USER=$5
@@ -9,8 +9,8 @@ DOCKER_NETWORK=$7
 
 cd $HOME/kaabah
 
-echo SUBDOMAIN=$SUBDOMAIN > .env
 echo DOMAIN=$DOMAIN >> .env
+echo SUBDOMAIN=$SUBDOMAIN > .env
 echo CA_SERVER=$CA_SERVER >> .env
 echo CONTACT=$CONTACT >> .env
 echo AUTH_USER=$AUTH_USER >> .env

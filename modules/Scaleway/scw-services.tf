@@ -28,7 +28,7 @@ resource "null_resource" "services" {
   provisioner "remote-exec" {
     inline = [
       "set -a && . ./.bash_profile && set +a",
-      "bash ~/.kaabah/install-services.sh ${var.subdomain} ${var.domain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network}",
+      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network}",
       "cd kaabah && ./deploy-services.sh",
     ]
   }

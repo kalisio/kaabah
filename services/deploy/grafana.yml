@@ -21,7 +21,7 @@ services:
         - "traefik.port=3000"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}"
       restart_policy:
         condition: on-failure
 

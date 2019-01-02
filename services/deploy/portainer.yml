@@ -20,7 +20,7 @@ services:
         - "traefik.port=9000"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:portainer.${SUBDOMAIN}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:portainer.${SUBDOMAIN}"
       restart_policy:
         condition: on-failure
     depends_on:

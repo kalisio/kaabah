@@ -25,7 +25,7 @@ services:
         - "traefik.port=9090"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:prometheus.${SUBDOMAIN}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:prometheus.${SUBDOMAIN}"
       restart_policy:
         condition: on-failure
     depends_on:
@@ -54,7 +54,7 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
-      - '--web.external-url=https://alertmanager.${SUBDOMAIN}.${DOMAIN}'
+      - '--web.external-url=https://alertmanager.${SUBDOMAIN}'
     volumes:
       - ./../configs/prometheus/:/etc/alertmanager/
     networks:
@@ -71,7 +71,7 @@ services:
         - "traefik.port=9093"
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
-        - "traefik.frontend.rule=Host:alertmanager.${SUBDOMAIN}.${DOMAIN}"
+        - "traefik.frontend.rule=Host:alertmanager.${SUBDOMAIN}"
       restart_policy:
         condition: on-failure
     depends_on:

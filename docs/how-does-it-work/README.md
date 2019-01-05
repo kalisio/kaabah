@@ -114,7 +114,7 @@ In Swarm mode, the nodes communicate using an HTTP socket and therefore it is hi
 
 When creating the cluster, **Kaabah** handles the creation of the server and client keys but it requires you to provide this CA. Check out the [Getting started section](./../how-to-use-it/getting-started.md) to learn how to generate this CA.
 
-::: tip OpenSSL
+::: tip Note
 **Kaabah** relies on [OpenSSL](https://www.openssl.org/) to generate the server and client keys.
 :::
 
@@ -127,7 +127,7 @@ As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack o
 - analyze the cluster metrics using [Grafana](https://grafana.com/)
 
 ::: tip Note
-The access to the UI of the different services is protected using Basic Authentication. The 
+The access to the UI of the different services is protected using Basic Authentication.
 :::
 
 In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services](./how-to-use-it/advanced-usage.md#extending-the-services) section to learn how to do it.

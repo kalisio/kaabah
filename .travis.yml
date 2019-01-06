@@ -7,7 +7,6 @@ notifications:
     on_failure: always
 
 stages:
-- name: CHECK
 - name: PUBLISH
 
 jobs:

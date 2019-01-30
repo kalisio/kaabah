@@ -1,4 +1,4 @@
-# [Kaabah](https://kalisio.github.io/kaabah/)
+[![kaabah](https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-logo-black-512x168.png)](https://kalisio.github.io/kaabah/)
 
 _A Terraform solution to design, build and operate Docker Swarm infrastructures_
 

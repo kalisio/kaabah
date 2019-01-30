@@ -1,12 +1,7 @@
----
-sidebar: auto
----
-
 # Helper commands
 
-::: tip Helper commands
-**Kaabah** comes with various helper commands that you can use to manage your cluster. 
-These commands are installed in `/usr/local/sbin` and can be used out of the box.
+::: tip Note
+The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
 :::
 
 ## k-label-add

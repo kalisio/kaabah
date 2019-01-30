@@ -10,7 +10,7 @@ The full documentation is available [here](https://kalisio.github.io/kaabah/)
 
 ## Contributing
 
-Want to contribute ? check out our [contribution guidelines](./docs/CONTRIBUTING.md) for details
+Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/roadmap.html#contributing) for details
 
 ## Versioning
 
@@ -30,4 +30,4 @@ This project is sponsored by
 
 ## License
 
-This project is licensed under the MIT License - see the [license file](./docs/LICENSE.md) for details
+This project is licensed under the MIT License - see the [license file](./LICENSE.md) for details

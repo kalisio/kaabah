@@ -1,14 +1,24 @@
-# Contributing to Kaabah
+# Roadmap
 
-## Report a bug
+The roadmap is available on [Github](https://github.com/kalisio/kaabah/projects/1).
+
+## Milestones
+
+The milestones are available on [Github](https://github.com/kalisio/kaabah/milestones)
+
+## Release Notes
+
+**TODO**
+
+## Contributing 
+
+### Report a bug
 
 Before creating an issue please make sure you have checked out the docs, you might want to also try searching Github. It's pretty likely someone has already asked a similar question.
 
-If you haven't found your answer please feel free to join our [slack channel](https://kalisio.slack.com/), create an issue on Github.
-
 Issues can be reported in the [issue tracker](https://github.com/kalisio/kaabah/issues).
 
-## Pull Requests
+### Pull Requests
 
 We love pull requests and we're continually working to make it as easy as possible for people to contribute.
 
@@ -16,7 +26,7 @@ We prefer small pull requests with minimal code changes. The smaller they are th
 
 Although we generally accept many PRs they can be rejected for many reasons. We will be as transparent as possible but it may simply be that you do not have the same context or information regarding the roadmap that the core team members have. We value the time you take to put together any contributions so we pledge to always be respectful of that time and will try to be as open as possible so that you don't waste it.
 
-## Contributor Code of Conduct
+### Contributor Code of Conduct
 
 As contributors and maintainers of this project, we pledge to respect all people who contribute through reporting issues, posting feature requests, updating documentation, submitting pull requests or patches, and other activities.
 

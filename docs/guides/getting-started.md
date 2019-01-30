@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # Getting started
 
 ## Prerequisites

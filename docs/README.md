@@ -2,7 +2,7 @@
 home: true
 heroImage: https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-256x256.png
 actionText: Dive into details ?
-actionLink: /what-is-it/
+actionLink: /about/introduction
 features:
 - title: Cloud agnostic
   details: Build and operate your infrastructures either on Scaleway or on AWS

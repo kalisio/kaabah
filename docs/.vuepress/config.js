@@ -6,40 +6,57 @@ module.exports = {
     ['link', { rel: 'icon', href: `https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-64x64.png` }],
     ['link', { rel: 'manifest', href: '/manifest.json' }]
   ],
-  serviceWorker: true,
+  plugins: ['@vuepress/pwa'],
   theme: 'kalisio',
   themeConfig: {
     docsDir: 'docs',
-    serviceWorker: {
-      updatePopup: true
+    plugins: {
+      '@vuepress/pwa': {
+        serviceWorker: true,
+        updatePopup: true
+      }
     },
     nav: [
-      {
-        text: 'What is it ?',
-        link: '/what-is-it/',
-      },
-      {
-        text: 'How doest it work ?',
-        link: '/how-does-it-work/'
-      },
-      {
-        text: 'How to use it ?',
-        items: [
-          { text: 'Getting started', link: '/how-to-use-it/getting-started.md' },
-          { text: 'Advanced usage', link: '/how-to-use-it/advanced-usage.md' },
-          { text: 'Configuration variables', link: '/how-to-use-it/configuration-variables' },
-          { text: 'Helper commands', link: '/how-to-use-it/helper-commands.md'},
-          { text: 'Tips', link: '/how-to-use-it/tips' }
-        ]
-      },
-      {
-        text: '   ?',
-        items: [
-          { text: 'GitHub', link: 'https://github.com/kalisio/kaabah' },
-          { text: 'Contributing', link: '/CONTRIBUTING.md' },
-          { text: 'License', link: '/LICENSE.md' }
-        ]
-      }
-    ]
+      { text: 'About', link: '/about/introduction' },
+      { text: 'Guides', link: '/guides/understanding-kaabah' },
+      { text: 'Reference', link: '/reference/configuration-variables' },
+      { text: 'Tips', link: '/tips/' },
+    ],
+    sidebar: {
+      '/about/': getAboutSidebar(),
+      '/guides/': getGuidesSidebar(),
+      '/reference/': getReferenceSidebar(),
+      '/tips/': getTipsSidebar()
+    }
   }
+}
+
+function getAboutSidebar () {
+  return [
+    'introduction',
+    'roadmap',
+    'license',
+    'contact'
+  ] 
+}
+
+function getGuidesSidebar () {
+  return [
+    'understanding-kaabah',
+    'getting-started',
+    'advanced-usage'
+  ]
+}
+
+function getReferenceSidebar () {
+  return [
+    'configuration-variables',
+    'helper-commands'
+  ]
+}
+
+function getTipsSidebar () {
+  return [
+    ''
+  ]
 }

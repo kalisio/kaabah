@@ -1,7 +1,3 @@
----
-sidebar: auto
----
-
 # Advanced usage
 
 ## Docker swarm

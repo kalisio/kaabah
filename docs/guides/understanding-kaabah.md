@@ -1,6 +1,4 @@
----
-sidebar: auto
----
+# Understanding Kaabah
 
 ::: warning Prerequisites 
 **Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
@@ -18,10 +16,11 @@ sidebar: auto
   * [Prometheus](https://prometheus.io)
   * [Grafana](https://grafana.com)
   * [Registry](https://docs.docker.com/registry)
+* **Helper commands**: a set of commands that help you to operate your cluster.
   
 The following image illustrates how these entities interact:
 
-![Kaabah principle](./../assets/kaabah-principle.svg)
+![Kaabah principle](../assets/kaabah-principle.svg)
 
 ## Workspace
 
@@ -35,7 +34,7 @@ The following image illustrates how these entities interact:
 
 Starting from this premise, **Kaabah** lets you to manage as many clusters as your projects require. If we decide to name our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of **Kaabah**:
 
-![Kaabah terraform](./../assets/kaabah-terraform.svg)
+![Kaabah terraform](../assets/kaabah-terraform.svg)
 
 In this diagram, the states of the different workspaces are stored within a dedicated bucket on amazon S3, but you are free to use any other Terraform [backends](https://www.terraform.io/docs/backends/).
 
@@ -70,7 +69,7 @@ Assuming the current workspace is `app-dev`, then when applying such a configura
 * one manager node, `app-dev-manager`, of type `t2.small` with the public IP address `3.115.176.41`.
 * `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and these volumes are accessible through the mount points: `/mnt/DATA0` and `/mnt/DATA1`.
 
-**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as specifying a domain name, adding labels, running user scripts... Have a look at the complete list of [variables](./../how-to-use-it/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
+**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as specifying a domain name, adding labels, running user scripts... Have a look at the complete list of [variables](../reference/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
 
 ## Cluster
 
@@ -112,7 +111,7 @@ The name of the Docker network is automatically computed from the workspace name
 
 In Swarm mode, the nodes communicate using an HTTP socket and therefore it is highly recommended to protect the the Docker daemon. **Kaabah** will do it for you ! Therefore the Docker daemon only allows connections from clients authenticated by a certificate signed by a Certificate Authority (CA). 
 
-When creating the cluster, **Kaabah** handles the creation of the server and client keys but it requires you to provide this CA. Check out the [Getting started section](./../how-to-use-it/getting-started.md) to learn how to generate this CA.
+When creating the cluster, **Kaabah** handles the creation of the server and client keys but it requires you to provide this CA. Check out the [Getting started section](./getting-started.md) to learn how to generate this CA.
 
 ::: tip Note
 **Kaabah** relies on [OpenSSL](https://www.openssl.org/) to generate the server and client keys.
@@ -130,7 +129,7 @@ As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack o
 The access to the UI of the different services is protected using Basic Authentication.
 :::
 
-In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services](./how-to-use-it/advanced-usage.md#extending-the-services) section to learn how to do it.
+In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services](./advanced-usage.md#extending-the-services) section to learn how to do it.
 
 ### [Traefik](https://traefik.io)
 
@@ -153,7 +152,7 @@ By default, **Kaabah** specializes the **traefik** configuration with:
 
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration. Considering a workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
 
-![traefik routing](./../assets/kaabah-traefik.svg)
+![traefik routing](../assets/kaabah-traefik.svg)
 
 ### [Portainer](https://portainer.io)
 
@@ -165,7 +164,6 @@ The **Prometheus** monitoring solution is shipped with the following components:
 * [node-exporter](https://github.com/prometheus/node_exporter) and [cAdvisor](https://github.com/google/cadvisor) which collect, respectively, the metrics of the cluster's hosts and the services deployed on the Docker swarm.
 * [Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) which handles the alerts.
   
-
 ### [Grafana](https://grafana.com)
 
 **Grafana** allows you to visualize the metrics stored in the **Prometheus** databases through dedicated dashboards.
@@ -183,5 +181,5 @@ By default, **Grafana** is shipped with the following customizations:
 
 The **Registry** helps you build local images on your cluster and deploy them as a service.
 
-Read the [Using the Registry](./../how-to-use-it/adavanced-usage.md#using-the-registry) section.
+Read the [Using the Registry](./advanced-usage.md#using-the-registry) section.
 

@@ -1,3 +1,5 @@
+#  Configuration variables
+
 | Variables | Description |
 |--- | --- |
 | `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |

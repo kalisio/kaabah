@@ -1,9 +1,5 @@
 # Helper commands
 
-::: tip Note
-The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
-:::
-
 ## k-label-add
 
 `usage: k-label-add <node_id> <labels>`

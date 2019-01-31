@@ -1,5 +1,9 @@
 # Getting started
 
+::: warning 
+**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
+:::
+
 ## Prerequisites
 
 ::: tip Certificate Authority

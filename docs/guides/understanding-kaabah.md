@@ -9,18 +9,25 @@
 **Kaabah** let you manipulate 4 kind of entities:
 * **Workspace**: a collection of everything **Kaabah** needs to create and manage an infrastructure.
 * **Configuration**: a set of Terraform variables used to design your infrastructure.
-* **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) infrastructure built using **Kaabah**.
+* **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) built using **Kaabah**.
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services which helps operating the **Cluster**:
   * [Traefik](https://traefik.io)
   * [Portainer](https://portainer.io)
   * [Prometheus](https://prometheus.io)
   * [Grafana](https://grafana.com)
   * [Registry](https://docs.docker.com/registry)
-* **Helper commands**: a set of commands that help you to operate your cluster.
   
 The following image illustrates how these entities interact:
 
+
 ![Kaabah principle](../assets/kaabah-principle.svg)
+
+
+In addition provides a set of commands that help you to operate the cluster. For instance, you can easily prune all the images on the different nodes, execute a command on a given node... See the [reference](../reference/helper-commands) page to have the complete list.
+
+::: tip Note
+The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
+:::
 
 ## Workspace
 
@@ -183,10 +190,3 @@ The **Registry** helps you build local images on your cluster and deploy them as
 
 Read the [Using the Registry](./advanced-usage.md#using-the-registry) section.
 
-## Helper commands
-
-**Kaabah** provides a set of commands that help you to operate the cluster. For instance, you can easily prune all the nodes, execute a command on a given node... See the [reference](../reference/helper-commands) page to have the complete list.
-
-::: tip Note
-The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
-:::

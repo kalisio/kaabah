@@ -168,7 +168,7 @@ The **Prometheus** monitoring solution is shipped with the following components:
 
 **Grafana** allows you to visualize the metrics stored in the **Prometheus** databases through dedicated dashboards.
 
-By default, **Grafana** is shipped with the following customizations:
+By default, **Grafana** includes the following customizations:
 * UI: 
   * Login form disabled: indeed the access to **Grafana** requires to be authenticated (basic auth). This requirement is defined using Traefik frontend rule.
   * Once authenticated, the default user is granted the `EDITOR` permissions.
@@ -183,3 +183,10 @@ The **Registry** helps you build local images on your cluster and deploy them as
 
 Read the [Using the Registry](./advanced-usage.md#using-the-registry) section.
 
+## Helper commands
+
+**Kaabah** provides a set of commands that help you to operate the cluster. For instance, you can easily prune all the nodes, execute a command on a given node... See the [reference](../reference/helper-commands) page to have the complete list.
+
+::: tip Note
+The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
+:::

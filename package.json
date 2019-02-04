@@ -1,6 +1,6 @@
 {
   "name": "kaabah",
-  "version": "0.3.1",
+  "version": "0.3.0",
   "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -1,0 +1,34 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+{{#each releases}}
+  {{#if href}}
+    ## [{{title}}]({{href}}){{#if tag}} - {{isoDate}}{{/if}}
+  {{else}}
+    ## {{title}}{{#if tag}} - {{isoDate}}{{/if}}
+  {{/if}}
+
+  {{#if summary}}
+    {{summary}}
+  {{/if}}
+
+  {{#if fixes}}
+    ### Bug fixes:
+
+    {{#each fixes}}
+      - {{{commit.subject}}}{{#each fixes}} {{#if href}}[`#{{id}}`]({{href}}){{/if}}{{/each}}
+    {{/each}}
+  {{/if}}
+
+  {{! List commits with `Breaking change: ` somewhere in the message }}
+  {{#commit-list commits heading='### Breaking Changes' message='BREAKING CHANGE: '}}
+    - {{subject}} [`{{shorthash}}`]({{href}})
+  {{/commit-list}}
+
+  {{! List commits that add new features, but not those already listed above }}
+  {{#commit-list commits heading='### New features' message='feat: ' exclude='Breaking change: '}}
+    - {{subject}} [`{{shorthash}}`]({{href}})
+  {{/commit-list}}
+  
+{{/each}}

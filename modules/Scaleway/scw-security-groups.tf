@@ -132,7 +132,17 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_worker" {
   port           = "4789"
 }
 
-resource "scaleway_security_group_rule" "ssh_accept_worker" {
+resource "scaleway_security_group_rule" "ssh_accept_manager" {
+  count          = "${var.provider == "SCALEWAY" ? length(split(",",var.ssh_ip_whitelist)) : 0}"
+  security_group = "${scaleway_security_group.security_group_worker.id}"
+  action         = "accept"
+  direction      = "inbound"
+  ip_range       = "${scaleway_server.swarm_manager.0.private_ip}"
+  protocol       = "TCP"
+  port           = 22
+}
+
+resource "scaleway_security_group_rule" "ssh_accept_whitelist" {
   count          = "${var.provider == "SCALEWAY" ? length(split(",",var.ssh_ip_whitelist)) : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"

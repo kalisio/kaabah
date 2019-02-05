@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
-
 {{#each releases}}
   {{#if href}}
     ## [{{title}}]({{href}}){{#if tag}} - {{isoDate}}{{/if}}
@@ -14,13 +12,13 @@ All notable changes to this project will be documented in this file.
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
 
-  {{! List commits with `Breaking change: ` somewhere in the message }}
-  {{#commit-list commits heading='### Breaking Changes' message='BREAKING CHANGE: '}}
+  {{! List commits that add new features, but not those already listed above }}
+  {{#commit-list commits heading='### New features' message='feat: '}}
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
 
-  {{! List commits that add new features, but not those already listed above }}
-  {{#commit-list commits heading='### New features' message='feat: ' exclude='Breaking change: '}}
+  {{! List commits with `Breaking change: ` somewhere in the message }}
+  {{#commit-list commits heading='### Breaking Changes' message='BREAKING CHANGE: '}}
     - {{subject}} [`{{shorthash}}`]({{href}})
   {{/commit-list}}
   

@@ -10,7 +10,7 @@ The full documentation is available [here](https://kalisio.github.io/kaabah/)
 
 ## Contributing
 
-Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/roadmap.html#contributing) for details
+Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/contributing.html) for details
 
 ## Versioning
 

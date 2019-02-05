@@ -21,6 +21,7 @@ module.exports = {
       { text: 'Guides', link: '/guides/understanding-kaabah' },
       { text: 'Reference', link: '/reference/configuration-variables' },
       { text: 'Tips', link: '/tips/' },
+      { text: 'GitHub', link: 'https://github.com/kalisio/kaabah' }
     ],
     sidebar: {
       '/about/': getAboutSidebar(),

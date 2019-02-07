@@ -11,6 +11,10 @@ usage: k-swarm-prune
 EOF
 }
 
+# Delete the stopped container
+docker container prune -f
+k-worker-foreach "docker container prune -f"
+
 # Delete the unused images
 docker image prune -f
 k-worker-foreach "docker image prune -f"

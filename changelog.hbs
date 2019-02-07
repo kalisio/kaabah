@@ -1,10 +1,14 @@
 # Changelog
 
 {{#each releases}}
-  {{#if href}}
-    ## [{{title}}]({{href}}){{#if tag}} - {{isoDate}}{{/if}}
+   {{#if href}}
+    ###{{#unless major}}#{{/unless}} [{{title}}]({{href}})
   {{else}}
-    ## {{title}}{{#if tag}} - {{isoDate}}{{/if}}
+    #### {{title}}
+  {{/if}}
+
+  {{#if tag}}
+    > {{niceDate}}
   {{/if}}
 
   {{! List commits with `Breaking change: ` somewhere in the message }}

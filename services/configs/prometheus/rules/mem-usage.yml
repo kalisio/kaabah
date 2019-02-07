@@ -3,7 +3,7 @@ groups:
   rules:
 
   - alert: high_swap_memory_usage
-    expr: (((node_memory_SwapTotal-node_memory_SwapFree)/node_memory_SwapTotal)*100) > 85
+    expr: (((node_memory_SwapTotal_bytes-node_memory_SwapFree_bytes)/node_memory_SwapTotal_bytes)*100) > 85
     for: 5m
     labels:
       severity: page
@@ -12,7 +12,7 @@ groups:
       description: "{{ $labels.instance }} is under high swap memory usage than 5 minutes."
 
   - alert: high_memory_usage
-    expr: (((node_memory_MemTotal-node_memory_MemFree-node_memory_Cached)/(node_memory_MemTotal)*100)) > 85
+    expr: (((node_memory_MemTotal_bytes-node_memory_MemFree_bytes-node_memory_Cached_bytes)/(node_memory_MemTotal_bytes)*100)) > 85
     for: 5m
     labels:
       severity: page

@@ -3,7 +3,7 @@ groups:
   rules:
 
   - alert: high_load_average
-    expr: (node_load5 / count without (cpu, mode) (node_cpu{mode="system"})) > 1
+    expr: (node_load5 / count without (cpu, mode) (node_cpu_seconds_total{mode="system"})) > 1
     for: 5m
     labels:
       severity: page

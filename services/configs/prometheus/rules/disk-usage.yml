@@ -3,7 +3,7 @@ groups:
   rules:
 
   - alert: root_free_files
-    expr: node_filesystem_files_free{mountpoint="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} < 0.25
+    expr: node_filesystem_files_free{mountpoint="/"} / node_filesystem_files{mountpoint="/"} < 0.25
     for: 30s
     labels:
       severity: page
@@ -12,11 +12,10 @@ groups:
       description: "{{ $labels.instance }} root disk is getting low on inodes (current value is: {{ $value }})"
 
   - alert: root_free_disk_space
-    expr: node_filesystem_avail_bytes{mountpoint="/rootfs"} / node_filesystem_size_byte{mountpoint="/rootfs"} < 0.25
+    expr: node_filesystem_avail_bytes{mountpoint="/"} / node_filesystem_size_bytes{mountpoint="/"} < 0.25
     for: 30s
     labels:
       severity: page
     annotations:
       summary: "Instance {{ $labels.instance }} is getting low on free disk space"
       description: "{{ $labels.instance }} is getting low on free disk space."
-

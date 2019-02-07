@@ -4,7 +4,7 @@
   "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "changelog": "auto-changelog -p -t changelog.hbs",
+    "changelog": "auto-changelog -t changelog.hbs",
     "version": "npm run changelog && git add CHANGELOG.md",
     "postversion": "git push origin --tags",
     "release:patch": "npm version --force patch",

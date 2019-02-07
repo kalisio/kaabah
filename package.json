@@ -1,11 +1,11 @@
 {
   "name": "kaabah",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "changelog": "auto-changelog -p -t changelog.hbs",
-    "version": "npm run changelog && git add CHANGELOG.md",
+    "version": "npm run changelog && git add CHANGELOG.md && git commit -am \"chore: Updating changelog\"",
     "postversion": "git push origin --tags",
     "release:patch": "npm version --force patch",
     "release:minor": "npm version --force minor",

@@ -3,7 +3,7 @@ groups:
   rules:
 
   - alert: high_cpu_usage
-    expr: (100 - (avg by (instance) (irate(node_cpu{name="node-exporter",mode="idle"}[5m])) * 100)) > 85
+    expr: (100 - (avg by (instance) (irate(node_cpu_seconds_total{job="node-exporter",mode="idle"}[5m])) * 100)) > 85
     for: 5m
     labels:
       severity: page

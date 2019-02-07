@@ -11,19 +11,8 @@
     > {{niceDate}}
   {{/if}}
 
-  {{! List commits with `Breaking change: ` somewhere in the message }}
-  {{#commit-list commits heading='### Fixed bugs' message='fix: '}}
-    - {{subject}} [`{{shorthash}}`]({{href}})
-  {{/commit-list}}
+  {{#each fixes}}
+    - {{{commit.subject}}}{{#each fixes}}{{#if href}} [`#{{id}}`]({{href}}){{/if}}{{/each}}
+  {{/each}}
 
-  {{! List commits that add new features, but not those already listed above }}
-  {{#commit-list commits heading='### New features' message='feat: '}}
-    - {{subject}} [`{{shorthash}}`]({{href}})
-  {{/commit-list}}
-
-  {{! List commits with `Breaking change: ` somewhere in the message }}
-  {{#commit-list commits heading='### Breaking Changes' message='BREAKING CHANGE: '}}
-    - {{subject}} [`{{shorthash}}`]({{href}})
-  {{/commit-list}}
-  
 {{/each}}

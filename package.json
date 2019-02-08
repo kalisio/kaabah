@@ -2,20 +2,22 @@
   "name": "kaabah",
   "version": "0.5.0",
   "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
+  "repository": {
+    "url": "https://github.com/kalisio/kaabah"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "changelog": "auto-changelog -t changelog.hbs",
-    "version": "npm run changelog && git add CHANGELOG.md",
+    "changelog": "changelog -x build,ci,chore,docs,other,perf,refactor,revert,style,test",
+    "release:major": "npm run changelog -- -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version --force major",
+    "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md\" && npm version --force minor",
+    "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md\" && npm version --force patch",
     "postversion": "git push origin --tags",
-    "release:patch": "npm version --force patch",
-    "release:minor": "npm version --force minor",
-    "release:major": "npm version --force major",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
-    "auto-changelog": "^1.11.0",
+    "generate-changelog": "^1.7.1",
     "vuepress": "^0.14.8",
     "vuepress-theme-kalisio": "http://github.com/kalisio/vuepress-theme-kalisio"
   },

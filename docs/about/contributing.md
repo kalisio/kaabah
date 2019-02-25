@@ -75,7 +75,7 @@ We rely on [Semantic Versioning](https://semver.org/) for versioning a release. 
 The command `npm run release:<type>`, where  `<type>` is either `patch`, `minor` or `major`, helps you to do the release. 
 
 It performs the following task for you:
-* increase the package version number in the package.json file
+* increase the package version number in the `package.json` file
 * generate the change log
 * create a tag accordingly in the git repository and push it
 

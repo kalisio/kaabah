@@ -2,8 +2,6 @@ provider = "AWS"
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 
-ssh_ip_whitelist = "78.159.24.129/32,86.193.114.150/32"
-
 manager_ip = "3.120.200.41"
 
 manager_instance_type = "t2.small"

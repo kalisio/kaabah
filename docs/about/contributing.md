@@ -1,18 +1,83 @@
 # Contributing 
 
-## Report a bug
+## Submission guidelines
+
+### Report a bug
 
 Before creating an issue please make sure you have checked out the docs, you might want to also try searching Github. It's pretty likely someone has already asked a similar question.
 
 Issues can be reported in the [issue tracker](https://github.com/kalisio/kaabah/issues).
 
-## Pull Requests
+### Pull Requests
 
 We love pull requests and we're continually working to make it as easy as possible for people to contribute.
 
 We prefer small pull requests with minimal code changes. The smaller they are the easier they are to review and merge. A core team member will pick up your PR and review it as soon as they can. They may ask for changes or reject your pull request. This is not a reflection of you as an engineer or a person. Please accept feedback graciously as we will also try to be sensitive when providing it.
 
 Although we generally accept many PRs they can be rejected for many reasons. We will be as transparent as possible but it may simply be that you do not have the same context or information regarding the roadmap that the core team members have. We value the time you take to put together any contributions so we pledge to always be respectful of that time and will try to be as open as possible so that you don't waste it.
+
+## Commit message guidelines
+
+We follow the [Conventional commits specifications](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) which provides a set of rules to make commit messages more readable when looking through the project history. But also, we use the git commit messages to generate the change log.
+
+### Commit message format
+
+The commit message should be structured as follows:
+
+```
+<type>: <subject>
+[optional body]
+[optional footer]
+```
+
+* `type` must be one of the following:
+  ** `chore`: changes that affect the project structure, the build system (external dependencies)
+  ** `ci`: changes to our CI configuration files and scripts
+  ** `docs`: changes that affect the documentation only
+  ** `feat`: a new feature
+  ** `fix`: a bug fix
+  ** `perf`: a code change that improves performance
+  ** `refactor`: a code change that neither fixes a bug nor adds a feature
+  ** `style`: changes that do not affect the meaning of the code (lint issues)
+  ** `test`: adding missing tests or correcting existing tests
+* `subject` should be a description of the commit. It should be no longer than 100 characters.
+* `body` is optional. It is mainly used to declare a **BREAKING CHANGE**. 
+* `header` is optional and should contain a closing reference to an issue if any.
+
+### Examples
+
+* Commit message with description and breaking change in body
+```
+feat: allow provided config object to extend other configs
+
+BREAKING CHANGE: `extends` key in config file is now used for extending other config files
+```
+
+* Commit message with no body
+```
+docs: correct spelling in the contributing.md file
+```
+
+* Commit message for a fix using an issue number.
+```
+fix: minor typos in code
+
+fixes issue #12
+```
+
+## Versioning guidelines
+
+We rely on [Semantic Versioning](https://semver.org/) for versioning a release. Indeed, given a version number `MAJOR.MINOR.PATCH`, increment the:
+* `MAJOR` version when you make a major evolution leading to breaking changes,
+* `MINOR` version when you add functionality in a backwards-compatible manner
+* `PATCH` version when you make backwards-compatible bug fixes.
+
+The command `npm run release:<type>`, where  `<type>` is either `patch`, `minor` or `major`, helps you to do the release. 
+
+It performs the following task for you:
+* increase the package version number in the package.json file
+* generate the change log
+* create a tag accordingly in the git repository and push it
 
 ## Contributor Code of Conduct
 

@@ -12,16 +12,6 @@ The full documentation is available [here](https://kalisio.github.io/kaabah/)
 
 Want to contribute ? check out our [contribution guidelines](https://kalisio.github.io/kaabah/about/contributing.html) for details
 
-## Versioning
-
-We use [SemVer](https://semver.org/) for versioning. For the versions available, see the tags on this repository.
-
-When releasing a patch, minor or major version, i.e. the following tasks have to be done:
-- increase the package version number in the package.json file
-- create a tag accordingly in the git repository and push it
-
-The command `npm run release:<type>`, where  `<type>` is either `patch`, `minor` or `major`, will do the job for you ! 
-
 ## Authors
 
 This project is sponsored by 

@@ -23,7 +23,7 @@ resource "null_resource" "services" {
   }
 
   provisioner "file" {
-    source      = "${var.extensions_dir != "" ? format("%s/", var.extensions_dir) : "scripts/null-extensions/"}"
+    source      = "${var.extensions_dir != "" ? format("%s/", var.extensions_dir) : "scripts/null-files/extensions/"}"
     destination = "kaabah"
   }
 

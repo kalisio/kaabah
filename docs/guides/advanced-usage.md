@@ -81,7 +81,7 @@ networks:
 
 ### Updating the services
 
-When updating Kaabah, you may need to update the services running on a given infrastructure. You can rely on Terraform to proceed:
+When updating **Kaabah**, you may need to update the services running on a given infrastructure. You can rely on Terraform to proceed:
 
 1. taint the resource assigned to the services, that is to say: `null_resource.services`
 
@@ -92,7 +92,7 @@ $terraform taint -module=AWS null_resource.services
 2. apply to update the services
 
 ```bash
-$terraform apply -var-file="workspaces/<file>.tfvars"
+$terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
 ```
 
 ### Extending the services
@@ -106,3 +106,34 @@ You can take advantage of this feature to:
 * override the default configuration of the existing services
 * bootstrap your cluster with additional services
   
+## Crontab
+
+### Declaring a crontab
+
+When building a cluster, you can take advantage of the `manager_crontab` variable to declare a crontab file to be provisioned on the manager.
+
+```bash
+manager_crontab = "workspaces/my-workspace/my-crontab
+```
+
+The pointed file must be a valid crontab file. See the [crontab file format](https://en.wikipedia.org/wiki/Cron) to have the complete specifications.
+
+### Updating a crontab
+
+To update the crontab, on the manager, follow this procedure:
+
+1. taint the resource assigned to the crontab, that is to say: `null_resource.manager_crontab`
+
+```bash
+$terraform taint -module=AWS null_resource.manager_crontab
+```
+
+2. apply to update the services
+
+```bash
+$terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
+
+::: tip
+To remove a crontab, just simply clear the `manager_crontab` variable and update the `null_resource.manager_crontab` resource as indicated above.
+:::
+

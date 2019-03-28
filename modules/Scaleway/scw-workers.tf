@@ -77,9 +77,11 @@ resource "scaleway_server" "swarm_worker" {
     on_failure = "continue"
     
     connection {
-      type = "ssh"
-      user = "${var.ssh_user}"
-      host = "${scaleway_server.swarm_manager.public_ip}"
+      type        = "ssh"
+      user        = "${var.ssh_user}"
+      private_key = "${file(var.ssh_key)}"
+      host        = "${scaleway_server.swarm_manager.public_ip}"
+      timeout     = "300s"
     }
   }
 }

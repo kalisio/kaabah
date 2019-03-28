@@ -74,9 +74,11 @@ resource "aws_instance" "swarm_worker" {
     on_failure = "continue"
     
     connection {
-      type = "ssh"
-      user = "${var.ssh_user}"
-      host = "${aws_instance.swarm_manager.public_ip}"
+      type        = "ssh"
+      user        = "${var.ssh_user}"
+      private_key = "${file(var.ssh_key)}"
+      host        = "${aws_instance.swarm_manager.public_ip}"
+      timeout     = "120s"
     }
   }
 

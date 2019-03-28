@@ -65,3 +65,36 @@ resource "aws_instance" "swarm_manager" {
     Name = "${terraform.workspace}-manager"
   }
 }
+
+resource "null_resource" "manager_crontab" {
+  count = "${var.provider == "AWS" ? 1 : 0}"
+
+  connection {
+    type        = "ssh"
+    user        = "${var.ssh_user}"
+    private_key = "${file(var.ssh_key)}"
+    host        = "${var.manager_ip}"
+    timeout     = "120s"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      # we stop the actions and in case the resource is recreated 
+      "crontab -r", 
+    ]
+    on_failure = "continue"  # if no crontab keep on the process
+  }
+
+  provisioner "file" {
+    source      = "${var.manager_crontab != "" ? var.manager_crontab : "scripts/null-files/crontab"}"
+    destination = "~/.kaabah/crontab"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "cat ~/.kaabah/crontab | crontab -",
+    ]
+  }
+
+  depends_on = ["aws_instance.swarm_manager"]
+}

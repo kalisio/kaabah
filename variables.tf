@@ -68,6 +68,10 @@ variable "manager_labels" {
   default = ""
 }
 
+variable "manager_crontab" {
+  default = ""
+}
+
 variable "manager_user_script" {
   default = ""
 }

@@ -17,6 +17,7 @@
 | `docker_network` | The name of the Docker network to be created. The default value is `kaabah` |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""` |
+| `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `` |
 | `manager_user_script` | The user script to be executed when when the manager is ready. It must be the file path to the script. The default value is `""` |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `worker_instance_count` | The number of worker instances. The default value is `1` |

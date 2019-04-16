@@ -6,10 +6,10 @@
 | `SCALEWAY_TOKEN` | Your Scaleway token |
 | `AWS_ACCESS_KEY` | Your AWS access key. This is important to note that your credential must allows access to AWS EC2 and S3 services |
 | `AWS_SECRET_KEY` | Your AWS secret key |
-| `auth_user` | Your authentication identity to access the services. If not defined in the file, **Kaabah** will try to define it from the environment variable `TF_AUTH_USER` |
-| `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. If not defined in the file, **Kaabah** will try to define it from the environment variable `TF_AUTH_PASSWORD` |
-| `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value |
-| `domain` | The domain to be added to the traefik rules. The default value is `kalisio.xyz` |
+| `auth_user` | Your authentication identity to access the services. The default value is `` |
+| `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. The default value is `` |
+| `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. The default value is `` |
+| `domain` | The domain to be added to the traefik rules. The default value is `` |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
 | `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
@@ -29,5 +29,5 @@
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
 | `extensions_dir` | The directory to provision to extend the services. The default value is `""` |
 | `ssh_ip_whitelist` | The IP addresses from where you can can connect to the hosts. The default value is `0.0.0.0/0` |
-| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `ssh.pem` |
-| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `kalisio` |
+| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `` |
+| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `` |

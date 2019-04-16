@@ -108,6 +108,8 @@ You can take advantage of this feature to:
   
 ## Crontab
 
+**Kaabah** provides you the capability to assign a **crontab** to the manager.
+
 ### Declaring a crontab
 
 When building a cluster, you can take advantage of the `manager_crontab` variable to declare a crontab file to be provisioned on the manager.

@@ -158,3 +158,10 @@ hgeulxbwkex2        services_prometheus          replicated          1/1        
 ltstocwymexj        services_traefik             replicated          1/1                 traefik:latest
 ```
 
+### Destroy the infrastructure
+
+To destroy the created infrastructure, you can simply type the following command:
+
+```bash
+$terraform apply -var-file="path/to/your/config.tfvars"
+```

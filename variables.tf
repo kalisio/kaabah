@@ -4,16 +4,12 @@ variable "SCALEWAY_TOKEN" {}
 variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
 
-variable "KAABAH_AUTH_USER" {}
-
-variable "KAABAH_AUTH_PASSWORD" {}
-
 variable "provider" {
   default = ""
 }
 
 variable "domain" {
-  default = "kalisio.xyz"
+  default = ""
 }
 
 variable "subdomain" {
@@ -119,9 +115,9 @@ variable "ssh_ip_whitelist" {
 }
 
 variable "ssh_key" {
-  default = "ssh.pem"
+  default = ""
 }
 
 variable "aws_key_name" {
-  default = "kalisio"
+  default = ""
 }

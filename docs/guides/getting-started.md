@@ -51,14 +51,7 @@ $export TF_VAR_AWS_ACCESS_KEY="<ACCESS-KEY>"
 $export TF_VAR_AWS_SECRET_KEY="<SECRET-KEY>" 
 ```
 
-3. Define your authentication parameters
-
-```bash
-$export TF_VAR_KAABAH_AUTH_USER="<AUTH_USER>"
-$export TF_VAR_KAABAH_AUTH_PASSWORD="<ENCRYPTED_AUTH_PASSWORD>"
-```
-
-4. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
+1. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
 
 Create a file `backend.config` with the following properties:
 ```

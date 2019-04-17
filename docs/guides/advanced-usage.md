@@ -120,6 +120,30 @@ manager_crontab = "workspaces/my-workspace/my-crontab
 
 The pointed file must be a valid crontab file. See the [crontab file format](https://en.wikipedia.org/wiki/Cron) to have the complete specifications.
 
+Here is an example of a crontab file that executes the [`k-swarm-prune`](../reference/helper-commands#k-swarm-prune) command every 2 hours:
+
+```bash
+# Clears the swarm every tow hour
+0 */2 * * * k-swarm-prune
+
+```
+
+Once installed, you can list the actions using the command:
+
+```bash
+$crontab -l
+```
+
+And check the logs with the command:
+
+```bash
+$grep CRON /var/log/syslog
+```
+
+::: warning
+Do not forget to add a `newline` at the end of the file, otherwise the installation will fail.
+:::
+
 ### Updating a crontab
 
 To update the crontab, on the manager, follow this procedure:

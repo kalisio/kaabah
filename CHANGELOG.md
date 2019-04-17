@@ -1,3 +1,19 @@
+### 0.6.0 (2019-04-17)
+
+##### New Features
+
+*  Force to define some variables in the var file (close [#79](https://github.com/kalisio/kaabah/pull/79)) ([5f89ba6b](https://github.com/kalisio/kaabah/commit/5f89ba6b0198e0e3238ae97454a97285b3e61c28))
+*  Add the capability to define a crontab for the manager (close [#77](https://github.com/kalisio/kaabah/pull/77)) ([bf1240f6](https://github.com/kalisio/kaabah/commit/bf1240f646592b8fc02ee3b5e729f3810d881e41))
+
+##### Bug Fixes
+
+*  ssh.pem file seems to be always required even if using another ssh_key file (close [#73](https://github.com/kalisio/kaabah/pull/73)) ([6d72956c](https://github.com/kalisio/kaabah/commit/6d72956cda335354a9d71663d748bc6d9a5ffccf))
+*  Services are not removed when tainting the resource (close [#76](https://github.com/kalisio/kaabah/pull/76)) ([cc9faf94](https://github.com/kalisio/kaabah/commit/cc9faf94141e3782c2127475dfcc5acf651a5894))
+
+##### Other Changes
+
+*  remove ip whilte list from the tests ([260fcf32](https://github.com/kalisio/kaabah/commit/260fcf32f84826be8442a418269ee3e5539bef3d))
+
 #### [v0.5.0](https://github.com/kalisio/kaabah/compare/v0.4.0...v0.5.0)
 
 > 7 February 2019

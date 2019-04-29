@@ -1,6 +1,16 @@
 provider = "AWS"
 
+domain = "kalisio.xyz"
+
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+auth_user = "admin"
+
+auth_password = "$apr1$tzi751qF$UTdXYhhpB2aKoZM82ES.a1"
+
+ssh_key = "tests/ssh.pem"
+
+aws_key_name = "kalisio"
 
 manager_ip = "3.120.200.41"
 

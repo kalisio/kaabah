@@ -1,6 +1,14 @@
 provider = "SCALEWAY"
 
+domain = "kalisio.xyz"
+
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+auth_user = "admin"
+
+auth_password = "$apr1$tzi751qF$UTdXYhhpB2aKoZM82ES.a1"
+
+ssh_key = "tests/ssh.pem"
 
 ssh_ip_whitelist = "78.159.24.129/32,86.193.114.150/32"
 

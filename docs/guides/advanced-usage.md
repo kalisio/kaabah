@@ -158,6 +158,7 @@ $terraform taint -module=AWS null_resource.manager_crontab
 
 ```bash
 $terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
+```
 
 ::: tip
 To remove a crontab, just simply clear the `manager_crontab` variable and update the `null_resource.manager_crontab` resource as indicated above.

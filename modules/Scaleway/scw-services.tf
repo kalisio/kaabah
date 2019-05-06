@@ -5,7 +5,7 @@ resource "null_resource" "services" {
     type        = "ssh"
     user        = "${var.ssh_user}"
     private_key = "${file(var.ssh_key)}"
-    host        = "${scaleway_server.swarm_manager.public_ip}"
+    host        = "${var.manager_ip}"
     timeout     = "120s"
   }
 

@@ -16,10 +16,12 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    timeout     = "300s"
+    type          = "ssh"
+    bastion_host  = "${var.manager_ip}"
+    host          = "${self.private_ip}"
+    user          = "${var.ssh_user}"
+    private_key   = "${file(var.ssh_key)}"
+    timeout       = "300s"
   }
 
   provisioner "file" {
@@ -80,7 +82,7 @@ resource "scaleway_server" "swarm_worker" {
       type        = "ssh"
       user        = "${var.ssh_user}"
       private_key = "${file(var.ssh_key)}"
-      host        = "${scaleway_server.swarm_manager.public_ip}"
+      host        = "${var.manager_ip}"
       timeout     = "300s"
     }
   }

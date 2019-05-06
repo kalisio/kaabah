@@ -15,11 +15,12 @@ resource "null_resource" "swarm_worker_volume_mount" {
   count = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    host        = "${scaleway_server.swarm_worker.*.public_ip[count.index / var.worker_additional_volume_count]}"
-    timeout     = "300s"
+    type          = "ssh"
+    bastion_host  = "${var.manager_ip}"
+    host          = "${scaleway_server.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
+    user          = "${var.ssh_user}"
+    private_key   = "${file(var.ssh_key)}"
+    timeout       = "300s"
   }
 
   provisioner "remote-exec" {

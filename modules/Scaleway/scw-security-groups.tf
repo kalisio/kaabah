@@ -142,12 +142,3 @@ resource "scaleway_security_group_rule" "ssh_accept_manager" {
   port           = 22
 }
 
-resource "scaleway_security_group_rule" "ssh_accept_whitelist" {
-  count          = "${var.provider == "SCALEWAY" ? length(split(",",var.ssh_ip_whitelist)) : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${element(split(",", var.ssh_ip_whitelist),count.index)}"
-  protocol       = "TCP"
-  port           = 22
-}

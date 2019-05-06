@@ -5,7 +5,6 @@ resource "aws_instance" "swarm_worker" {
   availability_zone           = "${var.availability_zone}"
   instance_type               = "${var.worker_instance_type}"
   security_groups             = ["${aws_security_group.security_group_worker.name}"]
-  associate_public_ip_address = true
 
   root_block_device {
     volume_type = "gp2"
@@ -13,10 +12,12 @@ resource "aws_instance" "swarm_worker" {
   }
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    timeout     = "120s"
+    type          = "ssh"
+    bastion_host  = "${var.manager_ip}"
+    host          = "${self.private_ip}"
+    user          = "${var.ssh_user}"
+    private_key   = "${file(var.ssh_key)}"
+    timeout       = "300s"
   }
 
   provisioner "file" {
@@ -77,7 +78,7 @@ resource "aws_instance" "swarm_worker" {
       type        = "ssh"
       user        = "${var.ssh_user}"
       private_key = "${file(var.ssh_key)}"
-      host        = "${aws_instance.swarm_manager.public_ip}"
+      host        = "${var.manager_ip}"
       timeout     = "120s"
     }
   }

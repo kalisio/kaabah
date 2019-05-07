@@ -133,7 +133,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_worker" {
 }
 
 resource "scaleway_security_group_rule" "ssh_accept_manager" {
-  count          = "${var.provider == "SCALEWAY" ? length(split(",",var.ssh_ip_whitelist)) : 0}"
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"

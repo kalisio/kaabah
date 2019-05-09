@@ -93,6 +93,8 @@ We recommend to create a `tfvars` file to override the default variables for you
 ```text
 provider = "AWS"
 
+ssh_key = "workspaces/key.pem" # the path to the private key
+
 manager_ip = "3.120.200.41"
 
 manager_instance_type = "t2.small"
@@ -115,6 +117,12 @@ worker_user_scripts=["workspaces/test-script.sh", "workspaces/test-script.sh", "
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 ```
+
+::: tip
+In that case, the manager will act as a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). That is to say, you will have to use the 
+manager as an SSH Gateway to get connected to the workers. If you have an existing **Bastion** lying in the same VPC, you can take configure your cluster to use it in order to secure the access.
+For more information see the [Using a bastion](./advanced-usage.md#using-a-bastion) documentation.
+:::
 
 ### Apply the changes
 

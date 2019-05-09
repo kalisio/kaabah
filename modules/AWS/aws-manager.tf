@@ -18,10 +18,14 @@ resource "aws_instance" "swarm_manager" {
   }
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    timeout     = "120s"
+    type                = "ssh"
+    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
+    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key) : ""}"
+    host                = "${local.use_bastion ? self.private_ip : self.public_ip}" # use public ip instead of manager_ip because the eip is not associated right now
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "120s"
   }
 
   provisioner "file" {
@@ -57,7 +61,7 @@ resource "aws_instance" "swarm_manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/install-manager.sh ${var.docker_version} ${self.private_ip}",
+      "sudo bash ~/.kaabah/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
     ]
   }
 
@@ -70,11 +74,14 @@ resource "null_resource" "manager_crontab" {
   count = "${var.provider == "AWS" ? 1 : 0}"
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    host        = "${var.manager_ip}"
-    timeout     = "120s"
+    type                = "ssh"
+    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
+    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
+    host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "120s"
   }
 
   provisioner "remote-exec" {
@@ -96,5 +103,5 @@ resource "null_resource" "manager_crontab" {
     ]
   }
 
-  depends_on = ["aws_instance.swarm_manager"]
+  depends_on = ["aws_eip_association.swarm_manager"]
 }

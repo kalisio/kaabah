@@ -2,10 +2,10 @@
 
 | Variables | Description |
 |--- | --- |
-| `SCALEWAY_ACCESS_KEY` | Your Scaleway access key |
-| `SCALEWAY_TOKEN` | Your Scaleway token |
-| `AWS_ACCESS_KEY` | Your AWS access key. This is important to note that your credential must allows access to AWS EC2 and S3 services |
-| `AWS_SECRET_KEY` | Your AWS secret key |
+| `SCALEWAY_ACCESS_KEY` | Your **Scaleway** access key |
+| `SCALEWAY_TOKEN` | Your **Scaleway** token |
+| `AWS_ACCESS_KEY` | Your **AWS** access key. This is important to note that your credential must allows access to **AWS EC2** and **S3** services |
+| `AWS_SECRET_KEY` | Your **AWS** secret key |
 | `auth_user` | Your authentication identity to access the services. The default value is `` |
 | `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. The default value is `` |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. The default value is `` |
@@ -27,7 +27,11 @@
 | `worker_additional_volume_mount_point` | The mount point used to mount the devices. The prefix `/dev/` is automatically added and the default value is `data` |
 | `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
-| `extensions_dir` | The directory to provision to extend the services. The default value is `""` |
+| `extensions_dir` | The directory to provision to extend the services. The default value is `""`. |
 | `ssh_ip_whitelist` | The IP addresses from where you can can connect to the hosts. The default value is `0.0.0.0/0` |
-| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is `` |
-| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is `` |
+| `ssh_user` | The user to get connected to the instances. on **Scaleway** the default value is `root` and on **AWS** the default value is `ubuntu`. |
+| `ssh_key` | The path to the the ssh key required to get connected to the instances. The default value is ``. |
+| `key_name` | The AWS name of the ssh key to be used when creating the instance. The default value is ``. |
+| `bastion_ip` | The IP address of the bastion to be used. The default value is the value of the `manager_ip` variable. |
+| `bastion_ssh_user` | The user to be used to get connected to the bastion. The default value is the value of the `ssh_user` variable. |
+| `bastion_ssh_key` | The private key to be used to get connected to the bastion. The default value is the value of the `ssh_key` variable. |

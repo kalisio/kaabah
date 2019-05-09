@@ -74,6 +74,12 @@ variable "ssh_ip_whitelist" {}
 
 variable "ssh_key" {}
 
+variable "bastion_ip" {}
+
+variable "bastion_ssh_key" {}
+
+variable "bastion_ssh_user" {}
+
 variable "architectures" {
   default = {
     START-XS = "x86_64"

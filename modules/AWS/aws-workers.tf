@@ -5,6 +5,7 @@ resource "aws_instance" "swarm_worker" {
   availability_zone           = "${var.availability_zone}"
   instance_type               = "${var.worker_instance_type}"
   security_groups             = ["${aws_security_group.security_group_worker.name}"]
+  associate_public_ip_address = false
 
   root_block_device {
     volume_type = "gp2"
@@ -12,12 +13,14 @@ resource "aws_instance" "swarm_worker" {
   }
 
   connection {
-    type          = "ssh"
-    bastion_host  = "${var.manager_ip}"
-    host          = "${self.private_ip}"
-    user          = "${var.ssh_user}"
-    private_key   = "${file(var.ssh_key)}"
-    timeout       = "300s"
+    type                = "ssh"
+    bastion_host        = "${var.bastion_ip}"
+    bastion_user        = "${var.bastion_ssh_user}"
+    bastion_private_key = "${file(var.bastion_ssh_key)}"
+    host                = "${self.private_ip}"
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "300s"
   }
 
   provisioner "file" {
@@ -53,7 +56,7 @@ resource "aws_instance" "swarm_worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${basename(var.ssh_key)}",
+      "sudo bash ~/.kaabah/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
     ]
   }
 
@@ -75,11 +78,14 @@ resource "aws_instance" "swarm_worker" {
     on_failure = "continue"
     
     connection {
-      type        = "ssh"
-      user        = "${var.ssh_user}"
-      private_key = "${file(var.ssh_key)}"
-      host        = "${var.manager_ip}"
-      timeout     = "120s"
+      type                = "ssh"
+      bastion_host       = "${local.use_bastion ? var.bastion_ip : ""}"
+      bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+      bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
+      host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+      user                = "${var.ssh_user}"
+      private_key         = "${file(var.ssh_key)}"
+      timeout             = "120s"
     }
   }
 

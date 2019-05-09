@@ -2,11 +2,14 @@ resource "null_resource" "manager_labels" {
   count = "${var.provider == "AWS" && var.manager_labels != "" ? 1 : 0}"
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    host        = "${var.manager_ip}"
-    timeout     = "120s"
+    type                = "ssh"
+    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
+    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
+    host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "120s"
   }
 
   provisioner "remote-exec" {
@@ -16,18 +19,21 @@ resource "null_resource" "manager_labels" {
     ]
   }
 
-  depends_on = ["aws_instance.swarm_manager", "aws_instance.swarm_worker"]
+  depends_on = ["aws_eip_association.swarm_manager", "aws_instance.swarm_worker"]
 }
 
 resource "null_resource" "worker_labels" {
   count = "${var.provider == "AWS" ? length(var.worker_labels) : 0}"
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    host        = "${var.manager_ip}"
-    timeout     = "120s"
+    type                = "ssh"
+    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
+    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"   
+    host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "120s"
   }
 
   provisioner "remote-exec" {
@@ -37,5 +43,5 @@ resource "null_resource" "worker_labels" {
     ]
   }
 
-  depends_on = ["aws_instance.swarm_manager", "aws_instance.swarm_worker"]
+  depends_on = ["aws_eip_association.swarm_manager", "aws_instance.swarm_worker"]
 }

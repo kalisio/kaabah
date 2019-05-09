@@ -21,12 +21,14 @@ resource "null_resource" "swarm_worker_volume_mount" {
   count = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
 
   connection {
-    type          = "ssh"
-    bastion_host  = "${var.manager_ip}"
-    host          = "${aws_instance.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
-    user          = "${var.ssh_user}"
-    private_key   = "${file(var.ssh_key)}"
-    timeout       = "300s"
+    type                = "ssh"
+    bastion_host        = "${var.bastion_ip}"
+    bastion_user        = "${var.bastion_ssh_user}"
+    bastion_private_key = "${file(var.bastion_ssh_key)}"
+    host                = "${aws_instance.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "300s"
   }
 
   provisioner "remote-exec" {

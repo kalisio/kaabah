@@ -59,7 +59,7 @@ resource "aws_security_group" "security_group_manager" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${split(",", var.ssh_ip_whitelist)}"]
+    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ] 
   }
 
   egress {
@@ -72,6 +72,16 @@ resource "aws_security_group" "security_group_manager" {
   tags {
     Name = "${terraform.workspace}_manager"
   }
+}
+
+resource "aws_security_group_rule" "security_group_rule_ssh_ip_whitelist" {
+  count             = "${var.provider == "AWS" && ! local.use_bastion ? 1 : 0}"
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = [ "${split(" ", var.ssh_ip_whitelist)}" ] 
+  security_group_id = "${aws_security_group.security_group_manager.id}"
 }
 
 resource "aws_security_group" "security_group_worker" {
@@ -110,7 +120,7 @@ resource "aws_security_group" "security_group_worker" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${format("%s/32", aws_instance.swarm_manager.0.private_ip)}"]
+    cidr_blocks = ["${aws_default_vpc.swarm_vpc.cidr_block}"]
   }
 
   egress {
@@ -124,3 +134,4 @@ resource "aws_security_group" "security_group_worker" {
     Name = "${terraform.workspace}_worker"
   }
 }
+

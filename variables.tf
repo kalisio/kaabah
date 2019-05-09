@@ -118,6 +118,21 @@ variable "ssh_key" {
   default = ""
 }
 
+variable "ssh_user" {
+  default =""
+}
 variable "aws_key_name" {
+  default = ""
+}
+
+variable "bastion_ip" {
+  default = ""
+}
+
+variable "bastion_ssh_user" {
+  default = ""
+}
+
+variable "bastion_ssh_key" {
   default = ""
 }

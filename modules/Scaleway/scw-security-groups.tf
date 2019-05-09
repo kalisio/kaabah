@@ -55,12 +55,22 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789" {
   port           = "4789"
 }
 
-resource "scaleway_security_group_rule" "ssh_accept" {
-  count          = "${var.provider == "SCALEWAY" ? length(split(",",var.ssh_ip_whitelist)) : 0}"
+resource "scaleway_security_group_rule" "internal_in_accept_SSH" {
+  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${element(split(",", var.ssh_ip_whitelist),count.index)}"
+  ip_range       = "10.0.0.0/8"
+  protocol       = "TCP"
+  port           = 22
+}
+
+resource "scaleway_security_group_rule" "external_in_accept_SSH" {
+  count          = "${var.provider == "SCALEWAY" && ! local.use_bastion ? length(split(" ",var.ssh_ip_whitelist)) : 0}"
+  security_group = "${scaleway_security_group.security_group_manager.id}"
+  action         = "accept"
+  direction      = "inbound"
+  ip_range       = "${element(split(" ", var.ssh_ip_whitelist),count.index)}"
   protocol       = "TCP"
   port           = 22
 }
@@ -132,12 +142,12 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_worker" {
   port           = "4789"
 }
 
-resource "scaleway_security_group_rule" "ssh_accept_manager" {
+resource "scaleway_security_group_rule" "internal_in_accept_SSH_worker" {
   count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${scaleway_server.swarm_manager.0.private_ip}"
+  ip_range       = "10.0.0.0/8"
   protocol       = "TCP"
   port           = 22
 }

@@ -1,10 +1,93 @@
+---
+sidebarDepth: 3
+---
+
 # Advanced usage
+
+## Cluster 
+
+### Using a bastion
+
+**Kaabah** provides an easy way to secure SSH connections to your cluster using a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). 
+The implemented solution relies on the following architecture:
+![bastion architecture](./../assets/bastion-architecture.svg)
+
+Your bastion instance must be instantiated in the same VPC of your cluster and is setup with a security group that accept SSH connections.
+
+::: warning
+It is a best practice to harden your bastion host because it is a critical point of network security. Hardening might include disabling 
+unnecessary applications or services, restrict the inbound traffic to well-known hosts.
+:::
+
+To enable bastion mode, you must simply set the following variables: 
+* `bastion_ip`: the public IP address of the bastion host
+* `bastion_ssh_user`: the user to get connected to the bastion
+* `bastion_ssh_key`: the private key to get connected to the bastion
+
+### Using a crontab
+
+**Kaabah** provides you the capability to assign a **crontab** to the manager.
+
+#### Declaring a crontab
+
+When building a cluster, you can take advantage of the `manager_crontab` variable to declare a crontab file to be provisioned on the manager.
+
+```bash
+manager_crontab = "workspaces/my-workspace/my-crontab
+```
+
+The pointed file must be a valid crontab file. See the [crontab file format](https://en.wikipedia.org/wiki/Cron) to have the complete specifications.
+
+Here is an example of a crontab file that executes the [`k-swarm-prune`](../reference/helper-commands#k-swarm-prune) command every 2 hours:
+
+```bash
+# Clears the swarm every tow hour
+0 */2 * * * k-swarm-prune
+
+```
+
+Once installed, you can list the actions using the command:
+
+```bash
+$crontab -l
+```
+
+And check the logs with the command:
+
+```bash
+$grep CRON /var/log/syslog
+```
+
+::: warning
+Do not forget to add a `newline` at the end of the file, otherwise the installation will fail.
+:::
+
+#### Updating a crontab
+
+To update the crontab, on the manager, follow this procedure:
+
+1. taint the resource assigned to the crontab, that is to say: `null_resource.manager_crontab`
+
+```bash
+$terraform taint -module=AWS null_resource.manager_crontab
+```
+
+2. apply to update the services
+
+```bash
+$terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
+```
+
+::: tip
+To remove a crontab, just simply clear the `manager_crontab` variable and update the `null_resource.manager_crontab` resource as indicated above.
+:::
 
 ## Docker swarm
 
 ### Managing labels
 
 If you desire to update the labels on your cluster and keep track of the changes, you need to:
+
 1. taint the resources attached to the labels you want to change: `null_resource.manager_labels` and `null_resource.worker_labels.*` 
 
 ```bash
@@ -106,61 +189,3 @@ You can take advantage of this feature to:
 * override the default configuration of the existing services
 * bootstrap your cluster with additional services
   
-## Crontab
-
-**Kaabah** provides you the capability to assign a **crontab** to the manager.
-
-### Declaring a crontab
-
-When building a cluster, you can take advantage of the `manager_crontab` variable to declare a crontab file to be provisioned on the manager.
-
-```bash
-manager_crontab = "workspaces/my-workspace/my-crontab
-```
-
-The pointed file must be a valid crontab file. See the [crontab file format](https://en.wikipedia.org/wiki/Cron) to have the complete specifications.
-
-Here is an example of a crontab file that executes the [`k-swarm-prune`](../reference/helper-commands#k-swarm-prune) command every 2 hours:
-
-```bash
-# Clears the swarm every tow hour
-0 */2 * * * k-swarm-prune
-
-```
-
-Once installed, you can list the actions using the command:
-
-```bash
-$crontab -l
-```
-
-And check the logs with the command:
-
-```bash
-$grep CRON /var/log/syslog
-```
-
-::: warning
-Do not forget to add a `newline` at the end of the file, otherwise the installation will fail.
-:::
-
-### Updating a crontab
-
-To update the crontab, on the manager, follow this procedure:
-
-1. taint the resource assigned to the crontab, that is to say: `null_resource.manager_crontab`
-
-```bash
-$terraform taint -module=AWS null_resource.manager_crontab
-```
-
-2. apply to update the services
-
-```bash
-$terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
-```
-
-::: tip
-To remove a crontab, just simply clear the `manager_crontab` variable and update the `null_resource.manager_crontab` resource as indicated above.
-:::
-

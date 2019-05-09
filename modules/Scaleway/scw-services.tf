@@ -2,11 +2,14 @@ resource "null_resource" "services" {
   count = "${var.provider == "SCALEWAY" ? 1 : 0}"
 
   connection {
-    type        = "ssh"
-    user        = "${var.ssh_user}"
-    private_key = "${file(var.ssh_key)}"
-    host        = "${var.manager_ip}"
-    timeout     = "120s"
+    type                = "ssh"
+    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
+    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
+    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
+    host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
+    user                = "${var.ssh_user}"
+    private_key         = "${file(var.ssh_key)}"
+    timeout             = "300s"
   }
 
   provisioner "remote-exec" {

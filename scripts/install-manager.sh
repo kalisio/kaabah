@@ -1,6 +1,7 @@
 #!/bin/bash
 DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
+FAIL2BAN_IGNORE_IP=$3
 
 # Generate TLS certificates
 bash $HOME/.kaabah/create-server-certificates.sh $MANAGER_PRIVATE_IP
@@ -30,6 +31,9 @@ bash $HOME/.kaabah/install-docker.sh $DOCKER_VERSION
 
 # Initialise swarm
 docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
+
+# Configure SSHD
+bash $HOME/.kaabah/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 
 # Install sshfs
 bash $HOME/.kaabah/install-sshfs.sh

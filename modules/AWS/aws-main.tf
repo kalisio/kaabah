@@ -9,4 +9,5 @@ provider "aws" {
 locals {
   worker_instance_class = "${element(split(".", var.worker_instance_type), 0)}"
   worker_use_nvme_device = "${contains(var.nvme_list, local.worker_instance_class) ? true : false}"
+  use_bastion = "${var.bastion_ip != var.manager_ip ? true : false}"
 }

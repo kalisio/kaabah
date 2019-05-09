@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:6.1.6
     volumes:
       - grafana_data:/var/lib/grafana
       - ./../configs/grafana/provisioning/:/etc/grafana/provisioning/

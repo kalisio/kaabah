@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v2.9.2
     volumes:
       - ./../configs/prometheus/:/etc/prometheus/
       - prometheus_data:/prometheus
@@ -32,7 +32,7 @@ services:
       - traefik
 
   node-exporter:
-    image: prom/node-exporter
+    image: prom/node-exporter:v0.17.0
     command: 
       - '--path.procfs=/host/proc' 
       - '--path.sysfs=/host/sys'
@@ -50,7 +50,7 @@ services:
         condition: on-failure
 
   alertmanager:
-    image: prom/alertmanager
+    image: prom/alertmanager:v0.17.0
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'

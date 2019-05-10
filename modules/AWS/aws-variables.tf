@@ -26,7 +26,7 @@ variable "availability_zone" {
 }
 
 variable "image" {
-  default = "ami-7c412f13" #ami-090f10efc254eaf55
+  default = "ami-090f10efc254eaf55"
 }
 
 variable "instance_volume_size" {

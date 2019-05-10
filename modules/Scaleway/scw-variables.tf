@@ -23,7 +23,7 @@ variable "region" {
 }
 
 variable "image" {
-  default = "Ubuntu Xenial"
+  default = "Ubuntu Bionic"
 }
 
 variable "docker_version" {}

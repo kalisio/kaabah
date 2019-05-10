@@ -11,6 +11,12 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:9090/status"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1m
     networks:
       - kaabah-network
     deploy:
@@ -55,6 +61,11 @@ services:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.path=/alertmanager'
       - '--web.external-url=https://alertmanager.${SUBDOMAIN}'
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:9093/metrics"]
+      interval: 30s
+      timeout: 5s
+      start_period: 1m     
     volumes:
       - ./../configs/prometheus/:/etc/alertmanager/
     networks:

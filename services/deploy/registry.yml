@@ -5,6 +5,12 @@ services:
     image: registry:2
     ports:
       - 5000:5000
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--tries=1", "--spider", "http://localhost:5000/v2"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 1m
     networks:
       - kaabah-network
     deploy:

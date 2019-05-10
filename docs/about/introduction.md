@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Introduction
 
 **Kaabah** is a [Terraform](https://www.terraform.io/) based solution to design, build and operate [Docker Swarm](https://docs.docker.com/engine/swarm/) cluster either on [Scaleway](https://www.scaleway.com/) or on [AWS](https://aws.amazon.com). 

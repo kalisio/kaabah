@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Helper commands
 
 ## k-label-add

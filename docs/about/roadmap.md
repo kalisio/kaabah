@@ -1,3 +1,7 @@
+---
+sidebarDepth: 3
+---
+
 # Roadmap
 
 The roadmap is available on [Github](https://github.com/kalisio/kaabah/projects/1).

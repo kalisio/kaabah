@@ -14,6 +14,10 @@ resource "scaleway_volume_attachment" "swarm_worker_volume_attachement" {
 resource "null_resource" "swarm_worker_volume_mount" {
   count = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
 
+  triggers = {
+    "wait" = "${scaleway_volume_attachment.swarm_worker_volume_attachement.id}"
+  }
+
   connection {
     type                = "ssh"
     bastion_host        = "${var.bastion_ip}"
@@ -22,7 +26,7 @@ resource "null_resource" "swarm_worker_volume_mount" {
     host                = "${scaleway_server.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "remote-exec" {
@@ -31,5 +35,5 @@ resource "null_resource" "swarm_worker_volume_mount" {
     ]
   }
 
-  depends_on = ["scaleway_volume_attachment.swarm_worker_volume_attachement"]
+  #depends_on = ["scaleway_volume_attachment.swarm_worker_volume_attachement"]
 }

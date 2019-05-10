@@ -23,7 +23,7 @@ resource "scaleway_server" "swarm_manager" {
     host                = "${local.use_bastion ? self.private_ip : self.public_ip}" # use public ip instead of manager_ip because the eip is not associated right now
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout     = "300s"
+    timeout     = "${local.timeout}"
   }
 
   provisioner "file" {
@@ -75,7 +75,7 @@ resource "null_resource" "manager_crontab" {
     host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "remote-exec" {

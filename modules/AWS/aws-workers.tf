@@ -20,7 +20,7 @@ resource "aws_instance" "swarm_worker" {
     host                = "${self.private_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "file" {
@@ -85,7 +85,7 @@ resource "aws_instance" "swarm_worker" {
       host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
-      timeout             = "120s"
+      timeout             = "${local.timeout}"
     }
   }
 

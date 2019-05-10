@@ -28,7 +28,7 @@ resource "null_resource" "swarm_worker_volume_mount" {
     host                = "${aws_instance.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "remote-exec" {

@@ -9,7 +9,7 @@ resource "null_resource" "manager_labels" {
     host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "120s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "remote-exec" {
@@ -33,7 +33,7 @@ resource "null_resource" "worker_labels" {
     host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "120s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "remote-exec" {

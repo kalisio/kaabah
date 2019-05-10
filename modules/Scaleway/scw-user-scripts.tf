@@ -9,7 +9,7 @@ resource "null_resource" "manager_user_script" {
     host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
   provisioner "file" {
@@ -37,7 +37,7 @@ resource "null_resource" "worker_user_scripts" {
     host                = "${element(scaleway_server.swarm_worker.*.private_ip, count.index)}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
-    timeout             = "300s"
+    timeout             = "${local.timeout}"
   }
 
    provisioner "file" {

@@ -6,6 +6,41 @@ sidebarDepth: 3
 
 ## Cluster 
 
+### Using fail2ban
+
+**Kaabah** installs [**fail2ban**](https://www.fail2ban.org/wiki/index.php/Main_Page) on each node of your cluster with one customized **jail** for SSH connection attempts. By default, it comes with the following configuration:
+
+```ini
+[sshd]
+enabled = true
+maxretry = 3
+ignoreip = 127.0.0.1 PRIVATE_NETWORK_CIDR
+```
+
+::: tip
+By default **fail2ban** will ignore SSH connections from any hosts in your private network.
+:::
+
+#### Checking the service
+
+You can test the service using the command:
+
+```bash
+$sudo fail2ban-client status sshd
+```
+
+#### Unban an IP address
+
+```bash
+$sudo fail2ban-client set sshd unbanip <ip_address>
+```
+
+#### Ban an IP address
+
+```bash
+$sudo fail2ban-client set sshd banip <ip_address>
+```
+
 ### Using a bastion
 
 **Kaabah** provides an easy way to secure SSH connections to your cluster using a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). 

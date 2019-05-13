@@ -5,7 +5,6 @@ resource "aws_instance" "swarm_worker" {
   availability_zone           = "${var.availability_zone}"
   instance_type               = "${var.worker_instance_type}"
   security_groups             = ["${aws_security_group.security_group_worker.name}"]
-  associate_public_ip_address = false
 
   root_block_device {
     volume_type = "gp2"
@@ -68,7 +67,7 @@ resource "aws_instance" "swarm_worker" {
     when       = "destroy"
     on_failure = "continue"
   }
-
+  
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [

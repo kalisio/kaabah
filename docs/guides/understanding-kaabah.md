@@ -27,11 +27,7 @@ The following image illustrates how these entities interact:
 ![Kaabah principle](../assets/kaabah-principle.svg)
 
 
-In addition provides a set of commands that help you to operate the cluster. For instance, you can easily prune all the images on the different nodes, execute a command on a given node... See the [reference](../reference/helper-commands) page to have the complete list.
-
-::: tip Note
-The helper commands are installed in `/usr/local/sbin` and can be used out of the box.
-:::
+In addition **Kaabah** provides a set of commands that help you to operate the cluster. For instance, you can easily prune all the images on the different nodes, execute a command on a given node... See the [reference](../reference/helper-commands) page to have the complete list.
 
 ## Workspace
 

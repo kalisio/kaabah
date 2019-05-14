@@ -23,7 +23,7 @@ resource "null_resource" "manager_user_script" {
     ]
   }
 
-  depends_on = ["aws_eip_association.swarm_manager", "aws_instance.swarm_worker"]
+  depends_on = ["aws_eip_association.swarm_manager", "null_resource.swarm_worker_volume_mount"]
 }
 
 resource "null_resource" "worker_user_scripts" {
@@ -50,5 +50,5 @@ resource "null_resource" "worker_user_scripts" {
     ]
   }
 
-  depends_on = ["aws_eip_association.swarm_manager", "aws_instance.swarm_worker"]
+  depends_on = ["null_resource.swarm_worker_volume_mount"]
 }

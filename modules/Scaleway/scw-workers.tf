@@ -63,15 +63,6 @@ resource "scaleway_server" "swarm_worker" {
     ]
   }
 
-  # leave swarm on destroy
-  provisioner "remote-exec" {
-    inline = [
-      "sh ~/.kaabah/remove-worker.sh",
-    ]
-    when       = "destroy"
-    on_failure = "continue"
-  }
-
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [
@@ -91,4 +82,14 @@ resource "scaleway_server" "swarm_worker" {
       timeout             = "${local.timeout}"
     }
   }
+
+  depends_on = [
+    "scaleway_server.swarm_manager", 
+    "scaleway_security_group_rule.external_in_accept_SSH", 
+    "scaleway_security_group_rule.internal_in_accept_SSH",
+    "scaleway_security_group_rule.internal_in_accept_TCP_2376",
+    "scaleway_security_group_rule.internal_in_accept_TCP_2377",
+    "scaleway_security_group_rule.internal_in_accept_TCP_7946",
+    "scaleway_security_group_rule.internal_in_accept_UDP_7946"
+  ]
 }

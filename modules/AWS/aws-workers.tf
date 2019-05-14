@@ -58,16 +58,7 @@ resource "aws_instance" "swarm_worker" {
       "sudo bash ~/.kaabah/install-worker.sh ${var.docker_version} ${aws_instance.swarm_manager.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
     ]
   }
-
-  #  Leave swarm
-  provisioner "remote-exec" {
-    inline = [
-      "sudo bash ~/.kaabah/remove-worker.sh ${aws_instance.swarm_manager.private_ip}",
-    ]
-    when       = "destroy"
-    on_failure = "continue"
-  }
-  
+ 
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [
@@ -78,7 +69,7 @@ resource "aws_instance" "swarm_worker" {
     
     connection {
       type                = "ssh"
-      bastion_host       = "${local.use_bastion ? var.bastion_ip : ""}"
+      bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
       bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
       bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
       host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
@@ -91,4 +82,9 @@ resource "aws_instance" "swarm_worker" {
   tags {
     Name = "${terraform.workspace}-worker-${count.index}"
   }
+
+  depends_on = [
+    "aws_eip_association.swarm_manager", 
+    "aws_security_group_rule.security_group_rule_ssh_ip_whitelist"
+  ]
 }

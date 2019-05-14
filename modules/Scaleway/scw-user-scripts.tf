@@ -23,7 +23,7 @@ resource "null_resource" "manager_user_script" {
     ]
   }
 
-  depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
+  depends_on = ["scaleway_server.swarm_manager", "null_resource.swarm_worker_volume_mount"]
 }
 
 resource "null_resource" "worker_user_scripts" {
@@ -50,5 +50,5 @@ resource "null_resource" "worker_user_scripts" {
     ]
   }
 
-  depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
+  depends_on = ["scaleway_server.swarm_manager", "null_resource.swarm_worker_volume_mount"]
 }

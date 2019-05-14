@@ -11,9 +11,9 @@ systemctl restart sshd
 # https://www.techrepublic.com/article/how-to-install-fail2ban-on-ubuntu-server-18-04/
 apt-get -y install fail2ban
 # Configure the SSHD service
-echo "[sshd]" > /etc/fail2ban/sshd-jail.conf
-echo "enabled = true" >> /etc/fail2ban/sshd-jail.conf
-echo "maxretry = 3" >> /etc/fail2ban/sshd-jail.conf
-echo "ignoreip = 127.0.0.1 $IGNORE_IP" >> /etc/fail2ban/sshd-jail.conf
+echo "[sshd]" > /etc/fail2ban/kaabah.conf
+echo "enabled = true" >> /etc/fail2ban/kaabah.conf
+echo "maxretry = 3" >> /etc/fail2ban/kaabah.conf
+echo "ignoreip = 127.0.0.1 $IGNORE_IP" >> /etc/fail2ban/kaabah.conf
 # Restart the service
 systemctl restart fail2ban

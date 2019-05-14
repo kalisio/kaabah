@@ -41,25 +41,7 @@ $sudo fail2ban-client set sshd unbanip <ip_address>
 $sudo fail2ban-client set sshd banip <ip_address>
 ```
 
-### Using a bastion
-
-**Kaabah** provides an easy way to secure SSH connections to your cluster using a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). 
-The implemented solution relies on the following architecture:
-![bastion architecture](./../assets/bastion-architecture.svg)
-
-Your bastion instance must be instantiated in the same VPC of your cluster and is setup with a security group that accept SSH connections.
-
-::: warning
-It is a best practice to harden your bastion host because it is a critical point of network security. Hardening might include disabling 
-unnecessary applications or services, restrict the inbound traffic to well-known hosts.
-:::
-
-To enable bastion mode, you must simply set the following variables: 
-* `bastion_ip`: the public IP address of the bastion host
-* `bastion_ssh_user`: the user to get connected to the bastion
-* `bastion_ssh_key`: the private key to get connected to the bastion
-
-### Using a crontab
+### Using crontab
 
 **Kaabah** provides you the capability to assign a **crontab** to the manager.
 
@@ -116,6 +98,24 @@ $terraform apply -var-file="workspaces/my-workspace/my-vars.tfvars"
 ::: tip
 To remove a crontab, just simply clear the `manager_crontab` variable and update the `null_resource.manager_crontab` resource as indicated above.
 :::
+
+### Using a bastion
+
+**Kaabah** provides an easy way to secure SSH connections to your cluster using a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). 
+The implemented solution relies on the following architecture:
+![bastion architecture](./../assets/bastion-architecture.svg)
+
+Your bastion instance must be instantiated in the same VPC of your cluster and is setup with a security group that accept SSH connections.
+
+::: warning
+It is a best practice to harden your bastion host because it is a critical point of network security. Hardening might include disabling 
+unnecessary applications or services, restrict the inbound traffic to well-known hosts.
+:::
+
+To enable bastion mode, you must simply set the following variables: 
+* `bastion_ip`: the public IP address of the bastion host
+* `bastion_ssh_user`: the user to get connected to the bastion
+* `bastion_ssh_key`: the private key to get connected to the bastion
 
 ## Docker swarm
 

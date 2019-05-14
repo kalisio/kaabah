@@ -31,6 +31,12 @@ You can then configure the CLI with your credentials:
 $aws configure
 ```
 
+### How to know your private IP address
+
+```bash
+$hostname -I | awk '{print $1}'
+```
+
 ## Docker swarm
 
 ### How to find out why service can't start ?

@@ -3,8 +3,7 @@ IGNORE_IP=$1
 
 # Onverwrites the SSHD configuration to avoid : Too many authentication failures
 # https://visser.io/2017/07/resetting-ssh-access-after-too-many-authentication-failures-for-on-google-cloud-compute-engine/
-echo "# Max login attempts for Kaabah" >> /etc/ssh/sshd_config
-echo "MaxAuthTries 10" >> /etc/ssh/sshd_config
+echo "MaxAuthTries 25" | tee -a /etc/ssh/sshd_config
 systemctl restart sshd
 
 # Install fail2ban

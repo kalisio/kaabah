@@ -15,7 +15,7 @@ mkdir -p /mnt/$MOUNT_POINT
 mount UUID=$VOLUME_UUID /mnt/$MOUNT_POINT
 
 # Update the fstab
-echo UUID=$VOLUME_UUID /mnt/$MOUNT_POINT ext4 defaults,nofail 0 2 | sudo tee -a /etc/fstab
+echo UUID=$VOLUME_UUID /mnt/$MOUNT_POINT ext4 defaults,nofail 0 2 | tee -a /etc/fstab
 
 # Grant the current user the ownership of the mounted volume
 if [ "$OWNER" != "" ]; then

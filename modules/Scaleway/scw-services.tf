@@ -15,7 +15,7 @@ resource "null_resource" "services" {
   provisioner "remote-exec" {
     inline = [
       # we stop the services and remove the files in the case the resource is recreated 
-      "sudo docker stack rm kaabah", 
+      "docker stack rm kaabah", 
       "rm -fr kaabah && mkdir kaabah",
     ]
   }

@@ -1,0 +1,2 @@
+# Clears the swarm every night at midnight
+0 0 * * * k-swarm-prune

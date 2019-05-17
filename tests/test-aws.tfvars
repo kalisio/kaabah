@@ -18,6 +18,8 @@ manager_ip = "3.120.200.41"
 
 manager_instance_type = "t2.small"
 
+manager_crontab = "tests/crontab"
+
 manager_user_script = "tests/user-script.sh"
 
 worker_instance_type = "t3.large"

@@ -21,6 +21,11 @@ services:
       - kaabah-network
     deploy:
       replicas: 1
+      resources:
+        limits:
+          memory: 2048M
+        reservations:
+          memory: 1024M
       placement:
         constraints: 
           - node.role == manager
@@ -36,24 +41,6 @@ services:
         condition: on-failure
     depends_on:
       - traefik
-
-  node-exporter:
-    image: prom/node-exporter:v0.17.0
-    command: 
-      - '--path.procfs=/host/proc' 
-      - '--path.sysfs=/host/sys'
-      - --collector.filesystem.ignored-mount-points
-      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    networks:
-      - kaabah-network
-    deploy:
-      mode: global
-      restart_policy:
-        condition: on-failure
 
   alertmanager:
     image: prom/alertmanager:v0.17.0
@@ -72,6 +59,11 @@ services:
       - kaabah-network
     deploy:
       replicas: 1
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
       placement:
         constraints:
           - node.role == manager
@@ -88,8 +80,33 @@ services:
     depends_on:
       - prometheus
 
+  node-exporter:
+    image: prom/node-exporter:v0.17.0
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - --collector.filesystem.ignored-mount-points
+      - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    networks:
+      - kaabah-network
+    deploy:
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+      restart_policy:
+        condition: on-failure
+
   cadvisor:
-    image: google/cadvisor
+    image: google/cadvisor:v0.33.0
+    command: 
+      - '-docker_only'
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -99,6 +116,11 @@ services:
       - kaabah-network
     deploy:
       mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
       restart_policy:
         condition: on-failure
 

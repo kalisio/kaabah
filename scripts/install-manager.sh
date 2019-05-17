@@ -16,7 +16,8 @@ mkdir -p /etc/systemd/system/docker.service.d
 cp $HOME/.kaabah/docker-configs/override.conf /etc/systemd/system/docker.service.d/.
 
 mkdir -p /etc/docker
-cp $HOME/.kaabah/docker-configs/manager.json /etc/docker/daemon.json
+export MANAGER_PRIVATE_IP
+envsubst < $HOME/.kaabah/docker-configs/manager.json.tpl > /etc/docker/daemon.json
 
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=$HOME/.docker

@@ -33,7 +33,7 @@ resource "null_resource" "services" {
   provisioner "remote-exec" {
     inline = [
       "set -a && . ./.bash_profile && set +a",  # required to take into account Docker environment variables
-      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network}",
+      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${aws_instance.swarm_manager.private_ip}",
       "cd kaabah && sudo ./deploy-services.sh",
     ]
   }

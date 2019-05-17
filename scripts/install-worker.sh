@@ -24,7 +24,6 @@ docker swarm join $MANAGER_PRIVATE_IP:2377 \
 # Configure SSHD
 bash $HOME/.kaabah/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 
-
 # Install sshfs
 bash $HOME/.kaabah/install-sshfs.sh
 

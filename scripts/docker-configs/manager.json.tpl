@@ -1,7 +1,7 @@
 {
   "experimental": true,
+  "metrics-addr" : "${MANAGER_PRIVATE_IP}:9323",
   "storage-driver" : "overlay2",
-  "metrics-addr" : "127.0.0.1:9323",
   "hosts": [
     "tcp://0.0.0.0:2376",
     "unix:///var/run/docker.sock"

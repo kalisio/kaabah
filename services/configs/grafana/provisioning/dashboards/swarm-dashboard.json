@@ -51,8 +51,8 @@
     "list": [
     ]
   },
-  "description": "Overview of the most important Docker Swarm metrics",
-  "editable": true,
+  "description": "Docker Swarm metrics",
+  "editable": false,
   "graphTooltip": 1,
   "iteration": 1538576416552,
   "links": [],
@@ -64,7 +64,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": 2,
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 10,
       "grid": {},
@@ -242,7 +242,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 3,
       "grid": {},
@@ -342,7 +342,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -443,7 +443,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -650,7 +650,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Swarm overview",
+  "title": "Swarm dashboard",
   "uid": "4-75Du0iz",
   "version": 2
 }

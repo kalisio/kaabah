@@ -45,15 +45,15 @@
     "list": [
     ]
   },
-  "description": "Overview of the most important cluster metrics",
-  "editable": true,
+  "description": "Cluster metrics",
+  "editable": false,
   "graphTooltip": 0,
   "iteration": 1538561281699,
   "links": [],
   "panels": [
     {
       "content": "",
-      "editable": true,
+      "editable": false,
       "error": false,
       "gridPos": {
         "h": 3,
@@ -81,7 +81,7 @@
         "rgba(50, 172, 45, 0.97)"
       ],
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "format": "none",
       "gauge": {
@@ -167,7 +167,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": 3,
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 10,
       "grid": {},
@@ -356,7 +356,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": 2,
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -594,7 +594,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -686,7 +686,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": 3,
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -778,7 +778,7 @@
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": 3,
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -869,7 +869,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
-      "editable": true,
+      "editable": false,
       "error": false,
       "fill": 1,
       "grid": {},
@@ -1038,7 +1038,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Cluster overview",
+  "title": "Cluster dashboard",
   "uid": "TsGDuCAiz",
   "version": 2
 }

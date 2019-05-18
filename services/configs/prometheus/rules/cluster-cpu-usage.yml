@@ -1,5 +1,5 @@
 groups:
-- name: cpu-usage
+- name: cluster-cpu-usage
   rules:
 
   - alert: high_cpu_usage

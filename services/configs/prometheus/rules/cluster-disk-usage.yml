@@ -1,5 +1,5 @@
 groups:
-- name: disk-usage
+- name: cluster-disk-usage
   rules:
 
   - alert: root_free_files

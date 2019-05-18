@@ -39,6 +39,9 @@ bash $HOME/.kaabah/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 # Install sshfs
 bash $HOME/.kaabah/install-sshfs.sh
 
+# Install jq
+apt-get -y install jq
+
 # Install helper commands
 cp $HOME/.kaabah/helper-commands/* /usr/local/sbin/.
 for UTILITY in /usr/local/sbin//k-*; do

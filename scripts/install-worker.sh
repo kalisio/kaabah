@@ -27,3 +27,5 @@ bash $HOME/.kaabah/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 # Install sshfs
 bash $HOME/.kaabah/install-sshfs.sh
 
+# Install jq
+apt-get -y install jq

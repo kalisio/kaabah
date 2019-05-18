@@ -1,5 +1,5 @@
 groups:
-- name: mem-usage
+- name: cluster-mem-usage
   rules:
 
   - alert: high_swap_memory_usage

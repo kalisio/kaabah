@@ -1,0 +1,13 @@
+groups:
+- name: swarm-healthchecks
+  rules:
+
+  - alert: container_healthchecks_failing_5m
+    expr: sum(ceil(increase(engine_daemon_health_checks_failed_total[5m]) ) ) > 1
+    for: 5m
+    labels:
+      severity: page
+    annotations:
+      summary: Container healthchecks have failed for longer than 5 minutes
+      description: "{{ humanize $value }} container healthchecks have failed for longer than 5 minutes."
+        

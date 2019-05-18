@@ -1,5 +1,5 @@
 groups:
-- name: load-average
+- name: cluster-load-average
   rules:
 
   - alert: high_load_average

@@ -25,7 +25,7 @@ resource "null_resource" "manager_user_script" {
 
   depends_on = [
     "aws_eip_association.swarm_manager", 
-    "aws_instance.swarm_worker",  # Ensure dependency to the workers see https://github.com/kalisio/kaabah/issues/102
+    "aws_instance.swarm_worker",  # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
     "null_resource.swarm_worker_volume_mount"
   ]
 }

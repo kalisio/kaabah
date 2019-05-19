@@ -25,7 +25,7 @@ resource "null_resource" "manager_user_script" {
 
   depends_on = [
     "scaleway_server.swarm_manager",
-    "scaleway_server.swarm_worker", # Ensure dependency to the workers see https://github.com/kalisio/kaabah/issues/102
+    "scaleway_server.swarm_worker", # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
     "null_resource.swarm_worker_volume_mount"
   ]
 }

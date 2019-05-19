@@ -1,5 +1,3 @@
-
-
 #!/bin/bash
 
 usage() {
@@ -12,21 +10,26 @@ help() {
 }
 
 exec() {
+  K_SUDO=""
+  if [ "$SUDO_USER" != "" ]; then
+    K_SUDO="sudo"
+  fi
+
   # Delete the stopped container
-  docker container prune -f
-  k-worker-foreach -c "docker container prune -f"
+  $K_SUDO docker container prune -f
+  k-worker-foreach -c "$K_SUDO docker container prune -f"
 
   # Delete the unused images
-  docker image prune -f
-  k-worker-foreach -c "docker image prune -f"
+  $K_SUDO docker image prune -f
+  k-worker-foreach -c "$K_SUDO docker image prune -f"
 
   # Delete the unused volumes
-  docker volume prune -f
-  k-worker-foreach -c "docker image prune -f"
+  $K_SUDO docker volume prune -f
+  k-worker-foreach -c "$K_SUDO docker image prune -f"
 
   # Delete the unused networks 
-  docker network prune -f
-  k-worker-foreach -c "docker network prune -f"
+  $K_SUDO docker network prune -f
+  k-worker-foreach -c "$K_SUDO docker network prune -f"
 }
 
 if [ "$#" -ne 0 ]; then

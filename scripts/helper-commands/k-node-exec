@@ -28,11 +28,7 @@ exec_command()
   
   setup_ssh_agent
 
-  K_SUDO=""
-  if [ "$SUDO_USER" != "" ]; then
-    K_SUDO="sudo"
-  fi
-  ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$K_SUDO $COMMAND"
+  ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$COMMAND"
 }
 
 exec_script()
@@ -62,7 +58,7 @@ NODE_IP="$($K_SUDO docker inspect -f {{.Status.Addr}} $2)"
 
 case $1 in
   -h|--help) help;;
-  -c|--command) exec_command $NODE_IP $3;;
-  -s|--script) exec_script $NODE_IP $3 $4;;
+  -c|--command) exec_command $NODE_IP "$3";;
+  -s|--script) exec_script $NODE_IP "$3" "$4";;
   *) echo error: unknonw argument "$1"; usage
 esac

@@ -1,5 +1,4 @@
 #!/bin/bash
-COMMAND=$1
 
 usage() {
   echo "usage: k-worker-foreach --command|-c <command>"
@@ -33,7 +32,7 @@ fi
 
 case $1 in
   -h|--help) help;;
-  -c|--command) exec_command $2;;
-  -s|--script) exec_script $2 $3;;
+  -c|--command) exec_command "$2";;
+  -s|--script) exec_script "$2" "$3";;
   *) echo error: unknonw argument "$1"; usage
 esac

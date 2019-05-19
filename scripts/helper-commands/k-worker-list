@@ -1,12 +1,31 @@
+
 #!/bin/bash
 
-usage()
-{
-cat << EOF
-Lists the worker nodes
-usage: k-worker-list
-EOF
+usage() {
+  echo "usage: k-worker-list [--id-only|-i]"
 }
 
-# list the nodes
-docker node ls -f role=worker
+help() {
+  echo "Lists the worker nodes"
+  usage
+}
+
+exec() {
+  OPTIONS=$1
+  docker node ls $OPTIONS -f role=worker
+}
+
+if [ "$#" -ne 0 ] && [ "$#" -ne 1 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+case $1 in
+  -h|--help) help;;
+  --id-only|-i) exec -q;;
+  '') exec;;
+  *) echo error: unknonw argument "$1"; usage
+esac
+
+

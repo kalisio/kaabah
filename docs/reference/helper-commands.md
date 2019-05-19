@@ -41,12 +41,14 @@ label1=value1 label2=value label3=value3
 
 ## k-node-exec
 
-`usage: k-node-exec <node_id> <command>`
+`usage: k-node-exec -command|-c <node_id> <command>`
+`usage: k-node-exec -script|-s <node_id> <script> [arguments...]`
 
-Executes a command on the given node
+Executes a command or a script on the given node.
+The script will be automatically provisioned on the `tmp` directory and then executed with the given arguments.
 
 ```bash
-$k-node-exec "echo 'foo bar' > foobar"
+$k-node-exec -c "echo 'foo bar' > foobar"
 ```
 
 ## k-node-find
@@ -62,7 +64,7 @@ $k-node-find 172.31.34.218
 
 ## k-service-check
 
-`usage: k-serice-check <service_id|service_name>`
+`usage: k-service-check <service_id|service_name>`
 
 Checks the status of the given service.
 
@@ -78,25 +80,29 @@ ne6otm12od24hmj576bj8322c   kaabah_portainer.1   portainer/portainer:latest@sha2
 
 ## k-worker-list
 
-`usage: k-worker-list`
+`usage: k-worker-list [--id-only|-i]`
 
-Displays the worker nodes 
+Displays the worker nodes. If the options `--id-only` is defined, it returns the IDs of the workers.
 
 ```bash
 $k-worker-list
 ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
 afwvqo2pv90jc5us3t8nvwzsd     ip-172-31-35-40     Ready               Active                                  18.03.1-ce
 wyo0dvb85bn0ziw58v0o8u4tl     ip-172-31-39-133    Ready               Active                                  18.03.1-ce
+$k-worker-list -i
+afwvqo2pv90jc5us3t8nvwzsd
+wyo0dvb85bn0ziw58v0o8u4tl
 ```
 
 ## k-worker-foreach
 
-`usage: k-worker-foreach <command>`
+`usage: k-worker-foreach --command|-c <command>`
+`usage: k-worker-foreach --script|-s <script> [arguments...]`
 
-Executes the given command on each worker
+Executes the given command or script on each worker
 
 ```bash
-$k-worker-foreach "echo 'foo bar'" > foobar"
+$k-worker-foreach -c "echo 'foo bar'" > foobar"
 ```
 
 ## k-swarm-prune

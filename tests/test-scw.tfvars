@@ -18,7 +18,7 @@ manager_instance_type = "START1-M"
 
 manager_crontab = "tests/crontab"
 
-manager_user_script = "tests/user-script.sh"
+manager_user_script = "tests/manager.sh"
 
 worker_instance_type = "START1-M" #C2S
 
@@ -32,7 +32,7 @@ worker_instance_count = 2
 
 worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 
-worker_user_scripts=["tests/user-script.sh", "tests/user-script.sh"]
+worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
 
 extensions_dir = "tests/extensions"
 

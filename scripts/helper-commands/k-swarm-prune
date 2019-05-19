@@ -2,26 +2,40 @@
 
 #!/bin/bash
 
-usage()
-{
-cat << EOF
-Clears the swarm
-usage: k-swarm-prune
-EOF
+usage() {
+  echo "usage: k-swarm-prune"
 }
 
-# Delete the stopped container
-docker container prune -f
-k-worker-foreach "docker container prune -f"
+help() {
+  echo "Clears the swarm"
+  usage
+}
 
-# Delete the unused images
-docker image prune -f
-k-worker-foreach "docker image prune -f"
+exec() {
+  # Delete the stopped container
+  docker container prune -f
+  k-worker-foreach -c "docker container prune -f"
 
-# Delete the unused volumes
-docker volume prune -f
-k-worker-foreach "docker image prune -f"
+  # Delete the unused images
+  docker image prune -f
+  k-worker-foreach -c "docker image prune -f"
 
-# Delete the unused networks 
-docker network prune -f
-k-worker-foreach "docker network prune -f"
+  # Delete the unused volumes
+  docker volume prune -f
+  k-worker-foreach -c "docker image prune -f"
+
+  # Delete the unused networks 
+  docker network prune -f
+  k-worker-foreach -c "docker network prune -f"
+}
+
+if [ "$#" -ne 0 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+case $1 in
+  -h|--help) help;;
+  *) exec
+esac

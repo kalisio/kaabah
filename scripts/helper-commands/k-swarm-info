@@ -1,18 +1,39 @@
+
 #!/bin/bash
 
-usage()
-{
-cat << EOF
-Displays the main information on the cluster
-usage: k-node-find <node_ip>
-EOF
+usage() {
+  echo "usage: k-swarm-info"
 }
 
-# list the nodes
-docker node ls
+help() {
+  echo "Displays the main information on the cluster"
+  usage
+}
 
-# list the labels
+exec() {
+  # list the nodes
+  docker node ls
+  echo -e "\n"
 
-# list the services
-docker service ls
+  # list the labels
+  echo -e "ID\t\t\t\tLABELS"
+  local WORKER_IDS=`docker node ls -q -f role=worker`
+  for WORKER_ID in $WORKER_IDS; do
+    echo -e "$WORKER_ID\t`k-label-list $WORKER_ID`"
+  done
+  echo -e "\n"
 
+  # list the services
+  docker service ls
+}
+
+if [ "$#" -ne 0 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+case $1 in
+  -h|--help) help;;
+  *) exec
+esac

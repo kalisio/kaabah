@@ -1,22 +1,30 @@
 #!/bin/bash
-NODE_ID=$1
 
-usage()
-{
-cat << EOF
-Clears the labels attached to a given node
-usage: k-label-clear <node_id>
-EOF
+usage() {
+  echo "usage: k-label-clear <node_id>"
 }
 
-if [ -z "$NODE_ID" ]; then
-   usage
-   exit 1
+help() {
+  echo "Clears the labels attached to a given node"
+}
+
+exec() {
+  local NODE_ID=$1
+  LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }} {{end}}' $NODE_ID`
+  for LABEL in $LABELS; do
+    if [ "$LABEL" != "" ]; then
+      docker node update --label-rm $LABEL $NODE_ID > /dev/null
+    fi
+  done
+}
+
+if [ "$#" -ne 1 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
 fi
 
-LABELS=`docker node inspect -f '{{ range $k, $v := .Spec.Labels }}{{ $k }} {{end}}' $NODE_ID`
-for LABEL in $LABELS; do
-  if [ "$LABEL" != "" ]; then
-    docker node update --label-rm $LABEL $NODE_ID > /dev/null
-  fi
-done
+case $1 in
+  -h|--help) help;;
+  *) exec $1
+esac

@@ -1,20 +1,39 @@
 #!/bin/bash
 COMMAND=$1
 
-usage()
-{
-cat << EOF
-Executes the given command on each worker
-usage: k-worker-exec <command>
-EOF
+usage() {
+  echo "usage: k-worker-foreach --command|-c <command>"
+  echo "usage: k-worker-foreach --script|-s <script> [arguments...]"
 }
 
-if [ -z "$COMMAND" ]; then
-   usage
-   exit 1
+help() {
+  echo "Executes a command or a scrpipt on each worker"
+  usage
+}
+
+exec_command() {
+  WORKER_IDS=`k-worker-list -i`
+  for WORKER_ID in $WORKER_IDS; do
+    k-node-exec -c $WORKER_ID "$1"
+  done
+}
+
+exec_script() {
+  WORKER_IDS=`k-worker-list -i`
+  for WORKER_ID in $WORKER_IDS; do
+    k-node-exec -s $WORKER_ID "$1" "$2"
+  done
+}
+
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
 fi
 
-WORKER_IDS=`docker node ls -q -f role=worker`
-for WORKER_ID in $WORKER_IDS; do
-  k-node-exec $WORKER_ID "$COMMAND"
-done
+case $1 in
+  -h|--help) help;;
+  -c|--command) exec_command $2;;
+  -s|--script) exec_script $2 $3;;
+  *) echo error: unknonw argument "$1"; usage
+esac

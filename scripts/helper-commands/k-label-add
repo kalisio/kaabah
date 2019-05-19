@@ -1,27 +1,33 @@
 #!/bin/bash
-NODE_ID=$1
-LABELS=$2
 
-usage()
-{
-cat << EOF
-Adds the specified labels to a given node
-usage: k-label-add <node_id> <labels>
-EOF
+usage() {
+  echo "usage: k-label-add <node_id> <labels>"
 }
 
-if [ -z "$NODE_ID" ]; then
-   usage
-   exit 1
+help() {
+  echo "Adds the specified labels to a given node"
+  usage
+}
+
+exec() {
+  local NODE_ID=$1
+  local LABELS=$2
+  for LABEL in $LABELS; do
+    if [ "$LABEL" != "" ]; then
+      docker node update --label-add $LABEL $NODE_ID > /dev/null
+    fi
+  done
+}
+
+if [ "$#" -ne 2 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
 fi
 
-if [ -z "$LABELS" ]; then
-   usage
-   exit 1
-fi
+case $1 in
+  -h|--help) help;;
+  *) exec $1 $2
+esac
 
-for LABEL in $LABELS; do
-  if [ "$LABEL" != "" ]; then
-    docker node update --label-add $LABEL $NODE_ID > /dev/null
-  fi
-done
+

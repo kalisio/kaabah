@@ -1,44 +1,68 @@
 
 #!/bin/bash
-NODE_ID=$1
-COMMAND=$2
 
-usage()
-{
-cat << EOF
-Executes a command on the given node
-usage: k-node-exec <node_id> <command>
-EOF
+usage() {
+  echo "usage: k-node-exec --command|-c <node_id> <command>"
+  echo "usage: k-node-exec --script|-s <node_id> <script> [arguments...]"
 }
 
+help() {
+  echo "Executes a command or a script a on the given node"
+  usage
+}
+
+setup_ssh_agent() {
+  if [ "$K_USER" == "root" ]; then
+    K_HOME=/root
+  else
+    K_HOME=/home/$K_USER
+  fi
+  eval "$(ssh-agent -s)" > /dev/null
+  ssh-add $K_HOME/.ssh/ssh.pem > /dev/null 2>&1
+}
+
+exec_command()
+{
+  NODE_IP=$1
+  COMMAND=$2
+  
+  setup_ssh_agent
+
+  K_SUDO=""
+  if [ "$SUDO_USER" != "" ]; then
+    K_SUDO="sudo"
+  fi
+  ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$K_SUDO $COMMAND"
+}
+
+exec_script()
+{
+  NODE_IP=$1
+  SCRIPT=$2
+  ARGUMENTS=$3
+  
+  setup_ssh_agent
+
+  # Provision the script
+  scp -o StrictHostKeyChecking=no "$SCRIPT" $K_USER@$NODE_IP:/tmp
+
+  # Run the script
+  REMOTE_SCRIPT=/tmp/`basename $SCRIPT`
+  exec_command $NODE_IP "$REMOTE_SCRIPT $ARGUMENTS"
+}
+
+if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
 K_USER=${SUDO_USER:-$USER}
-if [ "$K_USER" == "root" ]; then
-  K_HOME=/root
-else
-  K_HOME=/home/$K_USER
-fi
+NODE_IP="$($K_SUDO docker inspect -f {{.Status.Addr}} $2)"
 
-K_SUDO=""
-if [ "$SUDO_USER" != "" ]; then
-  K_SUDO="sudo"
-fi
-
-if [ -z "$NODE_ID" ]; then
-   usage
-   exit 1
-fi
-
-if [ -z "$COMMAND" ]; then
-   usage
-   exit 1
-fi
-
-NODE_IP="$($K_SUDO docker inspect -f {{.Status.Addr}} $NODE_ID)"
-
-eval "$(ssh-agent -s)" > /dev/null
-ssh-add $K_HOME/.ssh/ssh.pem > /dev/null 2>&1
-
-echo "$K_SUDO $COMMAND"
-
-ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$K_SUDO $COMMAND"
-
+case $1 in
+  -h|--help) help;;
+  -c|--command) exec_command $NODE_IP $3;;
+  -s|--script) exec_script $NODE_IP $3 $4;;
+  *) echo error: unknonw argument "$1"; usage
+esac

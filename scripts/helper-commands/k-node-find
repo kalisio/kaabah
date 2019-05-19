@@ -1,17 +1,28 @@
 #!/bin/bash
-NODE_IP=$1
 
-usage()
-{
-cat << EOF
-Returns the node ID corresponding to the given node IP address
-usage: k-node-find <node_ip>
-EOF
+usage() {
+  echo "usage: k-node-find <node_ip>"
 }
 
-if [ -z "$NODE_IP" ]; then
-   usage
-   exit 1
+help() {
+  echo "Returns the node ID corresponding to the given node IP address"
+  usage
+}
+
+exec() {
+  local NODE_IP=$1
+  docker node ls -q | xargs docker node inspect -f '{{ .ID }} {{ .Status.Addr }}' | grep $NODE_IP | cut -d" " -f1
+}
+
+if [ "$#" -ne 1 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
 fi
 
-docker node ls -q | xargs docker node inspect -f '{{ .ID }} {{ .Status.Addr }}' | grep $NODE_IP | cut -d" " -f1
+case $1 in
+  -h|--help) help;;
+  *) exec $1
+esac
+
+

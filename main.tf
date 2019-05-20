@@ -46,6 +46,8 @@ module "Scaleway" {
   bastion_ip                            = "${var.bastion_ip != "" ? var.bastion_ip : var.manager_ip}"
   bastion_ssh_user                      = "${var.bastion_ssh_user != "" ? var.bastion_ssh_user : var.ssh_user}"
   bastion_ssh_key                       = "${var.bastion_ssh_key != "" ? var.bastion_ssh_key : var.ssh_key}"
+  slack_webhook_url                     = "${var.slack_webhook_url}"
+  slack_channel                         = "${var.slack_channel}"
 }
 
 module "AWS" {
@@ -86,4 +88,6 @@ module "AWS" {
   bastion_ip                            = "${var.bastion_ip != "" ? var.bastion_ip : var.manager_ip}"
   bastion_ssh_user                      = "${var.bastion_ssh_user != "" ? var.bastion_ssh_user : var.ssh_user}"
   bastion_ssh_key                       = "${var.bastion_ssh_key != "" ? var.bastion_ssh_key : var.ssh_key}"
+  slack_webhook_url                     = "${var.slack_webhook_url}"
+  slack_channel                         = "${var.slack_channel}"  
 }

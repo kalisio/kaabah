@@ -80,6 +80,10 @@ variable "bastion_ssh_key" {}
 
 variable "bastion_ssh_user" {}
 
+variable "slack_webhook_url" {}
+
+variable "slack_channel" {}
+
 variable "architectures" {
   default = {
     START-XS = "x86_64"

@@ -4,13 +4,9 @@ variable "SCALEWAY_TOKEN" {}
 variable "AWS_ACCESS_KEY" {}
 variable "AWS_SECRET_KEY" {}
 
-variable "provider" {
-  default = ""
-}
+variable "provider" {}
 
-variable "domain" {
-  default = ""
-}
+variable "domain" {}
 
 variable "subdomain" {
   default = ""
@@ -24,13 +20,9 @@ variable contact {
   default = "contact@kalisio.com"
 }
 
-variable auth_user {
-  default = ""
-}
+variable auth_user {}
 
-variable auth_password {
-  default = ""
-}
+variable auth_password {}
 
 variable "docker_version" {
   default = "18.06.1~ce~3-0~ubuntu"
@@ -52,13 +44,9 @@ variable "docker_tls_ca_pass" {
   default = "ca.pass"
 }
 
-variable "manager_ip" {
-  default = ""
-}
+variable "manager_ip" {}
 
-variable "manager_instance_type" {
-  default = ""
-}
+variable "manager_instance_type" {}
 
 variable "manager_labels" {
   default = ""
@@ -72,9 +60,7 @@ variable "manager_user_script" {
   default = ""
 }
 
-variable "worker_instance_type" {
-  default = ""
-}
+variable "worker_instance_type" {}
 
 variable "worker_instance_count" {
   default = 1
@@ -114,12 +100,10 @@ variable "ssh_ip_whitelist" {
   default = "0.0.0.0/0"
 }
 
-variable "ssh_key" {
-  default = ""
-}
+variable "ssh_key" {}
 
 variable "ssh_user" {
-  default =""
+  default = ""
 }
 variable "aws_key_name" {
   default = ""
@@ -135,4 +119,12 @@ variable "bastion_ssh_user" {
 
 variable "bastion_ssh_key" {
   default = ""
+}
+
+variable "slack_webhook_url" {
+  default = ""
+}
+
+variable "slack_channel" {
+  default = "\\#alerts"
 }

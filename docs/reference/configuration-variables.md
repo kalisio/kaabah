@@ -22,6 +22,7 @@ sidebarDepth: 3
 ### Provider
 
 | Variables | Description |
+|--- | --- |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value. |
 
 ## Cluster
@@ -29,6 +30,7 @@ sidebarDepth: 3
 ### Routing
 
 | Variables | Description |
+|--- | --- |
 | `domain` | The domain to be added to the traefik rules. There is no default value. |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
 | `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
@@ -37,6 +39,7 @@ sidebarDepth: 3
 ### Security
 
 | Variables | Description |
+|--- | --- |
 | `ssh_ip_whitelist` | The IP addresses from where you can can connect to the hosts. The default value is `0.0.0.0/0` |
 | `ssh_user` | The user to get connected to the instances. on **Scaleway** the default value is `root` and on **AWS** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
@@ -50,6 +53,7 @@ sidebarDepth: 3
 ### Manager
 
 | Variables | Description |
+|--- | --- |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
 | `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""`. |
 | `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `""`. |
@@ -58,6 +62,7 @@ sidebarDepth: 3
 ### Workers
 
 | Variables | Description |
+|--- | --- |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `worker_instance_count` | The number of worker instances. The default value is `1` |
 | `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
@@ -70,6 +75,7 @@ sidebarDepth: 3
 ### Docker 
 
 | Variables | Description |
+|--- | --- |
 | `docker_version` | The version of the Docker engine to be installed. The default value is `18.06.1ce3-0~ubuntu` |
 | `docker_network` | The name of the Docker network to be created. The default value is `kaabah` |
 | `docker_tls_ca_key` | The path to the CA private key. The default value is `ca.key` |
@@ -79,6 +85,8 @@ sidebarDepth: 3
 
 ## Services
 
+| Variables | Description |
+|--- | --- |
 | `auth_user` | Your authentication identity to access the services. There is no default value. |
 | `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. There is no default value. |
 | `slack_webhook_url` | The URL to the slack webhook. The Default value is `""`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |

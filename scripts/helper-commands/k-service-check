@@ -11,6 +11,7 @@ help() {
 }
 
 exec() {
+  local SERVICE_ID=$1
   docker service ps --no-trunc $SERVICE_ID
 }
 
@@ -27,5 +28,5 @@ fi
 
 case $1 in
   -h|--help) help;;
-  *) exec
+  *) exec "$1"
 esac

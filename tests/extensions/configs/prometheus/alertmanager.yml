@@ -1,0 +1,15 @@
+
+route:
+  receiver: 'email'
+
+receivers:
+- name: email
+  email_configs:
+  - send_resolved: true
+    to: 'admin@example.com'
+    from: 'admin@example.com'
+    smarthost: 'smtp.example.com:587'
+    auth_username: 'admin@example.com'
+    auth_password: '<email_password_or_token>'
+    auth_secret: 'admin@example.com'
+    auth_identity: 'admin@example.com'

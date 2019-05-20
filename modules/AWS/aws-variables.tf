@@ -91,6 +91,10 @@ variable "bastion_ssh_key" {}
 
 variable "bastion_ssh_user" {}
 
+variable "slack_webhook_url" {}
+
+variable "slack_channel" {}
+
 variable "device_names" {
   default = [
     "/dev/sdf", 

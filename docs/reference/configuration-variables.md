@@ -16,6 +16,7 @@ sidebarDepth: 3
 ### AWS
 
 | Variables | Description |
+|--- | --- |
 | `AWS_ACCESS_KEY` | Your **AWS** access key. This is important to note that your credential must allows access to **AWS EC2** and **S3** services |
 | `AWS_SECRET_KEY` | Your **AWS** secret key |
 
@@ -81,7 +82,6 @@ sidebarDepth: 3
 | `docker_tls_ca_key` | The path to the CA private key. The default value is `ca.key` |
 | `docker_tls_ca_cert` | The path to the CA public key. The default value is `ca.cert` |
 | `docker_tls_ca_pass` | The path to the CA passphrase file. The default value is `ca.pass` |
-}
 
 ## Services
 

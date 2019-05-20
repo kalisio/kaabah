@@ -12,7 +12,8 @@
 *  Upgrade instance image to Ubuntu Bionic (closed [#89](https://github.com/kalisio/kaabah/pull/89)) ([a7c6810e](https://github.com/kalisio/kaabah/commit/a7c6810e8fbf91de074fee6341b81820157541ef))
 *  Upgrade AWS provider (closed [#88](https://github.com/kalisio/kaabah/pull/88)) ([36ac0ece](https://github.com/kalisio/kaabah/commit/36ac0ece03f9f119efef76ea9638341c3b51842c))
 *  Update Scaleway provider version (close [#87](https://github.com/kalisio/kaabah/pull/87)) ([3bdc381a](https://github.com/kalisio/kaabah/commit/3bdc381a8f985aead13b2c6d8ffef33496a4948c))
-*  Provide the capabilities to use a bastion (closed [#84](https://github.com/kalisio/kaabah/pull/84)) feat: Integrate fail2ban (closed [#85](https://github.com/kalisio/kaabah/pull/85)) ([16f237f4](https://github.com/kalisio/kaabah/commit/16f237f40946f0de8ac2bec4957a411deb9303a2))
+*  Provide the capabilities to use a bastion (closed [#84](https://github.com/kalisio/kaabah/pull/84)) 
+*  Integrate fail2ban (closed [#85](https://github.com/kalisio/kaabah/pull/85)) ([16f237f4](https://github.com/kalisio/kaabah/commit/16f237f40946f0de8ac2bec4957a411deb9303a2))
 *  Fix the versions of the services (closed [#81](https://github.com/kalisio/kaabah/pull/81)) ([16926355](https://github.com/kalisio/kaabah/commit/169263551d78218e76f1fbcfe46ca39b05ca2695))
 *  Remove SSH rules on workers (closed [#82](https://github.com/kalisio/kaabah/pull/82)) ([791852c2](https://github.com/kalisio/kaabah/commit/791852c25624c5de19ef6e81ef14e4599f4035d8))
 

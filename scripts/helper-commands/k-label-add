@@ -27,7 +27,7 @@ fi
 
 case $1 in
   -h|--help) help;;
-  *) exec $1 $2
+  *) exec "$1" "$2"
 esac
 
 

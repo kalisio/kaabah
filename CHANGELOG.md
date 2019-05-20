@@ -1,3 +1,39 @@
+### 0.7.0 (2019-05-20)
+
+##### New Features
+
+*  Enhance reference documentation (closed [#80](https://github.com/kalisio/kaabah/pull/80)) ([6b6cff5a](https://github.com/kalisio/kaabah/commit/6b6cff5acdbafa4654325f1b17093536e1790034))
+*  Slack channel should be configurable (closed [#100](https://github.com/kalisio/kaabah/pull/100)) ([06895c04](https://github.com/kalisio/kaabah/commit/06895c048ee0564e674d38887975250f3e016f39))
+*  Enhance k-node-exec to be able to run a script (closed [#101](https://github.com/kalisio/kaabah/pull/101)) ([54e4ce19](https://github.com/kalisio/kaabah/commit/54e4ce19d2bd24d6e80d928edc13b08acb75a6ca))
+*  Install jq by default (closed [#99](https://github.com/kalisio/kaabah/pull/99)) ([37777246](https://github.com/kalisio/kaabah/commit/37777246336c77e6a85f9dd972bb3548865974ae))
+*  Disable Grafana dashboards edition (closed [#98](https://github.com/kalisio/kaabah/pull/98)) ([32a02f4c](https://github.com/kalisio/kaabah/commit/32a02f4c939f7dea86b40d69b94be0f6fcf56897))
+*  Scrape docker engine metrics in Prometheus (closed [#96](https://github.com/kalisio/kaabah/pull/96)) ([8c91d4f3](https://github.com/kalisio/kaabah/commit/8c91d4f3741aac15e69addd493f7f1507056c988))
+*  Add a fail2ban section in the documentation (closed [#90](https://github.com/kalisio/kaabah/pull/90)) ([69f0a479](https://github.com/kalisio/kaabah/commit/69f0a479d14ff738f1b36600a48781c810903b1c))
+*  Upgrade instance image to Ubuntu Bionic (closed [#89](https://github.com/kalisio/kaabah/pull/89)) ([a7c6810e](https://github.com/kalisio/kaabah/commit/a7c6810e8fbf91de074fee6341b81820157541ef))
+*  Upgrade AWS provider (closed [#88](https://github.com/kalisio/kaabah/pull/88)) ([36ac0ece](https://github.com/kalisio/kaabah/commit/36ac0ece03f9f119efef76ea9638341c3b51842c))
+*  Update Scaleway provider version (close [#87](https://github.com/kalisio/kaabah/pull/87)) ([3bdc381a](https://github.com/kalisio/kaabah/commit/3bdc381a8f985aead13b2c6d8ffef33496a4948c))
+*  Provide the capabilities to use a bastion (closed [#84](https://github.com/kalisio/kaabah/pull/84)) feat: Integrate fail2ban (closed [#85](https://github.com/kalisio/kaabah/pull/85)) ([16f237f4](https://github.com/kalisio/kaabah/commit/16f237f40946f0de8ac2bec4957a411deb9303a2))
+*  Fix the versions of the services (closed [#81](https://github.com/kalisio/kaabah/pull/81)) ([16926355](https://github.com/kalisio/kaabah/commit/169263551d78218e76f1fbcfe46ca39b05ca2695))
+*  Remove SSH rules on workers (closed [#82](https://github.com/kalisio/kaabah/pull/82)) ([791852c2](https://github.com/kalisio/kaabah/commit/791852c25624c5de19ef6e81ef14e4599f4035d8))
+
+##### Bug Fixes
+
+*  k-service-check is no more working (closed [#105](https://github.com/kalisio/kaabah/pull/105)) chore: cleaned helper commands ([c1bbb996](https://github.com/kalisio/kaabah/commit/c1bbb99661900c0e904d3eb0713a735a73d7ee05))
+*  k-node-exec should run the command or script as the use without sudo privilege (closed [#103](https://github.com/kalisio/kaabah/pull/103)) ([d6288b89](https://github.com/kalisio/kaabah/commit/d6288b89ef51f74edf63664e2e0cb7e0d6f319a2))
+*  User script on the manager is processed before the workers are instantiated (closed [#102](https://github.com/kalisio/kaabah/pull/102)) ([b3eddcfe](https://github.com/kalisio/kaabah/commit/b3eddcfe42878af651a36ae6d7a2b727c4d805c1))
+*  On Scaleway the crontab ressource cannot be created (closed [#97](https://github.com/kalisio/kaabah/pull/97)) ([545bc3ef](https://github.com/kalisio/kaabah/commit/545bc3efe4eef01fb2db0ec35e0c2784d51abfea))
+*  On Scaleway, an error appears when mounting the volumes (closed [#95](https://github.com/kalisio/kaabah/pull/95)) ([103a16fa](https://github.com/kalisio/kaabah/commit/103a16fab34107161332590170ad70aac60677a9))
+*  SSH connection is still failing (closed [#94](https://github.com/kalisio/kaabah/pull/94)) ([7474a98b](https://github.com/kalisio/kaabah/commit/7474a98bd523cc5c92678f8d6d01287755372abf))
+*  Cannot access the manager when destroying (closed [#93](https://github.com/kalisio/kaabah/pull/93)) ([e89e4fb2](https://github.com/kalisio/kaabah/commit/e89e4fb2ea10c7be36414e3150c43138b0a19bb7))
+*  On AWS associate_public_ip_address is not taken into account (closed [#91](https://github.com/kalisio/kaabah/pull/91)) ([fbf3b429](https://github.com/kalisio/kaabah/commit/fbf3b429c0e4e0136d4d112641a93472b3f85349))
+*  Wrong number of rules ssh_accept_manager on Scaleway (closed [#83](https://github.com/kalisio/kaabah/pull/83)) ([99c48699](https://github.com/kalisio/kaabah/commit/99c4869911b054853c131619d8691a534036cb54))
+
+##### Other Changes
+
+*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([806d5bd9](https://github.com/kalisio/kaabah/commit/806d5bd904f91116abe834d832857bcc0961d1a7))
+*  Add health check to services [#75](https://github.com/kalisio/kaabah/pull/75) ([73a25aad](https://github.com/kalisio/kaabah/commit/73a25aadfa4f34808e9eb445cabb387261b8e859))
+*  updated var file ([86ddc44d](https://github.com/kalisio/kaabah/commit/86ddc44da280521380506a7173945fafc5f70bf7))
+
 ### 0.6.0 (2019-04-17)
 
 ##### New Features

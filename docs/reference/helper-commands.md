@@ -105,14 +105,23 @@ Executes the given command or script on each worker
 $k-worker-foreach -c "echo 'foo bar'" > foobar"
 ```
 
-## k-swarm-prune
+## k-swarm-check
 
-`usage: k-swarm-prune`
+`usage: k-swarm-check <duration> [slack-url]`
 
-Removes the unused images, volumes and networks on the nodes
+Checks the docker events for the events of type of `unhealthy` and `die` status.
+The command returns only the latest events during the given period.
+
+If a slack url is given, a message is published to the given channel.
 
 ## k-swarm-info
 
 `usage: k-swarm-info`
 
 Displays the main information about the cluster
+
+## k-swarm-prune
+
+`usage: k-swarm-prune`
+
+Removes the unused images, volumes and networks on the nodes

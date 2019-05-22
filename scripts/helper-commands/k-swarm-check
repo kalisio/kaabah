@@ -1,0 +1,44 @@
+#!/bin/bash
+
+usage() {
+  echo "usage: k-swarm-check <period>"
+}
+
+help() {
+  echo "Checks whether a container died or became unhealthy since the given period"
+  usage
+}
+
+exec() {
+  local PERIOD=$1
+  local SLACK_HOOK_URL=$2
+  local EVENTS_FILE=/tmp/swarm-events
+
+  UNTIL=`date +%s`
+  docker events --filter event=health_status --filter event=die --format '{{json .}}' --since $PERIOD --until $UNTIL > $EVENTS_FILE
+
+  FILTERS=("\"health_status: unhealthy\"" "\"die\"")
+  for FILTER in "${FILTERS[@]}"; do
+    EXPR="\"status\":$FILTER"
+    SERVICES=`grep "$EXPR" $EVENTS_FILE | jq -s '[.[].Actor.Attributes | { "com.docker.swarm.service.name" }] | unique | .[]."com.docker.swarm.service.name"'`
+    for SERVICE in $SERVICES; do
+      ATTACHMENTS=[{\"title\":\""[FIRING] $EXPR"\",\"color\":\"danger\"}]
+      MESSAGE={\"text\":$SERVICE,\"attachments\":$ATTACHMENTS}
+      echo $MESSAGE
+      if [ -n "$SLACK_HOOK_URL" ]; then
+        curl -X POST -H "Content-type: application/json" --data "$MESSAGE" $3
+      fi
+    done
+  done
+}
+
+if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+case $1 in
+  -h|--help) help;;
+  *) exec "$1"
+esac

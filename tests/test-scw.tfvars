@@ -1,5 +1,7 @@
 provider = "SCALEWAY"
 
+region = "par1"
+
 domain = "kalisio.xyz"
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"

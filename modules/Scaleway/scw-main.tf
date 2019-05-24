@@ -7,11 +7,13 @@ provider "scaleway" {
 }
 
 data "scaleway_image" "manager_image" {
+  count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
   architecture = "${lookup(var.architectures, var.manager_instance_type)}"
   name         = "${var.image}"
 }
 
 data "scaleway_image" "worker_image" {
+  count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
   architecture = "${lookup(var.architectures, var.worker_instance_type)}"
   name         = "${var.image}"
 }

@@ -1,5 +1,7 @@
 provider = "AWS"
 
+region = "eu-central-1"
+
 domain = "kalisio.xyz"
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
@@ -26,13 +28,13 @@ worker_instance_type = "t3.large"
 
 worker_instance_count = 2
 
-#worker_additional_volume_count = 1
+worker_additional_volume_count = 1
 
-#worker_additional_volume_size = 500
+worker_additional_volume_size = 500
 
-#worker_additional_volume_type = "sc1"
+worker_additional_volume_type = "sc1"
 
-#worker_additional_volume_mount_point = "data"
+worker_additional_volume_mount_point = "data"
 
 worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 

@@ -6,6 +6,12 @@ variable "AWS_SECRET_KEY" {}
 
 variable "provider" {}
 
+variable "region" {}
+
+variable "availability_zone" {
+  default = ""
+}
+
 variable "domain" {}
 
 variable "subdomain" {

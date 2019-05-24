@@ -17,13 +17,9 @@ variable auth_password {}
 variable "access_key" {}
 variable "secret_key" {}
 
-variable "region" {
-  default = "eu-central-1"
-}
+variable "region" {}
 
-variable "availability_zone" {
-  default = "eu-central-1b"
-}
+variable "availability_zone" {}
 
 variable "image" {
   default = "ami-090f10efc254eaf55"

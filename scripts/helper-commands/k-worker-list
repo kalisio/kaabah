@@ -27,5 +27,3 @@ case $1 in
   '') exec;;
   *) echo error: unknonw argument "$1"; usage
 esac
-
-

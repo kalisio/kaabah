@@ -18,9 +18,7 @@ variable "access_key" {}
 
 variable "token" {}
 
-variable "region" {
-  default = "par1"
-}
+variable "region" {}
 
 variable "image" {
   default = "Ubuntu Bionic"

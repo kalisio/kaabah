@@ -25,6 +25,8 @@ sidebarDepth: 3
 | Variables | Description |
 |--- | --- |
 | `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value. |
+| `region` | The region to host the infrastructure. There is no default value. |
+| `availability_zone` | The availability zone to host the infrastructure. This variable is ignored in the case of **Scaleway**. There is no default value. |
 
 ## Cluster
 

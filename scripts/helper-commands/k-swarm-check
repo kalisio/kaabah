@@ -1,7 +1,8 @@
 #!/bin/bash
 
 usage() {
-  echo "usage: k-swarm-check <period>"
+  echo "usage: k-swarm-check <time_gap>"
+  echo "usage: k-swarm-check --slack|-s <slack_webhook_url> <slack_message_template> <time_gap>"
 }
 
 help() {
@@ -10,29 +11,56 @@ help() {
 }
 
 exec() {
-  local PERIOD=$1
+  local TIME_GAP=$1
   local SLACK_HOOK_URL=$2
+  local SLACK_MESSAGE_TEMPLATE=$3
   local EVENTS_FILE=/tmp/swarm-events
+  local ALERTS_FILE=/tmp/swarm-alerts
+  local TMP_ALERTS_FILE=/tmp/swarm-alerts-tmp
 
-  UNTIL=`date +%s`
-  docker events --filter event=health_status --filter event=die --format '{{json .}}' --since $PERIOD --until $UNTIL > $EVENTS_FILE
+  # create the alert file if needed
+  if [ ! -f "$ALERTS_FILE" ]; then
+    > $ALERTS_FILE
+  fi
+  > $TMP_ALERTS_FILE
 
-  FILTERS=("\"health_status: unhealthy\"" "\"die\"")
-  for FILTER in "${FILTERS[@]}"; do
-    EXPR="\"status\":$FILTER"
-    SERVICES=`grep "$EXPR" $EVENTS_FILE | jq -s '[.[].Actor.Attributes | { "com.docker.swarm.service.name" }] | unique | .[]."com.docker.swarm.service.name"'`
+  # create the events file with the desired filters
+  NOW=`date +%s`
+  docker events --filter event=health_status --filter event=die --format '{{json .}}' --since $TIME_GAP --until $NOW > $EVENTS_FILE
+
+  # run though the events
+  STATUS_LIST=("health_status: unhealthy" "die")
+  for STATUS in "${STATUS_LIST[@]}"; do
+    local FILTER="\"status\":\"$STATUS\""
+    local SERVICES=`grep "$FILTER" $EVENTS_FILE | jq -s '[.[].Actor.Attributes | { "com.docker.swarm.service.name" }] | unique | .[]."com.docker.swarm.service.name"'`
     for SERVICE in $SERVICES; do
-      ATTACHMENTS=[{\"title\":\""[FIRING] $EXPR"\",\"color\":\"danger\"}]
-      MESSAGE={\"text\":$SERVICE,\"attachments\":$ATTACHMENTS}
-      echo $MESSAGE
-      if [ -n "$SLACK_HOOK_URL" ]; then
-        curl -X POST -H "Content-type: application/json" --data "$MESSAGE" $3
+      SERVICE=${SERVICE//\"/}
+      echo $SERVICE $STATUS >> $TMP_ALERTS_FILE
+      local ALERT=`grep "$SERVICE $STATUS" $ALERTS_FILE`
+      if [ -z "$ALERT" ] && [ -n "$SLACK_HOOK_URL" ]; then
+        local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$SERVICE STATUS=$STATUS envsubst < $SLACK_MESSAGE_TEMPLATE`
+        curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_HOOK_URL
       fi
     done
   done
+
+  # clears the resolved alerts
+  cat $ALERTS_FILE | while read ALERT ; do
+    local EXISTING_ALERT=`grep "$ALERT" $TMP_ALERTS_FILE`
+    if [ -z "$EXISTING_ALERT" ] && [ -n "$SLACK_HOOK_URL" ]; then
+      local SERVICE=`echo $ALERT | cut -d ' ' -f1`
+      local STATUS=`echo $ALERT | cut -d ' ' -f2`
+      local PAYLOAD=`ACTION=RESOLVED COLOR=good SERVICE=$SERVICE STATUS=$STATUS envsubst < $SLACK_MESSAGE_TEMPLATE`
+      curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_HOOK_URL
+    fi
+  done
+  mv $TMP_ALERTS_FILE $ALERTS_FILE
+
+  # displays the current alerts
+  cat $ALERTS_FILE
 }
 
-if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
+if [ "$#" -ne 1 ] && [ "$#" -ne 4 ]; then
   echo error: illegal number of arguments
   usage
   exit 1
@@ -40,5 +68,6 @@ fi
 
 case $1 in
   -h|--help) help;;
+  --slack|-s) exec "$4" "$2" "$3";;
   *) exec "$1"
 esac

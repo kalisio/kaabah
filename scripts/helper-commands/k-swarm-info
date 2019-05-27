@@ -20,6 +20,9 @@ exec() {
   for WORKER_ID in $WORKER_IDS; do
     echo -e "$WORKER_ID\t`k-label-list $WORKER_ID`"
   done
+  # list the stacks
+  echo "Stacks --------"
+  docker stack ls
   # list the services
   echo "Services ------"
   docker service ls

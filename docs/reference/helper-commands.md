@@ -103,40 +103,45 @@ ID                          NAME                 IMAGE           NODE           
 ne6otm12od24hmj576bj8322c   kaabah_portainer.1   portainer/portainer:latest@sha256:07c0e19e28e18414dd02c313c36b293758acf197d5af45077e3dd69c630e25cc   ip-172-31-36-140    Running             Running about an hour ago
 ```
 
-## k-worker-list
+## k-stack-update
 
 ### Description
 
-Displays the worker nodes. If the options `--id-only` is defined, it returns the IDs of the workers.
+`uage: k-stack-update [--force|-f] <stack>`
 
-`usage: k-worker-list [--id-only|-i]`
+Update the services within the given stack. The `--force` flag causes the service’s tasks to be shut down and replaced with new ones. 
 
 ### Example
 
 ```bash
-$k-worker-list
-ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
-afwvqo2pv90jc5us3t8nvwzsd     ip-172-31-35-40     Ready               Active                                  18.03.1-ce
-wyo0dvb85bn0ziw58v0o8u4tl     ip-172-31-39-133    Ready               Active                                  18.03.1-ce
-$k-worker-list -i
-afwvqo2pv90jc5us3t8nvwzsd
-wyo0dvb85bn0ziw58v0o8u4tl
+$k-stack-update --force kargo-ows
+kargo-ows_mapserver
+overall progress: 1 out of 1 tasks
+1/1: running   [==================================================>]
+verify: Service converged
+kargo-ows_tileservergl
+overall progress: 4 out of 4 tasks
+1/4: running   [==================================================>]
+2/4: running   [==================================================>]
+3/4: running   [==================================================>]
+4/4: running   [==================================================>]
+verify: Service converged
+kargo-ows_mapproxy
+overall progress: 4 out of 4 tasks
+1/4: running   [==================================================>]
+2/4: running   [==================================================>]
+3/4: running   [==================================================>]
+4/4: running   [==================================================>]
+verify: Service converged
+kargo-ows_k2
+overall progress: 4 out of 4 tasks
+1/4: running   [==================================================>]
+2/4: running   [==================================================>]
+3/4: running   [==================================================>]
+4/4: running   [==================================================>]
+verify: Service converged
 ```
 
-## k-worker-foreach
-
-### Description
-
-Executes the given command or script on each worker
-
-`usage: k-worker-foreach --command|-c <command>`
-`usage: k-worker-foreach --script|-s <script> [arguments...]`
-
-### Example
-
-```bash
-$k-worker-foreach -c "echo 'foo bar' > foobar.txt"
-```
 ## k-swarm-check
 
 ### Description
@@ -210,4 +215,39 @@ Removes the unused images, volumes and networks on the nodes
 
 ```bash
 $k-swarm-prune
+```
+
+## k-worker-foreach
+
+### Description
+
+Executes the given command or script on each worker
+
+`usage: k-worker-foreach --command|-c <command>`
+`usage: k-worker-foreach --script|-s <script> [arguments...]`
+
+### Example
+
+```bash
+$k-worker-foreach -c "echo 'foo bar' > foobar.txt"
+```
+
+## k-worker-list
+
+### Description
+
+Displays the worker nodes. If the options `--id-only` is defined, it returns the IDs of the workers.
+
+`usage: k-worker-list [--id-only|-i]`
+
+### Example
+
+```bash
+$k-worker-list
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+afwvqo2pv90jc5us3t8nvwzsd     ip-172-31-35-40     Ready               Active                                  18.03.1-ce
+wyo0dvb85bn0ziw58v0o8u4tl     ip-172-31-39-133    Ready               Active                                  18.03.1-ce
+$k-worker-list -i
+afwvqo2pv90jc5us3t8nvwzsd
+wyo0dvb85bn0ziw58v0o8u4tl
 ```

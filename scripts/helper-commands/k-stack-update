@@ -1,0 +1,39 @@
+#!/bin/bash
+
+usage() {
+  echo "usage: k-stack-update [--force|-f] <stack>"
+}
+
+help() {
+  echo "Update the services within the given stack"
+  usage
+}
+
+exec() {
+  local STACK=$1
+  local OPTIONS=$2
+  local SERVICES=`docker stack services $STACK --format {{.Name}}`
+  for SERVICE_TO_UPDATE in $SERVICES; do
+    docker service update $OPTIONS $SERVICE_TO_UPDATE
+  done
+}
+
+if [ "$#" -lt 1 ] && [ "$#" -gt 2 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+if [ "$#" -eq 2 ]; then
+  if [ "$1" != "--force" ] && [ "$1" != "-f" ]; then
+    echo error: unknown argument \"$1\"
+    usage
+    exit 1
+  fi
+fi
+
+case $1 in
+  -h|--help) help;;
+  --force|-f) exec "$2" --force;;
+  *) exec "$1"
+esac

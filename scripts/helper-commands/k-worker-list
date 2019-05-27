@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 usage() {
@@ -11,7 +10,7 @@ help() {
 }
 
 exec() {
-  OPTIONS=$1
+  local OPTIONS=$1
   docker node ls $OPTIONS -f role=worker
 }
 

@@ -1,8 +1,8 @@
-resource "scaleway_ip" "swarm_manager" {
+resource "scaleway_ip" "manager" {
   count = "${var.provider == "SCALEWAY" && var.manager_ip =="" ? 1 : 0}"
 }
 
-resource "scaleway_server" "swarm_manager" {
+resource "scaleway_server" "manager" {
   count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   name           = "${terraform.workspace}-manager"
   image          = "${data.scaleway_image.manager_image.id}"
@@ -72,7 +72,7 @@ resource "null_resource" "manager_crontab" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : var.manager_ip}"
+    host                = "${local.use_bastion ? scaleway_server.manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -97,5 +97,5 @@ resource "null_resource" "manager_crontab" {
     ]
   }
 
-  depends_on = ["scaleway_server.swarm_manager"]
+  depends_on = ["scaleway_server.manager"]
 }

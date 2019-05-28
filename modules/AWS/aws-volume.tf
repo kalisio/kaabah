@@ -1,4 +1,4 @@
-resource "aws_ebs_volume" "swarm_worker_volume" {
+resource "aws_ebs_volume" "worker_volume" {
   count             = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
   availability_zone = "${var.availability_zone}"
   size              = "${var.worker_additional_volume_size}"
@@ -9,15 +9,15 @@ resource "aws_ebs_volume" "swarm_worker_volume" {
   }
 }
 
-resource "aws_volume_attachment" "swarm_worker_volume_attachement" {
+resource "aws_volume_attachment" "worker_volume_attachement" {
   count         = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
   device_name   = "${var.device_names[count.index % var.worker_additional_volume_count]}"
-  instance_id   = "${aws_instance.swarm_worker.*.id[count.index / var.worker_additional_volume_count]}"
-  volume_id     = "${aws_ebs_volume.swarm_worker_volume.*.id[count.index]}"
+  instance_id   = "${aws_instance.worker.*.id[count.index / var.worker_additional_volume_count]}"
+  volume_id     = "${aws_ebs_volume.worker_volume.*.id[count.index]}"
   force_detach  = true
 }
 
-resource "null_resource" "swarm_worker_volume_mount" {
+resource "null_resource" "worker_volume_mount" {
   count = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
 
   connection {
@@ -25,7 +25,7 @@ resource "null_resource" "swarm_worker_volume_mount" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${aws_instance.swarm_worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
+    host                = "${aws_instance.worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -37,5 +37,5 @@ resource "null_resource" "swarm_worker_volume_mount" {
     ]
   }
 
-  depends_on = ["aws_volume_attachment.swarm_worker_volume_attachement"]
+  depends_on = ["aws_volume_attachment.worker_volume_attachement"]
 }

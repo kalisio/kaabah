@@ -201,6 +201,28 @@ Displays the main information about the cluster. It lists:
 
 ```bash
 $k-swarm-info
+Nodes ----------
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+0suedzfgjrxfdvfu6zwbsd3hx     ip-172-31-20-82     Ready               Active                                  18.06.1-ce
+p2yvjlwzrx16o1tqx7sp3mob0 *   ip-172-31-24-162    Ready               Active              Leader              18.06.1-ce
+nlcpbu4x8luvkz8ix7yv6iu58     ip-172-31-31-32     Ready               Active                                  18.06.1-ce
+Labels ---------
+ID                              LABELS
+0suedzfgjrxfdvfu6zwbsd3hx       apps=true worker0=true
+nlcpbu4x8luvkz8ix7yv6iu58       dbs=true worker1=true
+Stacks --------
+NAME                SERVICES            ORCHESTRATOR
+kaabah              8                   Swarm
+Services ------
+ID                  NAME                   MODE                REPLICAS            IMAGE                        PORTS
+hz4enqth3nfn        kaabah_alertmanager    replicated          1/1                 prom/alertmanager:v0.17.0
+tl6r8dks3zos        kaabah_cadvisor        global              3/3                 google/cadvisor:v0.33.0
+ookvvdimww2u        kaabah_grafana         replicated          1/1                 grafana/grafana:6.1.6
+8yybzr4sjqf7        kaabah_node-exporter   global              3/3                 prom/node-exporter:v0.17.0
+49le2ooi5xt0        kaabah_portainer       replicated          1/1                 portainer/portainer:1.20.2
+5uy2selhx8ah        kaabah_prometheus      replicated          1/1                 prom/prometheus:v2.9.2
+uw8y4yv003ev        kaabah_registry        replicated          1/1                 registry:2                   *:5000->5000/tcp
+shecw660oiaq        kaabah_traefik         replicated          1/1                 traefik:1.7-alpine
 ```
 
 ## k-swarm-prune

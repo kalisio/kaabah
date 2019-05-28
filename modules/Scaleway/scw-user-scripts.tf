@@ -6,7 +6,7 @@ resource "null_resource" "manager_user_script" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
+    host                = "${local.use_bastion ? scaleway_server.manager.private_ip : scaleway_server.manager.public_ip}"    
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -24,9 +24,9 @@ resource "null_resource" "manager_user_script" {
   }
 
   depends_on = [
-    "scaleway_server.swarm_manager",
-    "scaleway_server.swarm_worker", # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
-    "null_resource.swarm_worker_volume_mount"
+    "scaleway_server.manager",
+    "scaleway_server.worker", # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
+    "null_resource.worker_volume_mount"
   ]
 }
 
@@ -38,7 +38,7 @@ resource "null_resource" "worker_user_scripts" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${element(scaleway_server.swarm_worker.*.private_ip, count.index)}"
+    host                = "${element(scaleway_server.worker.*.private_ip, count.index)}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -55,6 +55,6 @@ resource "null_resource" "worker_user_scripts" {
   }
 
   depends_on = [
-    "null_resource.swarm_worker_volume_mount"
+    "null_resource.worker_volume_mount"
   ]
 }

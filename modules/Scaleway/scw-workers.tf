@@ -1,14 +1,14 @@
-resource "scaleway_ip" "swarm_worker" {
+resource "scaleway_ip" "worker" {
   count = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
 }
 
-resource "scaleway_server" "swarm_worker" {
+resource "scaleway_server" "worker" {
   count          = "${var.provider == "SCALEWAY" ? var.worker_instance_count : 0}"
   name           = "${terraform.workspace}-worker-${count.index}"
   image          = "${data.scaleway_image.worker_image.id}"
   type           = "${var.worker_instance_type}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
-  public_ip      = "${element(scaleway_ip.swarm_worker.*.ip, count.index)}"
+  public_ip      = "${element(scaleway_ip.worker.*.ip, count.index)}"
 
   volume {
     size_in_gb = "${lookup(var.additional_volume_size, var.worker_instance_type)}"
@@ -59,7 +59,7 @@ resource "scaleway_server" "swarm_worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "sh ~/.kaabah/install-worker.sh ${var.docker_version} ${scaleway_server.swarm_manager.private_ip} \"10.0.0.0/8\"",
+      "sh ~/.kaabah/install-worker.sh ${var.docker_version} ${scaleway_server.manager.private_ip} \"10.0.0.0/8\"",
     ]
   }
 
@@ -76,7 +76,7 @@ resource "scaleway_server" "swarm_worker" {
       bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
       bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
       bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-      host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
+      host                = "${local.use_bastion ? scaleway_server.manager.private_ip : scaleway_server.manager.public_ip}"    
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"
@@ -84,7 +84,7 @@ resource "scaleway_server" "swarm_worker" {
   }
 
   depends_on = [
-    "scaleway_server.swarm_manager", 
+    "scaleway_server.manager", 
     "scaleway_security_group_rule.external_in_accept_SSH", 
     "scaleway_security_group_rule.internal_in_accept_SSH",
     "scaleway_security_group_rule.internal_in_accept_TCP_2376",

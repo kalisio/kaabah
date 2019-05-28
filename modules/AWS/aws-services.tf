@@ -6,7 +6,7 @@ resource "null_resource" "services" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+    host                = "${local.use_bastion ? aws_instance.manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -33,10 +33,10 @@ resource "null_resource" "services" {
   provisioner "remote-exec" {
     inline = [
       "set -a && . ./.bash_profile && set +a",  # required to take into account Docker environment variables
-      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${aws_instance.swarm_manager.private_ip} ${var.slack_webhook_url} ${var.slack_channel}",
+      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${aws_instance.manager.private_ip} ${var.slack_webhook_url} ${var.slack_channel}",
       "cd kaabah && sudo ./deploy-services.sh",
     ]
   }
 
-  depends_on = ["aws_eip_association.swarm_manager", "aws_instance.swarm_worker"]
+  depends_on = ["aws_eip_association.manager", "aws_instance.worker"]
 }

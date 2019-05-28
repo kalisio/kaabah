@@ -1,10 +1,10 @@
-resource "aws_eip_association" "swarm_manager" {
+resource "aws_eip_association" "manager" {
   count       = "${var.provider == "AWS" ? 1 : 0}"
-  instance_id = "${aws_instance.swarm_manager.id}"
+  instance_id = "${aws_instance.manager.id}"
   public_ip   = "${var.manager_ip}"
 }
 
-resource "aws_instance" "swarm_manager" {
+resource "aws_instance" "manager" {
   count             = "${var.provider == "AWS" ? 1 : 0}"
   key_name          = "${var.key_name}"
   ami               = "${var.image}"
@@ -78,7 +78,7 @@ resource "null_resource" "manager_crontab" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? aws_instance.swarm_manager.private_ip : var.manager_ip}"
+    host                = "${local.use_bastion ? aws_instance.manager.private_ip : var.manager_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -103,5 +103,5 @@ resource "null_resource" "manager_crontab" {
     ]
   }
 
-  depends_on = ["aws_eip_association.swarm_manager"]
+  depends_on = ["aws_eip_association.manager"]
 }

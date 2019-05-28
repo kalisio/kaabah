@@ -6,7 +6,7 @@ resource "null_resource" "manager_labels" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
+    host                = "${local.use_bastion ? scaleway_server.manager.private_ip : scaleway_server.manager.public_ip}"    
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -14,12 +14,12 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "k-label-clear `k-node-find ${element(scaleway_server.swarm_manager.*.private_ip, 0)}`",
-      "k-label-add `k-node-find ${element(scaleway_server.swarm_manager.*.private_ip, 0)}` \"${var.manager_labels}\""
+      "k-label-clear `k-node-find ${element(scaleway_server.manager.*.private_ip, 0)}`",
+      "k-label-add `k-node-find ${element(scaleway_server.manager.*.private_ip, 0)}` \"${var.manager_labels}\""
     ]
   }
 
-  depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
+  depends_on = ["scaleway_server.manager", "scaleway_server.worker"]
 }
 
 resource "null_resource" "worker_labels" {
@@ -30,7 +30,7 @@ resource "null_resource" "worker_labels" {
     bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
     bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
     bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? scaleway_server.swarm_manager.private_ip : scaleway_server.swarm_manager.public_ip}"    
+    host                = "${local.use_bastion ? scaleway_server.manager.private_ip : scaleway_server.manager.public_ip}"    
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -38,10 +38,10 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "k-label-clear `k-node-find ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}`",
-      "k-label-add `k-node-find ${element(scaleway_server.swarm_worker.*.private_ip, count.index)}` \"${var.worker_labels[count.index]}\""
+      "k-label-clear `k-node-find ${element(scaleway_server.worker.*.private_ip, count.index)}`",
+      "k-label-add `k-node-find ${element(scaleway_server.worker.*.private_ip, count.index)}` \"${var.worker_labels[count.index]}\""
     ]
   }
 
-  depends_on = ["scaleway_server.swarm_manager", "scaleway_server.swarm_worker"]
+  depends_on = ["scaleway_server.manager", "scaleway_server.worker"]
 }

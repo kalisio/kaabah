@@ -34,12 +34,14 @@ exec() {
     local FILTER="\"status\":\"$STATUS\""
     local SERVICES=`grep "$FILTER" $EVENTS_FILE | jq -s '[.[].Actor.Attributes | { "com.docker.swarm.service.name" }] | unique | .[]."com.docker.swarm.service.name"'`
     for SERVICE in $SERVICES; do
-      SERVICE=${SERVICE//\"/}
-      echo $SERVICE $STATUS >> $TMP_ALERTS_FILE
-      local ALERT=`grep "$SERVICE $STATUS" $ALERTS_FILE`
-      if [ -z "$ALERT" ] && [ -n "$SLACK_HOOK_URL" ]; then
-        local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$SERVICE STATUS=$STATUS envsubst < $SLACK_MESSAGE_TEMPLATE`
-        curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_HOOK_URL
+      if [ "$SERVICE" != "null"]; then
+        SERVICE=${SERVICE//\"/}
+        echo $SERVICE $STATUS >> $TMP_ALERTS_FILE
+        local ALERT=`grep "$SERVICE $STATUS" $ALERTS_FILE`
+        if [ -z "$ALERT" ] && [ -n "$SLACK_HOOK_URL" ]; then
+          local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$SERVICE STATUS=$STATUS envsubst < $SLACK_MESSAGE_TEMPLATE`
+          curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_HOOK_URL
+        fi
       fi
     done
   done

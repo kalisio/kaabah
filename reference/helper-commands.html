@@ -8,7 +8,7 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-64x64.png">
   <link rel="manifest" href="/kaabah/manifest.json">
     
-    <link rel="preload" href="/kaabah/assets/css/0.styles.5f60cd56.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.52cfa402.js" as="script"><link rel="preload" href="/kaabah/assets/js/13.0bb72aba.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.190adff0.js"><link rel="prefetch" href="/kaabah/assets/js/11.f02e67a7.js"><link rel="prefetch" href="/kaabah/assets/js/12.5f923249.js"><link rel="prefetch" href="/kaabah/assets/js/14.8684b11a.js"><link rel="prefetch" href="/kaabah/assets/js/15.202a4118.js"><link rel="prefetch" href="/kaabah/assets/js/2.c334702d.js"><link rel="prefetch" href="/kaabah/assets/js/3.9de83eee.js"><link rel="prefetch" href="/kaabah/assets/js/4.f802746a.js"><link rel="prefetch" href="/kaabah/assets/js/5.9d931ea3.js"><link rel="prefetch" href="/kaabah/assets/js/6.dd0c15ed.js"><link rel="prefetch" href="/kaabah/assets/js/7.9013544a.js"><link rel="prefetch" href="/kaabah/assets/js/8.d8d35305.js"><link rel="prefetch" href="/kaabah/assets/js/9.ee7bb7cb.js">
+    <link rel="preload" href="/kaabah/assets/css/0.styles.5f60cd56.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.c3231a2a.js" as="script"><link rel="preload" href="/kaabah/assets/js/13.763b6dea.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.190adff0.js"><link rel="prefetch" href="/kaabah/assets/js/11.f02e67a7.js"><link rel="prefetch" href="/kaabah/assets/js/12.5f923249.js"><link rel="prefetch" href="/kaabah/assets/js/14.8684b11a.js"><link rel="prefetch" href="/kaabah/assets/js/15.202a4118.js"><link rel="prefetch" href="/kaabah/assets/js/2.c334702d.js"><link rel="prefetch" href="/kaabah/assets/js/3.9de83eee.js"><link rel="prefetch" href="/kaabah/assets/js/4.f802746a.js"><link rel="prefetch" href="/kaabah/assets/js/5.9d931ea3.js"><link rel="prefetch" href="/kaabah/assets/js/6.dd0c15ed.js"><link rel="prefetch" href="/kaabah/assets/js/7.9013544a.js"><link rel="prefetch" href="/kaabah/assets/js/8.d8d35305.js"><link rel="prefetch" href="/kaabah/assets/js/9.ee7bb7cb.js">
     <link rel="stylesheet" href="/kaabah/assets/css/0.styles.5f60cd56.css">
   </head>
   <body>
@@ -68,6 +68,28 @@ verify: Service converged
 <span class="token punctuation">}</span>
 </code></pre></div><div class="tip custom-block"><p class="custom-block-title">TIP</p> <p>See the <a href="https://api.slack.com/reference/messaging/payload" target="_blank" rel="noopener noreferrer">Messaging payload reference<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> for a complete description.</p></div> <h3 id="example-8"><a href="#example-8" aria-hidden="true" class="header-anchor">#</a> Example</h3> <div class="language- extra-class"><pre class="language-text"><code>$k-swarm-check -s https://hooks.slack.com/services/XXXXXXXXXXXXXXXXXXXXXX alert.tpl 30s 
 </code></pre></div><h2 id="k-swarm-info"><a href="#k-swarm-info" aria-hidden="true" class="header-anchor">#</a> k-swarm-info</h2> <h3 id="description-9"><a href="#description-9" aria-hidden="true" class="header-anchor">#</a> Description</h3> <p>Displays the main information about the cluster. It lists:</p> <ul><li>the nodes</li> <li>the labels on each nodes</li> <li>the services</li></ul> <p><code>usage: k-swarm-info</code></p> <h3 id="example-9"><a href="#example-9" aria-hidden="true" class="header-anchor">#</a> Example</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$k</span>-swarm-info
+Nodes ----------
+ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
+0suedzfgjrxfdvfu6zwbsd3hx     ip-172-31-20-82     Ready               Active                                  18.06.1-ce
+p2yvjlwzrx16o1tqx7sp3mob0 *   ip-172-31-24-162    Ready               Active              Leader              18.06.1-ce
+nlcpbu4x8luvkz8ix7yv6iu58     ip-172-31-31-32     Ready               Active                                  18.06.1-ce
+Labels ---------
+ID                              LABELS
+0suedzfgjrxfdvfu6zwbsd3hx       apps<span class="token operator">=</span>true worker0<span class="token operator">=</span>true
+nlcpbu4x8luvkz8ix7yv6iu58       dbs<span class="token operator">=</span>true worker1<span class="token operator">=</span>true
+Stacks --------
+NAME                SERVICES            ORCHESTRATOR
+kaabah              8                   Swarm
+Services ------
+ID                  NAME                   MODE                REPLICAS            IMAGE                        PORTS
+hz4enqth3nfn        kaabah_alertmanager    replicated          1/1                 prom/alertmanager:v0.17.0
+tl6r8dks3zos        kaabah_cadvisor        global              3/3                 google/cadvisor:v0.33.0
+ookvvdimww2u        kaabah_grafana         replicated          1/1                 grafana/grafana:6.1.6
+8yybzr4sjqf7        kaabah_node-exporter   global              3/3                 prom/node-exporter:v0.17.0
+49le2ooi5xt0        kaabah_portainer       replicated          1/1                 portainer/portainer:1.20.2
+5uy2selhx8ah        kaabah_prometheus      replicated          1/1                 prom/prometheus:v2.9.2
+uw8y4yv003ev        kaabah_registry        replicated          1/1                 registry:2                   *:5000-<span class="token operator">&gt;</span>5000/tcp
+shecw660oiaq        kaabah_traefik         replicated          1/1                 traefik:1.7-alpine
 </code></pre></div><h2 id="k-swarm-prune"><a href="#k-swarm-prune" aria-hidden="true" class="header-anchor">#</a> k-swarm-prune</h2> <h3 id="description-10"><a href="#description-10" aria-hidden="true" class="header-anchor">#</a> Description</h3> <p>Removes the unused images, volumes and networks on the nodes</p> <p><code>usage: k-swarm-prune</code></p> <h3 id="example-10"><a href="#example-10" aria-hidden="true" class="header-anchor">#</a> Example</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$k</span>-swarm-prune
 </code></pre></div><h2 id="k-worker-foreach"><a href="#k-worker-foreach" aria-hidden="true" class="header-anchor">#</a> k-worker-foreach</h2> <h3 id="description-11"><a href="#description-11" aria-hidden="true" class="header-anchor">#</a> Description</h3> <p>Executes the given command or script on each worker</p> <p><code>usage: k-worker-foreach --command|-c &lt;command&gt;</code> <code>usage: k-worker-foreach --script|-s &lt;script&gt; [arguments...]</code></p> <h3 id="example-11"><a href="#example-11" aria-hidden="true" class="header-anchor">#</a> Example</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$k</span>-worker-foreach -c <span class="token string">&quot;echo 'foo bar' &gt; foobar.txt&quot;</span>
 </code></pre></div><h2 id="k-worker-list"><a href="#k-worker-list" aria-hidden="true" class="header-anchor">#</a> k-worker-list</h2> <h3 id="description-12"><a href="#description-12" aria-hidden="true" class="header-anchor">#</a> Description</h3> <p>Displays the worker nodes. If the options <code>--id-only</code> is defined, it returns the IDs of the workers.</p> <p><code>usage: k-worker-list [--id-only|-i]</code></p> <h3 id="example-12"><a href="#example-12" aria-hidden="true" class="header-anchor">#</a> Example</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$k</span>-worker-list
@@ -82,6 +104,6 @@ wyo0dvb85bn0ziw58v0o8u4tl
         <a href="/kaabah/reference/configuration-variables.html" class="prev">
           Configuration variables
         </a></span> <!----></p></div> </div> <!----></div></div>
-    <script src="/kaabah/assets/js/app.52cfa402.js" defer></script><script src="/kaabah/assets/js/13.0bb72aba.js" defer></script>
+    <script src="/kaabah/assets/js/app.c3231a2a.js" defer></script><script src="/kaabah/assets/js/13.763b6dea.js" defer></script>
   </body>
 </html>

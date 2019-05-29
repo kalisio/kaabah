@@ -55,5 +55,5 @@ done
 mkdir $CONFIG_DIR
 export WORKSPACE
 export SUBDOMAIN
-envsubst '${WORKSPACE},${SUBDOMAIN}' < $TMP_DIR/slack-notification.tpl.tpl > $CONFIG_DIR/slack-notification.tpl
+envsubst '${WORKSPACE},${SUBDOMAIN}' < $TMP_DIR/slack-notification.tpl > $CONFIG_DIR/slack-notification.tpl
 

@@ -168,8 +168,16 @@ There is not too much to say on **Portainer**. Just play with the UI !
 ### [Prometheus](https://prometheus.io)
 
 The **Prometheus** monitoring solution is shipped with the following components:
-* [node-exporter](https://github.com/prometheus/node_exporter) and [cAdvisor](https://github.com/google/cadvisor) which collect, respectively, the metrics of the cluster's hosts and the services deployed on the Docker swarm.
 * [Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) which handles the alerts.
+* the scrapers components:
+  * [node-exporter](https://github.com/prometheus/node_exporter) which collect the metrics of the cluster's hosts
+  * [cAdvisor](https://github.com/google/cadvisor) which collect the metrics of the services deployed on the Docker swarm
+
+::: tip
+Note that **Prometheus** is also configured to scrape:
+* [the Docker engine](https://docs.docker.com/config/thirdparty/prometheus/)
+* [Traefik](https://docs.traefik.io/configuration/metrics/)
+:::
   
 ### [Grafana](https://grafana.com)
 

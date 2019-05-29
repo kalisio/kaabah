@@ -59,9 +59,14 @@ resource "aws_instance" "manager" {
     destination = "${local.tmp_dir}"
   }
 
+  provisioner "file" {
+    source      = "commands/"
+    destination = "${local.tmp_dir}"
+  }
+
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block} ${terraform.workspace} ${var.subdomain}",
     ]
   }
 

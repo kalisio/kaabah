@@ -2,8 +2,11 @@
 DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
 FAIL2BAN_IGNORE_IP=$3
+WORKSPACE=$4
+SUBDOMAIN=$5
 
 TMP_DIR=/tmp/kaabah
+CONFIG_DIR=/etc/kaabah
 
 # Generate TLS certificates
 bash $TMP_DIR/create-server-certificates.sh $MANAGER_PRIVATE_IP
@@ -45,7 +48,12 @@ bash $TMP_DIR/install-sshfs.sh
 apt-get -y install jq
 
 # Install helper commands
-cp $TMP_DIR/helper-commands/* /usr/local/sbin/.
-for UTILITY in /usr/local/sbin//k-*; do
-  chmod +x $UTILITY
+for COMMAND in $TMP_DIR/k-*; do
+  chmod +x $COMMAND
+  mv $COMMAND /usr/local/sbin/.
 done
+mkdir $CONFIG_DIR
+export WORKSPACE
+export SUBDOMAIN
+envsubst '${WORKSPACE},${SUBDOMAIN}' < $TMP_DIR/slack-notification.tpl.tpl > $CONFIG_DIR/slack-notification.tpl
+

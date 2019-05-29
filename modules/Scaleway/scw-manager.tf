@@ -57,9 +57,14 @@ resource "scaleway_server" "manager" {
     destination = "${local.tmp_dir}"
   }
 
+  provisioner "file" {
+    source      = "commands/"
+    destination = "${local.tmp_dir}"
+  }
+
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"10.0.0.0/8\"",
+      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"${local.scw_cidr}\" ${terraform.workspace} ${var.subdomain}",
     ]
   }
 }

@@ -10,7 +10,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2376" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = "2376"
 }
@@ -20,7 +20,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = "2377"
 }
@@ -30,7 +30,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = "7946"
 }
@@ -40,7 +40,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "UDP"
   port           = "7946"
 }
@@ -50,7 +50,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "UDP"
   port           = "4789"
 }
@@ -60,7 +60,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_SSH" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = 22
 }
@@ -107,7 +107,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377_worker" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = "2377"
 }
@@ -117,7 +117,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946_worker" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = "7946"
 }
@@ -127,7 +127,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946_worker" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "UDP"
   port           = "7946"
 }
@@ -137,7 +137,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_worker" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "UDP"
   port           = "4789"
 }
@@ -147,7 +147,7 @@ resource "scaleway_security_group_rule" "internal_in_accept_SSH_worker" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "10.0.0.0/8"
+  ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
   port           = 22
 }

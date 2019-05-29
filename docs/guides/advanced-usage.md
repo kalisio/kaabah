@@ -55,7 +55,7 @@ manager_crontab = "workspaces/my-workspace/my-crontab
 
 The pointed file must be a valid crontab file. See the [crontab file format](https://en.wikipedia.org/wiki/Cron) to have the complete specifications.
 
-Here is an example of a crontab file that executes the [`k-swarm-prune`](../reference/helper-commands#k-swarm-prune) command every 2 hours:
+Here is an example of a crontab file that executes the [`k-swarm-prune`](../reference/helper-commands.md#k-swarm-prune) command every 2 hours:
 
 ```bash
 # Clears the swarm every tow hour
@@ -229,7 +229,7 @@ You can take advantage of this feature to:
   
 ### Monitoring the services
 
-Even if the combination **Prometheus**/**Grafana** provides the capabilities to monitor the services, **Kaabah** is shipped with the [`k-swarm-check`](../reference/helper-command#k-swarm-check) command that allows you to check the health of a service. It relies on [Docker Events](https://docs.docker.com/engine/reference/commandline/events/) and can emit a slack notification when an alert is raised or resolved. The use of the command is complementary to the use of **Prometheus**/**Grafana** and brings an extra level of reliability.
+Even if the combination **Prometheus**/**Grafana** provides the capabilities to monitor the services, **Kaabah** is shipped with the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) command that allows you to check the health of a service. It relies on [Docker Events](https://docs.docker.com/engine/reference/commandline/events/) and can emit a slack notification when an alert is raised or resolved. The use of the command is complementary to the use of **Prometheus**/**Grafana** and brings an extra level of reliability.
 
 To monitor the services of your cluster, you can add the following line to your manager crontab
 
@@ -238,4 +238,4 @@ To monitor the services of your cluster, you can add the following line to your 
 * * * * * sudo k-swarm-check -s 60s https://hooks.slack.com/services/my-application-webook 
 ```
 
-Check the [`k-swarm-check`](../reference/helper-command#k-swarm-check) documentation for more detail.
+Check the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) documentation for more detail.

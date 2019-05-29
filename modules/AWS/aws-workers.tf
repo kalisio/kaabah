@@ -29,33 +29,33 @@ resource "aws_instance" "worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir ~/.kaabah",
+      "mkdir ${local.tmp_dir}",
     ]
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
-    destination = "~/.kaabah/ca.cert"
+    destination = "${local.tmp_dir}/ca.cert"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_key}"
-    destination = "~/.kaabah/ca.key"
+    destination = "${local.tmp_dir}/ca.key"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_pass}"
-    destination = "~/.kaabah/ca.pass"
+    destination = "${local.tmp_dir}/ca.pass"
   }
 
   provisioner "file" {
     source      = "scripts/"
-    destination = "~/.kaabah"
+    destination = "${local.tmp_dir}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ~/.kaabah/install-worker.sh ${var.docker_version} ${aws_instance.manager.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
+      "sudo bash ${local.tmp_dir}/install-worker.sh ${var.docker_version} ${aws_instance.manager.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block}",
     ]
   }
  

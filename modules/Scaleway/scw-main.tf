@@ -19,6 +19,7 @@ data "scaleway_image" "worker_image" {
 }
 
 locals {
+  tmp_dir = "/tmp/kaabah"
   timeout = "180s"
   use_bastion = "${var.bastion_ip != var.manager_ip ? true : false}"
 }

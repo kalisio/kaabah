@@ -33,7 +33,7 @@ resource "null_resource" "services" {
   provisioner "remote-exec" {
     inline = [
       "set -a && . ./.bash_profile && set +a", # required to take into account Docker environment variables
-      "bash ~/.kaabah/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${scaleway_server.manager.private_ip} ${var.slack_webhook_url} ${var.slack_channel}",
+      "bash ${local.tmp_dir}/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${scaleway_server.manager.private_ip} ${var.slack_webhook_url} ${var.slack_channel}",
       "cd kaabah && ./deploy-services.sh",
     ]
   }

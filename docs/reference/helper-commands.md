@@ -149,13 +149,16 @@ verify: Service converged
 Checks the docker events for the events of type of `unhealthy` and `die` status. The command returns only the latest events during the given time gap.
 
 `usage: k-swarm-check <time_gap>`
-`usage: k-swarm-check --slack|-s <slack_webhook_url> <slack_message_template> <time_gap>`
+`usage: k-swarm-check --slack|-s <time_gap> <slack_webhook_url> [slack_message_template]`
 
 The parameter `time_gap` is defined in **Go** duration strings (e.g. 30s, 10m, 1h30m) 
 
-If the `slack` option is enabled, you must provide:
-* the slack webhook url
-* a notification template. The following variables are templatized: 
+If the `slack` option is enabled, you must provide the slack webhook url and optionally a notification template.
+By default, **Kaabah** provides the following template:
+
+<<< @/docs/../commands/slack-notification.tpl.tpl
+
+If you provide your own notification template, take note that the following variables are templatized by the command:
 ** `SERVICE`: the observed service
 ** `STATUS`: the observed status
 ** `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
@@ -165,11 +168,11 @@ Here is an example of message template that can be used as a payload for slack n
 
 ```json
 {
-  "text":"*My platform - ${SERVICE}*",
+  "text":"*My cluster specific notification*",
   "attachments": [
      {
-        "title":"[${ACTION}] status: ${STATUS}",
-        "title_link": "https://portainer.my-subdomain",
+        "title":"[${ACTION}] ${SERVICE} (status: ${STATUS})",
+        "title_link": "https://an-url",
         "color":"${COLOR}"
      }
    ]

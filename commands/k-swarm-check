@@ -2,7 +2,7 @@
 
 usage() {
   echo "usage: k-swarm-check <time_gap>"
-  echo "usage: k-swarm-check --slack|-s <slack_webhook_url> <slack_message_template> <time_gap>"
+  echo "usage: k-swarm-check --slack|-s <time_gap> <slack_webhook_url> [slack_message_template]"
 }
 
 help() {
@@ -13,7 +13,7 @@ help() {
 exec() {
   local TIME_GAP=$1
   local SLACK_HOOK_URL=$2
-  local SLACK_MESSAGE_TEMPLATE=$3
+  local SLACK_MESSAGE_TEMPLATE=${3:-/etc/kaabah/slack-notification.tpl}
   local EVENTS_FILE=/tmp/swarm-events
   local ALERTS_FILE=/tmp/swarm-alerts
   local TMP_ALERTS_FILE=/tmp/swarm-alerts-tmp
@@ -34,7 +34,7 @@ exec() {
     local FILTER="\"status\":\"$STATUS\""
     local SERVICES=`grep "$FILTER" $EVENTS_FILE | jq -s '[.[].Actor.Attributes | { "com.docker.swarm.service.name" }] | unique | .[]."com.docker.swarm.service.name"'`
     for SERVICE in $SERVICES; do
-      if [ "$SERVICE" != "null"]; then
+      if [ "$SERVICE" != "null" ]; then
         SERVICE=${SERVICE//\"/}
         echo $SERVICE $STATUS >> $TMP_ALERTS_FILE
         local ALERT=`grep "$SERVICE $STATUS" $ALERTS_FILE`
@@ -62,7 +62,7 @@ exec() {
   cat $ALERTS_FILE
 }
 
-if [ "$#" -ne 1 ] && [ "$#" -ne 4 ]; then
+if [ "$#" -ne 1 ] && [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
   echo error: illegal number of arguments
   usage
   exit 1
@@ -70,6 +70,6 @@ fi
 
 case $1 in
   -h|--help) help;;
-  --slack|-s) exec "$4" "$2" "$3";;
+  --slack|-s) exec "$2" "$3" "$4";;
   *) exec "$1"
 esac

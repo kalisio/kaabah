@@ -33,33 +33,33 @@ resource "scaleway_server" "worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "mkdir ~/.kaabah",
+      "mkdir ${local.tmp_dir}",
     ]
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
-    destination = "~/.kaabah/ca.cert"
+    destination = "${local.tmp_dir}/ca.cert"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_key}"
-    destination = "~/.kaabah/ca.key"
+    destination = "${local.tmp_dir}/ca.key"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_pass}"
-    destination = "~/.kaabah/ca.pass"
+    destination = "${local.tmp_dir}/ca.pass"
   }
 
   provisioner "file" {
     source      = "scripts/"
-    destination = "~/.kaabah"
+    destination = "${local.tmp_dir}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "sh ~/.kaabah/install-worker.sh ${var.docker_version} ${scaleway_server.manager.private_ip} \"10.0.0.0/8\"",
+      "sh ${local.tmp_dir}/install-worker.sh ${var.docker_version} ${scaleway_server.manager.private_ip} \"10.0.0.0/8\"",
     ]
   }
 

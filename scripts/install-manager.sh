@@ -3,21 +3,23 @@ DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
 FAIL2BAN_IGNORE_IP=$3
 
+TMP_DIR=/tmp/kaabah
+
 # Generate TLS certificates
-bash $HOME/.kaabah/create-server-certificates.sh $MANAGER_PRIVATE_IP
-bash $HOME/.kaabah/create-client-certificates.sh
-rm ~/.kaabah/ca.*
+bash $TMP_DIR/create-server-certificates.sh $MANAGER_PRIVATE_IP
+bash $TMP_DIR/create-client-certificates.sh
+rm $TMP_DIR/ca.*
 
 # Secure ssh key permissions
 chmod 600 $HOME/.ssh/ssh.pem
 
 # Setup Docker configuration to enable TLS protection
 mkdir -p /etc/systemd/system/docker.service.d
-cp $HOME/.kaabah/docker-configs/override.conf /etc/systemd/system/docker.service.d/.
+cp $TMP_DIR/docker-configs/override.conf /etc/systemd/system/docker.service.d/.
 
 mkdir -p /etc/docker
 export MANAGER_PRIVATE_IP
-envsubst < $HOME/.kaabah/docker-configs/manager.json.tpl > /etc/docker/daemon.json
+envsubst < $TMP_DIR/docker-configs/manager.json.tpl > /etc/docker/daemon.json
 
 export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=$HOME/.docker
@@ -28,22 +30,22 @@ echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" >> $HOME/.bash_profile
 echo "export DOCKER_HOST=$DOCKER_HOST" >> $HOME/.bash_profile
 
 # Install docker
-bash $HOME/.kaabah/install-docker.sh $DOCKER_VERSION
+bash $TMP_DIR/install-docker.sh $DOCKER_VERSION
 
 # Initialise swarm
 docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
 
 # Configure SSHD
-bash $HOME/.kaabah/setup-sshd.sh $FAIL2BAN_IGNORE_IP
+bash $TMP_DIR/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 
 # Install sshfs
-bash $HOME/.kaabah/install-sshfs.sh
+bash $TMP_DIR/install-sshfs.sh
 
 # Install jq
 apt-get -y install jq
 
 # Install helper commands
-cp $HOME/.kaabah/helper-commands/* /usr/local/sbin/.
+cp $TMP_DIR/helper-commands/* /usr/local/sbin/.
 for UTILITY in /usr/local/sbin//k-*; do
   chmod +x $UTILITY
 done

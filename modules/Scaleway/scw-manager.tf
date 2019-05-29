@@ -33,33 +33,33 @@ resource "scaleway_server" "manager" {
 
  provisioner "remote-exec" {
     inline = [
-      "mkdir ~/.kaabah",
+      "mkdir ${local.tmp_dir}",
     ]
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
-    destination = "~/.kaabah/ca.cert"
+    destination = "${local.tmp_dir}/ca.cert"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_key}"
-    destination = "~/.kaabah/ca.key"
+    destination = "${local.tmp_dir}/ca.key"
   }
 
   provisioner "file" {
     source      = "${var.docker_tls_ca_pass}"
-    destination = "~/.kaabah/ca.pass"
+    destination = "${local.tmp_dir}/ca.pass"
   }
 
   provisioner "file" {
     source      = "scripts/"
-    destination = "~/.kaabah"
+    destination = "${local.tmp_dir}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash ~/.kaabah/install-manager.sh ${var.docker_version} ${self.private_ip} \"10.0.0.0/8\"",
+      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"10.0.0.0/8\"",
     ]
   }
 }
@@ -88,12 +88,12 @@ resource "null_resource" "manager_crontab" {
 
   provisioner "file" {
     source      = "${var.manager_crontab != "" ? var.manager_crontab : "scripts/null-files/crontab"}"
-    destination = "~/.kaabah/crontab"
+    destination = "${local.tmp_dir}/crontab"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "cat ~/.kaabah/crontab | crontab -",
+      "cat ${local.tmp_dir}/crontab | crontab -",
     ]
   }
 

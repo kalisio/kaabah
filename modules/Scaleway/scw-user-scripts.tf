@@ -14,12 +14,12 @@ resource "null_resource" "manager_user_script" {
 
   provisioner "file" {
     source      = "${var.manager_user_script}"
-    destination = "~/.kaabah/${basename(var.manager_user_script)}"
+    destination = "${local.tmp_dir}/${basename(var.manager_user_script)}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash ~/.kaabah/${basename(var.manager_user_script)}"
+      "bash ${local.tmp_dir}/${basename(var.manager_user_script)}"
     ]
   }
 
@@ -46,11 +46,11 @@ resource "null_resource" "worker_user_scripts" {
 
    provisioner "file" {
     source      = "${var.worker_user_scripts[count.index]}"
-    destination = "~/.kaabah/${basename(var.worker_user_scripts[count.index])}"
+    destination = "${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"
   }
   provisioner "remote-exec" {
     inline = [
-      "bash ~/.kaabah/${basename(var.worker_user_scripts[count.index])}"
+      "bash ${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"
     ]
   }
 

@@ -10,6 +10,8 @@ MANAGER_PRIVATE_IP=$8
 SLACK_WEBHOOK_URL=$9
 SLACK_CHANNEL=${10}
 
+TMP_DIR=/tmp/kaabah
+
 # Create the kaabah diectory
 cd $HOME/kaabah
 
@@ -35,7 +37,7 @@ if [ "$SLACK_WEBHOOK_URL" != "" ] && [ "$SLACK_CHANNEL" != "" ]; then
 fi
   
 # Copy the scripts to manage the stack
-cp ~/.kaabah/deploy-services.sh .
-cp ~/.kaabah/remove-services.sh .
+cp $TMP_DIR/deploy-services.sh .
+cp $TMP_DIR/remove-services.sh .
 chmod +x deploy-services.sh
 chmod +x remove-services.sh

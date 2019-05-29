@@ -8,7 +8,7 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-64x64.png">
   <link rel="manifest" href="/kaabah/manifest.json">
     
-    <link rel="preload" href="/kaabah/assets/css/0.styles.5f60cd56.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.8d292019.js" as="script"><link rel="preload" href="/kaabah/assets/js/13.eac8ff03.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.190adff0.js"><link rel="prefetch" href="/kaabah/assets/js/11.f02e67a7.js"><link rel="prefetch" href="/kaabah/assets/js/12.68e9ab1e.js"><link rel="prefetch" href="/kaabah/assets/js/14.8684b11a.js"><link rel="prefetch" href="/kaabah/assets/js/15.202a4118.js"><link rel="prefetch" href="/kaabah/assets/js/2.c334702d.js"><link rel="prefetch" href="/kaabah/assets/js/3.9de83eee.js"><link rel="prefetch" href="/kaabah/assets/js/4.f802746a.js"><link rel="prefetch" href="/kaabah/assets/js/5.9d931ea3.js"><link rel="prefetch" href="/kaabah/assets/js/6.dd0c15ed.js"><link rel="prefetch" href="/kaabah/assets/js/7.9013544a.js"><link rel="prefetch" href="/kaabah/assets/js/8.d8d35305.js"><link rel="prefetch" href="/kaabah/assets/js/9.ee7bb7cb.js">
+    <link rel="preload" href="/kaabah/assets/css/0.styles.5f60cd56.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.57703297.js" as="script"><link rel="preload" href="/kaabah/assets/js/13.6ca75905.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.190adff0.js"><link rel="prefetch" href="/kaabah/assets/js/11.f02e67a7.js"><link rel="prefetch" href="/kaabah/assets/js/12.68e9ab1e.js"><link rel="prefetch" href="/kaabah/assets/js/14.8684b11a.js"><link rel="prefetch" href="/kaabah/assets/js/15.202a4118.js"><link rel="prefetch" href="/kaabah/assets/js/2.c334702d.js"><link rel="prefetch" href="/kaabah/assets/js/3.9de83eee.js"><link rel="prefetch" href="/kaabah/assets/js/4.f802746a.js"><link rel="prefetch" href="/kaabah/assets/js/5.9d931ea3.js"><link rel="prefetch" href="/kaabah/assets/js/6.dd0c15ed.js"><link rel="prefetch" href="/kaabah/assets/js/7.9013544a.js"><link rel="prefetch" href="/kaabah/assets/js/8.d8d35305.js"><link rel="prefetch" href="/kaabah/assets/js/9.ee7bb7cb.js">
     <link rel="stylesheet" href="/kaabah/assets/css/0.styles.5f60cd56.css">
   </head>
   <body>
@@ -53,16 +53,7 @@ overall progress: 4 out of 4 tasks
 4/4: running   <span class="token punctuation">[</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">&gt;</span><span class="token punctuation">]</span>
 verify: Service converged
 </code></pre></div><h2 id="k-swarm-check"><a href="#k-swarm-check" aria-hidden="true" class="header-anchor">#</a> k-swarm-check</h2> <h3 id="description-8"><a href="#description-8" aria-hidden="true" class="header-anchor">#</a> Description</h3> <p>Checks the docker events for the events of type of <code>unhealthy</code> and <code>die</code> status. The command returns only the latest events during the given time gap.</p> <p><code>usage: k-swarm-check &lt;time_gap&gt;</code> <code>usage: k-swarm-check --slack|-s &lt;time_gap&gt; &lt;slack_webhook_url&gt; [slack_message_template]</code></p> <p>The parameter <code>time_gap</code> is defined in <strong>Go</strong> duration strings (e.g. 30s, 10m, 1h30m)</p> <p>If the <code>slack</code> option is enabled, you must provide the slack webhook url and optionally a notification template.
-By default, <strong>Kaabah</strong> provides the following template:</p> <div class="language-tpl extra-class"><pre class="language-text"><code>{
-  &quot;text&quot; : &quot;*[${WORKSPACE}] ${SERVICE}*&quot;,
-  &quot;attachments&quot;: [ {
-        &quot;title&quot;:&quot;[${ACTION}] status: ${STATUS}&quot;,
-        &quot;title_link&quot;: &quot;https://portainer.${SUBDOMAIN}&quot;,
-        &quot;color&quot;:&quot;${COLOR}&quot;
-     }
-   ]
-}
-</code></pre></div><p>If you provide your own notification template, take note that the following variables are templatized by the command:
+By default, <strong>Kaabah</strong> provides the following template:</p> <div class="language-tpl extra-class"><pre class="language-text"><code>Not found: /home/travis/build/kalisio/kaabah/docs/../commands/slack-notification.tpl.tpl</code></pre></div><p>If you provide your own notification template, take note that the following variables are templatized by the command:
 ** <code>SERVICE</code>: the observed service
 ** <code>STATUS</code>: the observed status
 ** <code>ACTION</code>: the action is set to <code>FIRING</code> when emitting a new alert and <code>RESOLVED</code> when resolving an alert
@@ -114,6 +105,6 @@ wyo0dvb85bn0ziw58v0o8u4tl
         <a href="/kaabah/reference/configuration-variables.html" class="prev">
           Configuration variables
         </a></span> <!----></p></div> </div> <!----></div></div>
-    <script src="/kaabah/assets/js/app.8d292019.js" defer></script><script src="/kaabah/assets/js/13.eac8ff03.js" defer></script>
+    <script src="/kaabah/assets/js/app.57703297.js" defer></script><script src="/kaabah/assets/js/13.6ca75905.js" defer></script>
   </body>
 </html>

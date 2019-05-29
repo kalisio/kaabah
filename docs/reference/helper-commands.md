@@ -156,7 +156,7 @@ The parameter `time_gap` is defined in **Go** duration strings (e.g. 30s, 10m, 1
 If the `slack` option is enabled, you must provide the slack webhook url and optionally a notification template.
 By default, **Kaabah** provides the following template:
 
-<<< @/docs/../commands/slack-notification.tpl.tpl
+<<< @/docs/../commands/slack-notification.tpl
 
 If you provide your own notification template, take note that the following variables are templatized by the command:
 ** `SERVICE`: the observed service
@@ -186,7 +186,7 @@ See the [Messaging payload reference](https://api.slack.com/reference/messaging/
 ### Example
 
 ```
-$k-swarm-check -s https://hooks.slack.com/services/XXXXXXXXXXXXXXXXXXXXXX alert.tpl 30s 
+$k-swarm-check -s 30s https://hooks.slack.com/services/my-application-webook
 ```
 
 ## k-swarm-info

@@ -103,7 +103,10 @@ To remove a crontab, just simply clear the `manager_crontab` variable and update
 
 **Kaabah** provides an easy way to secure SSH connections to your cluster using a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). 
 The implemented solution relies on the following architecture:
+
+
 ![bastion architecture](./../assets/bastion-architecture.svg)
+
 
 Your bastion instance must be instantiated in the same VPC of your cluster and is setup with a security group that accept SSH connections.
 
@@ -224,3 +227,15 @@ You can take advantage of this feature to:
 * override the default configuration of the existing services
 * bootstrap your cluster with additional services
   
+### Monitoring the services
+
+Even if the combination **Prometheus**/**Grafana** provides the capabilities to monitor the services, **Kaabah** is shipped with the [`k-swarm-check`](../reference/helper-command#k-swarm-check) command that allows you to check the health of a service. It relies on [Docker Events](https://docs.docker.com/engine/reference/commandline/events/) and can emit a slack notification when an alert is raised or resolved. The use of the command is complementary to the use of **Prometheus**/**Grafana** and brings an extra level of reliability.
+
+To monitor the services of your cluster, you can add the following line to your manager crontab
+
+```bash
+# k-swarm-check executed every minute
+* * * * * sudo k-swarm-check -s 60s https://hooks.slack.com/services/my-application-webook 
+```
+
+Check the [`k-swarm-check`](../reference/helper-command#k-swarm-check) documentation for more detail.

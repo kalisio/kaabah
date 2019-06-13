@@ -12,13 +12,6 @@
 *  k-swarm-check should monitor the services only ([#109](https://github.com/kalisio/kaabah/pull/109)) ([b5585f1b](https://github.com/kalisio/kaabah/commit/b5585f1b4adea322a1a4fe1ea93d477a4dbb146b))
 *  It is not possible to define the region within the tfvars file (closed [#106](https://github.com/kalisio/kaabah/pull/106)) ([3bab0f51](https://github.com/kalisio/kaabah/commit/3bab0f51222e54b5e15a62c425ef881baea77334))
 
-##### Other Changes
-
-*  Provide a slack notification template by default ([#110](https://github.com/kalisio/kaabah/pull/110)) ([f49a1267](https://github.com/kalisio/kaabah/commit/f49a126739f6a0cc666714ba77652ebd622fb36f))
-*  updated configuration-variables.md ([5e41c651](https://github.com/kalisio/kaabah/commit/5e41c6510341da65f67ca0fb53c9febf7bb1fc7e))
-*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([bb6bf377](https://github.com/kalisio/kaabah/commit/bb6bf37720c3895e7932ad41fd1a74bc2faf1fab))
-*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([a8bde108](https://github.com/kalisio/kaabah/commit/a8bde108c1db1e0c5abbc7a70521d58245219cc1))
-
 ### 0.7.0 (2019-05-20)
 
 ##### New Features
@@ -50,12 +43,6 @@
 *  On AWS associate_public_ip_address is not taken into account (closed [#91](https://github.com/kalisio/kaabah/pull/91)) ([fbf3b429](https://github.com/kalisio/kaabah/commit/fbf3b429c0e4e0136d4d112641a93472b3f85349))
 *  Wrong number of rules ssh_accept_manager on Scaleway (closed [#83](https://github.com/kalisio/kaabah/pull/83)) ([99c48699](https://github.com/kalisio/kaabah/commit/99c4869911b054853c131619d8691a534036cb54))
 
-##### Other Changes
-
-*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([806d5bd9](https://github.com/kalisio/kaabah/commit/806d5bd904f91116abe834d832857bcc0961d1a7))
-*  Add health check to services [#75](https://github.com/kalisio/kaabah/pull/75) ([73a25aad](https://github.com/kalisio/kaabah/commit/73a25aadfa4f34808e9eb445cabb387261b8e859))
-*  updated var file ([86ddc44d](https://github.com/kalisio/kaabah/commit/86ddc44da280521380506a7173945fafc5f70bf7))
-
 ### 0.6.0 (2019-04-17)
 
 ##### New Features
@@ -67,10 +54,6 @@
 
 *  ssh.pem file seems to be always required even if using another ssh_key file (close [#73](https://github.com/kalisio/kaabah/pull/73)) ([6d72956c](https://github.com/kalisio/kaabah/commit/6d72956cda335354a9d71663d748bc6d9a5ffccf))
 *  Services are not removed when tainting the resource (close [#76](https://github.com/kalisio/kaabah/pull/76)) ([cc9faf94](https://github.com/kalisio/kaabah/commit/cc9faf94141e3782c2127475dfcc5acf651a5894))
-
-##### Other Changes
-
-*  remove ip whilte list from the tests ([260fcf32](https://github.com/kalisio/kaabah/commit/260fcf32f84826be8442a418269ee3e5539bef3d))
 
 #### [v0.5.0](https://github.com/kalisio/kaabah/compare/v0.4.0...v0.5.0)
 

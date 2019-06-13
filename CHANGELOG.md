@@ -1,3 +1,24 @@
+### 0.8.0 (2019-06-13)
+
+##### New Features
+
+*  Add capabilities to monitor the health of the services (closed [#78](https://github.com/kalisio/kaabah/pull/78)) ([bbfc172b](https://github.com/kalisio/kaabah/commit/bbfc172b01e1f01405b4718424e5d8e86274e2a1))
+*  Provide a slack notification template by default (closed [#110](https://github.com/kalisio/kaabah/pull/110)) ([25c72e11](https://github.com/kalisio/kaabah/commit/25c72e110a10b3aba97fdbb956fbf6d889963477))
+*  Provide a command to update a stack  (closed [#107](https://github.com/kalisio/kaabah/pull/107)) ([8f8bdb58](https://github.com/kalisio/kaabah/commit/8f8bdb58c1bd85dad041e591fe85691c30e034e8))
+*  The k-swarm-info command should list the stacks (closed [#108](https://github.com/kalisio/kaabah/pull/108)) ([5644764d](https://github.com/kalisio/kaabah/commit/5644764d9c9f0baba5ff25653d462c5b1a250d2c))
+
+##### Bug Fixes
+
+*  k-swarm-check should monitor the services only ([#109](https://github.com/kalisio/kaabah/pull/109)) ([b5585f1b](https://github.com/kalisio/kaabah/commit/b5585f1b4adea322a1a4fe1ea93d477a4dbb146b))
+*  It is not possible to define the region within the tfvars file (closed [#106](https://github.com/kalisio/kaabah/pull/106)) ([3bab0f51](https://github.com/kalisio/kaabah/commit/3bab0f51222e54b5e15a62c425ef881baea77334))
+
+##### Other Changes
+
+*  Provide a slack notification template by default ([#110](https://github.com/kalisio/kaabah/pull/110)) ([f49a1267](https://github.com/kalisio/kaabah/commit/f49a126739f6a0cc666714ba77652ebd622fb36f))
+*  updated configuration-variables.md ([5e41c651](https://github.com/kalisio/kaabah/commit/5e41c6510341da65f67ca0fb53c9febf7bb1fc7e))
+*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([bb6bf377](https://github.com/kalisio/kaabah/commit/bb6bf37720c3895e7932ad41fd1a74bc2faf1fab))
+*  Add capabilities to monitor the health of the services ([#78](https://github.com/kalisio/kaabah/pull/78)) ([a8bde108](https://github.com/kalisio/kaabah/commit/a8bde108c1db1e0c5abbc7a70521d58245219cc1))
+
 ### 0.7.0 (2019-05-20)
 
 ##### New Features

@@ -14,7 +14,7 @@ ssh_key = "tests/ssh.pem"
 
 ssh_ip_whitelist = "78.159.24.129/32"
 
-aws_key_name = "kalisio"
+key_name = "kalisio"
 
 manager_ip = "3.120.200.41"
 

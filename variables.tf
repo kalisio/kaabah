@@ -111,7 +111,7 @@ variable "ssh_key" {}
 variable "ssh_user" {
   default = ""
 }
-variable "aws_key_name" {
+variable "key_name" {
   default = ""
 }
 

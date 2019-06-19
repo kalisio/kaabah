@@ -87,7 +87,7 @@ module "AWS" {
   ssh_ip_whitelist                      = "${var.ssh_ip_whitelist}"
   ssh_key                               = "${var.ssh_key}"
   ssh_user                              = "${var.ssh_user != "" ? var.ssh_user : "ubuntu"}"
-  key_name                              = "${var.aws_key_name}"
+  key_name                              = "${var.key_name}"
   bastion_ip                            = "${var.bastion_ip != "" ? var.bastion_ip : var.manager_ip}"
   bastion_ssh_user                      = "${var.bastion_ssh_user != "" ? var.bastion_ssh_user : var.ssh_user}"
   bastion_ssh_key                       = "${var.bastion_ssh_key != "" ? var.bastion_ssh_key : var.ssh_key}"

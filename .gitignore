@@ -26,6 +26,9 @@ ca.key
 ca.cert
 ca.pass
 
+# States files
+*.tfstate
+
 # Workspaces
 workspaces
 

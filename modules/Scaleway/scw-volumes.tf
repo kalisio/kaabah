@@ -27,7 +27,7 @@ resource "null_resource" "worker_volume_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-volume.sh ${var.device_names[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)}",
+      "bash ${local.tmp_dir}/mount-volume.sh ${local.device_names[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)}",
     ]
   }
 

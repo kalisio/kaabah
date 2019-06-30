@@ -11,7 +11,7 @@ resource "scaleway_server" "worker" {
   public_ip      = "${element(scaleway_ip.worker.*.ip, count.index)}"
 
   volume {
-    size_in_gb = "${lookup(var.additional_volume_size, var.worker_instance_type)}"
+    size_in_gb = "${lookup(local.additional_volume_size, var.worker_instance_type)}"
     type       = "l_ssd"
   }
 

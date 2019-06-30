@@ -11,7 +11,7 @@ resource "scaleway_server" "manager" {
   public_ip      = "${var.manager_ip}"
 
   volume {
-    size_in_gb = "${lookup(var.additional_volume_size, var.manager_instance_type)}"
+    size_in_gb = "${lookup(local.additional_volume_size, var.manager_instance_type)}"
     type       = "l_ssd"
   }
 

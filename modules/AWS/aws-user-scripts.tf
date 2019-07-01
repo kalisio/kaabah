@@ -55,6 +55,7 @@ resource "null_resource" "worker_user_scripts" {
   }
 
   depends_on = [
-    "null_resource.worker_volume_mount"
+    "null_resource.worker_volume_mount",
+    "null_resource.manager_user_script"
   ]
 }

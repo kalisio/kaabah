@@ -16,13 +16,13 @@ ssh_ip_whitelist = "78.159.24.129/32 86.193.114.150/32"
 
 manager_ip = "51.15.214.148"
 
-manager_instance_type = "START1-M"
+manager_instance_type = "DEV1-M"
 
 manager_crontab = "tests/crontab"
 
 manager_user_script = "tests/manager.sh"
 
-worker_instance_type = "START1-M" #C2S
+worker_instance_type = "C2L" #C2S
 
 worker_instance_count = 2
 

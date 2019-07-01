@@ -11,7 +11,7 @@ resource "aws_ebs_volume" "worker_volume" {
 
 resource "aws_volume_attachment" "worker_volume_attachement" {
   count         = "${var.provider == "AWS" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
-  device_name   = "${var.device_names[count.index % var.worker_additional_volume_count]}"
+  device_name   = "${local.device_names[count.index % var.worker_additional_volume_count]}"
   instance_id   = "${aws_instance.worker.*.id[count.index / var.worker_additional_volume_count]}"
   volume_id     = "${aws_ebs_volume.worker_volume.*.id[count.index]}"
   force_detach  = true
@@ -33,7 +33,7 @@ resource "null_resource" "worker_volume_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-volume.sh ${local.worker_use_nvme_device ? var.nvme_devices[count.index % var.worker_additional_volume_count] : var.standard_devices[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)} $USER",
+      "sudo bash ${local.tmp_dir}/mount-volume.sh ${local.worker_use_nvme_device ? local.nvme_devices[count.index % var.worker_additional_volume_count] : local.standard_devices[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)} $USER",
     ]
   }
 

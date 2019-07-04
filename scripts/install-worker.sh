@@ -23,6 +23,12 @@ bash $TMP_DIR/install-docker.sh $DOCKER_VERSION
 docker swarm join $MANAGER_PRIVATE_IP:2377 \
   --token $(docker --tlsverify --tlscacert=.docker/ca.pem --tlscert=.docker/cert.pem --tlskey=.docker/key.pem -H=$MANAGER_PRIVATE_IP:2376 swarm join-token -q worker)
 
+# Add the user to the docker group
+K_USER=${SUDO_USER:-$USER}
+if [ "$K_USER" != "root" ]; then
+  usermod -a -G docker $K_USER
+fi
+
 # Configure SSHD
 bash $TMP_DIR/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 

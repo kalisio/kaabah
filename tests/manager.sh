@@ -9,9 +9,4 @@ echo 'sshfs ${SUDO_USER:-$USER}@$1:$HOME/shared $HOME/shared -o IdentityFile=$HO
 
 chmod +x /tmp/script.sh
 
-K_SUDO=""
-if [ "$USER" != "root" ]; then
-  K_SUDO="sudo"
-fi
-
-$K_SUDO k-worker-foreach -s /tmp/script.sh `hostname -I | awk '{print $1;}'`
+k-worker-foreach -s /tmp/script.sh `hostname -I | awk '{print $1;}'`

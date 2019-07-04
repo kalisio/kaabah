@@ -10,26 +10,21 @@ help() {
 }
 
 exec() {
-  K_SUDO=""
-  if [ "$SUDO_USER" != "" ]; then
-    K_SUDO="sudo"
-  fi
-
   # Delete the stopped container
-  $K_SUDO docker container prune -f
-  k-worker-foreach -c "$K_SUDO docker container prune -f"
+  docker container prune -f
+  k-worker-foreach -c "docker container prune -f"
 
   # Delete the unused images
-  $K_SUDO docker image prune -f
-  k-worker-foreach -c "$K_SUDO docker image prune -f"
+  docker image prune -f
+  k-worker-foreach -c "docker image prune -f"
 
   # Delete the unused volumes
-  $K_SUDO docker volume prune -f
-  k-worker-foreach -c "$K_SUDO docker image prune -f"
+  docker volume prune -f
+  k-worker-foreach -c "docker image prune -f"
 
   # Delete the unused networks 
-  $K_SUDO docker network prune -f
-  k-worker-foreach -c "$K_SUDO docker network prune -f"
+  docker network prune -f
+  k-worker-foreach -c "docker network prune -f"
 }
 
 if [ "$#" -ne 0 ]; then

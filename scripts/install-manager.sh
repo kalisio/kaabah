@@ -35,6 +35,12 @@ echo "export DOCKER_HOST=$DOCKER_HOST" >> $HOME/.bash_profile
 # Install docker
 bash $TMP_DIR/install-docker.sh $DOCKER_VERSION
 
+# Add the user to the docker group
+K_USER=${SUDO_USER:-$USER}
+if [ "$K_USER" != "root" ]; then
+  usermod -a -G docker $K_USER
+fi
+
 # Initialise swarm
 docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
 

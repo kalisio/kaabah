@@ -27,5 +27,10 @@ chmod 600 \
   $HOME/.docker/key.pem \
   $HOME/.docker/cert.pem
 
+K_USER=${SUDO_USER:-$USER}
+if [ "$K_USER" != "root" ]; then
+  chown -R $SUDO_USER:$SUDO_USER $HOME/.docker
+fi
+
 # Clean temporary files
 rm $TMP_DIR/client.csr

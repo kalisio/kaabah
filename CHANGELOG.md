@@ -1,3 +1,17 @@
+### 0.9.0 (2019-07-05)
+
+##### New Features
+
+*  Enhance Docker permissions (closed [#116](https://github.com/kalisio/kaabah/pull/116)) ([a9483ce0](https://github.com/kalisio/kaabah/commit/a9483ce044b9f9e32aad79f7bcfe6a562451ec8b))
+*  Worker user scripts should be executed after manager user script (closed [#115](https://github.com/kalisio/kaabah/pull/115)) ([0087cbc1](https://github.com/kalisio/kaabah/commit/0087cbc16267c6a99e4207ec68518f9492100626))
+*  Add pushgateway to Prometheus stack (closed [#113](https://github.com/kalisio/kaabah/pull/113)) ([f187ea4f](https://github.com/kalisio/kaabah/commit/f187ea4f7838169d0c1ec0cdd0b12eebdb76734d))
+*  Rename aws_key_name in key_name (closed [#111](https://github.com/kalisio/kaabah/pull/111)) ([4cd5b0a6](https://github.com/kalisio/kaabah/commit/4cd5b0a634008e98cb6cfdb1f4cd316abcc0abd5))
+
+##### Other Changes
+
+*  Support new Scaleway instances [#114](https://github.com/kalisio/kaabah/pull/114) ([0a86ac45](https://github.com/kalisio/kaabah/commit/0a86ac45cadbb683f46c6003995901f794698bbc))
+*  Support new Scaleway instances ([#114](https://github.com/kalisio/kaabah/pull/114)) ([c90804f9](https://github.com/kalisio/kaabah/commit/c90804f95fc357586b2527946ade176316a29e51))
+
 ### 0.8.0 (2019-06-13)
 
 ##### New Features

@@ -1,6 +1,6 @@
 {
   "name": "kaabah",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "A Terraform solution to build and operate Docker Swarm infrastructures",
   "repository": {
     "url": "https://github.com/kalisio/kaabah"

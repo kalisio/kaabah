@@ -10,8 +10,11 @@ help() {
 }
 
 exec() {
-  local OPTIONS=$1
-  docker node ls $OPTIONS -f role=worker
+  if [ "$1" == "id-only" ]; then
+    docker node ls -f role=worker | grep Ready | grep Active | cut -d' ' -f1
+  else
+    docker node ls -f role=worker | grep Ready | grep Active
+  fi
 }
 
 if [ "$#" -ne 0 ] && [ "$#" -ne 1 ]; then
@@ -22,7 +25,7 @@ fi
 
 case $1 in
   -h|--help) help;;
-  --id-only|-i) exec -q;;
+  --id-only|-i) exec id-only;;
   '') exec;;
   *) echo error: unknonw argument "$1"; usage
 esac

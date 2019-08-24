@@ -108,5 +108,10 @@ resource "null_resource" "manager_crontab" {
     ]
   }
 
+  provisioner "file" {
+    source      = "${var.acme_file != "" ? var.acme_file : "scripts/null-files/acme.json"}"
+    destination = "${local.tmp_dir}/acme.json"
+  }
+
   depends_on = ["aws_eip_association.manager"]
 }

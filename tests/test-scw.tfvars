@@ -6,11 +6,13 @@ domain = "kalisio.xyz"
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 
+#acme_file = "tests/acme.json"
+
 auth_user = "admin"
 
 auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
 
-ssh_key = "tests/ssh.pem"
+ssh_key = "../workspaces/master/test-scw.pem"
 
 ssh_ip_whitelist = "78.159.24.129/32 86.193.114.150/32"
 

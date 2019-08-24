@@ -36,7 +36,8 @@ sidebarDepth: 3
 |--- | --- |
 | `domain` | The domain to be added to the traefik rules. There is no default value. |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
-| `ca_server` | The Let's Encrypt server to generate certificates. The default value is empty to let traefik manage for you. However and because Let's Encrypt provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
+| `ca_server` | The **Let's Encrypt** server to generate certificates. The default value is empty to let traefik manage for you. However and because **Let's Encrypt** provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
+| `acme_file` | A certificates file if you want to reuse generated certificates. It may be useful to avoid reaching **Let's Encrypt** [rate limits](https://letsencrypt.org/docs/rate-limits/) when regenerating an infrastructure. You are responsible of retrieving the `acme.json` file from the previous infrastructure before deleting it. | The default value is ``. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 
 ### Security

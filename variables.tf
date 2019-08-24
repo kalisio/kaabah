@@ -22,6 +22,10 @@ variable "ca_server" {
   default = "https://acme-v02.api.letsencrypt.org/directory"
 }
 
+variable "acme_file" {
+  default = ""
+}
+
 variable contact {
   default = "contact@kalisio.com"
 }

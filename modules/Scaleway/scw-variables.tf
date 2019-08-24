@@ -8,6 +8,7 @@ variable subdomain {}
 
 variable ca_server {}
 
+variable acme_file {}
 variable contact {}
 
 variable auth_user {}

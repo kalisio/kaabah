@@ -41,3 +41,10 @@ cp $TMP_DIR/deploy-services.sh .
 cp $TMP_DIR/remove-services.sh .
 chmod +x deploy-services.sh
 chmod +x remove-services.sh
+
+# Copy the acme file
+if [ -s $TMP_DIR/acme.json ]; then
+  cp $TMP_DIR/acme.json acme/acme.json
+  # Update the mode for security reason (required by Traefik)
+  chmod 600 acme/acme.json
+fi

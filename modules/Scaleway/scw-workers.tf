@@ -73,23 +73,13 @@ resource "scaleway_server" "worker" {
     
     connection {
       type                = "ssh"
-      bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
-      bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
-      bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-      host                = "${local.use_bastion ? scaleway_server.manager.private_ip : scaleway_server.manager.public_ip}"    
+      bastion_host        = "${var.bastion_ip}"
+      bastion_user        = "${var.bastion_ssh_user}"
+      bastion_private_key = "${file(var.bastion_ssh_key)}"
+      host                = "${scaleway_server.manager.private_ip}"    
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"
     }
   }
-
-  depends_on = [
-    "scaleway_server.manager", 
-    "scaleway_security_group_rule.external_in_accept_SSH", 
-    "scaleway_security_group_rule.internal_in_accept_SSH",
-    "scaleway_security_group_rule.internal_in_accept_TCP_2376",
-    "scaleway_security_group_rule.internal_in_accept_TCP_2377",
-    "scaleway_security_group_rule.internal_in_accept_TCP_7946",
-    "scaleway_security_group_rule.internal_in_accept_UDP_7946"
-  ]
 }

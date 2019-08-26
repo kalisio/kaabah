@@ -69,10 +69,10 @@ resource "aws_instance" "worker" {
     
     connection {
       type                = "ssh"
-      bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
-      bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
-      bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-      host                = "${local.use_bastion ? aws_instance.manager.private_ip : var.manager_ip}"
+      bastion_host        = "${var.bastion_ip}"
+      bastion_user        = "${var.bastion_ssh_user}"
+      bastion_private_key = "${file(var.bastion_ssh_key)}"
+      host                = "${aws_instance.manager.private_ip}"
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"
@@ -82,9 +82,4 @@ resource "aws_instance" "worker" {
   tags {
     Name = "${terraform.workspace}-worker-${count.index}"
   }
-
-  depends_on = [
-    "aws_eip_association.manager", 
-    "aws_security_group_rule.security_group_rule_ssh_ip_whitelist"
-  ]
 }

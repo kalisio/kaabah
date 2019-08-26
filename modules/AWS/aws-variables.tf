@@ -78,8 +78,6 @@ variable "ssh_user" {
   default = "ubuntu"
 }
 
-variable "ssh_ip_whitelist" {}
-
 variable "ssh_key" {}
 
 variable "key_name" {}

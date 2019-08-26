@@ -44,7 +44,6 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `ssh_ip_whitelist` | The IP addresses from where you can can connect to the hosts. The default value is `0.0.0.0/0` |
 | `ssh_user` | The user to get connected to the instances. on **Scaleway** the default value is `root` and on **AWS** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
 | `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored for **Scaleway**. |

@@ -74,16 +74,6 @@ resource "aws_security_group" "security_group_manager" {
   }
 }
 
-resource "aws_security_group_rule" "security_group_rule_ssh_ip_whitelist" {
-  count             = "${var.provider == "AWS" && ! local.use_bastion ? 1 : 0}"
-  type              = "ingress"
-  from_port         = 22
-  to_port           = 22
-  protocol          = "tcp"
-  cidr_blocks       = [ "${split(" ", var.ssh_ip_whitelist)}" ] 
-  security_group_id = "${aws_security_group.security_group_manager.id}"
-}
-
 resource "aws_security_group" "security_group_worker" {
   count       = "${var.provider == "AWS" ? 1 : 0}"
   name        = "${terraform.workspace}_worker"

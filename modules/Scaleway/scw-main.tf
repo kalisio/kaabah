@@ -22,7 +22,10 @@ locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "180s"
   scw_cidr = "10.0.0.0/8"
-  use_bastion = "${var.bastion_ip != var.manager_ip ? true : false}"
+  scw_manager_tcp_ports = [ 2376, 2377, 7946, 22]
+  scw_manager_udp_ports = [ 7946, 4789 ]
+  scw_worker_tcp_ports = [ 2377, 7946, 22]
+  scw_worker_udp_ports = [ 7946, 4789 ]
   architectures = {
     DEV1-S    = "x86_64"
     DEV1-M    = "x86_64"

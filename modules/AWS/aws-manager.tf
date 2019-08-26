@@ -19,10 +19,10 @@ resource "aws_instance" "manager" {
 
   connection {
     type                = "ssh"
-    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
-    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
-    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key) : ""}"
-    host                = "${local.use_bastion ? self.private_ip : self.public_ip}" # use public ip instead of manager_ip because the eip is not associated right now
+    bastion_host        = "${var.bastion_ip}"
+    bastion_user        = "${var.bastion_ssh_user}"
+    bastion_private_key = "${file(var.bastion_ssh_key)}"
+    host                = "${self.private_ip}" 
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -80,10 +80,10 @@ resource "null_resource" "manager_crontab" {
 
   connection {
     type                = "ssh"
-    bastion_host        = "${local.use_bastion ? var.bastion_ip : ""}"
-    bastion_user        = "${local.use_bastion ? var.bastion_ssh_user: ""}"
-    bastion_private_key = "${local.use_bastion ? file(var.bastion_ssh_key): ""}"
-    host                = "${local.use_bastion ? aws_instance.manager.private_ip : var.manager_ip}"
+    bastion_host        = "${var.bastion_ip}"
+    bastion_user        = "${var.bastion_ssh_user}"
+    bastion_private_key = "${file(var.bastion_ssh_key)}"
+    host                = "${aws_instance.manager.private_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"

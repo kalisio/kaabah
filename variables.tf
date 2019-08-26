@@ -106,10 +106,6 @@ variable extensions_dir {
   default = ""
 }
 
-variable "ssh_ip_whitelist" {
-  default = "0.0.0.0/0"
-}
-
 variable "ssh_key" {}
 
 variable "ssh_user" {
@@ -119,16 +115,16 @@ variable "key_name" {
   default = ""
 }
 
-variable "bastion_ip" {
-  default = ""
+variable "bastion_ips" {
+  type = "map"
 }
 
-variable "bastion_ssh_user" {
-  default = ""
+variable "bastion_ssh_keys" {
+  type = "map"
 }
 
-variable "bastion_ssh_key" {
-  default = ""
+variable "bastion_ssh_users" {
+  type = "map"
 }
 
 variable "slack_webhook_url" {

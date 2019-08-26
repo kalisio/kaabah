@@ -25,6 +25,7 @@ docs/.vuepress/dist
 ca.key
 ca.cert
 ca.pass
+acme.json
 
 # States files
 *.tfstate

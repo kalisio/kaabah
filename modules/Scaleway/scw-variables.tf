@@ -69,8 +69,6 @@ variable "ssh_user" {
   default = "root"
 }
 
-variable "ssh_ip_whitelist" {}
-
 variable "ssh_key" {}
 
 variable "bastion_ip" {}

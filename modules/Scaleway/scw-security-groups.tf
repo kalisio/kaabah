@@ -5,77 +5,51 @@ resource "scaleway_security_group" "security_group_manager" {
   enable_default_security = false
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_2376" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "manager_internal_in_accept_TCP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_tcp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
-  port           = "2376"
+  port           = "${element(local.scw_manager_tcp_ports, count.index)}"
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "manager_external_in_drop_TCP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_tcp_ports) : 0}"
+  security_group = "${scaleway_security_group.security_group_manager.id}"
+  action         = "drop"
+  direction      = "inbound"
+  ip_range       = "0.0.0.0/0"
+  protocol       = "TCP"
+  port           = "${element(local.scw_manager_tcp_ports, count.index)}"
+
+  depends_on = [ "scaleway_security_group_rule.manager_internal_in_accept_TCP" ]
+}
+
+resource "scaleway_security_group_rule" "manager_internal_in_accept_UDP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_udp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
-  port           = "2377"
+  port           = "${element(local.scw_manager_udp_ports, count.index)}"
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "manager_external_in_drop_UDP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_udp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
+  action         = "drop"
   direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
-  protocol       = "TCP"
-  port           = "7946"
-}
-
-resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
+  ip_range       = "0.0.0.0/0"
   protocol       = "UDP"
-  port           = "7946"
+  port           = "${element(local.scw_manager_udp_ports, count.index)}"
+
+  depends_on = [ "scaleway_security_group_rule.manager_internal_in_accept_UDP" ]
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
-  protocol       = "UDP"
-  port           = "4789"
-}
-
-resource "scaleway_security_group_rule" "internal_in_accept_SSH" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
-  protocol       = "TCP"
-  port           = 22
-}
-
-resource "scaleway_security_group_rule" "external_in_accept_SSH" {
-  count          = "${var.provider == "SCALEWAY" && ! local.use_bastion ? length(split(" ",var.ssh_ip_whitelist)) : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${element(split(" ", var.ssh_ip_whitelist),count.index)}"
-  protocol       = "TCP"
-  port           = 22
-}
-
-resource "scaleway_security_group_rule" "http_accept" {
+resource "scaleway_security_group_rule" "manager_in_accept_HTTP" {
   count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
@@ -85,7 +59,7 @@ resource "scaleway_security_group_rule" "http_accept" {
   port           = 80
 }
 
-resource "scaleway_security_group_rule" "https_accept" {
+resource "scaleway_security_group_rule" "manager_in_accept_HTTPS" {
   count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
@@ -102,53 +76,46 @@ resource "scaleway_security_group" "security_group_worker" {
   enable_default_security = false
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_2377_worker" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "worker_internal_in_accept_TCP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_tcp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
-  port           = "2377"
+  port           = "${element(local.scw_worker_tcp_ports, count.index)}"
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_TCP_7946_worker" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "worker_external_in_drop_TCP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_tcp_ports) : 0}"
+  security_group = "${scaleway_security_group.security_group_worker.id}"
+  action         = "drop"
+  direction      = "inbound"
+  ip_range       = "0.0.0.0/0"
+  protocol       = "TCP"
+  port           = "${element(local.scw_worker_tcp_ports, count.index)}"
+
+  depends_on = [ "scaleway_security_group_rule.worker_internal_in_accept_TCP" ]
+}
+
+resource "scaleway_security_group_rule" "worker_internal_in_accept_UDP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_udp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
   protocol       = "TCP"
-  port           = "7946"
+  port           = "${element(local.scw_worker_udp_ports, count.index)}"
 }
 
-resource "scaleway_security_group_rule" "internal_in_accept_UDP_7946_worker" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_security_group_rule" "worker_external_in_drop_UDP" {
+  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_udp_ports) : 0}"
   security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
+  action         = "drop"
   direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
+  ip_range       = "0.0.0.0/0"
   protocol       = "UDP"
-  port           = "7946"
-}
+  port           = "${element(local.scw_worker_udp_ports, count.index)}"
 
-resource "scaleway_security_group_rule" "internal_in_accept_UDP_4789_worker" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
-  protocol       = "UDP"
-  port           = "4789"
+  depends_on = [ "scaleway_security_group_rule.worker_internal_in_accept_UDP" ]
 }
-
-resource "scaleway_security_group_rule" "internal_in_accept_SSH_worker" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.scw_cidr}"
-  protocol       = "TCP"
-  port           = 22
-}
-

@@ -92,6 +92,10 @@ When generated from a given `<WORKSPACE>`, the instances are named according the
 
 You can add some labels to the nodes using the `manager_labels` and `worker_labels` variables.
 
+::: warning
+**Kaabah** supports only x86 architecture.
+:::
+
 ### Volumes
 
 When needed extra disk spaces, you can attach additional volumes to the workers. These volumes are automatically attached, formatted (ext4 file system) and mounted on the workers. By default the volumes attached on a worker are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `data` mount point by overriding the `worker_additional_volume_mount_point` variable.
@@ -117,7 +121,6 @@ The traffic between the nodes relies on a Docker network of type of **Overlay**.
 The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
 
 ### Security
-
 
 #### SSH
 

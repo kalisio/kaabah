@@ -19,7 +19,7 @@ resource "null_resource" "manager_labels" {
     ]
   }
 
-  depends_on = ["aws_eip_association.manager", "aws_instance.worker"]
+  depends_on = ["aws_instance.manager", "aws_instance.worker"]
 }
 
 resource "null_resource" "worker_labels" {
@@ -43,5 +43,5 @@ resource "null_resource" "worker_labels" {
     ]
   }
 
-  depends_on = ["aws_eip_association.manager", "aws_instance.worker"]
+  depends_on = ["aws_instance.manager", "aws_instance.worker"]
 }

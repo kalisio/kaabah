@@ -24,7 +24,7 @@ resource "null_resource" "manager_user_script" {
   }
 
   depends_on = [
-    "aws_eip_association.manager", 
+    "aws_instance.manager", 
     "aws_instance.worker",  # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
     "null_resource.worker_volume_mount"
   ]

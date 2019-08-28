@@ -26,6 +26,11 @@ resource "null_resource" "services" {
   }
 
   provisioner "file" {
+    source      = "${var.acme_file != "" ? var.acme_file : "scripts/null-files/acme.json"}"
+    destination = "${local.tmp_dir}/acme.json"
+  }
+
+  provisioner "file" {
     source      = "${var.extensions_dir != "" ? format("%s/", var.extensions_dir) : "scripts/null-files/extensions/"}"
     destination = "kaabah"
   }
@@ -38,5 +43,5 @@ resource "null_resource" "services" {
     ]
   }
 
-  depends_on = ["aws_eip_association.manager", "aws_instance.worker"]
+  depends_on = ["aws_instance.manager", "aws_instance.worker"]
 }

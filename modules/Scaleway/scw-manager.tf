@@ -1,5 +1,5 @@
 resource "scaleway_ip" "manager" {
-  count = "${var.provider == "SCALEWAY" && var.manager_ip =="" ? 1 : 0}"
+  count = "${var.provider == "SCALEWAY" && var.manager_ip == "" ? 1 : 0}"
 }
 
 resource "scaleway_server" "manager" {
@@ -8,7 +8,7 @@ resource "scaleway_server" "manager" {
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
-  public_ip      = "${var.manager_ip}"
+  public_ip      = "${var.manager_ip != "" ? var.manager_ip : scaleway_ip.manager.ip}"
 
   volume {
     size_in_gb = "${lookup(local.additional_volume_size, var.manager_instance_type)}"

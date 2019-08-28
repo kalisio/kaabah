@@ -1,7 +1,7 @@
 provider "scaleway" {
   version = "~> 1.9.0"
 
-  organization = "${var.access_key}"
+  organization = "${var.organization}"
   token        = "${var.token}"
   region       = "${var.region}"
 }

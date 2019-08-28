@@ -10,7 +10,7 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `SCALEWAY_ACCESS_KEY` | Your **Scaleway** access key |
+| `SCALEWAY_ORGNIZATION` | Your **Scaleway** organization id |
 | `SCALEWAY_TOKEN` | Your **Scaleway** token |
 
 ### AWS
@@ -57,6 +57,7 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
+| `manager_ip` | If define, it represents the IP address to be retrieved and attached to the manager. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
 | `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""`. |
 | `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `""`. |

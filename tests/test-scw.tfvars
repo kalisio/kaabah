@@ -14,7 +14,7 @@ auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
 
 ssh_key = "../workspaces/master/test-scw.pem"
 
-manager_ip = "51.15.214.148"
+# manager_ip = "51.15.214.148"
 
 manager_instance_type = "DEV1-M"
 
@@ -22,7 +22,7 @@ manager_crontab = "tests/crontab"
 
 manager_user_script = "tests/manager.sh"
 
-worker_instance_type = "C2L" #C2S
+worker_instance_type = "C2S"
 
 worker_instance_count = 2
 

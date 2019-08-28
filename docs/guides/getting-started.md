@@ -10,25 +10,33 @@ sidebarDepth: 3
 
 ## Prerequisites
 
-::: tip Certificate Authority
+### Providers authentication
 
-**Kaabah** ensures TLS authentication for Docker daemon and requires a Certificate Authority (CA). More precisely, to use **Kaabah**, you need the following files:
-- the CA private key
-- the CA public key
-- the CA passphrase file
+To enable **Terraform** to exploit the providers APIs, you must have created an account and be aware of your credentials to access the APIs.
 
-You can use the following [script](https://gist.github.com/cnouguier/c5cb4ba99ad45bced4476e2d175342a1) to create the required files. 
-:::
+### Instances authentication
 
-::: tip SSH key
-**Kaabah** uses SSH to operate on the various nodes and consequently you need the private key to connect to the different instances. These keys are emitted by the providers (i.e. Scaleway and AWS)
-:::
+When running **Kaabah** and to get connected to your instances, you must be aware of the private SSH keys to access the instances. These keys are generally created 
+using the providers functionalities.
 
-::: tip AWS S3 Credentials
+In addition, **Kaabah** makes the assumption you already have a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host) installed for each providers. You must provide the information to access the bastions:
+* the public IP
+* the SSH private key
+* the SSH user
+
+### Docker TLS Certificate Authority
+
+**Kaabah** ensures TLS authentication for Docker daemon and requires a Certificate Authority (CA). The following files are required to run **Kaabah**:
+- the CA private key: `ca.key`
+- the CA public key: `ca.cert`
+- the CA passphrase file: `ca.pass`
+
+You can use the following [script](https://gist.github.com/cnouguier/c5cb4ba99ad45bced4476e2d175342a1) to create these files. 
+
+### Terraform backend
 
 You must have the credentials set to access the desired bucket on AWS S3 otherwise **Terraform** won't initialize. 
 If needed, follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html) to set up your credentials. 
-::: 
 
 ## Installation
 
@@ -41,21 +49,37 @@ $ cd kaabah
 
 ### Setup your Terraform environment
 
-1. Define your Scaleway credentials
+::: warning Security
+Hard-coding credentials into any **Terraform** configuration is not recommended, and risks secret leakage should this file ever be committed to a public version control system.
+We strongly recommend to store the credentials using environment variables.
+:::
+
+1. Define your **Scaleway** credentials
 
 ```bash
-$export TF_VAR_SCALEWAY_ACCESS_KEY="<ACCESS-KEY>"
+$export TF_VAR_SCALEWAY_ORGANIZATION="<ORGANIZATION-ID>"
 $export TF_VAR_SCALEWAY_TOKEN="<ACCESS-TOKEN>" 
 ```
 
-2. Define your AWS credentials
+2. Define your **AWS** credentials
 
 ```bash
 $export TF_VAR_AWS_ACCESS_KEY="<ACCESS-KEY>"
 $export TF_VAR_AWS_SECRET_KEY="<SECRET-KEY>" 
 ```
 
-1. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
+3. Define your **OVH** credentials
+   
+
+4. Define your bastions configuration
+
+``` bash
+$TF_VAR_bastion_ips = '{ AWS = "X.X.X.X", SCW = "Y.Y.Y.Y", OVH = "Z.Z.Z.Z" }'
+$TF_VAR_bastion_ssh_keys = '{ AWS = "aws.pem", SCW = "scw.pem", OVH = "ovh.pem" }'
+$TF_VAR_bastion_ssh_users = '{ AWS = "user", SCW = "user", OVH = "user" }'
+```
+
+5. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
 
 Create a file `backend.config` with the following properties:
 ```
@@ -72,10 +96,6 @@ $terraform init -backend-config="path/to/your/backend.config"
 
 ## Usage
 
-::: warning Manager IP address
-**Kaabah** requests the IP address of the Swarm manager to be defined. On **Scaleway** you need to provide a [Reserved IP](https://www.scaleway.com/docs/deal-with-private-reserved-ips/#-Create-and-attach-a-reserved-IP-address). On **AWS** you need to provide an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). 
-:::
-
 ::: warning ACME certificates
 To ensure ACME certificates generation, **traefik** has to be reachable by **Let's Encrypt** through port 80. You can refer to [ACME configuration (httpChallenge)](https://docs.traefik.io/configuration/acme/#httpchallenge) for further information. 
 
@@ -85,14 +105,14 @@ Please take care your DNS is correctly configured. A **A Record** should map you
 ### Create a workspace
 
 ```bash
-$terraform workspace new demo-dev
+$terraform workspace new demo
 ```
 
-Terraform will automatically switch to the created workspace `demo-dev`
+Terraform will automatically switch to the created workspace `demo`
 
 ### Configure the workspace
 
-We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `demo-dev.tfvars` file may look like this:
+We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `demo.tfvars` file may look like this:
 
 ```text
 provider = "AWS"
@@ -121,12 +141,6 @@ worker_user_scripts=["workspaces/test-script.sh", "workspaces/test-script.sh", "
 
 ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
 ```
-
-::: tip
-In that case, the manager will act as a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host). That is to say, you will have to use the 
-manager as an SSH Gateway to get connected to the workers. If you have an existing **Bastion** lying in the same VPC, you can take configure your cluster to use it in order to secure the access.
-For more information see the [Using a bastion](./advanced-usage.md#using-a-bastion) documentation.
-:::
 
 ### Apply the changes
 

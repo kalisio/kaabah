@@ -16,7 +16,7 @@ ssh_key = "../workspaces/master/test-aws.pem"
 
 key_name = "test-aws"
 
-manager_ip = "3.120.200.41"
+# manager_ip = "3.120.200.41"
 
 manager_instance_type = "t2.small"
 

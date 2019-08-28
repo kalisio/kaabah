@@ -22,7 +22,7 @@ module "Scaleway" {
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user}"
   auth_password                         = "${var.auth_password}"
-  access_key                            = "${var.SCALEWAY_ACCESS_KEY}"
+  organization                          = "${var.SCALEWAY_ORGANIZATION}"
   token                                 = "${var.SCALEWAY_TOKEN}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"

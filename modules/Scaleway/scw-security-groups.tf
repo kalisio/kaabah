@@ -33,7 +33,7 @@ resource "scaleway_security_group_rule" "manager_internal_in_accept_UDP" {
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
-  protocol       = "TCP"
+  protocol       = "UDP"
   port           = "${element(local.scw_manager_udp_ports, count.index)}"
 }
 
@@ -104,7 +104,7 @@ resource "scaleway_security_group_rule" "worker_internal_in_accept_UDP" {
   action         = "accept"
   direction      = "inbound"
   ip_range       = "${local.scw_cidr}"
-  protocol       = "TCP"
+  protocol       = "UDP"
   port           = "${element(local.scw_worker_udp_ports, count.index)}"
 }
 

@@ -15,7 +15,7 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable "access_key" {}
+variable "organization" {}
 
 variable "token" {}
 

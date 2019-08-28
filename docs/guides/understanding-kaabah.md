@@ -95,28 +95,49 @@ You can add some labels to the nodes using the `manager_labels` and `worker_labe
 ### Volumes
 
 When needed extra disk spaces, you can attach additional volumes to the workers. These volumes are automatically attached, formatted (ext4 file system) and mounted on the workers. By default the volumes attached on a worker are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `data` mount point by overriding the `worker_additional_volume_mount_point` variable.
+  
+### Network
 
-### Security Groups
+#### Security Groups
 
 By default, **Kaabah** creates 2 security groups:
 * the manager security group allowing:
-  * SSH traffic (port 22).
-  * HTTP traffic (port 80).
-  * HTTPS traffic (port 443).
-  * Docker swarm traffic. The traffic is limited to your private network.
+  * external HTTP traffic (port 80)
+  * external HTTPS traffic (port 443)
+  * internal SSH traffic (port 22)
+  * internal Docker swarm traffic.
 * the workers security group with the following rules:
-  * SSH traffic (port 22)
-  * Docker swarm traffic. The traffic is limited to your private network.
-  
-### Docker network
+  * internal SSH traffic (port 22)
+  * internal Docker swarm traffic
 
-The traffic between the nodes is relying on a Docker network of type of **Overlay**. 
+#### Docker Network
+
+The traffic between the nodes relies on a Docker network of type of **Overlay**. 
 
 The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
 
 ### Security
 
-In Swarm mode, the nodes communicate using an HTTP socket and therefore it is highly recommended to protect the the Docker daemon. **Kaabah** will do it for you ! Therefore the Docker daemon only allows connections from clients authenticated by a certificate signed by a Certificate Authority (CA). 
+
+#### SSH
+
+**Kaabah** requires the use of a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host) to get connected to your instances.
+The implemented solution relies on the following architecture:
+
+
+![bastion architecture](./../assets/bastion-architecture.svg)
+
+
+Your bastion instance must be instantiated in the same network of your cluster. The Security Groups rules allows the SSH traffic from the bastion.
+
+::: warning
+It is a best practice to harden your bastion host because it is a critical point of network security. Hardening might include disabling 
+unnecessary applications or services, restrict the inbound traffic to well-known hosts.
+:::
+
+#### Docker Engine
+
+The Docker daemon only allows connections from clients authenticated by a certificate signed by a Certificate Authority (CA). 
 
 When creating the cluster, **Kaabah** handles the creation of the server and client keys but it requires you to provide this CA. Check out the [Getting started section](./getting-started.md) to learn how to generate this CA.
 

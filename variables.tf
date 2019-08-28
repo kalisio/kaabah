@@ -1,4 +1,4 @@
-variable "SCALEWAY_ACCESS_KEY" {}
+variable "SCALEWAY_ORGANIZATION" {}
 variable "SCALEWAY_TOKEN" {}
 
 variable "AWS_ACCESS_KEY" {}
@@ -54,7 +54,9 @@ variable "docker_tls_ca_pass" {
   default = "ca.pass"
 }
 
-variable "manager_ip" {}
+variable "manager_ip" {
+  default = ""
+}
 
 variable "manager_instance_type" {}
 

@@ -88,7 +88,7 @@ region = "the region of the bucket"
 key    = "the key to the states"
 ```
 
-5. Initialize Terraform
+6. Initialize Terraform
 
 ```bash
 $terraform init -backend-config="path/to/your/backend.config"

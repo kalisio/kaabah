@@ -1,6 +1,22 @@
-variable provider {
-  default = ""
+variable provider {}
+
+variable "access_key" {}
+
+variable "secret_key" {}
+
+variable "bastion_ip" {}
+
+variable "bastion_ssh_key" {}
+
+variable "bastion_ssh_user" {}
+
+variable "ssh_user" {
+  default = "ubuntu"
 }
+
+variable "ssh_key" {}
+
+variable "key_name" {}
 
 variable domain {}
 
@@ -16,9 +32,6 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable "access_key" {}
-
-variable "secret_key" {}
 
 variable "region" {}
 
@@ -73,20 +86,6 @@ variable "worker_user_scripts" {
 }
 
 variable "extensions_dir" {}
-
-variable "ssh_user" {
-  default = "ubuntu"
-}
-
-variable "ssh_key" {}
-
-variable "key_name" {}
-
-variable "bastion_ip" {}
-
-variable "bastion_ssh_key" {}
-
-variable "bastion_ssh_user" {}
 
 variable "slack_webhook_url" {}
 

@@ -12,6 +12,28 @@ variable "availability_zone" {
   default = ""
 }
 
+variable "bastion_ips" {
+  type = "map"
+}
+
+variable "bastion_ssh_keys" {
+  type = "map"
+}
+
+variable "bastion_ssh_users" {
+  type = "map"
+}
+
+
+variable "ssh_key" {}
+
+variable "ssh_user" {
+  default = ""
+}
+variable "key_name" {
+  default = ""
+}
+
 variable "domain" {}
 
 variable "subdomain" {
@@ -106,27 +128,6 @@ variable "worker_user_scripts" {
 
 variable extensions_dir {
   default = ""
-}
-
-variable "ssh_key" {}
-
-variable "ssh_user" {
-  default = ""
-}
-variable "key_name" {
-  default = ""
-}
-
-variable "bastion_ips" {
-  type = "map"
-}
-
-variable "bastion_ssh_keys" {
-  type = "map"
-}
-
-variable "bastion_ssh_users" {
-  type = "map"
 }
 
 variable "slack_webhook_url" {

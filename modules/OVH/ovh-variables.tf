@@ -1,20 +1,16 @@
 variable provider {}
 
-variable "organization" {}
-
-variable "token" {}
-
 variable "bastion_ip" {}
 
 variable "bastion_ssh_key" {}
 
 variable "bastion_ssh_user" {}
 
-variable "ssh_user" {
-  default = "root"
-}
+variable "ssh_user" {}
 
 variable "ssh_key" {}
+
+variable "key_name" {}
 
 variable domain {}
 
@@ -31,10 +27,6 @@ variable auth_user {}
 variable auth_password {}
 
 variable "region" {}
-
-variable "image" {
-  default = "Ubuntu Bionic"
-}
 
 variable "docker_version" {}
 
@@ -63,6 +55,8 @@ variable "worker_instance_count" {}
 variable "worker_additional_volume_count" {}
 
 variable "worker_additional_volume_size" {}
+
+variable "worker_additional_volume_type" {}
 
 variable worker_additional_volume_mount_point {}
 

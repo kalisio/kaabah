@@ -1,5 +1,13 @@
 variable provider {}
 
+variable "application_key" {}
+
+variable "application_secret" {}
+
+variable "consumer_key" {}
+
+variable "endpoint" {}
+
 variable "bastion_ip" {}
 
 variable "bastion_ssh_key" {}

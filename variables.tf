@@ -1,8 +1,20 @@
 variable "SCALEWAY_ORGANIZATION" {}
+
 variable "SCALEWAY_TOKEN" {}
 
 variable "AWS_ACCESS_KEY" {}
+
 variable "AWS_SECRET_KEY" {}
+
+variable "OVH_APPLICATION_KEY" {}
+
+variable "OVH_APPLICATION_SECRET" {}
+
+variable "OVH_CONSUMER_KEY" {}
+
+variable "OVH_ENDPOINT" {
+  default = "ovh-eu"
+}
 
 variable "provider" {}
 
@@ -23,7 +35,6 @@ variable "bastion_ssh_keys" {
 variable "bastion_ssh_users" {
   type = "map"
 }
-
 
 variable "ssh_key" {}
 

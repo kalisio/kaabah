@@ -14,6 +14,8 @@ module "Scaleway" {
   source = "./modules/Scaleway"
 
   provider                              = "${var.provider}"
+  organization                          = "${var.SCALEWAY_ORGANIZATION}"
+  token                                 = "${var.SCALEWAY_TOKEN}"  
   region                                = "${var.provider == "SCALEWAY" ? var.region : "par1"}"  # Must provide a valid Scaleway region
   bastion_ip                            = "${var.bastion_ips["SCW"]}"
   bastion_ssh_key                       = "${var.bastion_ssh_keys["SCW"]}"
@@ -27,8 +29,6 @@ module "Scaleway" {
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user}"
   auth_password                         = "${var.auth_password}"
-  organization                          = "${var.SCALEWAY_ORGANIZATION}"
-  token                                 = "${var.SCALEWAY_TOKEN}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -55,6 +55,8 @@ module "AWS" {
   source = "./modules/AWS"
 
   provider                              = "${var.provider}"
+  access_key                            = "${var.AWS_ACCESS_KEY}"
+  secret_key                            = "${var.AWS_SECRET_KEY}"  
   region                                = "${var.provider == "AWS" ? var.region : "eu-central-1"}"  # Must provide a valid AWS region
   availability_zone                     = "${var.availability_zone != "" ? var.availability_zone : format("%sa", var.region)}"
   bastion_ip                            = "${var.bastion_ips["AWS"]}"
@@ -70,8 +72,6 @@ module "AWS" {
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user}"
   auth_password                         = "${var.auth_password}"
-  access_key                            = "${var.AWS_ACCESS_KEY}"
-  secret_key                            = "${var.AWS_SECRET_KEY}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -99,6 +99,10 @@ module "OVH" {
   source = "./modules/OVH"
 
   provider                              = "${var.provider}"
+  application_key                       = "${var.OVH_APPLICATION_KEY}"
+  application_secret                    = "${var.OVH_APPLICATION_SECRET}"
+  consumer_key                          = "${var.OVH_CONSUMER_KEY}"
+  endpoint                              = "${var.OVH_ENDPOINT}" 
   region                                = "${var.provider == "OVH" ? var.region : "GRA5"}"  # Must provide a valid OVH region
   bastion_ip                            = "${var.bastion_ips["OVH"]}"
   bastion_ssh_key                       = "${var.bastion_ssh_keys["OVH"]}"

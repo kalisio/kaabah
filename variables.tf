@@ -75,17 +75,11 @@ variable "docker_network" {
   default = "kaabah"
 }
 
-variable "docker_tls_ca_key" {
-  default = "ca.key"
-}
+variable "docker_tls_ca_key" {}
 
-variable "docker_tls_ca_cert" {
-  default = "ca.cert"
-}
+variable "docker_tls_ca_cert" {}
 
-variable "docker_tls_ca_pass" {
-  default = "ca.pass"
-}
+variable "docker_tls_ca_pass" {}
 
 variable "manager_ip" {
   default = ""

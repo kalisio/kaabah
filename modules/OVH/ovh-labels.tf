@@ -6,7 +6,7 @@ resource "null_resource" "manager_labels" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${aws_instance.manager.network.0.fixed_ip_v4}"
+    host                = "${aws_instance.manager.acess_ip_v4}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -14,8 +14,8 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.0.fixed_ip_v4, 0)}`",
-      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.0.fixed_ip_v4, 0)}` \"${var.manager_labels}\""
+      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}`",
+      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}` \"${var.manager_labels}\""
     ]
   }
 
@@ -30,7 +30,7 @@ resource "null_resource" "worker_labels" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"   
-    host                = "${openstack_compute_instance_v2.manager.network.0.fixed_ip_v4}"
+    host                = "${openstack_compute_instance_v2.manager.access_ip_v4}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -38,8 +38,8 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.0.fixed_ip_v4, count.index)}`",
-      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.0.fixed_ip_v4, count.index)}` \"${var.worker_labels[count.index]}\""
+      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}`",
+      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}` \"${var.worker_labels[count.index]}\""
     ]
   }
 

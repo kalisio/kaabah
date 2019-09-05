@@ -7,20 +7,29 @@ resource "openstack_compute_instance_v2" "manager" {
   key_pair          = "${var.key_name}"
   region            = "${var.region}"
 
-  network {
-    name = "Ext-Net"
-    access_network = "true"
-  }
+  network = [
+    {
+      name = "Ext-Net"
+      access_network = "true"
+    },
+    {
+      name ="${local.private_network}"
+    }
+  ]
 
   connection {
     type                = "ssh"
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${self.network.0.fixed_ip_v4}"
+    host                = "${self.access_ip_v4}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
+  }
+
+  provisioner "remote-exec" {
+    script = "modules/OVH/setup-nic.sh"
   }
 
   provisioner "file" {
@@ -60,7 +69,9 @@ resource "openstack_compute_instance_v2" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.0.fixed_ip_v4} ${local.cidr} ${terraform.workspace} ${var.subdomain}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${local.cidr} ${terraform.workspace} ${var.subdomain}",
     ]
   }
+
+  depends_on = ["openstack_networking_subnet_v2.private_subnet"]
 }

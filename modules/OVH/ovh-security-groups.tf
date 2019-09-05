@@ -6,7 +6,19 @@ resource "openstack_networking_secgroup_v2" "manager_security_group" {
   description           = "${terraform.workspace}-manager"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "manager_internal_accept_SSH" {
+resource "openstack_networking_secgroup_rule_v2" "manager_bastion_accept_SSH" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    direction           = "ingress"
+    port_range_min      = 22
+    port_range_max      = 22
+    remote_ip_prefix    = "${var.bastion_ip}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_SSH" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     ethertype           = "IPv4"
@@ -18,7 +30,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_internal_accept_SSH" {
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2376" {
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_2376" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -30,7 +42,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2376" {
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2377" {
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_2377" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -42,7 +54,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2377" {
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_7946" {
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_7946" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -54,7 +66,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_7946" {
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_7946" {
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_7946" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -66,7 +78,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_7946" {
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_4789" {
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_4789" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -110,7 +122,19 @@ resource "openstack_networking_secgroup_v2" "worker_security_group" {
   description             = "${terraform.workspace}-worker-sg"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "bastion_worker_ssh" {
+resource "openstack_networking_secgroup_rule_v2" "worker_bastion_in_accept_ssh" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    direction           = "ingress"
+    port_range_min      = 22
+    port_range_max      = 22
+    remote_ip_prefix    = "${var.bastion_ip}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_ssh" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     ethertype           = "IPv4"
@@ -122,7 +146,7 @@ resource "openstack_networking_secgroup_rule_v2" "bastion_worker_ssh" {
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2376_worker" {
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_2376" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -134,7 +158,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2376_wo
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2377_worker" {
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_2377" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -146,7 +170,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_2377_wo
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_7946_worker" {
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_7946" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -158,7 +182,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_TCP_7946_wo
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_7946_worker" {
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_7946" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"
@@ -170,7 +194,7 @@ resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_7946_wo
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
-resource "openstack_networking_secgroup_rule_v2" "internal_in_accept_UDP_4789_worker" {
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_4789" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
     direction           = "ingress"

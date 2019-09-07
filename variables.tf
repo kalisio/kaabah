@@ -20,6 +20,7 @@ variable "provider" {}
 
 variable "region" {}
 
+
 variable "availability_zone" {
   default = ""
 }
@@ -66,6 +67,8 @@ variable contact {
 variable auth_user {}
 
 variable auth_password {}
+
+variable "private_network_cidr" {}
 
 variable "docker_version" {
   default = "18.06.1~ce~3-0~ubuntu"

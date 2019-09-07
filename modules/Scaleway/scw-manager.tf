@@ -64,7 +64,7 @@ resource "scaleway_server" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"${local.scw_cidr}\" ${terraform.workspace} ${var.subdomain}",
+      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"${var.private_network_cidr}\" ${terraform.workspace} ${var.subdomain}",
     ]
   }
 }

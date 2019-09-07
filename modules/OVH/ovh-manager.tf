@@ -13,7 +13,7 @@ resource "openstack_compute_instance_v2" "manager" {
       access_network = "true"
     },
     {
-      name ="${local.private_network}"
+      name ="${local.private_network_name}"
     }
   ]
 
@@ -69,7 +69,7 @@ resource "openstack_compute_instance_v2" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${local.cidr} ${terraform.workspace} ${var.subdomain}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${var.private_network_cidr} ${terraform.workspace} ${var.subdomain}",
     ]
   }
 

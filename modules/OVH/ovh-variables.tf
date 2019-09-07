@@ -8,6 +8,8 @@ variable "consumer_key" {}
 
 variable "endpoint" {}
 
+variable "region" {}
+
 variable "bastion_ip" {}
 
 variable "bastion_ssh_key" {}
@@ -34,7 +36,7 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable "region" {}
+variable "private_network_cidr" {}
 
 variable "docker_version" {}
 

@@ -32,6 +32,8 @@ variable auth_password {}
 
 variable "region" {}
 
+variable "private_network_cidr" {}
+
 variable "image" {
   default = "Ubuntu Bionic"
 }

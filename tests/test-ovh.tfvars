@@ -16,6 +16,8 @@ ssh_key = "../workspaces/master/test-ovh.pem"
 
 key_name = "test-ovh"
 
+private_network_cidr = "192.168.0.0/24"
+
 # manager_ip = "3.120.200.41"
 
 manager_instance_type = "s1-4"

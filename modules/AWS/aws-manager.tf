@@ -66,7 +66,9 @@ resource "aws_instance" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.swarm_vpc.cidr_block} ${terraform.workspace} ${var.subdomain}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${local.private_network_cidr} ${terraform.workspace} ${var.subdomain}",
+      "echo '127.0.0.1 ${terraform.workspace}-manager' | sudo tee -a /etc/hosts",
+      "sudo hostnamectl set-hostname ${terraform.workspace}-manager",
     ]
   }
 

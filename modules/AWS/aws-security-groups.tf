@@ -1,7 +1,3 @@
-resource "aws_default_vpc" "swarm_vpc" {
-  count       = "${var.provider == "AWS" ? 1 : 0}"
-}
-
 resource "aws_security_group" "security_group_manager" {
   count       = "${var.provider == "AWS" ? 1 : 0}"
   name        = "${terraform.workspace}_manager"
@@ -10,35 +6,35 @@ resource "aws_security_group" "security_group_manager" {
     from_port   = 2376
     to_port     = 2376
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 2377
     to_port     = 2377
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 7946
     to_port     = 7946
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 7946
     to_port     = 7946
     protocol    = "udp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 4789
     to_port     = 4789
     protocol    = "udp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
@@ -59,7 +55,7 @@ resource "aws_security_group" "security_group_manager" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ] 
+    cidr_blocks = [ "${local.private_network_cidr}" ] 
   }
 
   egress {
@@ -82,35 +78,35 @@ resource "aws_security_group" "security_group_worker" {
     from_port   = 2377
     to_port     = 2377
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 7946
     to_port     = 7946
     protocol    = "tcp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 7946
     to_port     = 7946
     protocol    = "udp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 4789
     to_port     = 4789
     protocol    = "udp"
-    cidr_blocks = [ "${aws_default_vpc.swarm_vpc.cidr_block}" ]
+    cidr_blocks = [ "${local.private_network_cidr}" ]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["${aws_default_vpc.swarm_vpc.cidr_block}"]
+    cidr_blocks = ["${local.private_network_cidr}"]
   }
 
   egress {

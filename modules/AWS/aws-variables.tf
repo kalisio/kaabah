@@ -1,6 +1,11 @@
 variable provider {}
 
+variable "region" {}
+
+variable "availability_zone" {}
+
 variable "access_key" {}
+
 
 variable "secret_key" {}
 
@@ -32,10 +37,7 @@ variable auth_user {}
 
 variable auth_password {}
 
-
-variable "region" {}
-
-variable "availability_zone" {}
+variable private_network_cidr {}
 
 variable "image" {
   default = "ami-090f10efc254eaf55"

@@ -11,21 +11,30 @@ help() {
 
 exec() {
   # list the nodes
-  echo "Nodes ----------"
-  docker node ls
-  # list the labels
-  echo "Labels ---------"
-  echo -e "ID\t\t\t\tLABELS"
-  local WORKER_IDS=`docker node ls -q -f role=worker`
-  for WORKER_ID in $WORKER_IDS; do
-    echo -e "$WORKER_ID\t`k-label-list $WORKER_ID`"
+  echo -e "\nNodes >-----\n"
+  echo -e "ID\t\t\t\tHOSTNAME\t\tSTATUS\t\tADDRESS\t\tLABELS"
+  local NODES_IDS=`docker node ls -q`
+  for NODE_ID in $NODES_IDS; do
+    ADDRESS=`docker node inspect --format {{.Status.Addr}} $NODE_ID`
+    LABELS=`k-label-list $NODE_ID`
+    echo -e "$NODE_ID\t`docker node ls -f id=$NODE_ID --format "{{.Hostname}}\t{{.Status}}/{{.Availability}}"`\t$ADDRESS\t$LABELS"
   done
+
   # list the stacks
-  echo "Stacks --------"
-  docker stack ls
+  echo -e "\nStacks >------\n"
+  echo -e "NAME\t\tSERVICES"
+  docker stack ls --format "{{.Name}}\t\t{{.Services}}"
+
   # list the services
-  echo "Services ------"
+  echo -e "\nServices >------\n"
   docker service ls
+
+  echo -e "\nContainers >-----\n"
+  for NODE_ID in $NODES_IDS; do
+    echo -e "\n`docker node ls -f id=$NODE_ID --format {{.Hostname}}`"
+    echo -e "ID\t\tNAMES\tSTATUS"
+    k-node-exec -c $NODE_ID "docker ps --format \"{{.ID}}\t{{.Names}}\t{{.Status}}\""
+  done
 }
 
 if [ "$#" -ne 0 ]; then

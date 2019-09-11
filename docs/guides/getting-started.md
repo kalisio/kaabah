@@ -5,14 +5,14 @@ sidebarDepth: 3
 # Getting started
 
 ::: warning 
-**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
+**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://traefik.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
 :::
 
 ## Prerequisites
 
 ### Providers authentication
 
-To enable **Terraform** to exploit the providers APIs, you must have created an account and be aware of your credentials to access the APIs.
+To enable **Terraform** to exploit the providers APIs, you must have created an account on the various providers and be aware of your credentials to access the APIs.
 
 ### Instances authentication
 

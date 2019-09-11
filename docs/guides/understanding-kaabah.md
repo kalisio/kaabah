@@ -5,7 +5,7 @@ sidebarDepth: 3
 # Understanding Kaabah
 
 ::: warning Prerequisites 
-**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://portainer.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
+**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://traefik.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
 :::
 
 ## Key concepts
@@ -16,7 +16,6 @@ sidebarDepth: 3
 * **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/) built using **Kaabah**.
 * **Service**: an application deployed on your **Cluster**. By default, **Kaabah** comes with the following services which helps operating the **Cluster**:
   * [Traefik](https://traefik.io)
-  * [Portainer](https://portainer.io)
   * [Prometheus](https://prometheus.io)
   * [Grafana](https://grafana.com)
   * [Registry](https://docs.docker.com/registry)
@@ -152,7 +151,6 @@ When creating the cluster, **Kaabah** handles the creation of the server and cli
 
 As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack of high level services that allows you to:
 - route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
-- manage the services deployed on the cluster using [Portainer](https://portainer.io/)
 - monitor the cluster using [Prometheus](https://prometheus.io/)
 - analyze the cluster metrics using [Grafana](https://grafana.com/)
 
@@ -176,7 +174,6 @@ By default, **Kaabah** specializes the **traefik** configuration with:
   * to redirect HTTP (port 80) request to HTTPS (port 443)
 * 5 frontends to access the services: 
   - **traefik (dashboard)**
-  - **Portainer**
   - **Prometheus**
   - **Alertmanager**
   - **Grafana** 
@@ -184,10 +181,6 @@ By default, **Kaabah** specializes the **traefik** configuration with:
 The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration. Considering a workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
 
 ![traefik routing](../assets/kaabah-traefik.svg)
-
-### [Portainer](https://portainer.io)
-
-There is not too much to say on **Portainer**. Just play with the UI !
 
 ### [Prometheus](https://prometheus.io)
 

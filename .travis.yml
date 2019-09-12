@@ -46,7 +46,7 @@ jobs:
     - git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
  
     script:
-    - source ../workspaces/env.sh
+    - source ../workspaces/master/env.sh
     - terraform init -backend-config="backend.config"
     - terraform workspace select test-aws
     - terraform apply -auto-approve -var-file="tests/test-aws.tfvars"

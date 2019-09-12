@@ -57,5 +57,5 @@ jobs:
     - terraform workspace select test-scw
     - terraform apply -auto-approve -var-file="tests/test-scw.tfvars"
     - terraform destroy -auto-approve -var-file="tests/test-scw.tfvars" 
-    - terrafomr workspace select default
+    - terraform workspace select default
 

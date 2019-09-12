@@ -7,12 +7,14 @@ notifications:
     on_failure: always
 
 stages:
-- name: PUBLISH
+- name: DOC
+- name: TEST
 
 jobs:
   include:
 
-  - stage: PUBLISH
+  - stage: DOC
+    if: commit_message =~ \[doc\]
     language: node_js
     node_js:
     - '8'
@@ -36,7 +38,7 @@ jobs:
     services:
     - docker
     before_script:
-    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.12_linux_amd64.zip" -o terraform.zip
+    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.12/terraform_0.11.12_linux_amd64.zip" -o terraform.zip
     - sudo unzip terraform.zip -d /opt/terraform
     - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
     - rm -f terraform.zip
@@ -56,4 +58,4 @@ jobs:
     - terraform apply -auto-approve -var-file="tests/test-scw.tfvars"
     - terraform destroy -auto-approve -var-file="tests/test-scw.tfvars" 
     - terrafomr workspace select default
-    
+

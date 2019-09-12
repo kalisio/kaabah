@@ -47,11 +47,13 @@ jobs:
     - source ../workspaces/env.sh
     - terraform init -backend-config="backend.config"
     - terraform workspace select test-aws
-    - terraform apply -var-file="tests/test-aws.tfvars"
-    - terraform destroy -var-file="tests/test-aws.tfvars"
+    - terraform apply -auto-approve -var-file="tests/test-aws.tfvars"
+    - terraform destroy -auto-approve -var-file="tests/test-aws.tfvars"
     - terraform workspace select test-ovh
-    - terraform apply -var-file="tests/test-ovh.tfvars"
-    - terraform destroy -var-file="tests/test-ovh.tfvars"      
+    - terraform apply -auto-approve -var-file="tests/test-ovh.tfvars"
+    - terraform destroy -auto-approve -var-file="tests/test-ovh.tfvars"      
     - terraform workspace select test-scw
-    - terraform apply -var-file="tests/test-scw.tfvars"
-    - terraform destroy -var-file="tests/test-scw.tfvars" 
+    - terraform apply -auto-approve -var-file="tests/test-scw.tfvars"
+    - terraform destroy -auto-approve -var-file="tests/test-scw.tfvars" 
+    - terrafomr workspace select default
+    

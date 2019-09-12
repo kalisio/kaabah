@@ -27,3 +27,30 @@ jobs:
       keep-history: true
       on:
         branch: master
+
+  - stage: TEST
+    if: commit_message =~ (\[tests\])
+    language: node_js
+    node_js:
+    - '8'
+    services:
+    - docker
+    before_script:
+    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.4/terraform_0.11.4_linux_amd64.zip" -o terraform.zip
+    - sudo unzip terraform.zip -d /opt/terraform
+    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+    - rm -f terraform.zip
+    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+    - git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
+ 
+    script:
+    - terraform init -backend-config="backend.config"
+    - terraform workspace select test-aws
+    - terraform apply -var-file="tests/test-aws.tfvars"
+    - terraform destroy -var-file="tests/test-aws.tfvars"
+    - terraform workspace select test-ovh
+    - terraform apply -var-file="tests/test-ovh.tfvars"
+    - terraform destroy -var-file="tests/test-ovh.tfvars"      
+    - terraform workspace select test-scw
+    - terraform apply -var-file="tests/test-scw.tfvars"
+    - terraform destroy -var-file="tests/test-scw.tfvars" 

@@ -8,7 +8,9 @@ notifications:
 
 stages:
 - name: DOC
-- name: TEST
+- name: TEST_AWS
+- name: TEST_OVH
+- name: TEST_SCW
 
 jobs:
   include:

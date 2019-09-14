@@ -1,13 +1,5 @@
 variable provider {}
 
-variable "application_key" {}
-
-variable "application_secret" {}
-
-variable "consumer_key" {}
-
-variable "endpoint" {}
-
 variable "region" {}
 
 variable "bastion_ip" {}

@@ -6,16 +6,6 @@ variable "AWS_ACCESS_KEY" {}
 
 variable "AWS_SECRET_KEY" {}
 
-variable "OVH_APPLICATION_KEY" {}
-
-variable "OVH_APPLICATION_SECRET" {}
-
-variable "OVH_CONSUMER_KEY" {}
-
-variable "OVH_ENDPOINT" {
-  default = "ovh-eu"
-}
-
 variable "provider" {}
 
 variable "region" {}

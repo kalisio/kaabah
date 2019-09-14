@@ -101,10 +101,6 @@ module "OVH" {
   source = "./modules/OVH"
 
   provider                              = "${var.provider}"
-  application_key                       = "${var.OVH_APPLICATION_KEY}"
-  application_secret                    = "${var.OVH_APPLICATION_SECRET}"
-  consumer_key                          = "${var.OVH_CONSUMER_KEY}"
-  endpoint                              = "${var.OVH_ENDPOINT}" 
   region                                = "${var.provider == "OVH" ? var.region : "GRA5"}"  # Must provide a valid OVH region
   bastion_ip                            = "${var.bastion_ips["OVH"]}"
   bastion_ssh_key                       = "${var.bastion_ssh_keys["OVH"]}"

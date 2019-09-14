@@ -1,15 +1,8 @@
 provider "openstack" {
-  auth_url            = "https://auth.cloud.ovh.net/v2.0"
+  version = "~> 1.22"
+
   domain_name         = "default" # Alawys default for OVH
   alias               = "ovh" # Un alias
-}
-
-provider "ovh" {
-  endpoint           = "${var.endpoint}" 
-  application_key    = "${var.application_key}"
-  application_secret = "${var.application_secret}"
-  consumer_key       = "${var.consumer_key}"
-  alias              = "ovh" # An alias
 }
 
 locals {

@@ -19,8 +19,7 @@ jobs:
     node_js:
     - '8'
     script:
-    - yarn install
-    - npm run docs:build
+    - bash ./travis.build.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist
@@ -44,18 +43,7 @@ jobs:
     - rm -f terraform.zip
     - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
     - git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
- 
     script:
-    - source ../workspaces/master/env.sh
-    - terraform init -backend-config="backend.config"
-    - terraform workspace select test-aws
-    - terraform apply -auto-approve -var-file="tests/test-aws.tfvars"
-    - terraform destroy -auto-approve -var-file="tests/test-aws.tfvars"
-    - terraform workspace select test-ovh
-    - terraform apply -auto-approve -var-file="tests/test-ovh.tfvars"
-    - terraform destroy -auto-approve -var-file="tests/test-ovh.tfvars"      
-    - terraform workspace select test-scw
-    - terraform apply -auto-approve -var-file="tests/test-scw.tfvars"
-    - terraform destroy -auto-approve -var-file="tests/test-scw.tfvars" 
-    - terraform workspace select default
+    - bash ./travis.test.sh
+
 

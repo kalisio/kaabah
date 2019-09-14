@@ -10,6 +10,10 @@ sidebarDepth: 3
 
 ## Prerequisites
 
+### Terraform
+
+You must have **Terraform** installed on your machine. For now **Kaabah** requires the `0.11.12` version of Terraform. Please refer to the [installation guide](https://learn.hashicorp.com/terraform/getting-started/install.html) to install **Terraform**.
+
 ### Providers authentication
 
 To enable **Terraform** to exploit the providers APIs, you must have created an account on the various providers and be aware of your credentials to access the APIs.
@@ -69,7 +73,17 @@ $export TF_VAR_AWS_SECRET_KEY="<SECRET-KEY>"
 ```
 
 3. Define your **OVH** credentials
-   
+
+The **OVH** module relies on the [OpenStack provider](https://www.terraform.io/docs/providers/openstack/), thus you need to provide the
+**OpenStack** credentials only:
+
+```bash
+export OS_AUTH_URL="https://auth.cloud.ovh.net/v3" // authentication URL
+export OS_TENANT_ID="<TENANT-ID>" # Horizon project ID
+export OS_TENANT_NAME="<TENANT-NAME>" # Horizon project name
+export OS_USERNAME="<USERNAME>" # Horizon username
+export OS_PASSWORD="<PASSWORD>" # Horizon password
+```
 
 4. Define your bastions configuration
 
@@ -117,29 +131,47 @@ We recommend to create a `tfvars` file to override the default variables for you
 ```text
 provider = "AWS"
 
-ssh_key = "workspaces/key.pem" # the path to the private key
+region = "eu-central-1"
 
-manager_ip = "3.120.200.41"
+domain = "kalisio.xyz"
+
+ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+
+#acme_file = "tests/acme.json"
+
+auth_user = "admin"
+
+auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
+
+ssh_key = "../workspaces/master/test-aws.pem"
+
+key_name = "test-aws"
+
+private_network_cidr = "172.31.0.0/16"
 
 manager_instance_type = "t2.small"
 
-manager_user_script = "workspaces/test-script.sh"
+manager_crontab = "tests/crontab"
+
+manager_user_script = "tests/manager.sh"
 
 worker_instance_type = "t3.large"
 
-worker_instance_count = 3
+worker_instance_count = 2
 
 worker_additional_volume_count = 1
 
-worker_additional_volume_size = 1000
+worker_additional_volume_size = 500
 
-worker_additional_volume_type = "io1"
+worker_additional_volume_type = "sc1"
 
-worker_labels=["worker0=true apps=true", "worker1=true", "worker2=true dbs=true"]
+worker_additional_volume_mount_point = "data"
 
-worker_user_scripts=["workspaces/test-script.sh", "workspaces/test-script.sh", "workspaces/test-script.sh"]
+worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 
-ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
+worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
+
+extensions_dir = "tests/extensions"
 ```
 
 ### Apply the changes
@@ -157,24 +189,56 @@ After a while, your cluster should be created and the corresponding Terraform st
 Get connected to the manager of your infrastructure using `ssh` and type the following commands:
 
 ```bash
-$docker node ls
-ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
-rwwms640br7eworemnzm71kas *   app-dev-manager    Ready               Active              Leader              18.03.1-ce
-cncd3bj11drznaih0zgsxoi2y     app-dev-worker-1   Ready               Active                                  18.03.1-ce
-4fup9ac9pklv5h81v0o99w40h     app-dev-worker-2   Ready               Active                                  18.03.1-ce
-```
+ubuntu@test-aws-manager:~$ k-swarm-info
 
-```bash
-$docker service ls
-ID                  NAME                         MODE                REPLICAS            IMAGE                           PORTS
-jwyzwgo2mjyb        services_alertmanager        replicated          1/1                 prom/alertmanager:latest
-a35bnom5voa1        services_blackbox-exporter   replicated          1/1                 prom/blackbox-exporter:latest
-sr7c26casj5o        services_cadvisor            global              3/3                 google/cadvisor:latest          *:8081->8080/tcp
-yp94tsujdftq        services_grafana             replicated          1/1                 grafana/grafana:latest
-jql9o8nawlkm        services_node-exporter       global              3/3                 prom/node-exporter:latest
-0jl7slbb6tll        services_portainer           replicated          1/1                 portainer/portainer:latest
-hgeulxbwkex2        services_prometheus          replicated          1/1                 prom/prometheus:latest
-ltstocwymexj        services_traefik             replicated          1/1                 traefik:latest
+Nodes >-----
+
+ID                              HOSTNAME                STATUS          ADDRESS         LABELS
+4ylkfx3vis3zlxqwvs7rcms0p       test-aws-manager        Ready/Active    172.31.25.252
+svpnq8a71v90hu7ir6ng7335d       test-aws-worker-0       Ready/Active    172.31.21.238   apps=true worker0=true
+jwgud49dpjvxfdkgnfa1we9la       test-aws-worker-1       Ready/Active    172.31.19.239   dbs=true worker1=true
+
+Stacks >------
+
+NAME            SERVICES
+kaabah          8
+
+Services >------
+
+ID                  NAME                   MODE                REPLICAS            IMAGE                        PORTS
+imt4640a55sa        kaabah_alertmanager    replicated          1/1                 prom/alertmanager:v0.17.0
+2dk1t5jaeleq        kaabah_cadvisor        global              3/3                 google/cadvisor:v0.33.0
+3moom2hbx8o7        kaabah_grafana         replicated          1/1                 grafana/grafana:6.1.6
+s1m29d7c51zw        kaabah_node-exporter   global              3/3                 prom/node-exporter:v0.17.0
+y1zm0h699q60        kaabah_prometheus      replicated          1/1                 prom/prometheus:v2.9.2
+1fwm7sexsz4k        kaabah_pushgateway     replicated          1/1                 prom/pushgateway:v0.8.0
+wa262dqh51qt        kaabah_registry        replicated          1/1                 registry:2                   *:5000->5000/tcp
+a8xhmu9k7jbq        kaabah_traefik         replicated          1/1                 traefik:1.7-alpine
+
+Containers >-----
+
+
+test-aws-manager
+ID              NAMES   STATUS
+0eb9d385fc74    kaabah_grafana.1.u42yijzrl7vhubfb4ufup4hgq      Up About an hour (healthy)
+7c8ad92974d4    kaabah_cadvisor.4ylkfx3vis3zlxqwvs7rcms0p.0bcnfte5qsr4zxvim4dvapywg     Up About an hour (healthy)
+e26ab0a9a84a    kaabah_traefik.1.kn2pnp5wm9s2kqsm7x7ukl0gt      Up About an hour (healthy)
+a401aba300b1    kaabah_alertmanager.1.n424mme5cpqh1gbyqtwvn1cfi Up About an hour (healthy)
+bf10a39ce027    kaabah_prometheus.1.tzoe5g0rfnodzq84h73elavoa   Up About an hour (healthy)
+3b5aeb22291a    kaabah_registry.1.41f8l2p5fh2kam5qx2mj8a2rk     Up About an hour (healthy)
+b97a12b43694    kaabah_pushgateway.1.rbrtvtz3xcjy6uda7w6d3wdbz  Up About an hour (healthy)
+7cb96b612380    kaabah_node-exporter.4ylkfx3vis3zlxqwvs7rcms0p.ftmk23sinf18w5zhzp5fhg5yj        Up About an hour
+
+test-aws-worker-0
+ID              NAMES   STATUS
+0c483b70fedd    kaabah_cadvisor.svpnq8a71v90hu7ir6ng7335d.kfloir1m5cv012ogb5ck7wnhh     Up About an hour (healthy)
+b3e1a4117807    kaabah_node-exporter.svpnq8a71v90hu7ir6ng7335d.4n71fp7vpvi7z0avzpkriuypv        Up About an hour
+
+test-aws-worker-1
+ID              NAMES   STATUS
+0168740c5c45    kaabah_cadvisor.jwgud49dpjvxfdkgnfa1we9la.qj55xvd5ugood47e7wz35mbgn     Up About an hour (healthy)
+420e5b27bccb    kaabah_node-exporter.jwgud49dpjvxfdkgnfa1we9la.ihi62eehuwna6a1qxzjt9lx2g        Up About an hour
+ubuntu@test-aws-manager:~$
 ```
 
 ### Destroy the infrastructure

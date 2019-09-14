@@ -1,6 +1,9 @@
 #!/bin/bash
 WORKSPACE=$1
 
+# Retrieve envrironment secrets
+echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
 source ../workspaces/master/env.sh
 
 # Install terraform
@@ -9,10 +12,7 @@ sudo unzip terraform.zip -d /opt/terraform
 sudo ln -s /opt/terraform/terraform /usr/bin/terraform
 rm -f terraform.zip
 
-# Initialize terraform
-echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
-git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
-
+# Initialize Terraform
 terraform init -backend-config="backend.config"
 
 # Run terraform over the test workspaces

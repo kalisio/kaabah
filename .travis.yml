@@ -39,7 +39,7 @@ jobs:
     script:
     - bash .travis.test.sh test-aws
 
-- stage: TEST_OVH
+  - stage: TEST_OVH
     if: commit_message =~ \[test\]
     language: node_js
     node_js:
@@ -47,12 +47,10 @@ jobs:
     script:
     - bash .travis.test.sh test-ovh
 
-- stage: TEST_SCW
+  - stage: TEST_SCW
     if: commit_message =~ \[test\]
     language: node_js
     node_js:
     - '8'
     script:
     - bash .travis.test.sh test-scw
-
-

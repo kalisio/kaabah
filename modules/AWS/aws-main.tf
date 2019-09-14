@@ -8,15 +8,9 @@ provider "aws" {
 
 locals {
   tmp_dir = "/tmp/kaabah"
-
   timeout = "180s"
-  
   worker_instance_class = "${element(split(".", var.worker_instance_type), 0)}"
-  
-  private_network_cidr = "${var.private_network_cidr != "" ? var.private_network_cidr : aws_default_vpc.default_vpc.cidr_block}"
-
   worker_use_nvme_device = "${contains(local.nvme_list, local.worker_instance_class) ? true : false}"
-  
   device_names = [
     "/dev/sdf", 
     "/dev/sdg", 
@@ -29,7 +23,6 @@ locals {
     "/dev/sdn", 
     "/dev/sdo"
   ]
-
   standard_devices = [
     "/dev/xvdf", 
     "/dev/xvdg", 
@@ -42,7 +35,6 @@ locals {
     "/dev/xvdn", 
     "/dev/xvdo" 
   ]
-
   nvme_devices = [
    "/dev/nvme1n1", 
    "/dev/nvme2n1", 
@@ -55,7 +47,6 @@ locals {
    "/dev/nvme9n1",
    "/dev/nvme10n1" 
   ] 
-
   nvme_list = [
     "c5", 
     "c5d", 

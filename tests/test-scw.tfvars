@@ -14,11 +14,11 @@ auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
 
 ssh_key = "../workspaces/master/test-scw.pem"
 
-private_network_cidr = "10.0.0.0/16"
+private_network_cidr = "10.0.0.0/8"
 
-# manager_ip = "51.15.214.148"
+#manager_ip = "51.15.214.148"
 
-manager_instance_type = "DEV1-M"
+manager_instance_type = "DEV1-S"
 
 manager_crontab = "tests/crontab"
 

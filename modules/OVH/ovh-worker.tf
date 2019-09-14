@@ -1,6 +1,6 @@
 resource "openstack_compute_instance_v2" "worker" {
   count           = "${var.provider == "OVH" ? var.worker_instance_count: 0}"
-  name            = "${terraform.workspace}-worker--${count.index}" 
+  name            = "${terraform.workspace}-worker-${count.index}" 
   image_name      = "${local.image}"
   flavor_name     = "${var.worker_instance_type}"
   security_groups = ["${openstack_networking_secgroup_v2.worker_security_group.name}"]

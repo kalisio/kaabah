@@ -31,6 +31,7 @@ export DOCKER_HOST=tcp://$MANAGER_PRIVATE_IP:2376
 echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" >> $HOME/.bash_profile
 echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" >> $HOME/.bash_profile
 echo "export DOCKER_HOST=$DOCKER_HOST" >> $HOME/.bash_profile
+echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" >> $HOME/.bash_profile 
 
 # Install docker
 bash $TMP_DIR/install-docker.sh $DOCKER_VERSION

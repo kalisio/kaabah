@@ -1,5 +1,5 @@
 resource "scaleway_ip" "manager" {
-  count = "${var.provider == "SCALEWAY" && var.manager_ip == "" ? 1 : 0}"
+  count = "${var.provider == "SCALEWAY" ? 1 : 0}"
 }
 
 resource "scaleway_server" "manager" {
@@ -20,7 +20,7 @@ resource "scaleway_server" "manager" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${self.private_ip}" # use public ip instead of manager_ip because the eip is not associated right now
+    host                = "${self.private_ip}" 
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -67,4 +67,9 @@ resource "scaleway_server" "manager" {
       "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"${var.private_network_cidr}\" ${terraform.workspace} ${var.subdomain}",
     ]
   }
+
+  depends_on = [ 
+    "scaleway_security_group_rule.manager_internal_in_accept_TCP",
+    "scaleway_security_group_rule.manager_internal_in_accept_UDP" 
+  ]
 }

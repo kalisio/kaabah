@@ -7,7 +7,7 @@ provider "null" {
 }
 
 locals {
-  subdomain      = "${replace(terraform.workspace, "-",".")}"
+  subdomain   = "${replace(terraform.workspace, "-",".")}"
 }
 
 module "Scaleway" {

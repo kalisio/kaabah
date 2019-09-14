@@ -24,7 +24,7 @@ manager_instance_type = "s1-4"
 
 manager_crontab = "tests/crontab"
 
-manager_user_script = "tests/manager-ovh.sh"
+manager_user_script = "tests/manager.sh"
 
 worker_instance_type = "s1-2"
 

@@ -1,7 +1,9 @@
 #!/bin/bash
 
+source $HOME/.bash_profile
+
 mkdir -p $HOME/shared
-echo "hello world" > shared/file
+echo  $KAABAH_MANAGER_IP > shared/file
 
 echo "#!/bin/bash" > /tmp/script.sh
 echo 'mkdir -p $HOME/shared'  >> /tmp/script.sh
@@ -9,4 +11,4 @@ echo 'sshfs ${SUDO_USER:-$USER}@$1:$HOME/shared $HOME/shared -o IdentityFile=$HO
 
 chmod +x /tmp/script.sh
 
-k-worker-foreach -s /tmp/script.sh `hostname -I | awk '{print $1;}'`
+k-worker-foreach -s /tmp/script.sh $KAABAH_MANAGER_IP

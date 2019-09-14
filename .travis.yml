@@ -32,7 +32,7 @@ jobs:
         branch: master
 
   - stage: TEST_AWS
-    if: commit_message =~ \[test\]
+    if: commit_message =~ \[test\] OR commit_message =~ \[test_aws\]
     language: node_js
     node_js:
     - '8'
@@ -40,7 +40,7 @@ jobs:
     - bash .travis.test.sh test-aws
 
   - stage: TEST_OVH
-    if: commit_message =~ \[test\]
+    if: commit_message =~ \[test\] OR commit_message =~ \[test_ovh\]
     language: node_js
     node_js:
     - '8'
@@ -48,7 +48,7 @@ jobs:
     - bash .travis.test.sh test-ovh
 
   - stage: TEST_SCW
-    if: commit_message =~ \[test\]
+    if: commit_message =~ \[test\] OR commit_message =~ \[test_scw\]
     language: node_js
     node_js:
     - '8'

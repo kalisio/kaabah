@@ -29,21 +29,28 @@ jobs:
       on:
         branch: master
 
-  - stage: TEST
+  - stage: TEST_AWS
     if: commit_message =~ \[test\]
     language: node_js
     node_js:
     - '8'
-    services:
-    - docker
-    before_script:
-    - curl -fSL "https://releases.hashicorp.com/terraform/0.11.12/terraform_0.11.12_linux_amd64.zip" -o terraform.zip
-    - sudo unzip terraform.zip -d /opt/terraform
-    - sudo ln -s /opt/terraform/terraform /usr/bin/terraform
-    - rm -f terraform.zip
-    - echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
-    - git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
     script:
-    - bash .travis.test.sh
+    - bash .travis.test.sh test-aws
+
+- stage: TEST_OVH
+    if: commit_message =~ \[test\]
+    language: node_js
+    node_js:
+    - '8'
+    script:
+    - bash .travis.test.sh test-ovh
+
+- stage: TEST_SCW
+    if: commit_message =~ \[test\]
+    language: node_js
+    node_js:
+    - '8'
+    script:
+    - bash .travis.test.sh test-scw
 
 

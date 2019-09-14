@@ -1,23 +1,31 @@
 #!/bin/bash
+WORKSPACE=$1
 
 source ../workspaces/master/env.sh
 
+# Install terraform
+curl -fSL "https://releases.hashicorp.com/terraform/0.11.12/terraform_0.11.12_linux_amd64.zip" -o terraform.zip
+sudo unzip terraform.zip -d /opt/terraform
+sudo ln -s /opt/terraform/terraform /usr/bin/terraform
+rm -f terraform.zip
+
 # Initialize terraform
+echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc
+git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
+
 terraform init -backend-config="backend.config"
 
 # Run terraform over the test workspaces
-WORKSPACES="test-aws test-ovh test-scw"
-for WORKSPACE in $WORKSPACES; do
-  terraform workspace select $WORKSPACE
-  terraform apply -auto-approve -var-file="tests/$WORKSPACE.tfvars"
-  TEST_CODE=$?
-	# Destroy the cluster whatever the result
-	terraform destroy -auto-approve -var-file="tests/$WORKSPACE.tfvars"
-	# Exit if an error has occured
-	if [ $TEST_CODE -ne 0 ]; then
-		echo "^$WORKSPACE failed [error: $TEST_CODE]"
-		exit 1
-	fi
-done
+terraform workspace select $WORKSPACE
+terraform apply -auto-approve -var-file="tests/$WORKSPACE.tfvars"
+RESULT_CODE=$?
 
+# Destroy the cluster whatever the result
+terraform destroy -auto-approve -var-file="tests/$WORKSPACE.tfvars"
 terraform workspace select default
+
+if Exit if an error has occured
+if [ $RESULT_CODE -ne 0 ]; then
+  echo "^$WORKSPACE failed [error: $RESULT_CODE]"
+	exit 1
+fi

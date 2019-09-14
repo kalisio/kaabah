@@ -19,7 +19,7 @@ jobs:
     node_js:
     - '8'
     script:
-    - bash ./travis.build.sh
+    - bash ./travis.doc.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist

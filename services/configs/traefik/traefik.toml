@@ -20,10 +20,15 @@ filePath = "/logs/access.log"
     [[entryPoints.https.tls.certificates]]
 
 [docker]
-endpoint = "unix:///var/run/docker.sock"
 watch = true
 exposedbydefault = false
 swarmmode = true
+
+[docker.tls]
+ca = "/tls/ca.pem"
+key = "/tls/key.pem"
+cert = "/tls/cert.pem"
+insecureSkipVerify = true
 
 [ping]
 entryPoint = "http"

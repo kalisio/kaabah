@@ -16,7 +16,7 @@ jobs:
   include:
 
   - stage: DOC
-    if: commit_message !~ \[skip doc\]
+    if: commit_message !~ /\[skip doc\]/
     language: node_js
     node_js:
     - '8'
@@ -32,7 +32,7 @@ jobs:
         branch: master
 
   - stage: TEST_AWS
-    if: commit_message !~ \[skip test\] AND commit_message =~ \[skip test_aws\]
+    if: commit_message !~ /\[skip test\]/
     language: node_js
     node_js:
     - '8'
@@ -40,7 +40,7 @@ jobs:
     - bash .travis.test.sh test-aws
 
   - stage: TEST_OVH
-    if: commit_message !~ \[skip test\] AND commit_message =~ \[skip test_ovh\]
+    if: commit_message !~ /\[skip test\]/
     language: node_js
     node_js:
     - '8'
@@ -48,7 +48,7 @@ jobs:
     - bash .travis.test.sh test-ovh
 
   - stage: TEST_SCW
-    if: commit_message !~ \[skip test\] AND commit_message =~ \[skip test_scw\]
+    if: commit_message !~ /\[skip test\]/
     language: node_js
     node_js:
     - '8'

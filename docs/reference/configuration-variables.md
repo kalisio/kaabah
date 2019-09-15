@@ -40,11 +40,12 @@ sidebarDepth: 3
 | `acme_file` | A certificates file if you want to reuse generated certificates. It may be useful to avoid reaching **Let's Encrypt** [rate limits](https://letsencrypt.org/docs/rate-limits/) when regenerating an infrastructure. You are responsible of retrieving the `acme.json` file from the previous infrastructure before deleting it. | The default value is ``. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 
-### Security
+### Network
 
 | Variables | Description |
 |--- | --- |
-| `ssh_user` | The user to get connected to the instances. on **Scaleway** the default value is `root` and on **AWS** the default value is `ubuntu`. |
+| `private_network_cidr` | The **CIDR** of the private network. On **Scaleway** it must be the CIDR of your private cloud. On **OVH** you can provide the CIDR of your choice. On **AWS** the variable is omitted and **Kaabah** uses the CIDR of your default **VPC**. |
+| `ssh_user` | The user to get connected to the instances. On **Scaleway** the default value is `root` and on **AWS** and **OVH** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
 | `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored for **Scaleway**. |
 | `bastion_ip` | The IP address of the bastion to be used. The default value is the value of the `manager_ip` variable. |
@@ -57,7 +58,7 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `manager_ip` | If define, it represents the IP address to be retrieved and attached to the manager. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
+| `manager_ip` | If define, it represents the IP address to be retrieved and attached to the manager. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). On **OVH** the variable is omitted because the support of the [Floating IP](https://labs.ovh.com/public-cloud-l3-services) is still experimental. If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
 | `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""`. |
 | `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `""`. |
@@ -92,6 +93,6 @@ sidebarDepth: 3
 |--- | --- |
 | `auth_user` | Your authentication identity to access the services. There is no default value. |
 | `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. There is no default value. |
-| `slack_webhook_url` | The URL to the slack webhook. The Default value is `""`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |
+| `slack_webhook_url` | The URL to the slack web hook. The Default value is `""`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |
 | `slack_channel` | The channel or user to send notifications to. Note that you must escape the `#` character by adding `\\` before it. The Default value is `"\\#alerts"`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |
 | `extensions_dir` | The directory to provision to extend the services. The default value is `""`. |

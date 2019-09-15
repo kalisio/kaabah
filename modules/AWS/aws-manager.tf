@@ -1,9 +1,3 @@
-resource "aws_eip_association" "manager" {
-  count       = "${var.provider == "AWS" && var.manager_ip != "" ? 1 : 0}"
-  instance_id = "${aws_instance.manager.id}"
-  public_ip   = "${var.manager_ip}"
-}
-
 resource "aws_instance" "manager" {
   count             = "${var.provider == "AWS" ? 1 : 0}"
   key_name          = "${var.key_name}"
@@ -66,7 +60,7 @@ resource "aws_instance" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${var.private_network_cidr} ${terraform.workspace} ${var.subdomain}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.default_vpc.cidr_block} ${terraform.workspace} ${var.subdomain}",
       "echo '127.0.0.1 ${terraform.workspace}-manager' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-manager",
     ]

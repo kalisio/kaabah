@@ -37,7 +37,6 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable private_network_cidr {}
 
 variable "image" {
   default = "ami-090f10efc254eaf55"

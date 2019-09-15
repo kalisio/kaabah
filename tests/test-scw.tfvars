@@ -16,7 +16,7 @@ ssh_key = "../workspaces/master/test-scw.pem"
 
 private_network_cidr = "10.0.0.0/8"
 
-#manager_ip = "51.15.214.148"
+manager_ip = "51.15.214.148"
 
 manager_instance_type = "DEV1-S"
 

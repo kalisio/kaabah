@@ -73,7 +73,6 @@ module "AWS" {
   contact                               = "${var.contact}"
   auth_user                             = "${var.auth_user}"
   auth_password                         = "${var.auth_password}"
-  private_network_cidr                  = "${var.private_network_cidr}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"

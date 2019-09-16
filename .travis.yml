@@ -12,6 +12,9 @@ stages:
 - name: TEST_OVH
 - name: TEST_SCW
 
+node_js:
+  - '8'
+
 env:
   - PROVIDER=aws
   - PROVIDER=ovh

@@ -12,6 +12,11 @@ stages:
 - name: TEST_OVH
 - name: TEST_SCW
 
+env:
+  - PROVIDER=aws
+  - PROVIDER=ovh
+  - PROVIDER=scw
+
 jobs:
   include:
 
@@ -31,26 +36,13 @@ jobs:
       on:
         branch: master
 
-  - stage: TEST_AWS
+  - stage: TEST
     if: commit_message !~ /\[skip test\]/
     language: node_js
     node_js:
     - '8'
     script:
-    - bash .travis.test.sh test-aws
+    - bash .travis.test.sh test-$PROVIDER
+    env: PROVIDER=aws
 
-  - stage: TEST_OVH
-    if: commit_message !~ /\[skip test\]/
-    language: node_js
-    node_js:
-    - '8'
-    script:
-    - bash .travis.test.sh test-ovh
-
-  - stage: TEST_SCW
-    if: commit_message !~ /\[skip test\]/
-    language: node_js
-    node_js:
-    - '8'
-    script:
-    - bash .travis.test.sh test-scw
+ 

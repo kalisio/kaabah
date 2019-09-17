@@ -147,8 +147,6 @@ ssh_key = "../workspaces/master/test-aws.pem"
 
 key_name = "test-aws"
 
-private_network_cidr = "172.31.0.0/16"
-
 manager_instance_type = "t2.small"
 
 manager_crontab = "tests/crontab"

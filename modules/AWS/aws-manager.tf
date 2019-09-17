@@ -1,7 +1,7 @@
 resource "aws_instance" "manager" {
   count             = "${var.provider == "AWS" ? 1 : 0}"
   key_name          = "${var.key_name}"
-  ami               = "${var.image}"
+  ami               = "${local.image}"
   availability_zone = "${var.availability_zone}"
   instance_type     = "${var.manager_instance_type}"
   security_groups   = ["${aws_security_group.security_group_manager.name}"]

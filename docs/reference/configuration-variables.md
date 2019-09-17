@@ -44,7 +44,6 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `private_network_cidr` | The **CIDR** of the private network. On **Scaleway** it must be the CIDR of your private cloud. On **OVH** you can provide the CIDR of your choice. On **AWS** the variable is omitted and **Kaabah** uses the CIDR of your default **VPC**. |
 | `ssh_user` | The user to get connected to the instances. On **Scaleway** the default value is `root` and on **AWS** and **OVH** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
 | `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored for **Scaleway**. |

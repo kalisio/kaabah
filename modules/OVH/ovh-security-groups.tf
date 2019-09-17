@@ -26,7 +26,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_SSH"
     direction           = "ingress"
     port_range_min      = 22
     port_range_max      = 22
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -38,7 +38,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_
     protocol            = "tcp"
     port_range_min      = 2376
     port_range_max      = 2376
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -50,7 +50,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_
     protocol            = "tcp"
     port_range_min      = 2377
     port_range_max      = 2377
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -62,7 +62,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_
     protocol            = "tcp"
     port_range_min      = 7946
     port_range_max      = 7946
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -74,7 +74,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_
     protocol            = "udp"
     port_range_min      = 7946
     port_range_max      = 7946
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -86,7 +86,7 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_
     protocol            = "udp"
     port_range_min      = 4789
     port_range_max      = 4789
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
@@ -142,7 +142,7 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_ssh" 
     direction           = "ingress"
     port_range_min      = 22
     port_range_max      = 22
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
@@ -154,7 +154,7 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_2
     protocol            = "tcp"
     port_range_min      = 2376
     port_range_max      = 2376
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
@@ -166,7 +166,7 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_2
     protocol            = "tcp"
     port_range_min      = 2377
     port_range_max      = 2377
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
@@ -178,7 +178,7 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_7
     protocol            = "tcp"
     port_range_min      = 7946
     port_range_max      = 7946
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
@@ -190,7 +190,7 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_7
     protocol            = "udp"
     port_range_min      = 7946
     port_range_max      = 7946
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }
 
@@ -202,6 +202,6 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_4
     protocol            = "udp"
     port_range_min      = 4789
     port_range_max      = 4789
-    remote_ip_prefix    = "${var.private_network_cidr}"
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }

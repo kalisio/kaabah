@@ -58,10 +58,6 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable "private_network_cidr" {
-  default = ""
-}
-
 variable "docker_version" {
   default = "18.06.1~ce~3-0~ubuntu"
 }

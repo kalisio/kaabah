@@ -37,11 +37,6 @@ variable auth_user {}
 
 variable auth_password {}
 
-
-variable "image" {
-  default = "ami-090f10efc254eaf55"
-}
-
 variable "instance_volume_size" {
   default = 50
 }

@@ -10,7 +10,7 @@ resource "scaleway_security_group_rule" "manager_internal_in_accept_TCP" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${var.private_network_cidr}"
+  ip_range       = "${local.private_network_cidr}"
   protocol       = "TCP"
   port           = "${element(local.scw_manager_tcp_ports, count.index)}"
 }
@@ -32,7 +32,7 @@ resource "scaleway_security_group_rule" "manager_internal_in_accept_UDP" {
   security_group = "${scaleway_security_group.security_group_manager.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${var.private_network_cidr}"
+  ip_range       = "${local.private_network_cidr}"
   protocol       = "UDP"
   port           = "${element(local.scw_manager_udp_ports, count.index)}"
 }
@@ -81,7 +81,7 @@ resource "scaleway_security_group_rule" "worker_internal_in_accept_TCP" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${var.private_network_cidr}"
+  ip_range       = "${local.private_network_cidr}"
   protocol       = "TCP"
   port           = "${element(local.scw_worker_tcp_ports, count.index)}"
 }
@@ -103,7 +103,7 @@ resource "scaleway_security_group_rule" "worker_internal_in_accept_UDP" {
   security_group = "${scaleway_security_group.security_group_worker.id}"
   action         = "accept"
   direction      = "inbound"
-  ip_range       = "${var.private_network_cidr}"
+  ip_range       = "${local.private_network_cidr}"
   protocol       = "UDP"
   port           = "${element(local.scw_worker_udp_ports, count.index)}"
 }

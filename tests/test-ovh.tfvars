@@ -16,8 +16,6 @@ ssh_key = "../workspaces/master/test-ovh.pem"
 
 key_name = "test-ovh"
 
-private_network_cidr = "192.168.0.0/24"
-
 # manager_ip = "3.120.200.41"
 
 manager_instance_type = "s1-4"
@@ -34,7 +32,7 @@ worker_additional_volume_count = 1
 
 worker_additional_volume_size = 500
 
-worker_additional_volume_type = "sc1"
+worker_additional_volume_type = "classic" 
 
 worker_additional_volume_mount_point = "data"
 

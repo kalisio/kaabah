@@ -1,7 +1,7 @@
 resource "aws_instance" "worker" {
   count                       = "${var.provider == "AWS" ? var.worker_instance_count : 0}"
   key_name                    = "${var.key_name}"
-  ami                         = "${var.image}"
+  ami                         = "${local.image}"
   availability_zone           = "${var.availability_zone}"
   instance_type               = "${var.worker_instance_type}"
   security_groups             = ["${aws_security_group.security_group_worker.name}"]

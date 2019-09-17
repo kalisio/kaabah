@@ -9,22 +9,24 @@ provider "scaleway" {
 data "scaleway_image" "manager_image" {
   count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
   architecture = "${lookup(local.architectures, var.manager_instance_type)}"
-  name         = "${var.image}"
+  name         = "${local.image}"
 }
 
 data "scaleway_image" "worker_image" {
   count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
   architecture = "${lookup(local.architectures, var.worker_instance_type)}"
-  name         = "${var.image}"
+  name         = "${local.image}"
 }
 
 locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "360s"
+  private_network_cidr = "10.0.0.0/8"
   scw_manager_tcp_ports = [ 2376, 2377, 7946, 22]
   scw_manager_udp_ports = [ 7946, 4789 ]
   scw_worker_tcp_ports = [ 2377, 7946, 22]
   scw_worker_udp_ports = [ 7946, 4789 ]
+  image = "Ubuntu Bionic"
   architectures = {
     GP1-XS      = "x86_64"
     GP1-S       = "x86_64"

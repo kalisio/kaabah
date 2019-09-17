@@ -28,8 +28,6 @@ variable auth_user {}
 
 variable auth_password {}
 
-variable "private_network_cidr" {}
-
 variable "docker_version" {}
 
 variable "docker_network" {}

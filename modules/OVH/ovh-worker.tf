@@ -40,6 +40,7 @@ resource "openstack_compute_instance_v2" "worker" {
   provisioner "remote-exec" {
     inline = [
       "mkdir ${local.tmp_dir}",
+      "mkdir -p $HOME/.config/rclone"
     ]
   }
 
@@ -56,6 +57,11 @@ resource "openstack_compute_instance_v2" "worker" {
   provisioner "file" {
     source        = "${var.docker_tls_ca_pass}"
     destination   = "${local.tmp_dir}/ca.pass"
+  }
+
+  provisioner "file" {
+    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
+    destination = "$HOME/.config/rclone/rclone.conf"
   }
 
   provisioner "file" {

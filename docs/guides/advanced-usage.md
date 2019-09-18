@@ -6,9 +6,18 @@ sidebarDepth: 3
 
 ## Cluster 
 
+### Using rclone
+
+**Kaabah** installs [rclone](https://https://rclone.org/) on each node of your cluster. By default, the configuration file is empty and you must configure it as you need it. Please refer to the official [guide](https://rclone.org/docs/#configure) to configure **rclone**.
+However you can tell **Kaabah** to provision an already defined configuration using the variable `rclone_conf` in your configuration file:
+
+```bash
+rclone_conf = "path_to_workspace/rclone.conf"
+```
+
 ### Using fail2ban
 
-**Kaabah** installs [**fail2ban**](https://www.fail2ban.org/wiki/index.php/Main_Page) on each node of your cluster with one customized **jail** for SSH connection attempts. By default, it comes with the following configuration:
+**Kaabah** installs [fail2ban](https://www.fail2ban.org/wiki/index.php/Main_Page) on each node of your cluster with one customized **jail** for SSH connection attempts. By default, it comes with the following configuration:
 
 ```ini
 [sshd]

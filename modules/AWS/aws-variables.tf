@@ -81,6 +81,8 @@ variable "worker_user_scripts" {
   type = "list"
 }
 
+variable "rclone_conf" {}
+
 variable "extensions_dir" {}
 
 variable "slack_webhook_url" {}

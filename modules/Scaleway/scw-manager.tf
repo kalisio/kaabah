@@ -34,6 +34,7 @@ resource "scaleway_server" "manager" {
  provisioner "remote-exec" {
     inline = [
       "mkdir ${local.tmp_dir}",
+      "mkdir -p $HOME/.config/rclone"
     ]
   }
 
@@ -52,6 +53,11 @@ resource "scaleway_server" "manager" {
     destination = "${local.tmp_dir}/ca.pass"
   }
 
+
+  provisioner "file" {
+    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
+    destination = "$HOME/.config/rclone/rclone.conf"
+  }
   provisioner "file" {
     source      = "scripts/"
     destination = "${local.tmp_dir}"

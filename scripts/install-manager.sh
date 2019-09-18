@@ -51,6 +51,9 @@ bash $TMP_DIR/setup-sshd.sh $FAIL2BAN_IGNORE_IP
 # Install sshfs
 bash $TMP_DIR/install-sshfs.sh
 
+# Install rclone
+apt-get -y install rclone
+
 # Install jq
 apt-get -y install jq
 

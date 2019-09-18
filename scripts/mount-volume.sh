@@ -1,7 +1,6 @@
 #!/bin/bash
 DEVICE_NAME=$1
 MOUNT_POINT=$2
-OWNER=$3
 
 # Format the volume
 mkfs -t ext4 $DEVICE_NAME
@@ -18,6 +17,7 @@ mount UUID=$VOLUME_UUID /mnt/$MOUNT_POINT
 echo UUID=$VOLUME_UUID /mnt/$MOUNT_POINT ext4 defaults,nofail 0 2 | tee -a /etc/fstab
 
 # Grant the current user the ownership of the mounted volume
-if [ "$OWNER" != "" ]; then
-  chown -R $OWNER:$OWNER /mnt/$MOUNT_POINT
+K_USER=${SUDO_USER:-$USER}
+if [ "$K_USER" != "root" ]; then
+  chown -R $SUDO_USER:$SUDO_USER /mnt/$MOUNT_POINT
 fi

@@ -12,21 +12,27 @@ sidebarDepth: 3
 
 ### Terraform
 
-You must have **Terraform** installed on your machine. For now **Kaabah** requires the `0.11.12` version of Terraform. Please refer to the [installation guide](https://learn.hashicorp.com/terraform/getting-started/install.html) to install **Terraform**.
+You must have **Terraform** installed on your computer. For now **Kaabah** requires the `0.11.12` version of Terraform. Please refer to the [official guide](https://learn.hashicorp.com/terraform/getting-started/install.html) to install **Terraform**.
 
-### Providers authentication
+### Providers 
+
+### Account authentication
 
 To enable **Terraform** to exploit the providers APIs, you must have created an account on the various providers and be aware of your credentials to access the APIs.
 
-### Instances authentication
+#### Instances authentication
 
-When running **Kaabah** and to get connected to your instances, you must be aware of the private SSH keys to access the instances. These keys are generally created 
-using the providers functionalities.
+When running **Kaabah** and to get connected to your instances, you must be aware of the private SSH keys to access the instances. These keys are generally created using the providers functionalities.
 
 In addition, **Kaabah** makes the assumption you already have a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host) installed for each providers. You must provide the information to access the bastions:
 * the public IP
 * the SSH private key
 * the SSH user
+
+#### Network 
+
+Because each of the cloud providers do not offer the same solutions regarding the network, there are some specificities to take into account.
+
 
 ### Docker TLS Certificate Authority
 

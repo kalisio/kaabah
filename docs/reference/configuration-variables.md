@@ -28,9 +28,7 @@ sidebarDepth: 3
 | `region` | The region to host the infrastructure. There is no default value. |
 | `availability_zone` | The availability zone to host the infrastructure. This variable is ignored in the case of **Scaleway**. On **AWS**, the default value is set to the first AZ of the specified region. For instance, if you provide the `eu-central-1` region, the default value will be `eu-central-1a`. |
 
-## Cluster
-
-### Routing
+## Routing
 
 | Variables | Description |
 |--- | --- |
@@ -40,7 +38,7 @@ sidebarDepth: 3
 | `acme_file` | A certificates file if you want to reuse generated certificates. It may be useful to avoid reaching **Let's Encrypt** [rate limits](https://letsencrypt.org/docs/rate-limits/) when regenerating an infrastructure. You are responsible of retrieving the `acme.json` file from the previous infrastructure before deleting it. | The default value is ``. |
 | `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 
-### Network
+## Network
 
 | Variables | Description |
 |--- | --- |
@@ -51,9 +49,7 @@ sidebarDepth: 3
 | `bastion_ssh_user` | The user to be used to get connected to the bastion. The default value is the value of the `ssh_user` variable. |
 | `bastion_ssh_key` | The private key to be used to get connected to the bastion. The default value is the value of the `ssh_key` variable. |
 
-## Cluster 
-
-### Nodes
+## Instances
 
 | `rclone_conf` | The path to the **rclone** configuration you want to provision on the nodes. The default values is `""`. |
 
@@ -80,7 +76,7 @@ sidebarDepth: 3
 | `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
 
-### Docker 
+## Docker
 
 | Variables | Description |
 |--- | --- |

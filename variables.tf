@@ -59,7 +59,7 @@ variable auth_user {}
 variable auth_password {}
 
 variable "docker_version" {
-  default = "18.06.1~ce~3-0~ubuntu"
+  default = "5:19.03.2~3-0~ubuntu-bionic"
 }
 
 variable "docker_network" {
@@ -120,6 +120,10 @@ variable "worker_labels" {
 variable "worker_user_scripts" {
   type = "list"
   default = []
+}
+
+variable "rclone_conf" {
+  default = ""
 }
 
 variable extensions_dir {

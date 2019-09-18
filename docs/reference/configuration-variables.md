@@ -51,7 +51,11 @@ sidebarDepth: 3
 | `bastion_ssh_user` | The user to be used to get connected to the bastion. The default value is the value of the `ssh_user` variable. |
 | `bastion_ssh_key` | The private key to be used to get connected to the bastion. The default value is the value of the `ssh_key` variable. |
 
-## Swarm 
+## Cluster 
+
+### Nodes
+
+| `rclone_conf` | The path to the **rclone** configuration you want to provision on the nodes. The default values is `""`. |
 
 ### Manager
 
@@ -80,7 +84,7 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `docker_version` | The version of the Docker engine to be installed. The default value is `18.06.1ce3-0~ubuntu` |
+| `docker_version` | The version of the Docker engine to be installed. The default value is `5:19.03.2~3-0~ubuntu-bionic` |
 | `docker_network` | The name of the Docker network to be created. The default value is `kaabah` |
 | `docker_tls_ca_key` | The path to the CA private key. The default value is `ca.key` |
 | `docker_tls_ca_cert` | The path to the CA public key. The default value is `ca.cert` |

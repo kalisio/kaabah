@@ -29,7 +29,7 @@ scrape_configs:
 
   - job_name: 'dockerd'
     static_configs:
-      - targets: ['${MANAGER_PRIVATE_IP}:9323']
+      - targets: ['${KAABAH_MANAGER_IP}:9323']
 
   - job_name: 'cadvisor'
     dns_sd_configs:

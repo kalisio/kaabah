@@ -6,9 +6,8 @@ CONTACT=$4
 AUTH_USER=$5
 AUTH_PASSWORD=$6
 DOCKER_NETWORK=$7
-MANAGER_PRIVATE_IP=$8
-SLACK_WEBHOOK_URL=$9
-SLACK_CHANNEL=${10}
+SLACK_WEBHOOK_URL=$8
+SLACK_CHANNEL=$9
 
 TMP_DIR=/tmp/kaabah
 
@@ -26,8 +25,7 @@ echo DOCKER_NETWORK=$DOCKER_NETWORK >> .env
 echo SLACK_WEBHOOK_URL=$SLACK_WEBHOOK_URL >> .env
 echo SLACK_CHANNEL=$SLACK_CHANNEL >> .env
 
-# Customize promotheus configuration
-export MANAGER_PRIVATE_IP
+# Customize promotheus configuration using KAABAH_MANAGER_IP
 envsubst < configs/prometheus/prometheus.yml.tpl > configs/prometheus/prometheus.yml
 
 if [ "$SLACK_WEBHOOK_URL" != "" ] && [ "$SLACK_CHANNEL" != "" ]; then

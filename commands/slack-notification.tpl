@@ -2,7 +2,7 @@
   "text" : "*[${WORKSPACE}] ${SERVICE}*",
   "attachments": [ {
         "title":"[${ACTION}] status: ${STATUS}",
-        "title_link": "https://portainer.${SUBDOMAIN}",
+        "title_link": "https://alertmanager.${SUBDOMAIN}",
         "color":"${COLOR}"
      }
    ]

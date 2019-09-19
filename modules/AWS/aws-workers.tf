@@ -71,7 +71,7 @@ resource "aws_instance" "worker" {
   # Tell the manager to remove the node on destroy
   provisioner "remote-exec" {
     inline = [
-      "sudo docker node rm --force `sudo k-node-find ${self.private_ip}`",
+      "sudo docker node rm --force `k-node-find ${self.private_ip}`",
     ]
     when       = "destroy"
     on_failure = "continue"

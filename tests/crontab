@@ -1,2 +1,2 @@
 # Clears the swarm every night at midnight
-0 0 * * * sudo k-swarm-prune
+0 0 * * * k-swarm-prune

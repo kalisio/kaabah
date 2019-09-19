@@ -14,8 +14,8 @@ resource "null_resource" "manager_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}`",
-      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}` \"${var.manager_labels}\""
+      "k-label-clear `k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}`",
+      "k-label-add `k-node-find ${element(openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4, 0)}` \"${var.manager_labels}\""
     ]
   }
 
@@ -38,8 +38,8 @@ resource "null_resource" "worker_labels" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo k-label-clear `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}`",
-      "sudo k-label-add `sudo k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}` \"${var.worker_labels[count.index]}\""
+      "k-label-clear `k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}`",
+      "k-label-add `k-node-find ${element(openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4, count.index)}` \"${var.worker_labels[count.index]}\""
     ]
   }
 

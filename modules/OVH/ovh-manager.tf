@@ -28,10 +28,6 @@ resource "openstack_compute_instance_v2" "manager" {
     timeout             = "${local.timeout}"
   }
 
-  provisioner "remote-exec" {
-    script = "modules/OVH/setup-nic.sh"
-  }
-
   provisioner "file" {
     source      = "${var.ssh_key}"
     destination = "~/.ssh/ssh.pem"
@@ -58,7 +54,16 @@ resource "openstack_compute_instance_v2" "manager" {
     source      = "${var.docker_tls_ca_pass}"
     destination = "${local.tmp_dir}/ca.pass"
   }
-  
+
+  provisioner "file" {
+    source      = "modules/OVH/setup-netplan.sh"
+    destination = "${local.tmp_dir}/setup-netplan.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = "sudo bash ${local.tmp_dir}/setup-netplan.sh ${var.manager_ip}"
+  }
+
   provisioner "file" {
     source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
     destination = "$HOME/.config/rclone/rclone.conf"

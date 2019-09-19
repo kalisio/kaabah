@@ -1,5 +1,14 @@
 #!/bin/bash
+FAILOVER_IP=$1
 
+# setup the failover ip if any
+# configure netplan
+if [ "$FAILOVER_IP" != "" ]; then
+  echo "            addresses:" | sudo tee -a /etc/netplan/50-cloud-init.yaml
+  echo "            - $FAILOVER_IP/32" | sudo tee -a /etc/netplan/50-cloud-init.yaml
+fi
+
+# Setup the private ip
 # Retrieve the unconfigured interface
 INTERFACE_DOWN=`ip address list | grep DOWN`
 # Retrieve the name of the interface 
@@ -14,5 +23,6 @@ echo "            dhcp4: true" | sudo tee -a /etc/netplan/50-cloud-init.yaml
 echo "            match:" | sudo tee -a /etc/netplan/50-cloud-init.yaml
 echo "                macaddress: $INTERFACE_MAC" | sudo tee -a /etc/netplan/50-cloud-init.yaml
 echo "            set-name: ens4" | sudo tee -a /etc/netplan/50-cloud-init.yaml
+
 # Restart netplan
 sudo netplan apply

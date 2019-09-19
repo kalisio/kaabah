@@ -7,7 +7,7 @@ provider "openstack" {
 
 locals {
   tmp_dir = "/tmp/kaabah"
-  timeout = "180s"
+  timeout = "360s"
   private_network_name = "Private-Net"
   private_subnet_name = "Private-Subnet"
   private_network_cidr = "192.168.0.0/24"

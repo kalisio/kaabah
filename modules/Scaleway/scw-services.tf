@@ -37,7 +37,7 @@ resource "null_resource" "services" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${var.slack_webhook_url} ${var.slack_channel}",
+      "bash ${local.tmp_dir}/install-services.sh ${var.domain} ${var.subdomain} ${var.ca_server} ${var.contact} ${var.auth_user} '${var.auth_password}' ${var.docker_network} ${scaleway_server.manager.private_ip} ${var.slack_webhook_url} ${var.slack_channel}",
       ". ./.bash_profile && cd kaabah && ./deploy-services.sh",
     ]
   }

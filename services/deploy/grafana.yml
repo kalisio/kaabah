@@ -33,6 +33,7 @@ services:
         - "traefik.frontend.entryPoints=http,https"
         - "traefik.frontend.auth.basic=${AUTH_USER}:${AUTH_PASSWORD}"
         - "traefik.frontend.rule=Host:grafana.${SUBDOMAIN}"
+        - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"        
       restart_policy:
         condition: on-failure
 

@@ -227,3 +227,17 @@ To monitor the services of your cluster, you can add the following line to your 
 ```
 
 Check the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) documentation for more detail.
+
+### Securing the services
+
+#### Cross site scripting
+
+To enable Cross [Site Scripting protection](https://www.owasp.org/index.php/Cross-site_Scripting_(XSS), you should add the following **Traefik** label:
+
+```yml
+services:
+  my_service:
+    deploy:
+      label:
+       - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"
+```    

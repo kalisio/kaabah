@@ -138,26 +138,20 @@ Using the registry is simple as:
 
 ```bash
 # Build example
-$docker build https://github.com/<organisation>/<repository>.git -t <image>
+$docker build https://github.com/<organisation>/<repository>.git -t localhost:5000/<image>:<tag>
 ```
 
-2. tag the image
-  
-```bash
-$docker tag <image> 127.0.0.1:5000/<image>:<tag>
-```
-
-3. push the image into the registry
+2. push the image into the registry
 
 ```bash
-$docker push 127.0.0.1:5000/<image>:<tag>
+$docker push localhost:5000/<image>:<tag>
 ```
 
 4. create or deploy a service using the image in the registry
 
 ```bash
 # create a service
-$docker service create --replicas 4 --name <service> 127.0.0.4:5000/<image>:<tag>
+$docker service create --replicas 4 --name <service> localhost:5000/<image>:<tag>
 ```
 
 or 
@@ -174,7 +168,7 @@ version: '3.5'
 
 services:
   <service>:
-    image: 127.0.0.1:5000/<image>:<tag>
+    image: localhost:5000/<image>:<tag>
     networks:
       - kaabah-network
     deploy:

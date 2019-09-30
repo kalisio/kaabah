@@ -16,7 +16,7 @@ You must have **Terraform** installed on your computer. For now **Kaabah** requi
 
 ### Providers 
 
-### Account authentication
+#### Account authentication
 
 To enable **Terraform** to exploit the providers APIs, you must have created an account on the various providers and be aware of your credentials to access the APIs.
 
@@ -31,8 +31,7 @@ In addition, **Kaabah** makes the assumption you already have a [**Bastion**](ht
 
 #### Network 
 
-Because each of the cloud providers do not offer the same solutions regarding the network, there are some specificities to take into account.
-
+Because each of the cloud providers do not offer the same solutions regarding the network, there are some specificities to take into account. Mainly, to use the **OVH** module, it is necessary beforehand to create a private network named **Private-Net** and a subnet named **Private-Subnet**. In the other hand, you can assign to the subnet the **CIDR** of your choice, **Kaabah** will retrieve it.
 
 ### Docker TLS Certificate Authority
 

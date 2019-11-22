@@ -91,15 +91,49 @@ Checks whether the service is healthy.
 
 `usage: k-service-check <service_name> [starting_duration]`
 
-::: tip 
-You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
-`SLACK_TEMPLATE_MESSAGE`
+The `starting_duration` provides initialization time for services that need time to bootstrap. It must be expressed in seconds and the default value is `300`.
+
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: 
+* `SLACK_WEBHOOK_URL` 
+* `SLACK_TEMPLATE_MESSAGE`
+
+**Kaabah** provides a default slack template message: 
+
+<<< @/docs/../commands/slack-notification.tpl
+
+If you provide your own notification template, take note that the following variables are templatized by the command:
+** `SERVICE`: the observed service
+** `STATUS`: the observed status
+** `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
+** `COLOR`:  the color is set to `daner` when emitting a new alert and `good` when resolving an alert
+
+Here is an example of message template that can be used as a payload for slack notification:
+
+```json
+{
+  "text":"*My cluster specific notification*",
+  "attachments": [
+     {
+        "title":"[${ACTION}] ${SERVICE} (status: ${STATUS})",
+        "title_link": "https://an-url",
+        "color":"${COLOR}"
+     }
+   ]
+}
+```
+
+::: tip
+See the [Messaging payload reference](https://api.slack.com/reference/messaging/payload) for a complete description.
 :::
 
 ### Example
 
 ```bash
-$k-service-check kaabah_grafana
+export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/my-application-webook
+export SLACK_TEMPLATE_MESSAGE=/etc/kaabah/slack-notification.tpl
+$k-service-check kaabah_grafana   # ok
+$k-service-check kaabah_cadvisor # nok
+[alert] service kaabah_cadvisor is unhealthy  # raises an alert in slack
 ```
 
 ## k-service-status
@@ -120,6 +154,37 @@ This command is often used to find why a service can't start
 $k-service-status kaabah_portainer
 ID                          NAME                 IMAGE           NODE                DESIRED STATE       CURRENT                                                          STATE               ERROR               PORTS
 ne6otm12od24hmj576bj8322c   kaabah_portainer.1   portainer/portainer:latest@sha256:07c0e19e28e18414dd02c313c36b293758acf197d5af45077e3dd69c630e25cc   ip-172-31-36-140    Running             Running about an hour ago
+```
+
+## k-stack-check
+
+### Description
+
+Checks the health of the services belonging to the given stack.
+
+`usage: k-stack-check <stack_name> [starting_duration]`
+
+The `starting_duration` provides initialization time for services that need time to bootstrap. It must be expressed in seconds and the default value is `300`.
+
+::: tip 
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
+`SLACK_TEMPLATE_MESSAGE`. More details [here](#k-service-check).
+:::
+
+### Example
+
+```bash
+$k-stack-check kaabah
+checking service kaabah_registry
+checking service kaabah_node-exporter
+[critical] service kaabah_node-exporter reminds unhealthy
+checking service kaabah_prometheus
+checking service kaabah_grafana
+checking service kaabah_cadvisor
+[critical] service kaabah_cadvisor reminds unhealthy
+checking service kaabah_pushgateway
+checking service kaabah_alertmanager
+checking service kaabah_traefik
 ```
 
 ## k-stack-update
@@ -165,12 +230,32 @@ verify: Service converged
 
 ### Description
 
-Checks the docker events for the events of type of `unhealthy` and `die` status. The command returns only the latest events during the given time gap.
+Checks the health of the services.
 
-`usage: k-swarm-check <time_gap>`
-`usage: k-swarm-check --slack|-s <time_gap> <slack_webhook_url> [slack_message_template]`
+`usage: k-swarm-check [starting_duration]`
 
-The parameter `time_gap` is defined in **Go** duration strings (e.g. 30s, 10m, 1h30m) 
+The `starting_duration` provides initialization time for services that need time to bootstrap. It must be expressed in seconds and the default value is `300`.
+
+::: tip 
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
+`SLACK_TEMPLATE_MESSAGE`. More details [here](#k-service-check).
+:::
+
+### Example
+
+```bash
+$k-stack-check kaabah
+checking service kaabah_registry
+checking service kaabah_node-exporter
+[critical] service kaabah_node-exporter reminds unhealthy
+checking service kaabah_prometheus
+checking service kaabah_grafana
+checking service kaabah_cadvisor
+[critical] service kaabah_cadvisor reminds unhealthy
+checking service kaabah_pushgateway
+checking service kaabah_alertmanager
+checking service kaabah_traefik
+```
 
 If the `slack` option is enabled, you must provide the slack webhook url and optionally a notification template.
 By default, **Kaabah** provides the following template:
@@ -205,7 +290,26 @@ See the [Messaging payload reference](https://api.slack.com/reference/messaging/
 ### Example
 
 ```
-$k-swarm-check -s 30s https://hooks.slack.com/services/my-application-webook
+$k-swarm-check
+checking service kaabah_alertmanager
+checking service kaabah_cadvisor
+[critical] service kaabah_cadvisor reminds unhealthy
+checking service kaabah_grafana
+checking service kaabah_node-exporter
+[critical] service kaabah_node-exporter reminds unhealthy
+checking service kaabah_prometheus
+checking service kaabah_pushgateway
+checking service kaabah_registry
+checking service kaabah_traefik
+checking service kapp_app
+[critical] service kapp_app reminds unhealthy
+checking service kapp_mongodb
+checking service kargo-hubeau_hubeau-observations
+checking service kargo-hubeau_hubeau-stations
+checking service kargo-ows_mapproxy
+checking service kargo-ows_mapserver
+checking service kargo-services_mongodb
+checking service kargo-services_redis
 ```
 
 ## k-swarm-info

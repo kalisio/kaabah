@@ -1,18 +1,61 @@
 #!/bin/bash
 
 usage() {
-  echo "usage: k-service-check <service_id>"
+  echo "usage: k-service-check <service> [starting_duration]"
 }
 
 
 help() {
-  echo "Checks the status of the given service"
+  echo "Checks the health of the given service"
   usage
 }
 
 exec() {
-  local SERVICE_ID=$1
-  docker service ps --no-trunc $SERVICE_ID
+  mkdir -p /tmp/alerts
+  local ALERT_FILE=/tmp/alerts/$1
+  local STARTING_DURATION=${2:-300}
+  # we must perform the check after initialization time
+  local CREATED_DATE=`docker service inspect --format "{{.CreatedAt}}" kaabah_cadvisor | awk '{print $1,$2}'`
+  local CREATED_TIMESTAMP=`date -d "$CREATED_DATE" +"%s"`
+  local NOW_TIMESTAMP=`date +"%s"`
+  local RUNNING_DURATION=$((NOW_TIMESTAMP-CREATED_TIMESTAMP))
+  if [ "$RUNNING_DURATION" -lt "$STARTING_DURATION" ]; then
+    rm -f $ALERT_FILE
+    exit 0
+  fi
+  # perform the check
+  local REPLICAS_INFO=`docker service ls --filter name=$1 --format "{{.Replicas}}"`
+  if [ "$REPLICAS_INFO" == "" ]; then
+    echo error: the given service does not exist
+    exit 0
+  fi
+  local REPLICAS_REGEXP="(.*)/(.*)"
+  [[ "$REPLICAS_INFO" =~ $REPLICAS_REGEXP ]]
+  local RUNNING_REPLICAS="${BASH_REMATCH[1]}"
+  local EXPECTED_REPLICAS="${BASH_REMATCH[2]}"
+  if [ "$RUNNING_REPLICAS" != "$EXPECTED_REPLICAS" ]; then
+    if [ ! -f $ALERT_FILE ]; then
+      touch $ALERT_FILE
+      echo [alert] service $1 is unhealthy
+      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_MESSAGE_TEMPLATE" ]; then
+        local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$1 STATUS=unhealthy envsubst < $SLACK_MESSAGE_TEMPLATE`
+        curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null 2>&1
+      fi
+    else
+     echo [critical] service $1 reminds unhealthy
+    fi
+    exit 2
+  else
+    if [ -f $ALERT_FILE ]; then
+      rm $ALERT_FILE
+      echo: [resolved] service $1 is now healty
+      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_MESSAGE_TEMPLATE" ]; then
+        local PAYLOAD=`ACTION=RESOLVED COLOR=goof SERVICE=$1 STATUS=healthy envsubst < $SLACK_MESSAGE_TEMPLATE`
+        curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null 2>&1
+      fi
+    fi
+  fi
+  exit 0
 }
 
 if [ -z "$1" ]; then
@@ -20,7 +63,8 @@ if [ -z "$1" ]; then
    exit 1
 fi
 
-if [ "$#" -ne 1 ]; then
+
+if [ "$#" -ne 1 ] && [ "$#" -ne 2 ]; then
   echo error: illegal number of arguments
   usage
   exit 1
@@ -28,5 +72,5 @@ fi
 
 case $1 in
   -h|--help) help;;
-  *) exec "$1"
+  *) exec "$1" "$2"
 esac

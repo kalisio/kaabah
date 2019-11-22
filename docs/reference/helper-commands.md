@@ -87,9 +87,28 @@ $k-node-find 172.31.34.218
 
 ### Description
 
-Checks the status of the given service.
+Checks whether the service is healthy.
 
-`usage: k-service-check <service_id|service_name>`
+`usage: k-service-check <service_name> [starting_duration]`
+
+::: tip 
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
+`SLACK_TEMPLATE_MESSAGE`
+:::
+
+### Example
+
+```bash
+$k-service-check kaabah_grafana
+```
+
+## k-service-status
+
+### Description
+
+Returns the status of the given service.
+
+`usage: k-service-status <service_id|service_name>`
 
 ::: tip 
 This command is often used to find why a service can't start
@@ -98,7 +117,7 @@ This command is often used to find why a service can't start
 ### Example 
 
 ```bash
-$k-service-check kaabah_portainer
+$k-service-status kaabah_portainer
 ID                          NAME                 IMAGE           NODE                DESIRED STATE       CURRENT                                                          STATE               ERROR               PORTS
 ne6otm12od24hmj576bj8322c   kaabah_portainer.1   portainer/portainer:latest@sha256:07c0e19e28e18414dd02c313c36b293758acf197d5af45077e3dd69c630e25cc   ip-172-31-36-140    Running             Running about an hour ago
 ```

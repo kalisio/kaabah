@@ -93,13 +93,13 @@ Checks whether the service is healthy.
 
 The `starting_duration` provides initialization time for services that need time to bootstrap. It must be expressed in seconds and the default value is `300`.
 
-You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: 
-* `SLACK_WEBHOOK_URL` 
-* `SLACK_TEMPLATE_MESSAGE`
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variable: `SLACK_WEBHOOK_URL` 
 
-**Kaabah** provides a default slack template message: 
+**Kaabah** provides a default slack message template: 
 
 <<< @/docs/../commands/slack-notification.tpl
+
+You can provide your own message template by defining the environment variable: `SLACK_TEMPLATE_MESSAGE`.
 
 If you provide your own notification template, take note that the following variables are templatized by the command:
 ** `SERVICE`: the observed service

@@ -14,6 +14,7 @@ exec() {
   mkdir -p /tmp/alerts
   local ALERT_FILE=/tmp/alerts/$1
   local STARTING_DURATION=${2:-300}
+  local SLACK_PAYLOAD_TEMPLATE=${SLACK_MESSAGE_TEMPLATE:-/etc/kaabah/slack-notification.tpl}
   # we must perform the check after initialization time
   local CREATED_DATE=`docker service inspect --format "{{.CreatedAt}}" $1 | awk '{print $1,$2}'`
   local CREATED_TIMESTAMP=`date -d "$CREATED_DATE" +"%s"`
@@ -35,10 +36,13 @@ exec() {
   local EXPECTED_REPLICAS="${BASH_REMATCH[2]}"
   if [ "$RUNNING_REPLICAS" != "$EXPECTED_REPLICAS" ]; then
     if [ ! -f $ALERT_FILE ]; then
+      echo alert
       touch $ALERT_FILE
       echo [alert] service $1 is unhealthy
-      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_MESSAGE_TEMPLATE" ]; then
-        local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$1 STATUS=unhealthy envsubst < $SLACK_MESSAGE_TEMPLATE`
+      echo $SLACK_WEBHOOK_URL
+      echo $SLACK_MESSAGE_TEMPLATE
+      if [ -n "$SLACK_WEBHOOK_URL" ]; then
+        local PAYLOAD=`ACTION=FIRING COLOR=danger SERVICE=$1 STATUS=unhealthy envsubst < $SLACK_PAYLOAD_TEMPLATE`
         curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null 2>&1
       fi
     else
@@ -49,8 +53,8 @@ exec() {
     if [ -f $ALERT_FILE ]; then
       rm $ALERT_FILE
       echo: [resolved] service $1 is now healty
-      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_MESSAGE_TEMPLATE" ]; then
-        local PAYLOAD=`ACTION=RESOLVED COLOR=goof SERVICE=$1 STATUS=healthy envsubst < $SLACK_MESSAGE_TEMPLATE`
+      if [ -n "$SLACK_WEBHOOK_URL" ]; then
+        local PAYLOAD=`ACTION=RESOLVED COLOR=goof SERVICE=$1 STATUS=healthy envsubst < $SLACK_PAYLOD_TEMPLATE`
         curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null 2>&1
       fi
     fi

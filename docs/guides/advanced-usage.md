@@ -217,7 +217,9 @@ To monitor the services of your cluster, you can add the following line to your 
 
 ```bash
 # k-swarm-check executed every minute
-* * * * * k-swarm-check -s 60s https://hooks.slack.com/services/my-application-webook 
+export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/my-application-webook
+export SLACK_TEMPLATE_MESSAGE=/etc/kaabah/slack-notification.tpl
+* * * * * k-swarm-check 
 ```
 
 Check the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) documentation for more detail.

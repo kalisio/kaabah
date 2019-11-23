@@ -15,7 +15,7 @@ exec() {
   local ALERT_FILE=/tmp/alerts/$1
   local STARTING_DURATION=${2:-300}
   # we must perform the check after initialization time
-  local CREATED_DATE=`docker service inspect --format "{{.CreatedAt}}" kaabah_cadvisor | awk '{print $1,$2}'`
+  local CREATED_DATE=`docker service inspect --format "{{.CreatedAt}}" $1 | awk '{print $1,$2}'`
   local CREATED_TIMESTAMP=`date -d "$CREATED_DATE" +"%s"`
   local NOW_TIMESTAMP=`date +"%s"`
   local RUNNING_DURATION=$((NOW_TIMESTAMP-CREATED_TIMESTAMP))

@@ -12,9 +12,8 @@ help() {
 
 exec() {
   local STARTING_DURATION=${1:-300}
-  local SERVICES=`docker service ls --format="{{.Name}}"`
+  local SERVICES=`docker service ls --format="{{.ID}}"`
   for SERVICE in $SERVICES; do
-    echo checking service $SERVICE
     k-service-check $SERVICE $STARTING_DURATION
   done
 }

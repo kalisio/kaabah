@@ -102,10 +102,10 @@ You can take advantage of raising an alert using **Slack** if you predefined the
 You can provide your own message template by defining the environment variable: `SLACK_TEMPLATE_MESSAGE`.
 
 If you provide your own notification template, take note that the following variables are templatized by the command:
-** `SERVICE`: the observed service
-** `STATUS`: the observed status
-** `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
-** `COLOR`:  the color is set to `daner` when emitting a new alert and `good` when resolving an alert
+* `SERVICE`: the observed service
+* `STATUS`: the observed status
+* `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
+* `COLOR`:  the color is set to `daner` when emitting a new alert and `good` when resolving an alert
 
 Here is an example of message template that can be used as a payload for slack notification:
 

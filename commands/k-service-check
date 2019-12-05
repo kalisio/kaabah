@@ -28,7 +28,6 @@ exec() {
   local RUNNING_DURATION=$((NOW_TIMESTAMP-UPDATED_TIMESTAMP))
   local STARTING_DURATION=${2:-300}
   if [ "$RUNNING_DURATION" -lt "$STARTING_DURATION" ]; then
-    rm -f $ALERT_FILE
     exit 0
   fi
   # perform the check

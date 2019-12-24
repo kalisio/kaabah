@@ -8,6 +8,7 @@ systemctl restart sshd
 
 # Install fail2ban
 # https://www.techrepublic.com/article/how-to-install-fail2ban-on-ubuntu-server-18-04/
+export DEBIAN_FRONTEND=noninteractive
 apt-get -y install fail2ban
 # Configure the SSHD service
 echo "[sshd]" > /etc/fail2ban/kaabah.conf

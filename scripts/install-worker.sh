@@ -38,5 +38,6 @@ bash $TMP_DIR/install-sshfs.sh
 # Install rclone
 apt-get -y install rclone
 
-# Install jq
+# Install jq/yq
 apt-get -y install jq
+snap install yq

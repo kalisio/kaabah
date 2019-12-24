@@ -16,7 +16,7 @@
   "editable": false,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1577144287024,
+  "iteration": 1577176826839,
   "links": [],
   "panels": [
     {
@@ -31,7 +31,7 @@
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 0
@@ -124,13 +124,13 @@
       "datasource": "Prometheus",
       "editable": false,
       "error": false,
-      "fill": 1,
+      "fill": 3,
       "grid": {},
       "gridPos": {
-        "h": 10,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 9
       },
       "id": 10,
       "legend": {
@@ -220,10 +220,10 @@
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 7,
-        "w": 12,
+        "h": 5,
+        "w": 24,
         "x": 0,
-        "y": 20
+        "y": 18
       },
       "id": 26,
       "legend": {
@@ -314,10 +314,10 @@
       "fill": 1,
       "grid": {},
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 20
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 23
       },
       "id": 25,
       "legend": {
@@ -434,9 +434,10 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "tags": [],
+          "text": "kargo-jobs",
           "value": [
-            "$__all"
+            "kargo-jobs"
           ]
         },
         "datasource": "Prometheus",
@@ -461,7 +462,6 @@
       {
         "allValue": ".+",
         "current": {
-          "tags": [],
           "text": "All",
           "value": [
             "$__all"
@@ -489,7 +489,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {

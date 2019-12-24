@@ -1,3 +1,31 @@
+### 0.11.0 (2019-12-24)
+
+##### New Features
+
+*  Grafana swarm dashboard cpu panel must show data per tasks (close [#130](https://github.com/kalisio/kaabah/pull/130)) [skip ci] ([4e2df52f](https://github.com/kalisio/kaabah/commit/4e2df52f693a49a7c65578c78c20779a205d3f89))
+*  Enhance Grafana cluster dashboard CPU/Load panels (close [#132](https://github.com/kalisio/kaabah/pull/132)) ([1f30e752](https://github.com/kalisio/kaabah/commit/1f30e752b353ad2a38c4766548bdf284ec40b613))
+*  Enhance swarm check strategy (close [#133](https://github.com/kalisio/kaabah/pull/133)) ([0efae4f4](https://github.com/kalisio/kaabah/commit/0efae4f4369be1f57cab9a11d1ec3569bb7c0d81))
+*  Enhance swarm check strategy (close [#133](https://github.com/kalisio/kaabah/pull/133)) [skip ci] ([abfd19b4](https://github.com/kalisio/kaabah/commit/abfd19b4692732facb373e3c4e6d8d04ae104ed4))
+*  Enhance swarm check strategy (close [#133](https://github.com/kalisio/kaabah/pull/133)) [skip ci] ([563928af](https://github.com/kalisio/kaabah/commit/563928af56c1991622f780864dce4c8ad1c123dd))
+*  Enhance swarm check strategy (close [#133](https://github.com/kalisio/kaabah/pull/133)) ([36562f28](https://github.com/kalisio/kaabah/commit/36562f2825bc02c2c7fb79bd99dc3fb3fc898d6c))
+*  Enhance swarm check strategy (close [#133](https://github.com/kalisio/kaabah/pull/133)) [skip ci] ([89539126](https://github.com/kalisio/kaabah/commit/895391260490f843b04904e2a0ea05dbb9a8997c))
+*  Rename k-service-check in k-service-status (close [#131](https://github.com/kalisio/kaabah/pull/131)) [skip ci] ([c0a3b6e3](https://github.com/kalisio/kaabah/commit/c0a3b6e32280373d593fbc6ca63d57a877ba3d63))
+
+##### Bug Fixes
+
+*  Cannot install libssl anymore (close [#134](https://github.com/kalisio/kaabah/pull/134)) ([2fc70604](https://github.com/kalisio/kaabah/commit/2fc706042c61c9503107a92fb809f43191929713))
+*  Cannot setup netplan anymore on OVH (close [#135](https://github.com/kalisio/kaabah/pull/135)) ([fee0f13a](https://github.com/kalisio/kaabah/commit/fee0f13a158ba30aa5a98886a2a15bf9504bc18c))
+*  Grafana swarm dashboard network panels appear to show incorrect values (close [#129](https://github.com/kalisio/kaabah/pull/129)) ([4d08357d](https://github.com/kalisio/kaabah/commit/4d08357d611a300dc88bff228a0bdde0341775c8))
+
+##### Other Changes
+
+*  Cannot setup netplan anymore on OVH [#135](https://github.com/kalisio/kaabah/pull/135) ([b39c3610](https://github.com/kalisio/kaabah/commit/b39c3610326fb9b8ea7488dbf9df76e63bf18278))
+*  Cannot setup netplan anymore on OVH [#135](https://github.com/kalisio/kaabah/pull/135) ([5f4b2140](https://github.com/kalisio/kaabah/commit/5f4b2140123af39230922a953f2fd8a15ca89481))
+*  Cannot setup netplan anymore on OVH [#135](https://github.com/kalisio/kaabah/pull/135) ([9d2ef537](https://github.com/kalisio/kaabah/commit/9d2ef5371eb60c213ce478598d2ce2237c067cf7))
+*  Cannot install libssl anymore [#134](https://github.com/kalisio/kaabah/pull/134) ([49952ef8](https://github.com/kalisio/kaabah/commit/49952ef842c4be2df977003508d96ad8a237d9f5))
+*  Cannot install libssl anymore [#134](https://github.com/kalisio/kaabah/pull/134) ([80176be0](https://github.com/kalisio/kaabah/commit/80176be07c013e7ecc49f33fb9fbc49f2146a578))
+*  Enhance swarm check strategy [#133](https://github.com/kalisio/kaabah/pull/133) [skip ci] ([c38e53fd](https://github.com/kalisio/kaabah/commit/c38e53fd7087488773d2e43ca98c917022429379))
+
 ### 0.10.0 (2019-09-30)
 
 ##### New Features

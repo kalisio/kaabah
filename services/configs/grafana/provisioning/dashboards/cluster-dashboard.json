@@ -13,7 +13,7 @@
     ]
   },
   "description": "Cluster metrics",
-  "editable": true,
+  "editable": false,
   "gnetId": null,
   "graphTooltip": 0,
   "iteration": 1577121956381,

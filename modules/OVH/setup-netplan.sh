@@ -1,6 +1,9 @@
 #!/bin/bash
 FAILOVER_IP=$1
 
+# Install yq
+snap install yq
+
 # Copy the file
 cp /etc/netplan/50-cloud-init.yaml 50-cloud-init.yaml
 

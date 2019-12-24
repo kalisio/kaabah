@@ -1,7 +1,7 @@
 #!/bin/bash
 FAILOVER_IP=$1
 
-# Install yq
+# Install yq to update netplan configuration
 snap install yq
 
 # Copy the file

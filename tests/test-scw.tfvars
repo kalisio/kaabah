@@ -14,7 +14,7 @@ auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
 
 ssh_key = "../workspaces/master/test-scw.pem"
 
-manager_ip = "51.158.71.174"
+manager_ip = "51.15.239.41"
 
 manager_instance_type = "DEV1-S"
 

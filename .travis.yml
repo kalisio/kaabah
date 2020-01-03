@@ -21,9 +21,9 @@ script:
 
 stages:
 - name: DOC
-  if: commit_message !~ /\[skip doc\]/
+  if: commit_message !~ /(skip[ _-]doc)/
 - name: TEST
-  if: commit_message !~ /\[skip test\]/
+  if: commit_message !~ /(skip[ _-]test)/
 
 jobs:
   include:

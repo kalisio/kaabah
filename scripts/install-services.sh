@@ -39,8 +39,10 @@ fi
 # Copy the scripts to manage the stack
 cp $TMP_DIR/deploy-services.sh .
 cp $TMP_DIR/remove-services.sh .
+cp $TMAP_DIR/restart-services.sh .
 chmod +x deploy-services.sh
 chmod +x remove-services.sh
+chmod +x restart-services.sh
 
 # Copy the acme file
 if [ -s $TMP_DIR/acme.json ]; then

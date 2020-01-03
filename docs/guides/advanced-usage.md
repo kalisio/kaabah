@@ -222,7 +222,7 @@ export SLACK_TEMPLATE_MESSAGE=/etc/kaabah/slack-notification.tpl
 * * * * * k-swarm-check 
 ```
 
-Check the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) documentation for more detail.
+Check the [`k-swarm-check`](../reference/helper-commands.md#k-swarm-check) documentation for more details.
 
 ### Securing the services
 
@@ -237,3 +237,7 @@ services:
       label:
        - "traefik.frontend.headers.customResponseHeaders=X-XSS-Protection: 1; mode=block"
 ```    
+
+### Restarting the services
+
+To restart the services regularly, you can use the `restart-services.sh` script which has been provisioned on the manager node and in the directory: `$HOME/kaabah`

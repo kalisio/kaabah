@@ -1,3 +1,9 @@
+## 1.0.0 (2020-01-17)
+
+##### New Features
+
+*  Add a script to restart the services (close [#136](https://github.com/kalisio/kaabah/pull/136)) ([91be8016](https://github.com/kalisio/kaabah/commit/91be801610f4e60bdb5d22c65d658cd167a3a05c))
+
 ### 0.11.0 (2019-12-24)
 
 ##### New Features

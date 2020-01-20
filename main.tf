@@ -24,11 +24,6 @@ module "Scaleway" {
   ssh_user                              = "${var.ssh_user != "" ? var.ssh_user : "root"}"   
   domain                                = "${var.domain}"
   subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
-  ca_server                             = "${var.ca_server}"
-  acme_file                             = "${var.acme_file}"
-  contact                               = "${var.contact}"
-  auth_user                             = "${var.auth_user}"
-  auth_password                         = "${var.auth_password}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -47,9 +42,6 @@ module "Scaleway" {
   worker_labels                         = "${var.worker_labels}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
   rclone_conf                           = "${var.rclone_conf}"  
-  extensions_dir                        = "${var.extensions_dir}"
-  slack_webhook_url                     = "${var.slack_webhook_url}"
-  slack_channel                         = "${var.slack_channel}"
 }
 
 module "AWS" {
@@ -68,11 +60,6 @@ module "AWS" {
   key_name                              = "${var.key_name}" 
   domain                                = "${var.domain}"
   subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
-  ca_server                             = "${var.ca_server}"
-  acme_file                             = "${var.acme_file}"  
-  contact                               = "${var.contact}"
-  auth_user                             = "${var.auth_user}"
-  auth_password                         = "${var.auth_password}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -92,9 +79,6 @@ module "AWS" {
   worker_labels                         = "${var.worker_labels}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
   rclone_conf                           = "${var.rclone_conf}"  
-  extensions_dir                        = "${var.extensions_dir}"
-  slack_webhook_url                     = "${var.slack_webhook_url}"
-  slack_channel                         = "${var.slack_channel}"  
 }
 
 module "OVH" {
@@ -110,11 +94,6 @@ module "OVH" {
   key_name                              = "${var.key_name}"  
   domain                                = "${var.domain}"
   subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
-  ca_server                             = "${var.ca_server}"
-  acme_file                             = "${var.acme_file}"  
-  contact                               = "${var.contact}"
-  auth_user                             = "${var.auth_user}"
-  auth_password                         = "${var.auth_password}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -134,7 +113,4 @@ module "OVH" {
   worker_labels                         = "${var.worker_labels}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
   rclone_conf                           = "${var.rclone_conf}"
-  extensions_dir                        = "${var.extensions_dir}"
-  slack_webhook_url                     = "${var.slack_webhook_url}"
-  slack_channel                         = "${var.slack_channel}"  
 }

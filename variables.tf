@@ -41,23 +41,6 @@ variable "domain" {}
 variable "subdomain" {
   default = ""
 }
-
-variable "ca_server" {
-  default = "https://acme-v02.api.letsencrypt.org/directory"
-}
-
-variable "acme_file" {
-  default = ""
-}
-
-variable contact {
-  default = "contact@kalisio.com"
-}
-
-variable auth_user {}
-
-variable auth_password {}
-
 variable "docker_version" {
   default = "5:19.03.2~3-0~ubuntu-bionic"
 }
@@ -124,16 +107,4 @@ variable "worker_user_scripts" {
 
 variable "rclone_conf" {
   default = ""
-}
-
-variable extensions_dir {
-  default = ""
-}
-
-variable "slack_webhook_url" {
-  default = ""
-}
-
-variable "slack_channel" {
-  default = "\\#alerts"
 }

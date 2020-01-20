@@ -20,16 +20,6 @@ variable domain {}
 
 variable subdomain {}
 
-variable ca_server {}
-
-variable acme_file {}
-
-variable contact {}
-
-variable auth_user {}
-
-variable auth_password {}
-
 variable "region" {}
 
 variable "docker_version" {}
@@ -71,10 +61,3 @@ variable "worker_user_scripts" {
 }
 
 variable "rclone_conf" {}
-
-variable "extensions_dir" {}
-
-variable "slack_webhook_url" {}
-
-variable "slack_channel" {}
-

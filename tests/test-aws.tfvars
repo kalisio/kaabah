@@ -4,14 +4,6 @@ region = "eu-central-1"
 
 domain = "kalisio.xyz"
 
-ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
-
-#acme_file = "tests/acme.json"
-
-auth_user = "admin"
-
-auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
-
 ssh_key = "../workspaces/master/test-aws.pem"
 
 key_name = "test-aws"
@@ -40,4 +32,3 @@ worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 
 worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
 
-extensions_dir = "tests/extensions"

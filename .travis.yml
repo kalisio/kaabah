@@ -6,34 +6,31 @@ notifications:
     on_success: always
     on_failure: always
 
-language: node_js
-node_js:
-  - '8'    
-
-env:
-  matrix:
-    - PROVIDER=aws
-    - PROVIDER=ovh
-    - PROVIDER=scw
-
-script:
-  - bash .travis.test.sh test-$PROVIDER
-
 stages:
-- name: DOC
-  if: commit_message !~ /(skip[ _-]doc)/
 - name: TEST
   if: commit_message !~ /(skip[ _-]test)/
+- name: DOC
+  if: commit_message !~ /(skip[ _-]doc)/
 
 jobs:
   include:
+
+  - stage: TEST
+    language: node_js
+    node_js:
+    - '8'
+    services:
+    - docker
+    script: bash .travis.test.sh ovh
+  - # added to BUILD stage
+    script: bash .travis.test.sh scw
+  - # added to BUILD stage
+    script: bash .travis.test.sh aws
 
   - stage: DOC
     language: node_js
     node_js:
     - '8'
-    env:
-    - PROVIDER=none
     script:
     - bash .travis.doc.sh
     deploy:

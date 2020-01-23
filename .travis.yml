@@ -22,9 +22,9 @@ jobs:
     services:
     - docker
     script: bash .travis.test.sh ovh
-  - # added to BUILD stage
+  - # added to TEST stage
     script: bash .travis.test.sh scw
-  - # added to BUILD stage
+  - # added to TEST stage
     script: bash .travis.test.sh aws
 
   - stage: DOC

@@ -1,5 +1,5 @@
 #!/bin/bash
-WORKSPACE=$1
+WORKSPACE=test-$1
 
 # Retrieve envrironment secrets
 echo -e "machine github.com\n  login $GITHUB_TOKEN" > ~/.netrc

@@ -5,7 +5,7 @@ sidebarDepth: 3
 # Getting started
 
 ::: warning 
-**Kaabah** relies on various technologies such as [Terraform](https://www.terraform.io/), [Docker Swarm](https://docs.docker.com/engine/swarm/), [Traefik](https://traefik.io)... and we assume that you are enough familiar with them. If not, please take a while to discover them.
+Because **Kaabah** relies on [Terraform](https://www.terraform.io/) and [Docker Swarm](https://docs.docker.com/engine/swarm/), we assume you are enough familiar with them. If not, please take a while to discover them.
 :::
 
 ## Prerequisites
@@ -139,14 +139,6 @@ provider = "AWS"
 region = "eu-central-1"
 
 domain = "kalisio.xyz"
-
-ca_server = "https://acme-staging-v02.api.letsencrypt.org/directory"
-
-#acme_file = "tests/acme.json"
-
-auth_user = "admin"
-
-auth_password = "$apr1$5.zwyoj.$IBdA2H8cHHQtLPzm/9veL/"
 
 ssh_key = "../workspaces/master/test-aws.pem"
 

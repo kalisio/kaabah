@@ -34,9 +34,6 @@ sidebarDepth: 3
 |--- | --- |
 | `domain` | The domain to be added to the traefik rules. There is no default value. |
 | `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
-| `ca_server` | The **Let's Encrypt** server to generate certificates. The default value is empty to let traefik manage for you. However and because **Let's Encrypt** provides [rate limits](https://letsencrypt.org/docs/rate-limits/) it is recommended to set this value to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure. |
-| `acme_file` | A certificates file if you want to reuse generated certificates. It may be useful to avoid reaching **Let's Encrypt** [rate limits](https://letsencrypt.org/docs/rate-limits/) when regenerating an infrastructure. You are responsible of retrieving the `acme.json` file from the previous infrastructure before deleting it. | The default value is ``. |
-| `contact`| The email contact provided to Let's Encrypt when generating certificates. The default value is `contact@kalisio.com` |
 
 ## Network
 
@@ -85,13 +82,3 @@ sidebarDepth: 3
 | `docker_tls_ca_key` | The path to the CA private key. The default value is `ca.key` |
 | `docker_tls_ca_cert` | The path to the CA public key. The default value is `ca.cert` |
 | `docker_tls_ca_pass` | The path to the CA passphrase file. The default value is `ca.pass` |
-
-## Services
-
-| Variables | Description |
-|--- | --- |
-| `auth_user` | Your authentication identity to access the services. There is no default value. |
-| `auth_password` | Your authentication password to access the services. It can be encoded in **MD5**, **SHA1** and **BCrypt**: you can use [htpasswd](http://www.htaccesstools.com/htpasswd-generator/) to generate it. There is no default value. |
-| `slack_webhook_url` | The URL to the slack web hook. The Default value is `""`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |
-| `slack_channel` | The channel or user to send notifications to. Note that you must escape the `#` character by adding `\\` before it. The Default value is `"\\#alerts"`. If you do not provide any value you must override the **AlertManager** configuration through the extensions. |
-| `extensions_dir` | The directory to provision to extend the services. The default value is `""`. |

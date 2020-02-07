@@ -14,11 +14,7 @@ sidebarDepth: 3
 * **Workspace**: a collection of everything **Kaabah** needs to create and manage an infrastructure.
 * **Configuration**: a set of Terraform variables used to define your infrastructure.
 * **Cluster**: a [Docker Swarm](https://docs.docker.com/engine/swarm/key-concepts/). 
-* **Service**: an application deployed on your **Swarm**. By default, **Kaabah** comes with the following services which helps operating the **Cluster**:
-  * [Traefik](https://traefik.io)
-  * [Prometheus](https://prometheus.io)
-  * [Grafana](https://grafana.com)
-  * [Registry](https://docs.docker.com/registry)
+* **Service**: an application deployed on your **Swarm**. 
   
 The following image illustrates how these entities interact:
 
@@ -31,9 +27,7 @@ In addition **Kaabah** provides a set of commands that help you to operate the c
 **Kaabah** is designed to take advantage of Terraform Workspaces. Indeed, **Kaabah** relies on the [Terraform recommend practices](https://www.terraform.io/docs/enterprise/guides/recommended-practices/part1.html#the-recommended-terraform-workspace-structure) and assume a **Workspace** is used to store the required data needed to build and manage an infrastructure for a specific environment (staging, production...):
 * the configuration of the infrastructure.
 * the SSH private key to get connected to the infrastructure
-* the extensions to the services you want to be installed by **Kaabah**
 * the user scripts you want to be executed when creating the infrastructure
-* the SSH private key to get connected to the infrastructure
 * the Terraform states of the infrastructure.
 
 Starting from this premise, **Kaabah** lets you to manage as many clusters as your projects require. If we decide to name our workspaces with both the project name and its environment (i.e. dev, test...), we can sketch the following diagram to illustrate the overall functioning of **Kaabah**:
@@ -144,72 +138,4 @@ When creating the cluster, **Kaabah** handles the creation of the server and cli
 ::: tip Note
 **Kaabah** relies on [OpenSSL](https://www.openssl.org/) to generate the server and client keys.
 :::
-
-## Services
-
-As mentioned in the introduction, **Kaabah** bootstraps a cluster with a stack of high level services that allows you to:
-- route the traffic to the cluster and ensure SSL termination using [Traefik](https://traefik.io/)
-- monitor the cluster using [Prometheus](https://prometheus.io/)
-- analyze the cluster metrics using [Grafana](https://grafana.com/)
-
-::: tip Note
-The access to the UI of the different services is protected using Basic Authentication.
-:::
-
-In addition, **Kaabah** lets you extend this stack to add the services of your choice. See the [Extending the services](./advanced-usage.md#extending-the-services) section to learn how to do it.
-
-### [Traefik](https://traefik.io)
-
-**traefik** allows to route the traffic from internet to the Docker Swarm infrastructure with SSL termination. It uses [Let's Encrypt](https://letsencrypt.org/) to generate and renew SSL certificates for each services.
-
-::: warning
-Du to rate limits fixed by Let's Encrypt, it is highly recommend to set the `ca_server` variable to `https://acme-staging-v02.api.letsencrypt.org/directory` when testing your infrastructure.
-:::
-
-By default, **Kaabah** specializes the **traefik** configuration with:
-* 2 entrypoints: 
-  * to allow HTTPS requests (port 443)
-  * to redirect HTTP (port 80) request to HTTPS (port 443)
-* 5 frontends to access the services: 
-  - **traefik (dashboard)**
-  - **Prometheus**
-  - **Alertmanager**
-  - **Grafana** 
-
-The frontend rules depend on the `subdomain` and `donain` variables defined in the Terraform configuration. Considering a workspace named `app-dev`, the default subdomain will be `app.dev`and the **traefik** configuration will be as shown in the following diagram:
-
-![traefik routing](../assets/kaabah-traefik.svg)
-
-### [Prometheus](https://prometheus.io)
-
-The **Prometheus** monitoring solution is shipped with the following components:
-* [Alertmanager](https://prometheus.io/docs/alerting/alertmanager/) which handles the alerts.
-* the scrapers components:
-  * [node-exporter](https://github.com/prometheus/node_exporter) which collect the metrics of the cluster's hosts
-  * [cAdvisor](https://github.com/google/cadvisor) which collect the metrics of the services deployed on the Docker swarm
-
-::: tip
-Note that **Prometheus** is also configured to scrape:
-* [the Docker engine](https://docs.docker.com/config/thirdparty/prometheus/)
-* [Traefik](https://docs.traefik.io/configuration/metrics/)
-:::
-  
-### [Grafana](https://grafana.com)
-
-**Grafana** allows you to visualize the metrics stored in the **Prometheus** databases through dedicated dashboards.
-
-By default, **Grafana** includes the following customizations:
-* UI: 
-  * Login form disabled: indeed the access to **Grafana** requires to be authenticated (basic auth). This requirement is defined using Traefik frontend rule.
-  * Once authenticated, the default user is granted the `EDITOR` permissions.
-* Datasources: the Prometheus datasource is included by default. 
-* Dashboards: 2 dashboards are provided by default:
-  * Cluster overview which allow to visualize the main metrics of the cluster nodes
-  * Swarm overview which allow to visualize the main metrics of the Docker swarm   
-  
-### [Registry](https://docs.docker.com/registry)
-
-The **Registry** helps you build local images on your cluster and deploy them as a service.
-
-Read the [Using the Registry](./advanced-usage.md#using-the-registry) section.
 

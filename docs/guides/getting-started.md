@@ -132,8 +132,6 @@ provider = "AWS"
 
 region = "eu-central-1"
 
-domain = "kalisio.xyz"
-
 ssh_key = "../workspaces/master/test-aws.pem"
 
 key_name = "test-aws"

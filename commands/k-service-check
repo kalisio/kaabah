@@ -11,7 +11,6 @@ help() {
 }
 
 exec() {
-  local SLACK_PAYLOAD_TEMPLATE=${SLACK_MESSAGE_TEMPLATE:-/etc/kaabah/slack-notification.tpl}
   # retreve the name of the service
   local SERVICE_NAME=`docker service inspect $1 --format="{{.Spec.Name}}"`
   if [ "$SERVICE_NAME" == "" ]; then
@@ -46,7 +45,7 @@ exec() {
       touch $ALERT_FILE
       echo [alert] service $SERVICE_NAME is unhealthy
       if [ -n "$SLACK_WEBHOOK_URL" ]; then
-        local PAYLOAD=`ACTION=ALERT COLOR=danger SERVICE=$SERVICE_NAME STATUS=unhealthy envsubst < $SLACK_PAYLOAD_TEMPLATE`
+        local PAYLOAD=`ACTION=ALERT COLOR=danger SERVICE=$SERVICE_NAME STATUS=unhealthy LINK=$SLACK_LINK envsubst < $SLACK_PAYLOAD_TEMPLATE`
         curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null
       fi
     else

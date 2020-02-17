@@ -16,10 +16,6 @@ variable "ssh_user" {
 
 variable "ssh_key" {}
 
-variable domain {}
-
-variable subdomain {}
-
 variable "region" {}
 
 variable "docker_version" {}

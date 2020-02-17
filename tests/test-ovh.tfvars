@@ -2,8 +2,6 @@ provider = "OVH"
 
 region = "GRA5"
 
-domain = "kalisio.xyz"
-
 ssh_key = "../workspaces/master/test-ovh.pem"
 
 key_name = "test-ovh"

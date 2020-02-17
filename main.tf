@@ -6,10 +6,6 @@ provider "null" {
   version = "~> 1.0.0"
 }
 
-locals {
-  subdomain   = "${replace(terraform.workspace, "-",".")}"
-}
-
 module "Scaleway" {
   source = "./modules/Scaleway"
 
@@ -22,8 +18,6 @@ module "Scaleway" {
   bastion_ssh_user                      = "${var.bastion_ssh_users["SCW"]}"
   ssh_key                               = "${var.ssh_key}"
   ssh_user                              = "${var.ssh_user != "" ? var.ssh_user : "root"}"   
-  domain                                = "${var.domain}"
-  subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -58,8 +52,6 @@ module "AWS" {
   ssh_key                               = "${var.ssh_key}"
   ssh_user                              = "${var.ssh_user != "" ? var.ssh_user : "ubuntu"}"
   key_name                              = "${var.key_name}" 
-  domain                                = "${var.domain}"
-  subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"
@@ -92,8 +84,6 @@ module "OVH" {
   ssh_key                               = "${var.ssh_key}"
   ssh_user                              = "${var.ssh_user != "" ? var.ssh_user : "ubuntu"}"
   key_name                              = "${var.key_name}"  
-  domain                                = "${var.domain}"
-  subdomain                             = "${var.subdomain != "" ? var.subdomain : format("%s.%s", local.subdomain, var.domain)}"
   docker_version                        = "${var.docker_version}"
   docker_network                        = "${var.docker_network}"
   docker_tls_ca_key                     = "${var.docker_tls_ca_key}"

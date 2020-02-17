@@ -36,11 +36,6 @@ variable "key_name" {
   default = ""
 }
 
-variable "domain" {}
-
-variable "subdomain" {
-  default = ""
-}
 variable "docker_version" {
   default = "5:19.03.2~3-0~ubuntu-bionic"
 }

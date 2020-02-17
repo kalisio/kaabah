@@ -23,10 +23,6 @@ variable "ssh_key" {}
 
 variable "key_name" {}
 
-variable domain {}
-
-variable subdomain {}
-
 variable "instance_volume_size" {
   default = 50
 }

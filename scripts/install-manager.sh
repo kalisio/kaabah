@@ -2,11 +2,8 @@
 DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
 FAIL2BAN_IGNORE_IP=$3
-WORKSPACE=$4
-SUBDOMAIN=$5
 
 TMP_DIR=/tmp/kaabah
-CONFIG_DIR=/etc/kaabah
 
 # Generate TLS certificates
 bash $TMP_DIR/create-server-certificates.sh $MANAGER_PRIVATE_IP
@@ -62,8 +59,5 @@ for COMMAND in $TMP_DIR/k-*; do
   chmod +x $COMMAND
   mv $COMMAND /usr/local/sbin/.
 done
-mkdir $CONFIG_DIR
-export WORKSPACE
-export SUBDOMAIN
-envsubst '${WORKSPACE},${SUBDOMAIN}' < $TMP_DIR/slack-notification.tpl > $CONFIG_DIR/slack-notification.tpl
+
 

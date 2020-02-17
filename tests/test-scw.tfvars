@@ -2,8 +2,6 @@ provider = "SCALEWAY"
 
 region = "par1"
 
-domain = "kalisio.xyz"
-
 ssh_key = "../workspaces/master/test-scw.pem"
 
 manager_ip = "51.15.239.41"

@@ -81,7 +81,7 @@ resource "openstack_compute_instance_v2" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${data.openstack_networking_subnet_v2.private_subnet.cidr} ${terraform.workspace} ${var.subdomain}",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${data.openstack_networking_subnet_v2.private_subnet.cidr}",
     ]
   }
 }

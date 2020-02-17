@@ -14,10 +14,6 @@ variable "ssh_key" {}
 
 variable "key_name" {}
 
-variable domain {}
-
-variable subdomain {}
-
 variable "docker_version" {}
 
 variable "docker_network" {}

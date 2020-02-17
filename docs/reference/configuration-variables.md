@@ -28,13 +28,6 @@ sidebarDepth: 3
 | `region` | The region to host the infrastructure. There is no default value. |
 | `availability_zone` | The availability zone to host the infrastructure. This variable is ignored in the case of **Scaleway**. On **AWS**, the default value is set to the first AZ of the specified region. For instance, if you provide the `eu-central-1` region, the default value will be `eu-central-1a`. |
 
-## Routing
-
-| Variables | Description |
-|--- | --- |
-| `domain` | The domain to be added to the traefik rules. There is no default value. |
-| `subdomain` | The subdomain to be added to the traefik rules. By default, the value will be computed from the Terraform workspace name by replacing each `-` by `.`. For instance, the subdomain for the workspace `app-dev` will be `app.dev.domain` |
-
 ## Network
 
 | Variables | Description |

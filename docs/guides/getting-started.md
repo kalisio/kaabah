@@ -115,12 +115,6 @@ $terraform init -backend-config="path/to/your/backend.config"
 
 ## Usage
 
-::: warning ACME certificates
-To ensure ACME certificates generation, **traefik** has to be reachable by **Let's Encrypt** through port 80. You can refer to [ACME configuration (httpChallenge)](https://docs.traefik.io/configuration/acme/#httpchallenge) for further information. 
-
-Please take care your DNS is correctly configured. A **A Record** should map your domain to the Swarm manager IP address.
-:::
-
 ### Create a workspace
 
 ```bash
@@ -165,8 +159,6 @@ worker_additional_volume_mount_point = "data"
 worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
 
 worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
-
-extensions_dir = "tests/extensions"
 ```
 
 ### Apply the changes

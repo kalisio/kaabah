@@ -48,6 +48,8 @@ sidebarDepth: 3
 
 ## Instances
 
+| Variables | Description |
+|--- | --- |
 | `rclone_conf` | The path to the **rclone** configuration you want to provision on the nodes. The default values is `""`. |
 
 ### Manager

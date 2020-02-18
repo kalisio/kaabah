@@ -44,8 +44,8 @@ exec() {
       mkdir -p $ALERT_DIR
       touch $ALERT_FILE
       echo [alert] service $SERVICE_NAME is unhealthy
-      if [ -n "$SLACK_WEBHOOK_URL" ]; then
-        local PAYLOAD=`ACTION=ALERT COLOR=danger SERVICE=$SERVICE_NAME STATUS=unhealthy LINK=$SLACK_LINK envsubst < $SLACK_PAYLOAD_TEMPLATE`
+      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_PAYLOAD_TEMPLATE" ]; then
+        local PAYLOAD=`ACTION=ALERT COLOR=danger SERVICE=$SERVICE_NAME STATUS=unhealthy envsubst < $SLACK_PAYLOAD_TEMPLATE`
         curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null
       fi
     else
@@ -56,7 +56,7 @@ exec() {
     if [ -f $ALERT_FILE ]; then
       rm -f $ALERT_FILE
       echo [resolved] service $SERVICE_NAME is now healty
-      if [ -n "$SLACK_WEBHOOK_URL" ]; then
+      if [ -n "$SLACK_WEBHOOK_URL" ] && [ -n "$SLACK_PAYLOAD_TEMPLATE" ]; then
         local PAYLOAD=`ACTION=RESOLVED COLOR=good SERVICE=$SERVICE_NAME STATUS=healthy envsubst < $SLACK_PAYLOAD_TEMPLATE`
         curl -X POST -H "Content-type: application/json" --data "$PAYLOAD" $SLACK_WEBHOOK_URL > /dev/null
       fi

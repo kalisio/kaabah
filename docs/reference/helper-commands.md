@@ -93,19 +93,13 @@ Checks whether the service is healthy.
 
 The `starting_duration` provides initialization time for services that need time to bootstrap. It must be expressed in seconds and the default value is `300`.
 
-You can take advantage of raising an alert using **Slack** if you predefined the following environment variable: `SLACK_WEBHOOK_URL` 
-
-**Kaabah** provides a default slack message template: 
-
-<<< @/docs/../commands/slack-notification.tpl
-
-You can provide your own message template by defining the environment variable: `SLACK_TEMPLATE_MESSAGE`.
-
-If you provide your own notification template, take note that the following variables are templatized by the command:
-* `SERVICE`: the observed service
-* `STATUS`: the observed status
-* `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
-* `COLOR`:  the color is set to `daner` when emitting a new alert and `good` when resolving an alert
+You can take advantage of raising an alert using **Slack** if you predefined the following environment variable: 
+* `SLACK_WEBHOOK_URL`: the URL of the **Slack** webhook
+* `SLACK_PAYLOAD_TEMPLATE`: the path to the payload template file. The following variables are templatized by the command:
+  * `SERVICE`: the observed service
+  * `STATUS`: the observed status
+  * `ACTION`: the action is set to `FIRING` when emitting a new alert and `RESOLVED` when resolving an alert
+  * `COLOR`:  the color is set to `daner` when emitting a new alert and `good` when resolving an alert
 
 Here is an example of message template that can be used as a payload for slack notification:
 
@@ -120,7 +114,6 @@ Here is an example of message template that can be used as a payload for slack n
      }
    ]
 }
-```
 
 ::: tip
 See the [Messaging payload reference](https://api.slack.com/reference/messaging/payload) for a complete description.
@@ -130,7 +123,7 @@ See the [Messaging payload reference](https://api.slack.com/reference/messaging/
 
 ```bash
 export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/my-application-webook
-export SLACK_TEMPLATE_MESSAGE=/etc/kaabah/slack-notification.tpl
+export SLACK_PAYLOAD_TEMPLATE=$HOME/slack-notification.tpl
 $k-service-check kaabah_grafana   # ok
 $k-service-check kaabah_cadvisor # nok
 [alert] service kaabah_cadvisor is unhealthy  # raises an alert in slack
@@ -168,7 +161,7 @@ The `starting_duration` provides initialization time for services that need time
 
 ::: tip 
 You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
-`SLACK_TEMPLATE_MESSAGE`. More details [here](#k-service-check).
+`SLACK_PAYLOAD_TEMPLATE`. More details [here](#k-service-check).
 :::
 
 ### Example
@@ -238,7 +231,7 @@ The `starting_duration` provides initialization time for services that need time
 
 ::: tip 
 You can take advantage of raising an alert using **Slack** if you predefined the following environment variables: `SLACK_WEBHOOK_URL` and
-`SLACK_TEMPLATE_MESSAGE`. More details [here](#k-service-check).
+`SLACK_PAYLOAD_TEMPLATE`. More details [here](#k-service-check).
 :::
 
 ### Example

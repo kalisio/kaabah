@@ -1,3 +1,16 @@
+### 1.1.0 (2020-02-18)
+
+##### New Features
+
+*  Stop using a default slack notification template (close [#138](https://github.com/kalisio/kaabah/pull/138)) [skip test] ([69a580f8](https://github.com/kalisio/kaabah/commit/69a580f8cb79515aa5f9a2a70bdde4948ca1b5b2))
+*  Stop deploying the services when creating the cluster (close [#137](https://github.com/kalisio/kaabah/pull/137)) ([2b9e1fa5](https://github.com/kalisio/kaabah/commit/2b9e1fa5b053be4f45f437d0ff6f00b9c0032d60))
+
+##### Other Changes
+
+*  Stop using a default slack notification template [#138](https://github.com/kalisio/kaabah/pull/138) ([0b97ebe7](https://github.com/kalisio/kaabah/commit/0b97ebe70f2d69dac772d85fc926bc6feac0bd46))
+*  updated documentation ([d227fffc](https://github.com/kalisio/kaabah/commit/d227fffca61754a204f4b0fc8b141b47ae85cdd7))
+*  Stop deploying the services when creating the cluster [#137](https://github.com/kalisio/kaabah/pull/137) ([5e6490ec](https://github.com/kalisio/kaabah/commit/5e6490ec476aa2b1bc0fd795dfef9e77d8a4c5e7))
+
 ## 1.0.0 (2020-01-17)
 
 ##### New Features

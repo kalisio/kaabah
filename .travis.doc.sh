@@ -1,6 +1,6 @@
 #!/bin/bash
 
-npm run docs:build
+ncd docs && yarn install && yarn build
 RESULT_CODE=$?
 if [ $RESULT_CODE -ne 0 ]; then
   echo "Doc generation failed [error: $RESULT_CODE]"

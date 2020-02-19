@@ -8,7 +8,6 @@ module.exports = {
   ],
   theme: 'kalisio',
   themeConfig: {
-    docsDir: 'docs',
     nav: [
       { text: 'About', link: '/about/introduction' },
       { text: 'Guides', link: '/guides/understanding-kaabah' },

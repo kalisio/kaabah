@@ -31,8 +31,8 @@ jobs:
     language: node_js
     node_js:
     - '8'
-    script:
-    - bash .travis.doc.sh
+    install: true
+    script: bash .travis.doc.sh
     deploy:
       provider: pages
       local-dir: docs/.vuepress/dist

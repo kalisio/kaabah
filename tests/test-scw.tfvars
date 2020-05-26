@@ -12,7 +12,7 @@ manager_crontab = "tests/crontab"
 
 manager_user_script = "tests/manager.sh"
 
-worker_instance_type = "C2S"
+worker_instance_type = "DEV1-M"
 
 worker_instance_count = 2
 

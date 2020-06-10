@@ -20,7 +20,7 @@ exec() {
 
   # Delete the unused volumes
   docker volume prune -f
-  k-worker-foreach -c "docker image prune -f"
+  k-worker-foreach -c "docker volume prune -f"
 
   # Delete the unused networks 
   docker network prune -f

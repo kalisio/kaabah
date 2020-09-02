@@ -24,9 +24,8 @@ resource "null_resource" "manager_user_script" {
   }
 
   depends_on = [
-    "scaleway_server.manager",
-    "scaleway_server.worker", # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
-    "null_resource.worker_volume_mount"
+    "null_resource.manager_gluster_mount",
+    "null_resource.worker_gluster_mount"
   ]
 }
 

@@ -3,7 +3,7 @@ resource "scaleway_ip" "manager" {
 }
 
 resource "scaleway_server" "manager" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
+  count          = "${var.provider == "SCALEWAY" ? var.manager_instance_count : 0}"
   name           = "${terraform.workspace}-manager"
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
@@ -70,7 +70,7 @@ resource "scaleway_server" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} \"${local.private_network_cidr}\"",
+      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${scaleway_server.manager.0.private_ip} \"${local.private_network_cidr}\"",
     ]
   }
 

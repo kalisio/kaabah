@@ -90,6 +90,78 @@ resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_
     security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
 }
 
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_24007" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 24007
+    port_range_max      = 24007
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_24007" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 24007
+    port_range_max      = 24007
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_24008" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 24008
+    port_range_max      = 24008
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_24008" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 24008
+    port_range_max      = 24008
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_TCP_49152" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 49152
+    port_range_max      = 49152
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "manager_private_in_accept_UDP_49152" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 49152
+    port_range_max      = 49152
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.manager_security_group.id}"
+}
+
 resource "openstack_networking_secgroup_rule_v2" "manager_in_accept_HTTP" {
     count               = "${var.provider == "OVH" ? 1 : 0}"
     region              = "${var.region}"
@@ -202,6 +274,78 @@ resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_4
     protocol            = "udp"
     port_range_min      = 4789
     port_range_max      = 4789
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_24007" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 24007
+    port_range_max      = 24007
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_24007" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 24007
+    port_range_max      = 24007
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_24008" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 24008
+    port_range_max      = 24008
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_24008" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 24008
+    port_range_max      = 24008
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_TCP_49152" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "tcp"
+    port_range_min      = 49152
+    port_range_max      = 49152
+    remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
+    security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "worker_private_in_accept_UDP_49152" {
+    count               = "${var.provider == "OVH" ? 1 : 0}"
+    region              = "${var.region}"
+    direction           = "ingress"
+    ethertype           = "IPv4"
+    protocol            = "udp"
+    port_range_min      = 49152
+    port_range_max      = 49152
     remote_ip_prefix    = "${data.openstack_networking_subnet_v2.private_subnet.cidr}"
     security_group_id   = "${openstack_networking_secgroup_v2.worker_security_group.id}"
 }

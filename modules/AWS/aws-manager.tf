@@ -1,5 +1,5 @@
 resource "aws_instance" "manager" {
-  count             = "${var.provider == "AWS" ? 1 : 0}"
+  count             = "${var.provider == "AWS" ? var.manager_instance_count : 0}"
   key_name          = "${var.key_name}"
   ami               = "${local.image}"
   availability_zone = "${var.availability_zone}"
@@ -67,14 +67,14 @@ resource "aws_instance" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_default_vpc.default_vpc.cidr_block}",
-      "echo '127.0.0.1 ${terraform.workspace}-manager' | sudo tee -a /etc/hosts",
-      "sudo hostnamectl set-hostname ${terraform.workspace}-manager",
+      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager.0.private_ip} ${aws_default_vpc.default_vpc.cidr_block}",
+      "echo '127.0.0.1 ${terraform.workspace}-manager-${count.index}' | sudo tee -a /etc/hosts",
+      "sudo hostnamectl set-hostname ${terraform.workspace}-manager-${count.index}",
     ]
   }
 
   tags {
-    Name = "${terraform.workspace}-manager"
+    Name = "${terraform.workspace}-manager-${count.index}"
   }
 }
 

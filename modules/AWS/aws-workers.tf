@@ -62,7 +62,7 @@ resource "aws_instance" "worker" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-worker.sh ${var.docker_version} ${aws_instance.manager.private_ip} ${aws_default_vpc.default_vpc.cidr_block}",
+      "sudo bash ${local.tmp_dir}/install-worker.sh ${var.docker_version} ${aws_instance.manager.0.private_ip} ${aws_default_vpc.default_vpc.cidr_block}",
       "echo '127.0.0.1 ${terraform.workspace}-worker-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-worker-${count.index}",
     ]
@@ -81,7 +81,7 @@ resource "aws_instance" "worker" {
       bastion_host        = "${var.bastion_ip}"
       bastion_user        = "${var.bastion_ssh_user}"
       bastion_private_key = "${file(var.bastion_ssh_key)}"
-      host                = "${aws_instance.manager.private_ip}"
+      host                = "${aws_instance.manager.0.private_ip}"
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"

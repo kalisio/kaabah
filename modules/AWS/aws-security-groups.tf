@@ -38,6 +38,48 @@ resource "aws_security_group" "security_group_manager" {
   }
 
   ingress {
+    from_port   = 24007 
+    to_port     = 24007 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24007
+    to_port     = 24007
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24008 
+    to_port     = 24008 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24008
+    to_port     = 24008
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 49152 
+    to_port     = 49152 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 49152
+    to_port     = 49152
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
     from_port   = "80"
     to_port     = "80"
     protocol    = "tcp"
@@ -98,6 +140,48 @@ resource "aws_security_group" "security_group_worker" {
   ingress {
     from_port   = 4789
     to_port     = 4789
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24007 
+    to_port     = 24007 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+  
+  ingress {
+    from_port   = 24007
+    to_port     = 24007
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24008 
+    to_port     = 24008 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 24008
+    to_port     = 24008
+    protocol    = "udp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 49152 
+    to_port     = 49152 
+    protocol    = "tcp"
+    cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
+  }
+
+  ingress {
+    from_port   = 49152
+    to_port     = 49152
     protocol    = "udp"
     cidr_blocks = [ "${aws_default_vpc.default_vpc.cidr_block}" ]
   }

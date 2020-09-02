@@ -6,9 +6,11 @@ ssh_key = "../workspaces/master/test-ovh.pem"
 
 key_name = "test-ovh"
 
-# manager_ip = "3.120.200.41"
+manager_instance_count = 1
 
 manager_instance_type = "s1-4"
+
+# manager_ip = "3.120.200.41"
 
 manager_crontab = "tests/crontab"
 
@@ -26,5 +28,5 @@ worker_additional_volume_type = "classic"
 
 worker_additional_volume_mount_point = "data"
 
-worker_user_scripts=["tests/worker.sh"/*, "tests/worker.sh"*/]
+worker_user_scripts=["tests/worker.sh"]
 

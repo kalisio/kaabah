@@ -6,7 +6,7 @@ resource "null_resource" "manager_crontab" {
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${aws_instance.manager.private_ip}"
+    host                = "${aws_instance.manager.0.private_ip}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"

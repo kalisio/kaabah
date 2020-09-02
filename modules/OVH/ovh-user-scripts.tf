@@ -24,9 +24,8 @@ resource "null_resource" "manager_user_script" {
   }
 
   depends_on = [
-    "openstack_compute_instance_v2.manager", 
-    "openstack_compute_instance_v2.worker",
-    "null_resource.worker_volume_mount"
+    "null_resource.manager_gluster_mount",
+    "null_resource.worker_gluster_mount"
   ]
 }
 
@@ -43,10 +42,12 @@ resource "null_resource" "worker_user_scripts" {
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
   }
-   provisioner "file" {
+
+  provisioner "file" {
     source      = "${var.worker_user_scripts[count.index]}"
     destination = "${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"
   }
+  
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"

@@ -46,6 +46,10 @@ variable "docker_tls_ca_cert" {}
 
 variable "docker_tls_ca_pass" {}
 
+variable "manager_instance_count" {
+  default = 1
+}
+
 variable "manager_ip" {
   default = ""
 }
@@ -60,11 +64,11 @@ variable "manager_user_script" {
   default = ""
 }
 
-variable "worker_instance_type" {}
-
 variable "worker_instance_count" {
   default = 1
 }
+
+variable "worker_instance_type" {}
 
 variable "worker_additional_volume_count" {
   default = 0

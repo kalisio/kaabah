@@ -34,9 +34,11 @@ variable "docker_tls_ca_cert" {}
 
 variable "docker_tls_ca_pass" {}
 
-variable "manager_ip" {}
+variable "manager_instance_count" {}
 
 variable "manager_instance_type" {}
+
+variable "manager_ip" {}
 
 variable "manager_crontab" {}
 

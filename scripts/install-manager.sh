@@ -1,7 +1,8 @@
 #!/bin/bash
 DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
-FAIL2BAN_IGNORE_IP=$3
+LEADER_PRIVATE_IP=$3
+FAIL2BAN_IGNORE_IP=$4
 
 TMP_DIR=/tmp/kaabah
 
@@ -33,26 +34,19 @@ echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" >> $HOME/.bash_profile
 # Install docker
 bash $TMP_DIR/install-docker.sh $DOCKER_VERSION
 
-# Add the user to the docker group
-K_USER=${SUDO_USER:-$USER}
-if [ "$K_USER" != "root" ]; then
-  usermod -a -G docker $K_USER
+# Initialise swarm
+if [ "$LEADER_PRIVATE_IP" == "$MANAGER_PRIVATE_IP" ]; then
+  docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
+else
+  docker swarm join $LEADER_PRIVATE_IP:2377 \
+    --token $(docker --tlsverify --tlscacert=.docker/ca.pem --tlscert=.docker/cert.pem --tlskey=.docker/key.pem -H=$LEADER_PRIVATE_IP:2376 swarm join-token -q manager)
 fi
 
-# Initialise swarm
-docker swarm init --advertise-addr $MANAGER_PRIVATE_IP --listen-addr $MANAGER_PRIVATE_IP:2377
-
-# Configure SSHD
-bash $TMP_DIR/setup-sshd.sh $FAIL2BAN_IGNORE_IP
-
-# Install sshfs
-bash $TMP_DIR/install-sshfs.sh
-
-# Install rclone
-apt-get -y install rclone
-
-# Install jq
-apt-get -y install jq
+# Install extra tools
+bash $TMP_DIR/install-fail2ban.sh $FAIL2BAN_IGNORE_IP
+bash $TMP_DIR/install-gluster.sh
+bash $TMP_DIR/install-rclone.sh
+bash $TMP_DIR/install-jq.sh
 
 # Install helper commands
 for COMMAND in $TMP_DIR/k-*; do

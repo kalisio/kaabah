@@ -2,7 +2,9 @@
 FAILOVER_IP=$1
 
 # Install yq to update netplan configuration
-snap install yq
+echo Installing yq
+snap install yq > /dev/null
+echo [ok] yq installed
 
 # Copy the file
 cp /etc/netplan/50-cloud-init.yaml 50-cloud-init.yaml

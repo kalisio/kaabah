@@ -1,6 +1,7 @@
 #!/bin/bash
 
-mkdir -p worker
+ls -al /mnt/share
+
 
 
 

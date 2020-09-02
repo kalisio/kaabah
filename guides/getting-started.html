@@ -8,7 +8,7 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-64x64.png">
     <link rel="manifest" href="/kaabah/manifest.json">
     <meta name="description" content="A Terraform solution to build and operate Docker Swarm infrastructures">
-    <link rel="preload" href="/kaabah/assets/css/0.styles.b0d4fd5f.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.0ac84aed.js" as="script"><link rel="preload" href="/kaabah/assets/js/2.86e28b2f.js" as="script"><link rel="preload" href="/kaabah/assets/js/16.c7d9bf40.js" as="script"><link rel="preload" href="/kaabah/assets/js/4.c15a462f.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.0b4395e5.js"><link rel="prefetch" href="/kaabah/assets/js/11.9e44ffb8.js"><link rel="prefetch" href="/kaabah/assets/js/12.18298fb8.js"><link rel="prefetch" href="/kaabah/assets/js/13.694878c4.js"><link rel="prefetch" href="/kaabah/assets/js/14.02b009c4.js"><link rel="prefetch" href="/kaabah/assets/js/15.92e6a03a.js"><link rel="prefetch" href="/kaabah/assets/js/17.49e72e98.js"><link rel="prefetch" href="/kaabah/assets/js/18.acdc0ce4.js"><link rel="prefetch" href="/kaabah/assets/js/19.8705ea01.js"><link rel="prefetch" href="/kaabah/assets/js/20.5762d6b4.js"><link rel="prefetch" href="/kaabah/assets/js/21.ecb437b0.js"><link rel="prefetch" href="/kaabah/assets/js/3.d7453744.js"><link rel="prefetch" href="/kaabah/assets/js/5.d1fcc5a4.js"><link rel="prefetch" href="/kaabah/assets/js/6.a0573bff.js"><link rel="prefetch" href="/kaabah/assets/js/7.c6d136ee.js"><link rel="prefetch" href="/kaabah/assets/js/8.59681b3d.js"><link rel="prefetch" href="/kaabah/assets/js/9.f48a3aa1.js">
+    <link rel="preload" href="/kaabah/assets/css/0.styles.b0d4fd5f.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.395c0445.js" as="script"><link rel="preload" href="/kaabah/assets/js/2.86e28b2f.js" as="script"><link rel="preload" href="/kaabah/assets/js/16.851fc977.js" as="script"><link rel="preload" href="/kaabah/assets/js/4.c15a462f.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.0b4395e5.js"><link rel="prefetch" href="/kaabah/assets/js/11.9e44ffb8.js"><link rel="prefetch" href="/kaabah/assets/js/12.18298fb8.js"><link rel="prefetch" href="/kaabah/assets/js/13.694878c4.js"><link rel="prefetch" href="/kaabah/assets/js/14.02b009c4.js"><link rel="prefetch" href="/kaabah/assets/js/15.cac2f1ef.js"><link rel="prefetch" href="/kaabah/assets/js/17.00f5224d.js"><link rel="prefetch" href="/kaabah/assets/js/18.acdc0ce4.js"><link rel="prefetch" href="/kaabah/assets/js/19.8705ea01.js"><link rel="prefetch" href="/kaabah/assets/js/20.5762d6b4.js"><link rel="prefetch" href="/kaabah/assets/js/21.ecb437b0.js"><link rel="prefetch" href="/kaabah/assets/js/3.11c6b2b6.js"><link rel="prefetch" href="/kaabah/assets/js/5.d1fcc5a4.js"><link rel="prefetch" href="/kaabah/assets/js/6.a0573bff.js"><link rel="prefetch" href="/kaabah/assets/js/7.c6d136ee.js"><link rel="prefetch" href="/kaabah/assets/js/8.59681b3d.js"><link rel="prefetch" href="/kaabah/assets/js/9.f48a3aa1.js">
     <link rel="stylesheet" href="/kaabah/assets/css/0.styles.b0d4fd5f.css">
   </head>
   <body>
@@ -80,8 +80,6 @@ worker_additional_volume_type = &quot;sc1&quot;
 
 worker_additional_volume_mount_point = &quot;data&quot;
 
-worker_labels=[&quot;worker0=true apps=true&quot;, &quot;worker1=true dbs=true&quot;]
-
 worker_user_scripts=[&quot;tests/worker.sh&quot;, &quot;tests/worker.sh&quot;]
 </code></pre></div><h3 id="apply-the-changes"><a href="#apply-the-changes" class="header-anchor">#</a> Apply the changes</h3> <p>Within your workspace, apply Terraform with your specific configuration:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> apply -var-file<span class="token operator">=</span><span class="token string">&quot;path/to/your/config.tfvars&quot;</span>
 </code></pre></div><p>After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.</p> <h3 id="check-the-infrastructure"><a href="#check-the-infrastructure" class="header-anchor">#</a> Check the infrastructure</h3> <p>Get connected to the manager of your infrastructure using <code>ssh</code> and type the following commands:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>ubuntu@test-aws-manager:~$ k-swarm-info
@@ -144,6 +142,6 @@ ubuntu@test-aws-manager:~$
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
-    <script src="/kaabah/assets/js/app.0ac84aed.js" defer></script><script src="/kaabah/assets/js/2.86e28b2f.js" defer></script><script src="/kaabah/assets/js/16.c7d9bf40.js" defer></script><script src="/kaabah/assets/js/4.c15a462f.js" defer></script>
+    <script src="/kaabah/assets/js/app.395c0445.js" defer></script><script src="/kaabah/assets/js/2.86e28b2f.js" defer></script><script src="/kaabah/assets/js/16.851fc977.js" defer></script><script src="/kaabah/assets/js/4.c15a462f.js" defer></script>
   </body>
 </html>

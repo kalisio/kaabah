@@ -27,27 +27,27 @@ self.addEventListener('message', (event) => {
 self.__precacheManifest = [
   {
     "url": "404.html",
-    "revision": "fcba2288eb7c27304a974a9b06483354"
+    "revision": "3e08601ae7584374ed48995eb3b61768"
   },
   {
     "url": "about/contact.html",
-    "revision": "57fcb55a1ce147a0b9499795c029933b"
+    "revision": "65f53ba1542d20a6126aaba4410a18c5"
   },
   {
     "url": "about/contributing.html",
-    "revision": "db56ab2ff13294fd592a42bae03db554"
+    "revision": "f1c8867b977814833e0856fd5a8201ca"
   },
   {
     "url": "about/introduction.html",
-    "revision": "d9c7acff2816f4b597ab473af00a6cfb"
+    "revision": "381fc48f6117e1cc66f9aa467c985691"
   },
   {
     "url": "about/license.html",
-    "revision": "32b4a5e82d5e51d7c73e4f210ff1f62d"
+    "revision": "7f2e941a314eeb6110efaa36bcf5a4f0"
   },
   {
     "url": "about/roadmap.html",
-    "revision": "3883dcb70d831312951c343ca6b396da"
+    "revision": "db2492de07ddb0c950d21c7140280d0b"
   },
   {
     "url": "assets/css/0.styles.b0d4fd5f.css",
@@ -98,16 +98,16 @@ self.__precacheManifest = [
     "revision": "b9fb6873eaec24777e080e80d222eefe"
   },
   {
-    "url": "assets/js/15.92e6a03a.js",
-    "revision": "c65c6f19bd7c09dde02f999ed579392d"
+    "url": "assets/js/15.cac2f1ef.js",
+    "revision": "f505431518d5dd9c976994845a778fad"
   },
   {
-    "url": "assets/js/16.c7d9bf40.js",
-    "revision": "0ad303b6762f9bcbff23fde21ea438f7"
+    "url": "assets/js/16.851fc977.js",
+    "revision": "ba826f815e41058cd952263ee8725906"
   },
   {
-    "url": "assets/js/17.49e72e98.js",
-    "revision": "b55571ef10924b0dcd600166be13fa45"
+    "url": "assets/js/17.00f5224d.js",
+    "revision": "073f7b4be55b6cdc63424eb56c3aacc0"
   },
   {
     "url": "assets/js/18.acdc0ce4.js",
@@ -130,8 +130,8 @@ self.__precacheManifest = [
     "revision": "cfa54793b444002820ab74ed870cbc88"
   },
   {
-    "url": "assets/js/3.d7453744.js",
-    "revision": "c98854470f38a3fe3f5196908660426f"
+    "url": "assets/js/3.11c6b2b6.js",
+    "revision": "5c42f980fa814e1509b3904a535537d4"
   },
   {
     "url": "assets/js/4.c15a462f.js",
@@ -158,36 +158,36 @@ self.__precacheManifest = [
     "revision": "d1f4e47d5fd647e93c1afea663b0f2a1"
   },
   {
-    "url": "assets/js/app.0ac84aed.js",
-    "revision": "9863f86c161eb653035898227eaa8318"
+    "url": "assets/js/app.395c0445.js",
+    "revision": "7b4ba2e765edca5aad7650b7ec46f766"
   },
   {
     "url": "guides/advanced-usage.html",
-    "revision": "f6dc7a3be9b5cc7cd5d4bc8c2ec06c9a"
+    "revision": "be648e8c75517f8767c7b51c86503b2f"
   },
   {
     "url": "guides/getting-started.html",
-    "revision": "89ffbbfe0166464cf272fe26ba85b63c"
+    "revision": "61d91291e07e8091dd8bdb50e13dd139"
   },
   {
     "url": "guides/understanding-kaabah.html",
-    "revision": "7fdf1e9f8b5db50bd029f783ca1b2a46"
+    "revision": "30dc82d6f838e6478093482cf8e35acb"
   },
   {
     "url": "index.html",
-    "revision": "e48dd582e1be498b2d3257bff38210a8"
+    "revision": "b555596a30a5070d608c7b2c343b528c"
   },
   {
     "url": "reference/configuration-variables.html",
-    "revision": "01d33af3abc1eaba42418ed61fae4249"
+    "revision": "155bf16d757dea1769d49cf009a02988"
   },
   {
     "url": "reference/helper-commands.html",
-    "revision": "fb4c880592931f237b981105fc0ba513"
+    "revision": "6875deaaedb45efe49e86ae99a690b02"
   },
   {
     "url": "tips/index.html",
-    "revision": "a5656a25c3a688eb63382a0d0d4ec8d1"
+    "revision": "d02a4385c274ef36d45ed6be07c9fa83"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});

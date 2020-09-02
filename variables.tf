@@ -50,6 +50,8 @@ variable "manager_ip" {
   default = ""
 }
 
+variable "manager_instance_type" {}
+
 variable "manager_labels" {
   default = ""
 }

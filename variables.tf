@@ -52,10 +52,6 @@ variable "manager_ip" {
 
 variable "manager_instance_type" {}
 
-variable "manager_labels" {
-  default = ""
-}
-
 variable "manager_crontab" {
   default = ""
 }
@@ -84,11 +80,6 @@ variable "worker_additional_volume_type" {
 
 variable "worker_additional_volume_mount_point" {
   default = "data"
-}
-
-variable "worker_labels" {
-  type = "list"
-  default = []
 }
 
 variable "worker_user_scripts" {

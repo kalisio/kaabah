@@ -30,8 +30,6 @@ variable "manager_ip" {}
 
 variable "manager_instance_type" {}
 
-variable "manager_labels" {}
-
 variable "manager_crontab" {}
 
 variable "manager_user_script" {}
@@ -45,10 +43,6 @@ variable "worker_additional_volume_count" {}
 variable "worker_additional_volume_size" {}
 
 variable worker_additional_volume_mount_point {}
-
-variable "worker_labels" {
-  type = "list"
-}
 
 variable "worker_user_scripts" {
   type = "list"

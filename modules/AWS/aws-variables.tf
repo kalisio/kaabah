@@ -6,7 +6,6 @@ variable "availability_zone" {}
 
 variable "access_key" {}
 
-
 variable "secret_key" {}
 
 variable "bastion_ip" {}
@@ -28,8 +27,6 @@ variable "instance_volume_size" {
 }
 
 variable "docker_version" {}
-
-variable "docker_network" {}
 
 variable "docker_tls_ca_key" {}
 

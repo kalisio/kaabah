@@ -40,10 +40,6 @@ variable "docker_version" {
   default = "5:19.03.2~3-0~ubuntu-bionic"
 }
 
-variable "docker_network" {
-  default = "kaabah"
-}
-
 variable "docker_tls_ca_key" {}
 
 variable "docker_tls_ca_cert" {}
@@ -53,8 +49,6 @@ variable "docker_tls_ca_pass" {}
 variable "manager_ip" {
   default = ""
 }
-
-variable "manager_instance_type" {}
 
 variable "manager_labels" {
   default = ""

@@ -73,7 +73,6 @@ sidebarDepth: 3
 | Variables | Description |
 |--- | --- |
 | `docker_version` | The version of the Docker engine to be installed. The available versions can be obtained using the command `apt-cache madison docker-ce` . The default value is `5:19.03.2~3-0~ubuntu-bionic` |
-| `docker_network` | The name of the Docker network to be created. The default value is `kaabah` |
 | `docker_tls_ca_key` | The path to the CA private key. The default value is `ca.key` |
 | `docker_tls_ca_cert` | The path to the CA public key. The default value is `ca.cert` |
 | `docker_tls_ca_pass` | The path to the CA passphrase file. The default value is `ca.pass` |

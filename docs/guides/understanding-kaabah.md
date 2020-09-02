@@ -105,12 +105,6 @@ By default, **Kaabah** creates 2 security groups:
   * internal SSH traffic (port 22)
   * internal Docker swarm traffic
 
-#### Docker Network
-
-The traffic between the nodes relies on a Docker network of type of **Overlay**. 
-
-The name of the Docker network is automatically computed from the workspace name but you can override it using the `docker_network` variable.
-
 ### Security
 
 #### SSH

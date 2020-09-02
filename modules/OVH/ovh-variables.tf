@@ -16,8 +16,6 @@ variable "key_name" {}
 
 variable "docker_version" {}
 
-variable "docker_network" {}
-
 variable "docker_tls_ca_key" {}
 
 variable "docker_tls_ca_cert" {}

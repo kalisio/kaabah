@@ -154,8 +154,6 @@ worker_additional_volume_type = "sc1"
 
 worker_additional_volume_mount_point = "data"
 
-worker_labels=["worker0=true apps=true", "worker1=true dbs=true"]
-
 worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
 ```
 

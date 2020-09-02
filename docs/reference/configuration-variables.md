@@ -51,7 +51,6 @@ sidebarDepth: 3
 |--- | --- |
 | `manager_ip` | If define, it represents the IP address to be retrieved and attached to the manager. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). On **OVH** the variable is omitted because the support of the [Floating IP](https://labs.ovh.com/public-cloud-l3-services) is still experimental. If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
 | `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
-| `manager_labels` | The labels to add to the manager node. Labels are defined using a set of *key=value* pairs separated with spaces. The default value is `""`. |
 | `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `""`. |
 | `manager_user_script` | The user script to be executed when when the manager is ready. It must be the file path to the script. The default value is `""`. |
 
@@ -65,7 +64,6 @@ sidebarDepth: 3
 | `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to bare-metal instances only. The default value is `150` |
 | `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
 | `worker_additional_volume_mount_point` | The mount point used to mount the devices. The prefix `/dev/` is automatically added and the default value is `data` |
-| `worker_labels` | The labels to add to the different worker nodes. Labels are defined using a set of *key=value* pairs separated with spaces. Labels for each workers are declared using a list, e.g. `["worker0:true", "worker1:true", ...]`. The default value is `[]` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
 
 ## Docker

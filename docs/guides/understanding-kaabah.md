@@ -81,8 +81,6 @@ When generated from a given `<WORKSPACE>`, the instances are named according the
 -  `<WORKSPACE>-manager`
 -  `<WORKSPACE>-woker-<INDEX>`
 
-You can add some labels to the nodes using the `manager_labels` and `worker_labels` variables.
-
 ::: warning
 **Kaabah** supports only x86 architecture.
 :::

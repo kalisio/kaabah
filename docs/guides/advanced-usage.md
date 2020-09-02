@@ -110,26 +110,6 @@ To remove a crontab, just simply clear the `manager_crontab` variable and update
 
 ## Docker swarm
 
-### Managing labels
-
-If you desire to update the labels on your cluster and keep track of the changes, you need to:
-
-1. taint the resources attached to the labels you want to change: `null_resource.manager_labels` and `null_resource.worker_labels.*` 
-
-```bash
-# Taint the labels attached to the desired nodes, i.e. the worker 1 and the manager
-$terraform taint -module=AWS null_resource.worker_labels.1
-$terraform taint -module=AWS null_resource.manager_labels
-```
-
-2. update your variables file: `workspaces/<file>.tfvars`
-   
-3. apply the changes
-
-```bash
-$terraform apply -var-file="workspaces/<file>.tfvars"
-```
-
 ### Using the registry
 
 Using the registry is simple as:

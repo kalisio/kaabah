@@ -1,12 +1,12 @@
 resource "null_resource" "manager_crontab" {
-  count = "${var.provider == "AWS" ? 1 : 0}"
+  count = "${var.provider == "AWS" && length(var.manager_crontabs) > 0 ? var.manager_instance_count : 0}"
 
   connection {
     type                = "ssh"
     bastion_host        = "${var.bastion_ip}"
     bastion_user        = "${var.bastion_ssh_user}"
     bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${aws_instance.manager.0.private_ip}"
+    host                = "${element(aws_instance.manager.*.private_ip, count.index)}"
     user                = "${var.ssh_user}"
     private_key         = "${file(var.ssh_key)}"
     timeout             = "${local.timeout}"
@@ -21,7 +21,7 @@ resource "null_resource" "manager_crontab" {
   }
 
   provisioner "file" {
-    source      = "${var.manager_crontab != "" ? var.manager_crontab : "scripts/null-files/crontab"}"
+    source      = "${var.manager_crontabs[count.index] != "" ? var.manager_crontabs[count.index] : "scripts/null-files/crontab"}"
     destination = "${local.tmp_dir}/crontab"
   }
 

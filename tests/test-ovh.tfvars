@@ -12,9 +12,9 @@ manager_instance_type = "s1-4"
 
 # manager_ip = "3.120.200.41"
 
-manager_crontab = "tests/crontab"
+manager_crontabs = ["tests/crontab"]
 
-manager_user_script = "tests/manager.sh"
+manager_user_scripts = ["tests/manager.sh"]
 
 worker_instance_type = "s1-2"
 

@@ -56,12 +56,14 @@ variable "manager_ip" {
 
 variable "manager_instance_type" {}
 
-variable "manager_crontab" {
-  default = ""
+variable "manager_crontabs" {
+  type = "list"
+  default = []
 }
 
-variable "manager_user_script" {
-  default = ""
+variable "manager_user_scripts" {
+  type = "list"
+  default = []
 }
 
 variable "worker_instance_count" {

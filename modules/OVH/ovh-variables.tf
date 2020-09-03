@@ -28,9 +28,13 @@ variable "manager_instance_type" {}
 
 variable "manager_ip" {}
 
-variable "manager_crontab" {}
+variable "manager_crontabs" {
+  type = "list"
+}
 
-variable "manager_user_script" {}
+variable "manager_user_scripts" {
+  type = "list"
+}
 
 variable "worker_instance_type" {}
 

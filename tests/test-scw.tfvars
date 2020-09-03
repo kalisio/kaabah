@@ -10,9 +10,9 @@ manager_instance_type = "DEV1-S"
 
 manager_ip = "51.15.239.41"
 
-manager_crontab = "tests/crontab"
+manager_crontabs = ["tests/crontab"]
 
-manager_user_script = "tests/manager.sh"
+manager_user_scripts = ["tests/manager.sh"]
 
 worker_instance_type = "DEV1-M"
 

@@ -320,7 +320,7 @@ shecw660oiaq        kaabah_traefik         replicated          1/1              
 
 ### Description
 
-Removes the unused images, volumes and networks on the nodes
+Remove all unused containers, networks, dangling images and volumes
 
 `usage: k-swarm-prune`
 

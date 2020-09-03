@@ -5,26 +5,13 @@ usage() {
 }
 
 help() {
-  echo "Clears the swarm"
+  echo Remove all unused containers, networks, dangling images and volumes
   usage
 }
 
 exec() {
-  # Delete the stopped container
-  docker container prune -f
-  k-worker-foreach -c "docker container prune -f"
-
-  # Delete the unused images
-  docker image prune -f
-  k-worker-foreach -c "docker image prune -f"
-
-  # Delete the unused volumes
-  docker volume prune -f
-  k-worker-foreach -c "docker volume prune -f"
-
-  # Delete the unused networks 
-  docker network prune -f
-  k-worker-foreach -c "docker network prune -f"
+  docker system prune --volumes -f
+  k-worker-foreach -c "docker system prune --volumes -f"
 }
 
 if [ "$#" -ne 0 ]; then

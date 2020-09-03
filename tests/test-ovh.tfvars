@@ -14,7 +14,9 @@ manager_instance_type = "s1-4"
 
 manager_crontabs = ["tests/crontab"]
 
-manager_user_scripts = ["tests/manager.sh"]
+manager_user_scripts = [
+  "tests/user-scripts/manager-0.sh"
+]
 
 worker_instance_type = "s1-2"
 
@@ -28,5 +30,7 @@ worker_additional_volume_type = "classic"
 
 worker_additional_volume_mount_point = "data"
 
-worker_user_scripts=["tests/worker.sh"]
+worker_user_scripts=[
+  "tests/user-scripts/worker.sh"
+]
 

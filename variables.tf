@@ -93,6 +93,10 @@ variable "worker_user_scripts" {
   default = []
 }
 
+variable "gluster_share_volume_mount_point" {
+  default = "/mnt/share"
+}
+
 variable "rclone_conf" {
   default = ""
 }

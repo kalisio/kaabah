@@ -41,7 +41,7 @@ resource "null_resource" "manager_gluster_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh"
+      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 
@@ -66,7 +66,7 @@ resource "null_resource" "worker_gluster_mount" {
 
    provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh"
+      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 

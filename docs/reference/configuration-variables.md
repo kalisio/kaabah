@@ -43,6 +43,7 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
+| `gluster_share_volume_mount_point` | The mount point used to mount the volume **share** created by **Gluster**. The default value is `/mnt/share`. |
 | `rclone_conf` | The path to the **rclone** configuration you want to provision on the nodes. The default values is `""`. |
 
 ### Manager

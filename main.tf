@@ -33,6 +33,7 @@ module "Scaleway" {
   worker_additional_volume_size         = "${var.worker_additional_volume_size}"
   worker_additional_volume_mount_point  = "${var.worker_additional_volume_mount_point}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
+  gluster_share_volume_mount_point      = "${var.gluster_share_volume_mount_point}"  
   rclone_conf                           = "${var.rclone_conf}"  
 }
 
@@ -66,6 +67,7 @@ module "AWS" {
   worker_additional_volume_type         = "${var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"}"
   worker_additional_volume_mount_point  = "${var.worker_additional_volume_mount_point}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
+  gluster_share_volume_mount_point      = "${var.gluster_share_volume_mount_point}"
   rclone_conf                           = "${var.rclone_conf}"  
 }
 
@@ -96,5 +98,6 @@ module "OVH" {
   worker_additional_volume_type         = "${var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"}"
   worker_additional_volume_mount_point  = "${var.worker_additional_volume_mount_point}"
   worker_user_scripts                   = "${var.worker_user_scripts}"
+  gluster_share_volume_mount_point      = "${var.gluster_share_volume_mount_point}"
   rclone_conf                           = "${var.rclone_conf}"
 }

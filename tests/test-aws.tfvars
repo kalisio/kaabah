@@ -12,9 +12,17 @@ manager_ip = "3.120.200.41"
 
 manager_instance_type = "t2.small"
 
-manager_crontabs = ["tests/crontab", "tests/crontab", "tests/crontab"]
+manager_crontabs = [
+  "tests/crontab", 
+  "tests/crontab", 
+  "tests/crontab"
+]
 
-manager_user_scripts = ["tests/manager-0.sh", "tests/manager-1.sh", "tests/manager-2.sh"]
+manager_user_scripts = [
+  "tests/user-scripts/manager-0.sh", 
+  "tests/user-scripts/manager-1.sh", 
+  "tests/user-scripts/manager-2.sh"
+]
 
 worker_instance_type = "t3.large"
 
@@ -28,5 +36,8 @@ worker_additional_volume_type = "sc1"
 
 worker_additional_volume_mount_point = "data"
 
-worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
+worker_user_scripts=[
+  "tests/user-scripts/worker.sh", 
+  "tests/user-scripts/worker.sh"
+]
 

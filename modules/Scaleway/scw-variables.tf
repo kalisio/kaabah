@@ -54,4 +54,6 @@ variable "worker_user_scripts" {
   type = "list"
 }
 
+variable  "gluster_share_volume_mount_point" {}
+
 variable "rclone_conf" {}

@@ -30,7 +30,9 @@ variable "manager_instance_count" {}
 
 variable "manager_instance_type" {}
 
-variable "manager_ip" {}
+variable "manager_ips" {
+  type = "list"
+}
 
 variable "manager_crontabs" {
   type = "list"

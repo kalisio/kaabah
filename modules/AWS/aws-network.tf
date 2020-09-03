@@ -3,7 +3,7 @@ resource "aws_default_vpc" "default_vpc" {
 }
 
 resource "aws_eip_association" "manager" {
-  count       = "${var.provider == "AWS" && var.manager_ip != "" ? 1 : 0}"
-  instance_id = "${aws_instance.manager.0.id}"
-  public_ip   = "${var.manager_ip}"
+  count       = "${var.provider == "AWS" && length(var.manager_ips) > 0 ? var.manager_instance_count : 0}"
+  instance_id = "${element(aws_instance.manager.*.id, count.index)}"
+  public_ip   = "${var.manager_ips[count.index]}"
 }

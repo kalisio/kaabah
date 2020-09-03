@@ -61,7 +61,7 @@ resource "openstack_compute_instance_v2" "manager" {
   }
 
   provisioner "remote-exec" {
-    inline = "sudo bash ${local.tmp_dir}/setup-netplan.sh ${var.manager_ip}"
+    inline = "sudo bash ${local.tmp_dir}/setup-netplan.sh ${var.manager_ips[count.index]}"
   }
 
   provisioner "file" {

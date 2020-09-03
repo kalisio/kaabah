@@ -8,9 +8,13 @@ key_name = "test-aws"
 
 manager_instance_count = 3
 
-manager_ip = "3.120.200.41"
-
 manager_instance_type = "t2.small"
+
+manager_ips = [
+  "3.120.200.41", 
+  "18.185.30.204", 
+  "35.156.85.0"
+]
 
 manager_crontabs = [
   "tests/crontab", 

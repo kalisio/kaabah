@@ -50,8 +50,9 @@ variable "manager_instance_count" {
   default = 1
 }
 
-variable "manager_ip" {
-  default = ""
+variable "manager_ips" {
+  type = "list"
+  default = []
 }
 
 variable "manager_instance_type" {}

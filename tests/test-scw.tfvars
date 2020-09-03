@@ -27,6 +27,6 @@ worker_instance_count = 2
 #worker_additional_volume_mount_point = "data"
 
 worker_user_scripts=[
-  "tests/user-scripts/worker.sh", 
-  "tests/user-scripts/worker.sh"
+  "tests/user-scripts/worker-0.sh", 
+  "tests/user-scripts/worker-1.sh"
 ]

@@ -51,6 +51,24 @@ $k-label-list 87vv4tmksirt646er0l1jk66h
 label1=value1 label2=value label3=value3
 ```
 
+## k-leader-exec
+
+### Description
+
+`usage: k-leader-exec <command>`
+
+Execute the given command when called from the leader node
+
+::: tip
+The `k-leader-exec` is useful to setup cron jobs redundancy and failover over a swarm with multiple manager because it ensures that the jobs will only run on the leader.
+:::
+
+### Example 
+
+```bash
+$k-leader-exec k-swarm-prune
+```
+
 ## k-node-exec
 
 ### Description

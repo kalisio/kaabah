@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Check docker
-docker version
+k-leader-exec k-swarm-info
 
 # Check gluster
 sudo gluster pool list

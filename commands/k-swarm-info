@@ -17,7 +17,7 @@ exec() {
   for NODE_ID in $NODES_IDS; do
     ADDRESS=`docker node inspect --format {{.Status.Addr}} $NODE_ID`
     LABELS=`k-label-list $NODE_ID`
-    echo -e "$NODE_ID\t`docker node ls -f id=$NODE_ID --format "{{.Hostname}}\t{{.Status}}/{{.Availability}}"`\t$ADDRESS\t$LABELS"
+    echo -e "$NODE_ID\t`docker node ls -f id=$NODE_ID --format "{{.Hostname}}\t{{.Status}}/{{.Availability}}/{{.ManagerStatus}}"`\t$ADDRESS\t$LABELS"
   done
 
   # list the stacks

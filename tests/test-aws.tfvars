@@ -37,6 +37,7 @@ worker_additional_volume_type = "sc1"
 worker_additional_volume_mount_point = "data"
 
 worker_user_scripts=[
-  "tests/user-scripts/worker-0.sh"
+  "tests/user-scripts/worker-0.sh",
+  "tests/user-scripts/worker-1.sh"
 ]
 

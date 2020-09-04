@@ -26,9 +26,12 @@ data "openstack_networking_network_v2" "private_network" {
   name        = "${local.private_network_name}"
   region      = "${var.region}"
 }
+
 data "openstack_networking_subnet_v2" "private_subnet" {
   count       = "${var.provider == "OVH" ? 1 : 0}"  
   name        = "${local.private_subnet_name}"
   network_id  = "${data.openstack_networking_network_v2.private_network.id}"
   region      = "${var.region}"
 }
+
+

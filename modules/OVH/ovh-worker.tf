@@ -41,6 +41,11 @@ resource "openstack_compute_instance_v2" "worker" {
   }
 
   provisioner "file" {
+    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
+    destination = "$HOME/.config/rclone/rclone.conf"
+  }
+
+  provisioner "file" {
     source        = "${var.docker_tls_ca_cert}"
     destination   = "${local.tmp_dir}/ca.cert"
   }
@@ -56,27 +61,20 @@ resource "openstack_compute_instance_v2" "worker" {
   }
 
   provisioner "file" {
+    source        = "scripts/"
+    destination   = "${local.tmp_dir}"
+  }
+
+  provisioner "file" {
     source      = "modules/OVH/setup-netplan.sh"
     destination = "${local.tmp_dir}/setup-netplan.sh"
   }
 
   provisioner "remote-exec" {
-    inline = "sudo bash  ${local.tmp_dir}/setup-netplan.sh"
-  }
-
-  provisioner "file" {
-    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
-    destination = "$HOME/.config/rclone/rclone.conf"
-  }
-
-  provisioner "file" {
-    source        = "scripts/"
-    destination   = "${local.tmp_dir}"
-  }
-
-  provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-worker.sh ${var.docker_version} ${openstack_compute_instance_v2.manager.network.1.fixed_ip_v4}",
+      "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.cidr}",
+      "sudo bash  ${local.tmp_dir}/setup-netplan.sh",
+      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${openstack_compute_instance_v2.manager.0.network.1.fixed_ip_v4}",
     ]
   }
 
@@ -92,7 +90,7 @@ resource "openstack_compute_instance_v2" "worker" {
       bastion_host        = "${var.bastion_ip}"
       bastion_user        = "${var.bastion_ssh_user}"
       bastion_private_key = "${file(var.bastion_ssh_key)}"
-      host                = "${openstack_compute_instance_v2.manager.access_ip_v4}"    
+      host                = "${openstack_compute_instance_v2.manager.0.access_ip_v4}"    
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"

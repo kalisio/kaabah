@@ -12,8 +12,19 @@ done
 # Display the pool (not necessary)
 gluster pool list
 
-# Create the volume 
-gluster volume create share replica `echo $NODES | wc -w` transport tcp $CRATE_NODE_LIST force
+# Create the volume
+NB_NODES=`echo $NODES | wc -w`
+if [ "$NB_NODES" != "1" ]; then
+  echo "Creating share volume in replicated mode"
+  gluster volume create share replica `echo $NODES | wc -w` transport tcp $CRATE_NODE_LIST force
+else
+  echo "Creating share volume in distributed mode"
+  gluster volume create share transport tcp $CRATE_NODE_LIST force
+fi
+
+# Start the volume
+# Sometimes a delay is required before starting the volume
+sleep 15s
 gluster volume start share
 
 # Setup security

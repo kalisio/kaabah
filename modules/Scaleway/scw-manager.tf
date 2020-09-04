@@ -4,7 +4,7 @@ resource "scaleway_ip" "manager" {
 
 resource "scaleway_server" "manager" {
   count          = "${var.provider == "SCALEWAY" ? var.manager_instance_count : 0}"
-  name           = "${terraform.workspace}-manager"
+  name           = "${terraform.workspace}-manager-${count.index}"
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
@@ -39,6 +39,11 @@ resource "scaleway_server" "manager" {
   }
 
   provisioner "file" {
+    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
+    destination = "$HOME/.config/rclone/rclone.conf"
+  }
+  
+  provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
     destination = "${local.tmp_dir}/ca.cert"
   }
@@ -53,11 +58,6 @@ resource "scaleway_server" "manager" {
     destination = "${local.tmp_dir}/ca.pass"
   }
 
-
-  provisioner "file" {
-    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
-    destination = "$HOME/.config/rclone/rclone.conf"
-  }
   provisioner "file" {
     source      = "scripts/"
     destination = "${local.tmp_dir}"
@@ -70,7 +70,8 @@ resource "scaleway_server" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${scaleway_server.manager.0.private_ip} \"${local.private_network_cidr}\"",
+      "bash ${local.tmp_dir}/setup-prerequisites.sh \"${local.private_network_cidr}\"",
+      "bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${scaleway_server.manager.0.private_ip}"
     ]
   }
 

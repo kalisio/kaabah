@@ -15,17 +15,19 @@ rm -f terraform.zip
 # Initialize Terraform
 terraform init -backend-config="backend.config"
 
-# Run terraform over the test workspaces
+ # Run terraform over the test workspaces
 terraform workspace select $WORKSPACE
-terraform apply -auto-approve -var-file="tests/$WORKSPACE.tfvars"
-RESULT_CODE=$?
+for TESTCASE in "10 12"; do
+  terraform apply -auto-approve -var-file="tests/$WORKSPACE-$TESTCASE.tfvars"
+  RESULT_CODE=$?
 
-# Destroy the cluster whatever the result
-terraform destroy -auto-approve -var-file="tests/$WORKSPACE.tfvars"
+  # Destroy the cluster whatever the result
+  terraform destroy -auto-approve -var-file="tests/$WORKSPACE-$TESTCASE.tfvars"
+
+  # Exit if an error has occured
+  if [ $RESULT_CODE -ne 0 ]; then
+    echo "$WORKSPACE-$TESTCASE failed [error: $RESULT_CODE]"
+    exit 1
+  fi
+done
 terraform workspace select default
-
-# Exit if an error has occured
-if [ $RESULT_CODE -ne 0 ]; then
-  echo "$WORKSPACE failed [error: $RESULT_CODE]"
-	exit 1
-fi

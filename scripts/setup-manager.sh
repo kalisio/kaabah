@@ -2,7 +2,6 @@
 DOCKER_VERSION=$1
 MANAGER_PRIVATE_IP=$2
 LEADER_PRIVATE_IP=$3
-FAIL2BAN_IGNORE_IP=$4
 
 TMP_DIR=/tmp/kaabah
 
@@ -41,12 +40,6 @@ else
   docker swarm join $LEADER_PRIVATE_IP:2377 \
     --token $(docker --tlsverify --tlscacert=.docker/ca.pem --tlscert=.docker/cert.pem --tlskey=.docker/key.pem -H=$LEADER_PRIVATE_IP:2376 swarm join-token -q manager)
 fi
-
-# Install extra tools
-bash $TMP_DIR/install-fail2ban.sh $FAIL2BAN_IGNORE_IP
-bash $TMP_DIR/install-gluster.sh
-bash $TMP_DIR/install-rclone.sh
-bash $TMP_DIR/install-jq.sh
 
 # Install helper commands
 for COMMAND in $TMP_DIR/k-*; do

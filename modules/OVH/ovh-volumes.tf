@@ -32,5 +32,7 @@ resource "null_resource" "worker_volume_mount" {
     ]
   }
 
-  depends_on = ["openstack_compute_volume_attach_v2.worker_volume_attachement"]
+  depends_on = [
+    "openstack_compute_volume_attach_v2.worker_volume_attachement"
+  ]
 }

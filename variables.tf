@@ -55,7 +55,9 @@ variable "manager_ips" {
   default = []
 }
 
-variable "manager_instance_type" {}
+variable "manager_instance_type" {
+  default = ""
+}
 
 variable "manager_crontabs" {
   type = "list"
@@ -68,10 +70,12 @@ variable "manager_user_scripts" {
 }
 
 variable "worker_instance_count" {
-  default = 1
+  default = 0
 }
 
-variable "worker_instance_type" {}
+variable "worker_instance_type" {
+  default = ""
+}
 
 variable "worker_additional_volume_count" {
   default = 0

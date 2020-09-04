@@ -35,6 +35,11 @@ resource "aws_instance" "manager" {
   }
 
   provisioner "file" {
+    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
+    destination = "$HOME/.config/rclone/rclone.conf"
+  }
+  
+  provisioner "file" {
     source      = "${var.docker_tls_ca_cert}"
     destination = "${local.tmp_dir}/ca.cert"
   }
@@ -49,12 +54,6 @@ resource "aws_instance" "manager" {
     destination = "${local.tmp_dir}/ca.pass"
   }
 
-
-  provisioner "file" {
-    source      = "${var.rclone_conf != "" ? var.rclone_conf : "scripts/null-files/rclone.conf"}"
-    destination = "$HOME/.config/rclone/rclone.conf"
-  }
-
   provisioner "file" {
     source      = "scripts/"
     destination = "${local.tmp_dir}"
@@ -67,7 +66,8 @@ resource "aws_instance" "manager" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/install-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager.0.private_ip} ${aws_default_vpc.default_vpc.cidr_block}",
+      "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.cidr_block}",
+      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager.0.private_ip}",
       "echo '127.0.0.1 ${terraform.workspace}-manager-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-manager-${count.index}",
     ]

@@ -19,20 +19,3 @@ manager_crontabs = ["tests/crontab"]
 manager_user_scripts = [
   "tests/user-scripts/manager-0.sh"
 ]
-
-worker_instance_type = "s1-2"
-
-worker_instance_count = 1
-
-worker_additional_volume_count = 1
-
-worker_additional_volume_size = 500
-
-worker_additional_volume_type = "classic" 
-
-worker_additional_volume_mount_point = "data"
-
-worker_user_scripts=[
-  "tests/user-scripts/worker-0.sh"
-]
-

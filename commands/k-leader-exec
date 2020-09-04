@@ -14,7 +14,7 @@ exec() {
   local HOSTNAME=`hostname`
   local IS_LEADER=`docker node inspect $HOSTNAME --format "{{ .ManagerStatus.Leader }}"`
   if [ "$IS_LEADER" == "true" ]; then
-    bash -c $COMMAND
+    bash -c "$COMMAND"
   fi
 }
 

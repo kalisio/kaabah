@@ -11,8 +11,8 @@ manager_instance_count = 1
 manager_instance_type = "s1-4"
 
 manager_ips = [
-  "91.134.188.153",
-  "91.134.188.154"
+  "51.210.84.111",
+  "51.210.84.112"
 ]
 
 manager_crontabs = ["tests/crontab"]

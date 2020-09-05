@@ -8,7 +8,7 @@ resource "scaleway_server" "manager" {
   image          = "${data.scaleway_image.manager_image.id}"
   type           = "${var.manager_instance_type}"
   security_group = "${scaleway_security_group.security_group_manager.id}"
-  public_ip      = "${length(var.manager_ips[count.index] != "") > 0 ? var.manager_ips[count.index] : element(scaleway_ip.manager.*.ip, count.index)}"
+  public_ip      = "${var.manager_ips[count.index] != "" ? var.manager_ips[count.index] : element(scaleway_ip.manager.*.ip, count.index)}"
 
   volume {
     size_in_gb = "${lookup(local.additional_volume_size, var.manager_instance_type)}"

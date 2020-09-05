@@ -8,6 +8,12 @@ manager_instance_count = 3
 
 manager_instance_type = "DEV1-S"
 
+manager_ips = [ 
+  "51.15.239.41",
+  "",
+  ""
+]
+
 manager_crontabs = [
   "tests/crontab",
   "tests/crontab",

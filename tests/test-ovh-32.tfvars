@@ -16,7 +16,11 @@ manager_ips = [
   "51.210.84.113"
 ]
 
-manager_crontabs = ["tests/crontab"]
+manager_crontabs = [
+  "tests/crontab",
+  "tests/crontab",
+  "tests/crontab"
+]
 
 manager_user_scripts = [
   "tests/user-scripts/manager-0.sh",

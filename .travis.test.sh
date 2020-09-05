@@ -17,7 +17,7 @@ terraform init -backend-config="backend.config"
 
  # Run terraform over the test workspaces
 terraform workspace select $WORKSPACE
-for TESTCASE in 10 12; do
+for TESTCASE in 10 12 32; do
   terraform apply -auto-approve -var-file="tests/$WORKSPACE-$TESTCASE.tfvars"
   RESULT_CODE=$?
 

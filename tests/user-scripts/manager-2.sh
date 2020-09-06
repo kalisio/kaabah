@@ -2,6 +2,11 @@
 
 # Check docker
 k-leader-exec k-swarm-info
+k-worker-list
 
 # Check gluster
-sudo gluster pool list
+if [ "$SUDO_USER" == "$USER" ]; then
+  gluster pool list
+else
+  sudo gluster pool list
+fi

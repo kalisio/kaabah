@@ -66,14 +66,14 @@ resource "openstack_compute_instance_v2" "worker" {
   }
 
   provisioner "file" {
-    source      = "modules/OVH/setup-netplan.sh"
-    destination = "${local.tmp_dir}/setup-netplan.sh"
+    source      = "modules/OVH/setup-private-ip.sh"
+    destination = "${local.tmp_dir}/setup-private-ip.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
       "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.cidr}",
-      "sudo bash  ${local.tmp_dir}/setup-netplan.sh",
+      "sudo bash  ${local.tmp_dir}/setup-private-ip.sh",
       "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${openstack_compute_instance_v2.manager.0.network.1.fixed_ip_v4}",
     ]
   }

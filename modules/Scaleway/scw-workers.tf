@@ -66,7 +66,7 @@ resource "scaleway_server" "worker" {
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh \"${local.private_network_cidr}\"",
-      "bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${scaleway_server.manager.private_ip}"
+      "bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${scaleway_server.manager.0.private_ip}"
     ]
   }
 
@@ -83,7 +83,7 @@ resource "scaleway_server" "worker" {
       bastion_host        = "${var.bastion_ip}"
       bastion_user        = "${var.bastion_ssh_user}"
       bastion_private_key = "${file(var.bastion_ssh_key)}"
-      host                = "${scaleway_server.manager.private_ip}"    
+      host                = "${scaleway_server.manager.0.private_ip}"    
       user                = "${var.ssh_user}"
       private_key         = "${file(var.ssh_key)}"
       timeout             = "${local.timeout}"

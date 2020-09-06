@@ -9,7 +9,7 @@ manager_instance_count = 1
 manager_instance_type = "DEV1-S"
 
 manager_ips = [
-  "51.15.239.41"
+  ""
 ]
 
 manager_crontabs = [

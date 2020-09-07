@@ -6,8 +6,8 @@ k-worker-list
 
 # Check gluster
 if [ "$USER" == root ]; then
-  echo root
+  gluster pool list
 else
-  echo sudo
+  sudo gluster pool list
 fi
 

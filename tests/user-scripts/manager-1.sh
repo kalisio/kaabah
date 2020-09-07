@@ -5,8 +5,9 @@ k-leader-exec k-swarm-info
 k-worker-list
 
 # Check gluster
-if [ -z "$SUDO_USER" ]; then
-  gluster pool list
+if [ "$USER" == root ]; then
+  echo root
 else
-  sudo gluster pool list
+  echo sudo
 fi
+

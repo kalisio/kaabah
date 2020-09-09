@@ -34,7 +34,7 @@ resource "null_resource" "manager_gluster_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(aws_instance.manager.*.private_ip, count.index)
+    host                = aws_instance.manager.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

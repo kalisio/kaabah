@@ -1,6 +1,6 @@
-cloud_provider = "SCALEWAY"
+cloud_provider = "SCW"
 
-region = "par1"
+region = "fr-par"
 
 ssh_key = "../workspaces/master/test-scw.pem"
 

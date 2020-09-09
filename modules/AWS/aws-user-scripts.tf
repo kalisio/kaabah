@@ -1,4 +1,4 @@
-resource "null_resource" "manager_user_script" {
+resource "null_resource" "manager_user_scripts" {
   count = var.AWS && length(var.manager_user_scripts) > 0 ? var.manager_instance_count : 0
 
   connection {
@@ -6,7 +6,7 @@ resource "null_resource" "manager_user_script" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(aws_instance.manager.*.private_ip, count.index)
+    host                = aws_instance.manager.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -37,7 +37,7 @@ resource "null_resource" "worker_user_scripts" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(aws_instance.worker.*.private_ip, count.index)
+    host                = aws_instance.worker.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -55,6 +55,6 @@ resource "null_resource" "worker_user_scripts" {
   }
 
   depends_on = [
-    null_resource.manager_user_script
+    null_resource.manager_user_scripts
   ]
 }

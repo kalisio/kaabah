@@ -4,7 +4,7 @@ resource "aws_instance" "manager" {
   ami               = local.image
   availability_zone = var.availability_zone
   instance_type     = var.manager_instance_type
-  security_groups   = [aws_security_group.security_group_manager.0.name]
+  security_groups   = [aws_security_group.security_group_manager.*.name[0]]
 
   root_block_device {
     volume_type = "gp2"
@@ -16,7 +16,7 @@ resource "aws_instance" "manager" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = self.private_ip 
+    host                = self.private_ip
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -67,7 +67,7 @@ resource "aws_instance" "manager" {
   provisioner "remote-exec" {
     inline = [
       "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.*.cidr_block[0]}",
-      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager.*.private_ip[0]}",
+      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager.0.private_ip}",
       "echo '127.0.0.1 ${terraform.workspace}-manager-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-manager-${count.index}"
     ]

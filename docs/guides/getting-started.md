@@ -185,8 +185,8 @@ Nodes >-----
 
 ID                              HOSTNAME                STATUS          ADDRESS         LABELS
 4ylkfx3vis3zlxqwvs7rcms0p       test-aws-manager        Ready/Active    172.31.25.252
-svpnq8a71v90hu7ir6ng7335d       test-aws-worker-0       Ready/Active    172.31.21.238   apps=true worker0=true
-jwgud49dpjvxfdkgnfa1we9la       test-aws-worker-1       Ready/Active    172.31.19.239   dbs=true worker1=true
+svpnq8a71v90hu7ir6ng7335d       test-aws-worker-0       Ready/Active    172.31.21.238  
+jwgud49dpjvxfdkgnfa1we9la       test-aws-worker-1       Ready/Active    172.31.19.239  
 
 Stacks >------
 
@@ -196,28 +196,11 @@ kaabah          8
 Services >------
 
 ID                  NAME                   MODE                REPLICAS            IMAGE                        PORTS
-imt4640a55sa        kaabah_alertmanager    replicated          1/1                 prom/alertmanager:v0.17.0
-2dk1t5jaeleq        kaabah_cadvisor        global              3/3                 google/cadvisor:v0.33.0
-3moom2hbx8o7        kaabah_grafana         replicated          1/1                 grafana/grafana:6.1.6
-s1m29d7c51zw        kaabah_node-exporter   global              3/3                 prom/node-exporter:v0.17.0
-y1zm0h699q60        kaabah_prometheus      replicated          1/1                 prom/prometheus:v2.9.2
-1fwm7sexsz4k        kaabah_pushgateway     replicated          1/1                 prom/pushgateway:v0.8.0
-wa262dqh51qt        kaabah_registry        replicated          1/1                 registry:2                   *:5000->5000/tcp
-a8xhmu9k7jbq        kaabah_traefik         replicated          1/1                 traefik:1.7-alpine
 
 Containers >-----
 
-
 test-aws-manager
 ID              NAMES   STATUS
-0eb9d385fc74    kaabah_grafana.1.u42yijzrl7vhubfb4ufup4hgq      Up About an hour (healthy)
-7c8ad92974d4    kaabah_cadvisor.4ylkfx3vis3zlxqwvs7rcms0p.0bcnfte5qsr4zxvim4dvapywg     Up About an hour (healthy)
-e26ab0a9a84a    kaabah_traefik.1.kn2pnp5wm9s2kqsm7x7ukl0gt      Up About an hour (healthy)
-a401aba300b1    kaabah_alertmanager.1.n424mme5cpqh1gbyqtwvn1cfi Up About an hour (healthy)
-bf10a39ce027    kaabah_prometheus.1.tzoe5g0rfnodzq84h73elavoa   Up About an hour (healthy)
-3b5aeb22291a    kaabah_registry.1.41f8l2p5fh2kam5qx2mj8a2rk     Up About an hour (healthy)
-b97a12b43694    kaabah_pushgateway.1.rbrtvtz3xcjy6uda7w6d3wdbz  Up About an hour (healthy)
-7cb96b612380    kaabah_node-exporter.4ylkfx3vis3zlxqwvs7rcms0p.ftmk23sinf18w5zhzp5fhg5yj        Up About an hour
 
 test-aws-worker-0
 ID              NAMES   STATUS

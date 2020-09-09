@@ -12,7 +12,11 @@ Because **Kaabah** relies on [Terraform](https://www.terraform.io/) and [Docker 
 
 ### Terraform
 
-You must have **Terraform** installed on your computer. For now **Kaabah** requires the `0.11.12` version of Terraform. Please refer to the [official guide](https://learn.hashicorp.com/terraform/getting-started/install.html) to install **Terraform**.
+You must have **Terraform** installed on your computer. For now **Kaabah** requires the `0.12.29` version of Terraform. Please refer to the [official guide](https://learn.hashicorp.com/terraform/getting-started/install.html) to install **Terraform**.
+
+::: tip
+You can directly download the `0.12.29` release [here](https://releases.hashicorp.com/terraform/0.12.29)
+:::
 
 ### Providers 
 
@@ -66,8 +70,9 @@ We strongly recommend to store the credentials using environment variables.
 1. Define your **Scaleway** credentials
 
 ```bash
-$export TF_VAR_SCALEWAY_ORGANIZATION="<ORGANIZATION-ID>"
-$export TF_VAR_SCALEWAY_TOKEN="<ACCESS-TOKEN>" 
+$export TF_VAR_SCW_ORGANIZATION_ID="<ORGANIZATION-ID>"
+$export TF_VAR_SCW_ACCESS_KEY="<ACCESS-KEY>" 
+$export TF_VAR_SCW_SECRET_KEY="<SECRET_KEY>"
 ```
 
 2. Define your **AWS** credentials
@@ -134,13 +139,15 @@ region = "eu-central-1"
 
 ssh_key = "../workspaces/master/test-aws.pem"
 
-key_name = "test-aws"
+key_name = "demo"
+
+manager_instance_count = 1
 
 manager_instance_type = "t2.small"
 
-manager_crontab = "tests/crontab"
+manager_crontabs = ["tests/crontab"]
 
-manager_user_script = "tests/manager.sh"
+manager_user_scripts = ["tests/manager.sh"]
 
 worker_instance_type = "t3.large"
 
@@ -152,7 +159,7 @@ worker_additional_volume_size = 500
 
 worker_additional_volume_type = "sc1"
 
-worker_additional_volume_mount_point = "data"
+worker_additional_volume_mount_point = "/mnt/data"
 
 worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
 ```

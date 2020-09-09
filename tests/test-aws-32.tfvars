@@ -1,4 +1,4 @@
-provider = "AWS"
+cloud_provider = "AWS"
 
 region = "eu-central-1"
 
@@ -37,8 +37,6 @@ worker_additional_volume_count = 1
 worker_additional_volume_size = 500
 
 worker_additional_volume_type = "sc1"
-
-worker_additional_volume_mount_point = "data"
 
 worker_user_scripts=[
   "tests/user-scripts/worker-0.sh",

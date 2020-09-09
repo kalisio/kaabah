@@ -1,4 +1,4 @@
-provider = "SCALEWAY"
+cloud_provider = "SCALEWAY"
 
 region = "par1"
 

@@ -1,121 +1,70 @@
-resource "scaleway_security_group" "security_group_manager" {
-  count                   = "${var.provider == "SCALEWAY" ? 1 : 0}"
+resource "scaleway_instance_security_group" "security_group_manager" {
+  count                   = var.SCW ? 1 : 0
   name                    = "${terraform.workspace}-manager"
-  description             = "Allow HTTP/S, SSH and Docker swarm traffic"
-  enable_default_security = false
+  inbound_default_policy = "drop" 
+
+  inbound_rule {
+    action    = "accept"
+    port      = 80
+    protocol  = "TCP"
+    ip_range  = "0.0.0.0/0"
+  }
+
+  inbound_rule {
+    action    = "accept"
+    port      = 443
+    protocol  = "TCP"
+    ip_range  = "0.0.0.0/0"
+  }
+
+  dynamic "inbound_rule" {
+    for_each = local.manager_tcp_ports
+
+    content {
+      action    = "accept"
+      port      = inbound_rule.value
+      protocol  = "TCP"
+      ip_range   = local.private_network_cidr
+    }
+  }
+
+  dynamic "inbound_rule" {
+    for_each = local.manager_udp_ports
+
+    content {
+      action    = "accept"
+      port      = inbound_rule.value
+      protocol  = "UDP"
+      ip_range   = local.private_network_cidr
+    }
+  }
 }
 
-resource "scaleway_security_group_rule" "manager_internal_in_accept_TCP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_tcp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.private_network_cidr}"
-  protocol       = "TCP"
-  port           = "${element(local.scw_manager_tcp_ports, count.index)}"
-}
+  
+resource "scaleway_instance_security_group" "security_group_worker" {
+  count                   = var.SCW ? 1 : 0
+  name                    = "${terraform.workspace}-worker"
+  inbound_default_policy = "drop" 
 
-resource "scaleway_security_group_rule" "manager_external_in_drop_TCP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_tcp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "drop"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "TCP"
-  port           = "${element(local.scw_manager_tcp_ports, count.index)}"
+  dynamic "inbound_rule" {
+    for_each = local.worker_tcp_ports
 
-  depends_on = [ "scaleway_security_group_rule.manager_internal_in_accept_TCP" ]
-}
+    content {
+      action    = "accept"
+      port      = inbound_rule.value
+      protocol  = "TCP"
+      ip_range   = local.private_network_cidr
+    }
+  }
 
-resource "scaleway_security_group_rule" "manager_internal_in_accept_UDP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_udp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.private_network_cidr}"
-  protocol       = "UDP"
-  port           = "${element(local.scw_manager_udp_ports, count.index)}"
-}
+  dynamic "inbound_rule" {
+    for_each = local.worker_udp_ports
 
-resource "scaleway_security_group_rule" "manager_external_in_drop_UDP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_manager_udp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "drop"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "UDP"
-  port           = "${element(local.scw_manager_udp_ports, count.index)}"
-
-  depends_on = [ "scaleway_security_group_rule.manager_internal_in_accept_UDP" ]
-}
-
-resource "scaleway_security_group_rule" "manager_in_accept_HTTP" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "TCP"
-  port           = 80
-}
-
-resource "scaleway_security_group_rule" "manager_in_accept_HTTPS" {
-  count          = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  security_group = "${scaleway_security_group.security_group_manager.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "TCP"
-  port           = 443
-}
-
-resource "scaleway_security_group" "security_group_worker" {
-  count                   = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  name                    = "${terraform.workspace}-workers"
-  description             = "Allow SSH traffic and Docker swarm traffic"
-  enable_default_security = false
-}
-
-resource "scaleway_security_group_rule" "worker_internal_in_accept_TCP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_tcp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.private_network_cidr}"
-  protocol       = "TCP"
-  port           = "${element(local.scw_worker_tcp_ports, count.index)}"
-}
-
-resource "scaleway_security_group_rule" "worker_external_in_drop_TCP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_tcp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "drop"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "TCP"
-  port           = "${element(local.scw_worker_tcp_ports, count.index)}"
-
-  depends_on = [ "scaleway_security_group_rule.worker_internal_in_accept_TCP" ]
-}
-
-resource "scaleway_security_group_rule" "worker_internal_in_accept_UDP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_udp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "accept"
-  direction      = "inbound"
-  ip_range       = "${local.private_network_cidr}"
-  protocol       = "UDP"
-  port           = "${element(local.scw_worker_udp_ports, count.index)}"
-}
-
-resource "scaleway_security_group_rule" "worker_external_in_drop_UDP" {
-  count          = "${var.provider == "SCALEWAY" ? length(local.scw_worker_udp_ports) : 0}"
-  security_group = "${scaleway_security_group.security_group_worker.id}"
-  action         = "drop"
-  direction      = "inbound"
-  ip_range       = "0.0.0.0/0"
-  protocol       = "UDP"
-  port           = "${element(local.scw_worker_udp_ports, count.index)}"
-
-  depends_on = [ "scaleway_security_group_rule.worker_internal_in_accept_UDP" ]
+    content {
+      action    = "accept"
+      port      = inbound_rule.value
+      protocol  = "UDP"
+      ip_range   = local.private_network_cidr
+    }
+  }
 }

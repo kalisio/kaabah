@@ -1,33 +1,33 @@
-resource "scaleway_volume" "manager_volume" {
-  count      = "${var.provider == "SCALEWAY" ? var.manager_additional_volume_count * var.manager_instance_count : 0}"
-  name       = "${terraform.workspace}-manager-volume-${count.index}"
-  size_in_gb = "${var.worker_additional_volume_size}"
+/*resource "scaleway_volume" "manager_volume" {
+  count      = var.SCW ? var.manager_additional_volume_count * var.manager_instance_count : 0
+  name       = terraform.workspace}-manager-volume-${count.index
+  size_in_gb = var.worker_additional_volume_size
   type       = "l_ssd"
 }
 
 resource "scaleway_volume_attachment" "manager_volume_attachement" {
-  count  = "${var.provider == "SCALEWAY" ? var.manager_additional_volume_count * var.manager_instance_count : 0}"
-  server = "${scaleway_server.manager.*.id[count.index / var.manager_additional_volume_count]}"
-  volume = "${scaleway_volume.manager_volume.*.id[count.index]}"
+  count  = var.SCW ? var.manager_additional_volume_count * var.manager_instance_count : 0
+  server = scaleway_instance_server.manager.*.id[count.index / var.manager_additional_volume_count]
+  volume = scaleway_volume.manager_volume.*.id[count.index]
 }
 
 resource "null_resource" "manager_volume_mount" {
-  count = "${var.provider == "SCALEWAY" ? var.manager_additional_volume_count * var.manager_instance_count : 0}"
+  count = var.SCW ? var.manager_additional_volume_count * var.manager_instance_count : 0
 
   connection {
     type                = "ssh"
-    bastion_host        = "${var.bastion_ip}"
-    bastion_user        = "${var.bastion_ssh_user}"
-    bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${scaleway_server.manager.*.private_ip[count.index / var.worker_additional_volume_count]}"
-    user                = "${var.ssh_user}"
-    private_key         = "${file(var.ssh_key)}"
-    timeout             = "${local.timeout}"
+    bastion_host        = var.bastion_ip
+    bastion_user        = var.bastion_ssh_user
+    bastion_private_key = file(var.bastion_ssh_key)
+    host                = scaleway_instance_server.manager.*.private_ip[count.index / var.worker_additional_volume_count]
+    user                = var.ssh_user
+    private_key         = file(var.ssh_key)
+    timeout             = local.timeout
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index % var.manager_additional_volume_count]} ${format("%s%d", var.manager_additional_volume_mount_point, count.index % var.manager_additional_volume_count)}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index % var.manager_additional_volume_count]} ${format("%s%d", var.manager_additional_volume_mount_point, count.index % var.manager_additional_volume_count),
     ]
   }
 
@@ -35,37 +35,38 @@ resource "null_resource" "manager_volume_mount" {
 }
 
 resource "scaleway_volume" "worker_volume" {
-  count      = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
-  name       = "${terraform.workspace}-volume-${count.index}"
-  size_in_gb = "${var.worker_additional_volume_size}"
+  count      = var.SCW ? var.worker_additional_volume_count * var.worker_instance_count : 0
+  name       = terraform.workspace}-volume-${count.index
+  size_in_gb = var.worker_additional_volume_size
   type       = "l_ssd"
 }
 
 resource "scaleway_volume_attachment" "worker_volume_attachement" {
-  count  = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
-  server = "${scaleway_server.worker.*.id[count.index / var.worker_additional_volume_count]}"
-  volume = "${scaleway_volume.worker_volume.*.id[count.index]}"
+  count  = var.SCW ? var.worker_additional_volume_count * var.worker_instance_count : 0
+  server = scaleway_instance_server.worker.*.id[count.index / var.worker_additional_volume_count]
+  volume = scaleway_volume.worker_volume.*.id[count.index]
 }
 
 resource "null_resource" "worker_volume_mount" {
-  count = "${var.provider == "SCALEWAY" ? var.worker_additional_volume_count * var.worker_instance_count : 0}"
+  count = var.SCW ? var.worker_additional_volume_count * var.worker_instance_count : 0
 
   connection {
     type                = "ssh"
-    bastion_host        = "${var.bastion_ip}"
-    bastion_user        = "${var.bastion_ssh_user}"
-    bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${scaleway_server.worker.*.private_ip[count.index / var.worker_additional_volume_count]}"
-    user                = "${var.ssh_user}"
-    private_key         = "${file(var.ssh_key)}"
-    timeout             = "${local.timeout}"
+    bastion_host        = var.bastion_ip
+    bastion_user        = var.bastion_ssh_user
+    bastion_private_key = file(var.bastion_ssh_key)
+    host                = scaleway_instance_server.worker.*.private_ip[count.index / var.worker_additional_volume_count]
+    user                = var.ssh_user
+    private_key         = file(var.ssh_key)
+    timeout             = local.timeout
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count)}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index % var.worker_additional_volume_count]} ${format("%s%d", var.worker_additional_volume_mount_point, count.index % var.worker_additional_volume_count),
     ]
   }
 
   depends_on = ["scaleway_volume_attachment.worker_volume_attachement"]
 }
+*/

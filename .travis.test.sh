@@ -7,7 +7,7 @@ git clone https://github.com/kalisio/kaabah-workspaces ../workspaces/master
 source ../workspaces/master/env.sh
 
 # Install terraform
-curl -fSL "https://releases.hashicorp.com/terraform/0.11.12/terraform_0.11.12_linux_amd64.zip" -o terraform.zip
+curl -fSL "https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip" -o terraform.zip
 sudo unzip terraform.zip -d /opt/terraform
 sudo ln -s /opt/terraform/terraform /usr/bin/terraform
 rm -f terraform.zip

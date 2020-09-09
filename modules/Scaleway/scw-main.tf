@@ -1,31 +1,33 @@
 provider "scaleway" {
-  version = "~> 1.9.0"
+  version = "~> 1.16.0"
 
-  organization = "${var.organization}"
-  token        = "${var.token}"
-  region       = "${var.region}"
+  organization_id = var.organization_id
+  access_key      = var.access_key
+  secret_key      = var.secret_key
+  region          = var.region
+  zone            = var.availability_zone
 }
 
 data "scaleway_image" "manager_image" {
-  count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  architecture = "${lookup(local.architectures, var.manager_instance_type)}"
-  name         = "${local.image}"
+  count        = var.SCW ? 1 : 0
+  architecture = lookup(local.architectures, var.manager_instance_type)
+  name         = local.image
 }
 
 data "scaleway_image" "worker_image" {
-  count        = "${var.provider == "SCALEWAY" ? 1 : 0}"
-  architecture = "${lookup(local.architectures, var.worker_instance_type)}"
-  name         = "${local.image}"
+  count        = var.SCW ? 1 : 0
+  architecture = lookup(local.architectures, var.worker_instance_type)
+  name         = local.image
 }
 
 locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "360s"
   private_network_cidr = "10.0.0.0/8"
-  scw_manager_tcp_ports = [ 2376, 2377, 7946, 24007, 24008, 49152, 22]
-  scw_manager_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
-  scw_worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]
-  scw_worker_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
+  manager_tcp_ports = [ 2376, 2377, 7946, 24007, 24008, 49152, 22]
+  manager_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
+  worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]
+  worker_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
   image = "Ubuntu Bionic"
   architectures = {
     GP1-XS      = "x86_64"

@@ -1,4 +1,4 @@
-provider = "AWS"
+cloud_provider = "AWS"
 
 region = "eu-central-1"
 

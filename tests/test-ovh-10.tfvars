@@ -1,4 +1,4 @@
-provider = "OVH"
+cloud_provider = "OVH"
 
 region = "GRA5"
 

@@ -128,7 +128,7 @@ Here is an example of message template that can be used as a payload for slack n
      {
         "title":"[${ACTION}] ${SERVICE} (status: ${STATUS})",
         "title_link": "https://an-url",
-        "color":"${COLOR}"
+        "color":"${COLOR
      }
    ]
 }

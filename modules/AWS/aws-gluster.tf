@@ -1,15 +1,15 @@
 resource "null_resource" "manager_gluster_create" {
-  count = "${var.provider == "AWS" ? 1 : 0}"
+  count = var.AWS ? 1 : 0
 
   connection {
     type                = "ssh"
-    bastion_host        = "${var.bastion_ip}"
-    bastion_user        = "${var.bastion_ssh_user}"
-    bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${aws_instance.manager.0.private_ip}"
-    user                = "${var.ssh_user}"
-    private_key         = "${file(var.ssh_key)}"
-    timeout             = "${local.timeout}"
+    bastion_host        = var.bastion_ip
+    bastion_user        = var.bastion_ssh_user
+    bastion_private_key = file(var.bastion_ssh_key)
+    host                = aws_instance.manager.*.private_ip[0]
+    user                = var.ssh_user
+    private_key         = file(var.ssh_key)
+    timeout             = local.timeout
   }
 
   provisioner "remote-exec" {
@@ -19,24 +19,25 @@ resource "null_resource" "manager_gluster_create" {
   }
 
   depends_on = [
-    "aws_instance.manager", 
-    "aws_instance.worker", 
-    "null_resource.worker_volume_mount"
+    aws_instance.manager, 
+    aws_instance.worker, 
+    null_resource.manager_volume_mount,
+    null_resource.worker_volume_mount
   ]
 }
 
 resource "null_resource" "manager_gluster_mount" {
-  count = "${var.provider == "AWS" ? var.manager_instance_count : 0}"
+  count = var.AWS ? var.manager_instance_count : 0
 
   connection {
     type                = "ssh"
-    bastion_host        = "${var.bastion_ip}"
-    bastion_user        = "${var.bastion_ssh_user}"
-    bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${element(aws_instance.manager.*.private_ip, count.index)}"
-    user                = "${var.ssh_user}"
-    private_key         = "${file(var.ssh_key)}"
-    timeout             = "${local.timeout}"
+    bastion_host        = var.bastion_ip
+    bastion_user        = var.bastion_ssh_user
+    bastion_private_key = file(var.bastion_ssh_key)
+    host                = element(aws_instance.manager.*.private_ip, count.index)
+    user                = var.ssh_user
+    private_key         = file(var.ssh_key)
+    timeout             = local.timeout
   }
 
   provisioner "remote-exec" {
@@ -46,22 +47,22 @@ resource "null_resource" "manager_gluster_mount" {
   }
 
   depends_on = [
-    "null_resource.manager_gluster_create"
+    null_resource.manager_gluster_create
   ]
 }
 
 resource "null_resource" "worker_gluster_mount" {
-  count = "${var.provider == "AWS" ? var.worker_instance_count : 0}"
+  count = var.AWS ? var.worker_instance_count : 0
 
   connection {
     type                = "ssh"
-    bastion_host        = "${var.bastion_ip}"
-    bastion_user        = "${var.bastion_ssh_user}"
-    bastion_private_key = "${file(var.bastion_ssh_key)}"
-    host                = "${element(aws_instance.worker.*.private_ip, count.index)}"
-    user                = "${var.ssh_user}"
-    private_key         = "${file(var.ssh_key)}"
-    timeout             = "${local.timeout}"
+    bastion_host        = var.bastion_ip
+    bastion_user        = var.bastion_ssh_user
+    bastion_private_key = file(var.bastion_ssh_key)
+    host                = element(aws_instance.worker.*.private_ip, count.index)
+    user                = var.ssh_user
+    private_key         = file(var.ssh_key)
+    timeout             = local.timeout
   }
 
    provisioner "remote-exec" {
@@ -71,6 +72,6 @@ resource "null_resource" "worker_gluster_mount" {
   }
 
   depends_on = [
-    "null_resource.manager_gluster_create"
+    null_resource.manager_gluster_create
   ]
 }

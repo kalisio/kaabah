@@ -1,18 +1,18 @@
 provider "aws" {
   version = "~> 2.0"
 
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
-  region     = "${var.region}"
+  access_key = var.access_key
+  secret_key = var.secret_key
+  region     = var.region
 }
 
 locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "180s"
   image = "ami-090f10efc254eaf55"
-  worker_instance_class = "${element(split(".", var.worker_instance_type), 0)}"
-  manager_use_nvme_device = "${contains(local.nvme_list, local.worker_instance_class) ? true : false}"
-  worker_use_nvme_device = "${contains(local.nvme_list, local.worker_instance_class) ? true : false}"
+  worker_instance_class = element(split(".", var.worker_instance_type), 0)
+  manager_use_nvme_device = contains(local.nvme_list, local.worker_instance_class) ? true : false
+  worker_use_nvme_device = contains(local.nvme_list, local.worker_instance_class) ? true : false
   device_names = [
     "/dev/sdf", 
     "/dev/sdg", 

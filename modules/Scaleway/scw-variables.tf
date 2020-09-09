@@ -1,8 +1,10 @@
-variable provider {}
+variable "SCW" {}
 
-variable "organization" {}
+variable "organization_id" {}
 
-variable "token" {}
+variable "access_key" {}
+
+variable "secret_key" {}
 
 variable "bastion_ip" {}
 
@@ -17,6 +19,8 @@ variable "ssh_user" {
 variable "ssh_key" {}
 
 variable "region" {}
+
+variable "availability_zone" {}
 
 variable "docker_version" {}
 
@@ -37,15 +41,15 @@ variable "manager_additional_volume_size" {}
 variable "manager_additional_volume_mount_point" {}
 
 variable "manager_ips" {
-  type = "list"
+  type = list
 }
 
 variable "manager_crontabs" {
-  type = "list"
+  type = list
 }
 
 variable "manager_user_scripts" {
-  type = "list"
+  type = list
 }
 
 variable "worker_instance_type" {}
@@ -59,7 +63,7 @@ variable "worker_additional_volume_size" {}
 variable "worker_additional_volume_mount_point" {}
 
 variable "worker_user_scripts" {
-  type = "list"
+  type = list
 }
 
 variable  "gluster_share_volume_mount_point" {}

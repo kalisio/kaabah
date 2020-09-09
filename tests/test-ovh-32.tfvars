@@ -1,4 +1,4 @@
-provider = "OVH"
+cloud_provider = "OVH"
 
 region = "GRA5"
 
@@ -37,8 +37,6 @@ worker_additional_volume_count = 0
 worker_additional_volume_size = 500
 
 worker_additional_volume_type = "classic" 
-
-worker_additional_volume_mount_point = "data"
 
 worker_user_scripts=[
   "tests/user-scripts/worker-0.sh",

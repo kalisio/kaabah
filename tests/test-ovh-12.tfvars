@@ -1,4 +1,4 @@
-provider = "OVH"
+cloud_provider = "OVH"
 
 region = "GRA5"
 
@@ -15,7 +15,9 @@ manager_ips = [
   "51.210.84.112"
 ]
 
-manager_crontabs = ["tests/crontab"]
+manager_crontabs = [
+  "tests/crontab"
+]
 
 manager_user_scripts = [
   "tests/user-scripts/manager-0.sh"
@@ -31,7 +33,7 @@ worker_additional_volume_size = 500
 
 worker_additional_volume_type = "classic" 
 
-worker_additional_volume_mount_point = "data"
+worker_additional_volume_mount_point = "/mnt/data"
 
 worker_user_scripts=[
   "tests/user-scripts/worker-0.sh",

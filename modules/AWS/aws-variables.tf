@@ -1,4 +1,4 @@
-variable provider {}
+variable "AWS" {}
 
 variable "region" {}
 
@@ -47,15 +47,15 @@ variable "manager_additional_volume_type" {}
 variable "manager_additional_volume_mount_point" {}
 
 variable "manager_ips" {
-  type = "list"
+  type = list
 }
 
 variable "manager_crontabs" {
-  type = "list"
+  type = list
 }
 
 variable "manager_user_scripts" {
-  type = "list"
+  type = list
 }
 
 variable "worker_instance_type" {}
@@ -71,7 +71,7 @@ variable "worker_additional_volume_type" {}
 variable "worker_additional_volume_mount_point" {}
 
 variable "worker_user_scripts" {
-  type = "list"
+  type = list
 }
 
 variable  "gluster_share_volume_mount_point" {}

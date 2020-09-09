@@ -50,21 +50,26 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `manager_ip` | If define, it represents the IP address to be retrieved and attached to the manager. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). On **OVH** the variable is omitted because the support of the [Floating IP](https://labs.ovh.com/public-cloud-l3-services) is still experimental. If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
-| `manager_instance_type` | The instance type of the Docker Swarm manager. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
-| `manager_crontab` | The crontab file to be provisioned on the manger. The default value is `""`. |
-| `manager_user_script` | The user script to be executed when when the manager is ready. It must be the file path to the script. The default value is `""`. |
+| `manager_instance_type` | The instance type of the manager instances. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
+| `manager_instance_count` | The number of manager instances. The default value is `1` |
+| `manager_additional_volume_count` | The number of volumes attached to each manager. The default value is `0` |
+| `manager_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to bare-metal instances only. The default value is `150` |
+| `manager_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
+| `manager_additional_volume_mount_point` | The mount point used to mount the devices. The default value is `/mnt/data` |
+| `manager_ips` | If define, it represents the IP address to be retrieved and attached to each managers. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address) and on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html). On **OVH** the variable is omitted because the support of the [Floating IP](https://labs.ovh.com/public-cloud-l3-services) is still experimental. If undefined, the manager is assigned a public IP defined by the providers. | The default value is `""`. |
+| `manager_crontabs` | The crontabs file to be provisioned on the managers. The default value is `[]`. |
+| `manager_user_scripts` | The user scripts to be executed when the managers are ready. It must be the file path to the script. The default value is `[]`. |
 
 ### Workers
 
 | Variables | Description |
 |--- | --- |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
-| `worker_instance_count` | The number of worker instances. The default value is `1` |
+| `worker_instance_count` | The number of worker instances. The default value is `0` |
 | `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
 | `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to bare-metal instances only. The default value is `150` |
 | `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
-| `worker_additional_volume_mount_point` | The mount point used to mount the devices. The prefix `/dev/` is automatically added and the default value is `data` |
+| `worker_additional_volume_mount_point` | The mount point used to mount the devices. The default value is `/mnt/data` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |
 
 ## Docker

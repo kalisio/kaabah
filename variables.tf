@@ -59,6 +59,22 @@ variable "manager_instance_type" {
   default = ""
 }
 
+variable "manager_additional_volume_count" {
+  default = 0
+}
+
+variable "manager_additional_volume_size" {
+  default = 150
+}
+
+variable "manager_additional_volume_type" {
+  default = ""
+}
+
+variable "manager_additional_volume_mount_point" {
+  default = "/mnt/data"
+}
+
 variable "manager_crontabs" {
   type = "list"
   default = []
@@ -90,7 +106,7 @@ variable "worker_additional_volume_type" {
 }
 
 variable "worker_additional_volume_mount_point" {
-  default = "data"
+  default = "/mnt/data"
 }
 
 variable "worker_user_scripts" {

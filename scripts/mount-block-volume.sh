@@ -10,14 +10,14 @@ mkfs -t ext4 $DEVICE_NAME
 # get mapped in a different order. This means that my /etc/fstab which specifies /dev/nvme1n1 gets 
 # one drive one time and a different drive the next => so it is required to use the UUID
 VOLUME_UUID=`blkid -s UUID -o value $DEVICE_NAME`
-mkdir -p /mnt/$MOUNT_POINT
-mount UUID=$VOLUME_UUID /mnt/$MOUNT_POINT
+mkdir -p $MOUNT_POINT
+mount UUID=$VOLUME_UUID $MOUNT_POINT
 
 # Update the fstab
-echo UUID=$VOLUME_UUID /mnt/$MOUNT_POINT ext4 defaults,nofail 0 2 | tee -a /etc/fstab
+echo UUID=$VOLUME_UUID $MOUNT_POINT ext4 defaults,nofail 0 2 | tee -a /etc/fstab
 
 # Grant the current user the ownership of the mounted volume
 K_USER=${SUDO_USER:-$USER}
 if [ "$K_USER" != "root" ]; then
-  chown -R $SUDO_USER:$SUDO_USER /mnt/$MOUNT_POINT
+  chown -R $SUDO_USER:$SUDO_USER $MOUNT_POINT
 fi

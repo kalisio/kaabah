@@ -38,6 +38,14 @@ variable "manager_instance_count" {}
 
 variable "manager_instance_type" {}
 
+variable "manager_additional_volume_count" {}
+
+variable "manager_additional_volume_size" {}
+
+variable "manager_additional_volume_type" {}
+
+variable "manager_additional_volume_mount_point" {}
+
 variable "manager_ips" {
   type = "list"
 }
@@ -60,7 +68,7 @@ variable "worker_additional_volume_size" {}
 
 variable "worker_additional_volume_type" {}
 
-variable worker_additional_volume_mount_point {}
+variable "worker_additional_volume_mount_point" {}
 
 variable "worker_user_scripts" {
   type = "list"

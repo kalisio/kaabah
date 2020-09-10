@@ -1,10 +1,10 @@
-resource "aws_instance" "worker" {
+resource "aws_instance" "worker_instances" {
   count                       = var.AWS ? var.worker_instance_count : 0
   key_name                    = var.key_name
   ami                         = local.image
   availability_zone           = var.availability_zone
   instance_type               = var.worker_instance_type
-  security_groups             = [aws_security_group.security_group_worker.*.name[0]]
+  security_groups             = [aws_security_group.worker_security_group.*.name[0]]
 
   root_block_device {
     volume_type = "gp2"
@@ -62,7 +62,7 @@ resource "aws_instance" "worker" {
   provisioner "remote-exec" {
     inline = [
       "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.*.cidr_block[0]}",
-      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${aws_instance.manager.0.private_ip}",
+      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${aws_instance.manager_instances.0.private_ip}",
       "echo '127.0.0.1 ${terraform.workspace}-worker-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-worker-${count.index}"
     ]

@@ -1,4 +1,4 @@
-resource "openstack_compute_instance_v2" "manager" {
+resource "openstack_compute_instance_v2" "manager_instances" {
   count             = var.OVH ? var.manager_instance_count : 0
   name              = "${terraform.workspace}-manager-${count.index}"
   image_name        = local.image
@@ -78,7 +78,7 @@ resource "openstack_compute_instance_v2" "manager" {
     inline = [
       "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",
       "sudo bash ${local.tmp_dir}/setup-private-ip.sh",
-      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${openstack_compute_instance_v2.manager.0.network.1.fixed_ip_v4}",
+      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.network.1.fixed_ip_v4} ${openstack_compute_instance_v2.manager_instances.0.network.1.fixed_ip_v4}",
     ]
   }
 }

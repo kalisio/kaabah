@@ -7,14 +7,14 @@ resource "scaleway_instance_server" "worker" {
   name              = "${terraform.workspace}-worker-${count.index}"
   image             = data.scaleway_image.worker_image.*.id[0]
   type              = var.worker_instance_type
-  security_group_id = scaleway_instance_security_group.security_group_worker.*.id[0]
+  security_group_id = scaleway_instance_security_group.worker_security_group.*.id[0]
   ip_id             = element(scaleway_instance_ip.worker.*.id, count.index)
 
   root_volume {
     size_in_gb     = lookup(local.root_volume_size, var.worker_instance_type)
   }
 
-  additional_volume_ids = [scaleway_instance_volume.worker_volumes.*.id[count.index]]
+  additional_volume_ids = [scaleway_instance_volume.worker_volumess.*.id[count.index]]
 
   connection {
     type                = "ssh"

@@ -1,4 +1,4 @@
-resource "aws_ebs_volume" "manager_volume" {
+resource "aws_ebs_volume" "manager_volumes" {
   count             = var.AWS && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
   availability_zone = var.availability_zone
   size              = var.manager_additional_volume_size
@@ -9,15 +9,15 @@ resource "aws_ebs_volume" "manager_volume" {
   }
 }
 
-resource "aws_volume_attachment" "manager_volume_attachement" {
+resource "aws_volume_attachment" "manager_volume_attachements" {
   count            = var.AWS && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
   device_name     = local.device_names[count.index]
-  instance_id     = aws_instance.manager.*.id[count.index]
-  volume_id       = aws_ebs_volume.manager_volume.*.id[count.index]
+  instance_id     = aws_instance.manager_instances.*.id[count.index]
+  volume_id       = aws_ebs_volume.manager_volumes.*.id[count.index]
   force_detach    = true
 }
 
-resource "null_resource" "manager_volume_mount" {
+resource "null_resource" "manager_volume_mounts" {
   count  = var.AWS && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
 
   connection {
@@ -25,7 +25,7 @@ resource "null_resource" "manager_volume_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = aws_instance.manager.*.private_ip[count.index]
+    host                = aws_instance.manager_instances.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -38,11 +38,11 @@ resource "null_resource" "manager_volume_mount" {
   }
 
   depends_on = [
-    aws_volume_attachment.manager_volume_attachement
+    aws_volume_attachment.manager_volume_attachements
   ]
 }
 
-resource "aws_ebs_volume" "worker_volume" {
+resource "aws_ebs_volume" "worker_volumes" {
   count             = var.AWS && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
   availability_zone = var.availability_zone
   size              = var.worker_additional_volume_size
@@ -53,15 +53,15 @@ resource "aws_ebs_volume" "worker_volume" {
   }
 }
 
-resource "aws_volume_attachment" "worker_volume_attachement" {
+resource "aws_volume_attachment" "worker_volume_attachements" {
   count         = var.AWS && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
   device_name   = local.device_names[count.index]
-  instance_id   = aws_instance.worker.*.id[count.index]
-  volume_id     = aws_ebs_volume.worker_volume.*.id[count.index]
+  instance_id   = aws_instance.worker_instances.*.id[count.index]
+  volume_id     = aws_ebs_volume.worker_volumes.*.id[count.index]
   force_detach  = true
 }
 
-resource "null_resource" "worker_volume_mount" {
+resource "null_resource" "worker_volume_mounts" {
   count = var.AWS && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
 
   connection {
@@ -69,7 +69,7 @@ resource "null_resource" "worker_volume_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = aws_instance.worker.*.private_ip[count.index]
+    host                = aws_instance.worker_instances.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -82,6 +82,6 @@ resource "null_resource" "worker_volume_mount" {
   }
 
   depends_on = [
-    aws_volume_attachment.worker_volume_attachement
+    aws_volume_attachment.worker_volume_attachements
   ]
 }

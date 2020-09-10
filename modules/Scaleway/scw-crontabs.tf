@@ -1,4 +1,4 @@
-resource "null_resource" "managers_crontab" {
+resource "null_resource" "manager_crontabs" {
   count = var.SCW && length(var.manager_crontabs) > 0 ? var.manager_instance_count : 0
 
   connection {

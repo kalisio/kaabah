@@ -1,4 +1,4 @@
-resource "null_resource" "manager_crontab" {
+resource "null_resource" "manager_crontabs" {
   count = var.OVH && length(var.manager_crontabs) > 0 ? var.manager_instance_count : 0
 
   connection {
@@ -6,7 +6,7 @@ resource "null_resource" "manager_crontab" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(openstack_compute_instance_v2.manager.*.access_ip_v4, count.index)
+    host                = element(openstack_compute_instance_v2.manager_instances.*.access_ip_v4, count.index)
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

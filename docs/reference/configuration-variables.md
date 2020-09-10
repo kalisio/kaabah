@@ -24,9 +24,9 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `provider` | The provider to host the infrastructure. It must be `AWS` or `Scaleway`. There is no default value. |
-| `region` | The region to host the infrastructure. There is no default value. |
-| `availability_zone` | The availability zone to host the infrastructure. This variable is ignored in the case of **Scaleway**. On **AWS**, the default value is set to the first AZ of the specified region. For instance, if you provide the `eu-central-1` region, the default value will be `eu-central-1a`. |
+| `cloud_provider` | The provider to host the infrastructure. It must be `AWS`, `OVH` or `SCW`. There is no default value. |
+| `region` | The region to host the infrastructure. There is no default value. The default value for **AWS** is `eu-central-1`, for **OVH** is `GRA5` and for **Scaleway** is `fr-par`. |
+| `availability_zone` | The availability zone to host the infrastructure. On **AWS** and **Scaleway**, the default value is set to the first availability zone of the specified region. For instance, if you provide the `eu-central-1` region on **AWS**, the default value will be `eu-central-1a`, and if you provide the region `fr-par` on **Scaleway** the default value will be `fr-par-1` |
 
 ## Network
 
@@ -34,7 +34,7 @@ sidebarDepth: 3
 |--- | --- |
 | `ssh_user` | The user to get connected to the instances. On **Scaleway** the default value is `root` and on **AWS** and **OVH** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
-| `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored for **Scaleway**. |
+| `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored on **Scaleway**. |
 | `bastion_ip` | The IP address of the bastion to be used. The default value is the value of the `manager_ip` variable. |
 | `bastion_ssh_user` | The user to be used to get connected to the bastion. The default value is the value of the `ssh_user` variable. |
 | `bastion_ssh_key` | The private key to be used to get connected to the bastion. The default value is the value of the `ssh_key` variable. |
@@ -52,8 +52,7 @@ sidebarDepth: 3
 |--- | --- |
 | `manager_instance_type` | The instance type of the manager instances. It must be a X86 64bits architecture and it depends on the provider. There is no default value. |
 | `manager_instance_count` | The number of manager instances. The default value is `1` |
-| `manager_additional_volume_count` | The number of volumes attached to each manager. The default value is `0` |
-| `manager_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to bare-metal instances only. The default value is `150` |
+| `manager_additional_volume_size` | The size in giga bytes of the additional volume. You must provide a size larger than `0` to setup an additional volume. The default value is `0` |
 | `manager_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
 | `manager_additional_volume_mount_point` | The mount point used to mount the devices. The default value is `/mnt/data` |
 | `manager_ips` | If defined, it represents the IP addressed to be retrieved and attached to each managers. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address), on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) and on **OVH** a [Floating IP](https://www.ovhcloud.com/en/bare-metal/ip/). If undefined, the manager is assigned a public IP defined by the provider. | The default value is `[]`. |
@@ -66,8 +65,7 @@ sidebarDepth: 3
 |--- | --- |
 | `worker_instance_type` | The instance type of the Docker Swarm workers. It must be a X86 64bits architecture and it depends on the provider. There is no default value |
 | `worker_instance_count` | The number of worker instances. The default value is `0` |
-| `worker_additional_volume_count` | The number of volumes attached to each worker. The default value is `0` |
-| `worker_additional_volume_size` | The size in giga bytes of the additional volumes. Note that on Scaleway you are limited to 150GB and the minimum size is 50GB. Moreover, you can add volumes to bare-metal instances only. The default value is `150` |
+| `worker_additional_volume_size` | The size in giga bytes of the additional volume. You must provide a size larger than `0` to setup an additional volume. The default value is `0` |
 | `worker_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
 | `worker_additional_volume_mount_point` | The mount point used to mount the devices. The default value is `/mnt/data` |
 | `worker_user_scripts` | The scripts to be executed once the workers are ready. It must be a list of file paths. The default value is `[]` |

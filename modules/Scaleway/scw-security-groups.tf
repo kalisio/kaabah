@@ -1,4 +1,4 @@
-resource "scaleway_instance_security_group" "security_group_manager" {
+resource "scaleway_instance_security_group" "manager_security_group" {
   count                   = var.SCW ? 1 : 0
   name                    = "${terraform.workspace}-manager"
   inbound_default_policy = "drop" 
@@ -41,7 +41,7 @@ resource "scaleway_instance_security_group" "security_group_manager" {
 }
 
   
-resource "scaleway_instance_security_group" "security_group_worker" {
+resource "scaleway_instance_security_group" "worker_security_group" {
   count                   = var.SCW ? 1 : 0
   name                    = "${terraform.workspace}-worker"
   inbound_default_policy = "drop" 

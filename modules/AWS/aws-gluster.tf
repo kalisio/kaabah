@@ -6,7 +6,7 @@ resource "null_resource" "manager_gluster_create" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = aws_instance.manager.*.private_ip[0]
+    host                = aws_instance.manager_instances.*.private_ip[0]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -14,15 +14,15 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager.*.private_ip)} ${join(" ", aws_instance.worker.*.private_ip)}\""
+      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.private_ip)} ${join(" ", aws_instance.worker_instances.*.private_ip)}\""
     ]
   }
 
   depends_on = [
-    aws_instance.manager, 
-    aws_instance.worker, 
-    null_resource.manager_volume_mount,
-    null_resource.worker_volume_mount
+    aws_instance.manager_instances, 
+    aws_instance.worker_instances, 
+    null_resource.manager_volume_mounts,
+    null_resource.worker_volume_mounts
   ]
 }
 
@@ -34,7 +34,7 @@ resource "null_resource" "manager_gluster_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = aws_instance.manager.*.private_ip[count.index]
+    host                = aws_instance.manager_instances.*.private_ip[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -59,7 +59,7 @@ resource "null_resource" "worker_gluster_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(aws_instance.worker.*.private_ip, count.index)
+    host                = element(aws_instance.worker_instances.*.private_ip, count.index)
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

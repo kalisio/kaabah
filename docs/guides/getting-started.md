@@ -123,45 +123,54 @@ $terraform init -backend-config="path/to/your/backend.config"
 ### Create a workspace
 
 ```bash
-$terraform workspace new demo
+$terraform workspace new test
 ```
 
-Terraform will automatically switch to the created workspace `demo`
+Terraform will automatically switch to the created workspace `test`
 
 ### Configure the workspace
 
-We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `demo.tfvars` file may look like this:
+We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `test-aws.tfvars` file may look like this:
 
 ```text
-provider = "AWS"
+cloud_provider = "AWS"
 
 region = "eu-central-1"
 
 ssh_key = "../workspaces/master/test-aws.pem"
 
-key_name = "demo"
+key_name = "test-aws"
 
 manager_instance_count = 1
 
 manager_instance_type = "t2.small"
 
-manager_crontabs = ["tests/crontab"]
+manager_additional_volume_size = 500
 
-manager_user_scripts = ["tests/manager.sh"]
+manager_additional_volume_mount_point = "/mnt/extra"
+
+manager_ips = [
+  "3.120.200.41"
+]
+
+manager_crontabs = [
+  "tests/crontab"
+]
+
+manager_user_scripts = [
+  "tests/user-scripts/manager-0.sh"
+]
 
 worker_instance_type = "t3.large"
 
 worker_instance_count = 2
 
-worker_additional_volume_count = 1
-
 worker_additional_volume_size = 500
 
-worker_additional_volume_type = "sc1"
-
-worker_additional_volume_mount_point = "/mnt/data"
-
-worker_user_scripts=["tests/worker.sh", "tests/worker.sh"]
+worker_user_scripts=[
+  "tests/user-scripts/worker-0.sh",
+  "tests/user-scripts/worker-1.sh"
+]
 ```
 
 ### Apply the changes
@@ -172,7 +181,7 @@ Within your workspace, apply Terraform with your specific configuration:
 $terraform apply -var-file="path/to/your/config.tfvars"
 ```
 
-After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.
+After a while, your cluster should be created and the corresponding Terraform states stored in your **S3** backend.
 
 ### Check the infrastructure
 
@@ -204,13 +213,9 @@ ID              NAMES   STATUS
 
 test-aws-worker-0
 ID              NAMES   STATUS
-0c483b70fedd    kaabah_cadvisor.svpnq8a71v90hu7ir6ng7335d.kfloir1m5cv012ogb5ck7wnhh     Up About an hour (healthy)
-b3e1a4117807    kaabah_node-exporter.svpnq8a71v90hu7ir6ng7335d.4n71fp7vpvi7z0avzpkriuypv        Up About an hour
 
 test-aws-worker-1
 ID              NAMES   STATUS
-0168740c5c45    kaabah_cadvisor.jwgud49dpjvxfdkgnfa1we9la.qj55xvd5ugood47e7wz35mbgn     Up About an hour (healthy)
-420e5b27bccb    kaabah_node-exporter.jwgud49dpjvxfdkgnfa1we9la.ihi62eehuwna6a1qxzjt9lx2g        Up About an hour
 ubuntu@test-aws-manager:~$
 ```
 

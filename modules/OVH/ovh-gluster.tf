@@ -6,7 +6,7 @@ resource "null_resource" "manager_gluster_create" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = openstack_compute_instance_v2.manager.*.access_ip_v4[0]
+    host                = openstack_compute_instance_v2.manager_instances.*.access_ip_v4[0]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -14,15 +14,15 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager.*.network.1.fixed_ip_v4)} ${join(" ", openstack_compute_instance_v2.worker.*.network.1.fixed_ip_v4)}\""
+      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager_instances.*.network.1.fixed_ip_v4)} ${join(" ", openstack_compute_instance_v2.worker_instances.*.network.1.fixed_ip_v4)}\""
     ]
   }
 
   depends_on = [
-    openstack_compute_instance_v2.manager, 
-    openstack_compute_instance_v2.worker,
-    null_resource.manager_volume_mount,
-    null_resource.worker_volume_mount
+    openstack_compute_instance_v2.manager_instances, 
+    openstack_compute_instance_v2.worker_instances,
+    null_resource.manager_volume_mounts,
+    null_resource.worker_volume_mounts
   ]
 }
 
@@ -34,7 +34,7 @@ resource "null_resource" "manager_gluster_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(openstack_compute_instance_v2.manager.*.access_ip_v4, count.index)
+    host                = element(openstack_compute_instance_v2.manager_instances.*.access_ip_v4, count.index)
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -59,7 +59,7 @@ resource "null_resource" "worker_gluster_mount" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = element(openstack_compute_instance_v2.worker.*.access_ip_v4, count.index)
+    host                = element(openstack_compute_instance_v2.worker_instances.*.access_ip_v4, count.index)
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

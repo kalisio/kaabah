@@ -1,4 +1,4 @@
-resource "aws_security_group" "security_group_manager" {
+resource "aws_security_group" "manager_security_group" {
   count       = var.AWS ? 1 : 0
   name        = "${terraform.workspace}-manager"
 
@@ -112,7 +112,7 @@ resource "aws_security_group" "security_group_manager" {
   }
 }
 
-resource "aws_security_group" "security_group_worker" {
+resource "aws_security_group" "worker_security_group" {
   count       = var.AWS ? 1 : 0
   name        = "${terraform.workspace}-worker"
 

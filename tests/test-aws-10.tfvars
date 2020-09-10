@@ -8,8 +8,6 @@ key_name = "test-aws"
 
 manager_instance_type = "t2.small"
 
-manager_additional_volume_count = 1
-
 manager_additional_volume_size = 500
 
 manager_ips = [

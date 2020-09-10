@@ -10,10 +10,11 @@ resource "scaleway_instance_server" "worker" {
   security_group_id = scaleway_instance_security_group.security_group_worker.*.id[0]
   ip_id             = element(scaleway_instance_ip.worker.*.id, count.index)
 
-  /*volume {
-    size_in_gb = lookup(local.additional_volume_size, var.worker_instance_type)
-    type       = "l_ssd"
-  }*/
+  root_volume {
+    size_in_gb     = lookup(local.root_volume_size, var.worker_instance_type)
+  }
+
+  additional_volume_ids = scaleway_instance_volume.worker_volumes.*.id
 
   connection {
     type                = "ssh"

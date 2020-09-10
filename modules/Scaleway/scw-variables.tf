@@ -34,8 +34,6 @@ variable "manager_instance_count" {}
 
 variable "manager_instance_type" {}
 
-variable "manager_additional_volume_count" {}
-
 variable "manager_additional_volume_size" {}
 
 variable "manager_additional_volume_mount_point" {}
@@ -55,8 +53,6 @@ variable "manager_user_scripts" {
 variable "worker_instance_type" {}
 
 variable "worker_instance_count" {}
-
-variable "worker_additional_volume_count" {}
 
 variable "worker_additional_volume_size" {}
 

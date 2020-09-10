@@ -72,10 +72,6 @@ variable "manager_instance_type" {
   default = ""
 }
 
-variable "manager_additional_volume_count" {
-  default = 0
-}
-
 variable "manager_additional_volume_size" {
   default = 150
 }
@@ -104,10 +100,6 @@ variable "worker_instance_count" {
 
 variable "worker_instance_type" {
   default = ""
-}
-
-variable "worker_additional_volume_count" {
-  default = 0
 }
 
 variable "worker_additional_volume_size" {

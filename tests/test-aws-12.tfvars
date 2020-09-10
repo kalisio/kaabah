@@ -10,6 +10,10 @@ manager_instance_count = 1
 
 manager_instance_type = "t2.small"
 
+manager_additional_volume_size = 500
+
+manager_additional_volume_mount_point = "/mnt/extra"
+
 manager_ips = [
   "3.120.200.41"
 ]

@@ -1,5 +1,5 @@
 resource "scaleway_instance_ip" "manager" {
-  count = var.SCW ? var.manager_instance_count : 0
+  count   = var.SCW ? var.manager_instance_count : 0
 }
 
 resource "scaleway_instance_server" "manager" {
@@ -8,13 +8,13 @@ resource "scaleway_instance_server" "manager" {
   image             = data.scaleway_image.manager_image.*.id[0]
   type              = var.manager_instance_type
   security_group_id = scaleway_instance_security_group.security_group_manager.*.id[0]
-  ip_id             = element(scaleway_instance_ip.manager.*.id, count.index)
+  ip_id             = scaleway_instance_ip.manager.*.id[count.index]
 
+  root_volume {
+    size_in_gb     = lookup(local.root_volume_size, var.manager_instance_type)
+  }
 
-  /*volume {
-    size_in_gb = lookup(local.additional_volume_size, var.manager_instance_type)
-    type       = "l_ssd"
-  }*/
+  additional_volume_ids = scaleway_instance_volume.manager_volumes.*.id
 
   connection {
     type        = "ssh"

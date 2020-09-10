@@ -5,3 +5,6 @@ docker version
 
 # Check gluster
 ls -al /mnt/share
+
+# Check extra volume
+touch /mnt/extra/dummy

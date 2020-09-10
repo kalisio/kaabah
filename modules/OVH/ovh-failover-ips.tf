@@ -1,4 +1,4 @@
-resource "null_resource" "manager_failover_ip" {
+resource "null_resource" "manager_failover_ips" {
   count = var.OVH && length(var.manager_ips) > 0 ? var.manager_instance_count : 0
 
   connection {

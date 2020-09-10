@@ -39,23 +39,19 @@ locals {
     DEV1-M      = "x86_64"
     DEV1-L      = "x86_64"
     DEV1-XL     = "x86_64"
-    C2S         = "x86_64"
-    C2M         = "x86_64"
-    C2L         = "x86_64"
+    RENDER-S     = "x86_64"
   }
-  additional_volume_size = {
-    GP1-XS     = 0
-    GP1-S       = 0
-    GP1-M       = 0
-    GP1-L       = 0
-    GP1-XL      = 0
-    DEV1-S      = 0
-    DEV1-M      = 0
-    DEV1-L      = 0
-    DEV1-XL     = 0
-    C2S         = 0
-    C2M         = 0
-    C2L         = 0
+  root_volume_size = {
+    GP1-XS      = 150 
+    GP1-S       = 300
+    GP1-M       = 600
+    GP1-L       = 600
+    GP1-XL      = 600
+    DEV1-S      = 20
+    DEV1-M      = 40
+    DEV1-L      = 80
+    DEV1-XL     = 120
+    RENDER-S    = 400
   }
   device_names = [
     "/dev/nbd2",

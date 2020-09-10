@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 0.12"
-  
+
   backend "s3" {
   }
 }
@@ -30,14 +30,12 @@ module "Scaleway" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "DEV1-S"
   manager_ips                           = var.manager_ips
-  manager_additional_volume_count       = var.manager_additional_volume_count
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "DEV1-S"
-  worker_additional_volume_count        = var.worker_additional_volume_count
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
   worker_user_scripts                   = var.worker_user_scripts
@@ -66,7 +64,6 @@ module "AWS" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "t2.small"
   manager_ips                           = var.manager_ips
-  manager_additional_volume_count       = var.manager_additional_volume_count
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
@@ -74,7 +71,6 @@ module "AWS" {
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "t2.small"
-  worker_additional_volume_count        = var.worker_additional_volume_count
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
@@ -101,7 +97,6 @@ module "OVH" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "s1-2"
   manager_ips                           = var.manager_ips
-  manager_additional_volume_count       = var.manager_additional_volume_count
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
@@ -109,7 +104,6 @@ module "OVH" {
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "s1-2"
-  worker_additional_volume_count        = var.worker_additional_volume_count
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point

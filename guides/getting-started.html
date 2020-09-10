@@ -8,7 +8,7 @@
     <link rel="icon" href="https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-icon-64x64.png">
     <link rel="manifest" href="/kaabah/manifest.json">
     <meta name="description" content="A Terraform solution to build and operate Docker Swarm infrastructures">
-    <link rel="preload" href="/kaabah/assets/css/0.styles.b0d4fd5f.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.365d6a4c.js" as="script"><link rel="preload" href="/kaabah/assets/js/2.6a11fb6b.js" as="script"><link rel="preload" href="/kaabah/assets/js/16.c69da47c.js" as="script"><link rel="preload" href="/kaabah/assets/js/4.367b80b5.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.112bcd60.js"><link rel="prefetch" href="/kaabah/assets/js/11.87e00a46.js"><link rel="prefetch" href="/kaabah/assets/js/12.2d819681.js"><link rel="prefetch" href="/kaabah/assets/js/13.459f81d3.js"><link rel="prefetch" href="/kaabah/assets/js/14.e3a94158.js"><link rel="prefetch" href="/kaabah/assets/js/15.92bbd2d2.js"><link rel="prefetch" href="/kaabah/assets/js/17.a0b425d7.js"><link rel="prefetch" href="/kaabah/assets/js/18.055f80ff.js"><link rel="prefetch" href="/kaabah/assets/js/19.a7d112c8.js"><link rel="prefetch" href="/kaabah/assets/js/20.da62500c.js"><link rel="prefetch" href="/kaabah/assets/js/21.aa935c63.js"><link rel="prefetch" href="/kaabah/assets/js/3.63682c88.js"><link rel="prefetch" href="/kaabah/assets/js/5.a834133b.js"><link rel="prefetch" href="/kaabah/assets/js/6.d6514cc0.js"><link rel="prefetch" href="/kaabah/assets/js/7.7abecc49.js"><link rel="prefetch" href="/kaabah/assets/js/8.3048d396.js"><link rel="prefetch" href="/kaabah/assets/js/9.6a4d495c.js">
+    <link rel="preload" href="/kaabah/assets/css/0.styles.b0d4fd5f.css" as="style"><link rel="preload" href="/kaabah/assets/js/app.e421a93e.js" as="script"><link rel="preload" href="/kaabah/assets/js/2.6a11fb6b.js" as="script"><link rel="preload" href="/kaabah/assets/js/16.987076a9.js" as="script"><link rel="preload" href="/kaabah/assets/js/4.367b80b5.js" as="script"><link rel="prefetch" href="/kaabah/assets/js/10.112bcd60.js"><link rel="prefetch" href="/kaabah/assets/js/11.87e00a46.js"><link rel="prefetch" href="/kaabah/assets/js/12.2d819681.js"><link rel="prefetch" href="/kaabah/assets/js/13.459f81d3.js"><link rel="prefetch" href="/kaabah/assets/js/14.e3a94158.js"><link rel="prefetch" href="/kaabah/assets/js/15.92bbd2d2.js"><link rel="prefetch" href="/kaabah/assets/js/17.214f521a.js"><link rel="prefetch" href="/kaabah/assets/js/18.055f80ff.js"><link rel="prefetch" href="/kaabah/assets/js/19.a7d112c8.js"><link rel="prefetch" href="/kaabah/assets/js/20.da62500c.js"><link rel="prefetch" href="/kaabah/assets/js/21.aa935c63.js"><link rel="prefetch" href="/kaabah/assets/js/3.63682c88.js"><link rel="prefetch" href="/kaabah/assets/js/5.a834133b.js"><link rel="prefetch" href="/kaabah/assets/js/6.d6514cc0.js"><link rel="prefetch" href="/kaabah/assets/js/7.7abecc49.js"><link rel="prefetch" href="/kaabah/assets/js/8.3048d396.js"><link rel="prefetch" href="/kaabah/assets/js/9.6a4d495c.js">
     <link rel="stylesheet" href="/kaabah/assets/css/0.styles.b0d4fd5f.css">
   </head>
   <body>
@@ -54,38 +54,47 @@ We strongly recommend to store the credentials using environment variables.</p><
 region = &quot;the region of the bucket&quot;
 key    = &quot;the key to the states&quot;
 </code></pre></div><ol start="6"><li>Initialize Terraform</li></ol> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> init -backend-config<span class="token operator">=</span><span class="token string">&quot;path/to/your/backend.config&quot;</span>
-</code></pre></div><h2 id="usage"><a href="#usage" class="header-anchor">#</a> Usage</h2> <h3 id="create-a-workspace"><a href="#create-a-workspace" class="header-anchor">#</a> Create a workspace</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> workspace new demo
-</code></pre></div><p>Terraform will automatically switch to the created workspace <code>demo</code></p> <h3 id="configure-the-workspace"><a href="#configure-the-workspace" class="header-anchor">#</a> Configure the workspace</h3> <p>We recommend to create a <code>tfvars</code> file to override the default variables for your workspace. For instance, the <code>demo.tfvars</code> file may look like this:</p> <div class="language-text extra-class"><pre class="language-text"><code>provider = &quot;AWS&quot;
+</code></pre></div><h2 id="usage"><a href="#usage" class="header-anchor">#</a> Usage</h2> <h3 id="create-a-workspace"><a href="#create-a-workspace" class="header-anchor">#</a> Create a workspace</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> workspace new <span class="token builtin class-name">test</span>
+</code></pre></div><p>Terraform will automatically switch to the created workspace <code>test</code></p> <h3 id="configure-the-workspace"><a href="#configure-the-workspace" class="header-anchor">#</a> Configure the workspace</h3> <p>We recommend to create a <code>tfvars</code> file to override the default variables for your workspace. For instance, the <code>test-aws.tfvars</code> file may look like this:</p> <div class="language-text extra-class"><pre class="language-text"><code>cloud_provider = &quot;AWS&quot;
 
 region = &quot;eu-central-1&quot;
 
 ssh_key = &quot;../workspaces/master/test-aws.pem&quot;
 
-key_name = &quot;demo&quot;
+key_name = &quot;test-aws&quot;
 
 manager_instance_count = 1
 
 manager_instance_type = &quot;t2.small&quot;
 
-manager_crontabs = [&quot;tests/crontab&quot;]
+manager_additional_volume_size = 500
 
-manager_user_scripts = [&quot;tests/manager.sh&quot;]
+manager_additional_volume_mount_point = &quot;/mnt/extra&quot;
+
+manager_ips = [
+  &quot;3.120.200.41&quot;
+]
+
+manager_crontabs = [
+  &quot;tests/crontab&quot;
+]
+
+manager_user_scripts = [
+  &quot;tests/user-scripts/manager-0.sh&quot;
+]
 
 worker_instance_type = &quot;t3.large&quot;
 
 worker_instance_count = 2
 
-worker_additional_volume_count = 1
-
 worker_additional_volume_size = 500
 
-worker_additional_volume_type = &quot;sc1&quot;
-
-worker_additional_volume_mount_point = &quot;/mnt/data&quot;
-
-worker_user_scripts=[&quot;tests/worker.sh&quot;, &quot;tests/worker.sh&quot;]
+worker_user_scripts=[
+  &quot;tests/user-scripts/worker-0.sh&quot;,
+  &quot;tests/user-scripts/worker-1.sh&quot;
+]
 </code></pre></div><h3 id="apply-the-changes"><a href="#apply-the-changes" class="header-anchor">#</a> Apply the changes</h3> <p>Within your workspace, apply Terraform with your specific configuration:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> apply -var-file<span class="token operator">=</span><span class="token string">&quot;path/to/your/config.tfvars&quot;</span>
-</code></pre></div><p>After a while, your cluster should be created and the corresponding Terraform states stored in your S3 backend.</p> <h3 id="check-the-infrastructure"><a href="#check-the-infrastructure" class="header-anchor">#</a> Check the infrastructure</h3> <p>Get connected to the manager of your infrastructure using <code>ssh</code> and type the following commands:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>ubuntu@test-aws-manager:~$ k-swarm-info
+</code></pre></div><p>After a while, your cluster should be created and the corresponding Terraform states stored in your <strong>S3</strong> backend.</p> <h3 id="check-the-infrastructure"><a href="#check-the-infrastructure" class="header-anchor">#</a> Check the infrastructure</h3> <p>Get connected to the manager of your infrastructure using <code>ssh</code> and type the following commands:</p> <div class="language-bash extra-class"><pre class="language-bash"><code>ubuntu@test-aws-manager:~$ k-swarm-info
 
 Nodes <span class="token operator">&gt;</span>-----
 
@@ -110,13 +119,9 @@ ID              NAMES   STATUS
 
 test-aws-worker-0
 ID              NAMES   STATUS
-0c483b70fedd    kaabah_cadvisor.svpnq8a71v90hu7ir6ng7335d.kfloir1m5cv012ogb5ck7wnhh     Up About an hour <span class="token punctuation">(</span>healthy<span class="token punctuation">)</span>
-b3e1a4117807    kaabah_node-exporter.svpnq8a71v90hu7ir6ng7335d.4n71fp7vpvi7z0avzpkriuypv        Up About an hour
 
 test-aws-worker-1
 ID              NAMES   STATUS
-0168740c5c45    kaabah_cadvisor.jwgud49dpjvxfdkgnfa1we9la.qj55xvd5ugood47e7wz35mbgn     Up About an hour <span class="token punctuation">(</span>healthy<span class="token punctuation">)</span>
-420e5b27bccb    kaabah_node-exporter.jwgud49dpjvxfdkgnfa1we9la.ihi62eehuwna6a1qxzjt9lx2g        Up About an hour
 ubuntu@test-aws-manager:~$
 </code></pre></div><h3 id="destroy-the-infrastructure"><a href="#destroy-the-infrastructure" class="header-anchor">#</a> Destroy the infrastructure</h3> <p>To destroy the created infrastructure, you can simply type the following command:</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token variable">$terraform</span> apply -var-file<span class="token operator">=</span><span class="token string">&quot;path/to/your/config.tfvars&quot;</span>
 </code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
@@ -128,6 +133,6 @@ ubuntu@test-aws-manager:~$
       </a>
       →
     </span></p></div> </main></div><div class="global-ui"><!----><!----></div></div>
-    <script src="/kaabah/assets/js/app.365d6a4c.js" defer></script><script src="/kaabah/assets/js/2.6a11fb6b.js" defer></script><script src="/kaabah/assets/js/16.c69da47c.js" defer></script><script src="/kaabah/assets/js/4.367b80b5.js" defer></script>
+    <script src="/kaabah/assets/js/app.e421a93e.js" defer></script><script src="/kaabah/assets/js/2.6a11fb6b.js" defer></script><script src="/kaabah/assets/js/16.987076a9.js" defer></script><script src="/kaabah/assets/js/4.367b80b5.js" defer></script>
   </body>
 </html>

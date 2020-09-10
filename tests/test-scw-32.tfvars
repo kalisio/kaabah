@@ -36,7 +36,7 @@ worker_instance_type = "DEV1-M"
 
 worker_additional_volume_size = 100
 
-manager_additional_volume_mount_point = "/mnt/extra"
+worker_additional_volume_mount_point = "/mnt/extra"
 
 worker_user_scripts=[
   "tests/user-scripts/worker-0.sh", 

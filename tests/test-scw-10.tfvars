@@ -4,8 +4,6 @@ region = "fr-par"
 
 ssh_key = "../workspaces/master/test-scw.pem"
 
-manager_instance_count = 1
-
 manager_instance_type = "DEV1-S"
 
 manager_additional_volume_size = 100

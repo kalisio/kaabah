@@ -72,7 +72,7 @@ resource "scaleway_instance_server" "manager" {
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh \"${local.private_network_cidr}\"",
-      "bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${scaleway_instance_server.manager.*.private_ip[0]}"
+      "bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${scaleway_instance_server.manager.0.private_ip}"
     ]
   }
 

@@ -62,7 +62,7 @@ resource "aws_instance" "worker" {
   provisioner "remote-exec" {
     inline = [
       "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.*.cidr_block[0]}",
-      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${aws_instance.manager.*.private_ip[0]}",
+      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${aws_instance.manager.0.private_ip}",
       "echo '127.0.0.1 ${terraform.workspace}-worker-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-worker-${count.index}"
     ]

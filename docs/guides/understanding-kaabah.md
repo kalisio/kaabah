@@ -52,8 +52,6 @@ worker_instance_type = "t3.large"
 
 worker_instance_count = 3
 
-worker_additional_volume_count = 2
-
 worker_additional_volume_size = 500
 
 worker_additional_volume_type = "st1"

@@ -74,12 +74,32 @@ The **cluster** consists in of multiple Docker hosts which run in **swarm** mode
 
 ### Instances
 
-When generated from a given `<WORKSPACE>`, the instances are named according the following convention:
--  `<WORKSPACE>-manager-<INDEX>`
--  `<WORKSPACE>-woker-<INDEX>`
+#### Instance types
+
+**Kaabah** let you provide a same instance types for each managers and another instance type for each workers. 
 
 ::: warning
 **Kaabah** supports only x86 architecture.
+:::
+
+#### Naming convention
+
+Each created instances are named according the following convention:
+-  `<WORKSPACE>-manager-<INDEX>`
+-  `<WORKSPACE>-woker-<INDEX>`
+
+where `<WORKSPACE>` specify the name of the **Terraform** workspace.
+
+#### Operating system
+
+All the instances are created using the **Ubuntu Bionic** image provided by **AWS**, **OVH** and **Scaleway**.
+
+#### Docker
+
+**Kaabah** installs the version `19.03.2` of **Docker**.
+
+::: tip
+You can override the version using the [`docker_version`](../reference/configuration-variables.md#docker)
 :::
 
 ### Volumes
@@ -96,19 +116,24 @@ By default, the **Gluster** volume is mounted using the default mount point `/mn
 
 #### Additional block volumes
 
-When needed extra disk spaces, you can attach additional volumes to the managers and/or workers. These volumes are automatically attached, formatted to [EXT4](https://en.wikipedia.org/wiki/Ext4) and mounted on the nodes. By default the volumes attached on a node are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `/mnt/data` mount point by overriding the `manager_additional_volume_mount_point` and `worker_additional_volume_mount_point` variables.
+When needed extra disk spaces, you can attach an additional volume either on the managers, either on the workers or both. These volumes are automatically attached, formatted to [EXT4](https://en.wikipedia.org/wiki/Ext4) and mounted on the nodes. By default the volumes attached on a node are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `/mnt/data` mount point by overriding the `manager_additional_volume_mount_point` and `worker_additional_volume_mount_point` variables.
+
+::: tip
+
+::: 
 
 ### Network
 
 #### IP addresses
 
-**Kabbah** let you the choice to define the IP addresses of the managers only. The IP addresses you can assign to the managers are given (usually bought) by your provider:
-* on **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address)
+**Kaabah** let you define the IP addresses of the managers nodes. The IP addresses you can assign to the managers are given (usually bought) by your provider:
+
 * on **AWS** it must be an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+* on **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address)
 * on **OVH** it must be a [Floating IP](https://www.ovhcloud.com/en/bare-metal/ip/)
 
-::: tip Warning
-On **OVH**, **Kaabahh** adds an interface within the instance network configuration to allow the binding of the **Floating IP** to this instance. However, you need to do manually this binding using the **OVH** interface.
+::: Warning
+On **OVH**, even if **Kaabahh** adds automatically a network interface to allow the binding of the **Floating IP** to this instance, you need to do manually this binding using the **OVH** interface.
 :::
 
 #### Security Groups

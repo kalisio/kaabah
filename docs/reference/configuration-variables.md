@@ -10,8 +10,9 @@ sidebarDepth: 3
 
 | Variables | Description |
 |--- | --- |
-| `SCALEWAY_ORGNIZATION` | Your **Scaleway** organization id |
-| `SCALEWAY_TOKEN` | Your **Scaleway** token |
+| `SCW_ORGNIZATION_ID` | Your **Scaleway** organization id |
+| `SCW_ACCESS_KEY` | Your **Scaleway** access key |
+| `SCW_SECRET_KEY` | Your **Scaleway** secret key |
 
 ### AWS
 
@@ -55,9 +56,13 @@ sidebarDepth: 3
 | `manager_additional_volume_size` | The size in giga bytes of the additional volume. You must provide a size larger than `0` to setup an additional volume. The default value is `0` |
 | `manager_additional_volume_type` | The type of additional volumes to add. This option only works on AWS. The different [types](https://docs.aws.amazon.com/fr_fr/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) are `gp2`, `io1`, `st1` and `sc1`. The default value is `sc1` |
 | `manager_additional_volume_mount_point` | The mount point used to mount the devices. The default value is `/mnt/data` |
-| `manager_ips` | If defined, it represents the IP addressed to be retrieved and attached to each managers. On **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address), on **AWS** an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) and on **OVH** a [Floating IP](https://www.ovhcloud.com/en/bare-metal/ip/). If undefined, the manager is assigned a public IP defined by the provider. | The default value is `[]`. |
+| `manager_ips` | If defined, it represents the IP addressed to be retrieved and attached to each managers. On **Scaleway** it must be the IDs of a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address), on **AWS** the address of an [Elastic IP](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) and on **OVH** the address of a [Floating IP](https://www.ovhcloud.com/en/bare-metal/ip/). If undefined, the managers are assigned a public IP defined by the provider. | The default value is `[]`. |
 | `manager_crontabs` | The crontabs file to be provisioned on the managers. The default value is `[]`. |
 | `manager_user_scripts` | The user scripts to be executed when the managers are ready. It must be the file path to the script. The default value is `[]`. |
+
+::: tip
+On **Scaleway** the ID of a flexible IP can be retrieved using the `More info` entry of the overflow menu assigned to this flexible IP.
+:::
 
 ### Workers
 

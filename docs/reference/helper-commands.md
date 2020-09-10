@@ -132,6 +132,7 @@ Here is an example of message template that can be used as a payload for slack n
      }
    ]
 }
+```
 
 ::: tip
 See the [Messaging payload reference](https://api.slack.com/reference/messaging/payload) for a complete description.

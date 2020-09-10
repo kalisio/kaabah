@@ -130,16 +130,16 @@ Terraform will automatically switch to the created workspace `test`
 
 ### Configure the workspace
 
-We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `test-aws.tfvars` file may look like this:
+We recommend to create a `tfvars` file to override the default variables for your workspace. For instance, the `test.tfvars` file may look like this:
 
 ```text
 cloud_provider = "AWS"
 
 region = "eu-central-1"
 
-ssh_key = "../workspaces/master/test-aws.pem"
+ssh_key = "../workspaces/master/test.pem"
 
-key_name = "test-aws"
+key_name = "tess"
 
 manager_instance_count = 1
 
@@ -181,7 +181,7 @@ Within your workspace, apply Terraform with your specific configuration:
 $terraform apply -var-file="path/to/your/config.tfvars"
 ```
 
-After a while, your cluster should be created and the corresponding Terraform states stored in your **S3** backend.
+After a while, your cluster should be created and the corresponding states stored in your **S3** backend.
 
 ### Check the infrastructure
 
@@ -193,14 +193,13 @@ ubuntu@test-aws-manager:~$ k-swarm-info
 Nodes >-----
 
 ID                              HOSTNAME                STATUS          ADDRESS         LABELS
-4ylkfx3vis3zlxqwvs7rcms0p       test-aws-manager        Ready/Active    172.31.25.252
-svpnq8a71v90hu7ir6ng7335d       test-aws-worker-0       Ready/Active    172.31.21.238  
-jwgud49dpjvxfdkgnfa1we9la       test-aws-worker-1       Ready/Active    172.31.19.239  
+4ylkfx3vis3zlxqwvs7rcms0p       test-manager        Ready/Active    172.31.25.252
+svpnq8a71v90hu7ir6ng7335d       test-worker-0       Ready/Active    172.31.21.238  
+jwgud49dpjvxfdkgnfa1we9la       test-worker-1       Ready/Active    172.31.19.239  
 
 Stacks >------
 
 NAME            SERVICES
-kaabah          8
 
 Services >------
 
@@ -208,13 +207,13 @@ ID                  NAME                   MODE                REPLICAS         
 
 Containers >-----
 
-test-aws-manager
+test-manager
 ID              NAMES   STATUS
 
-test-aws-worker-0
+test-worker-0
 ID              NAMES   STATUS
 
-test-aws-worker-1
+test-worker-1
 ID              NAMES   STATUS
 ubuntu@test-aws-manager:~$
 ```

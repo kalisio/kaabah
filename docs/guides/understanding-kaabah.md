@@ -116,11 +116,7 @@ By default, the **Gluster** volume is mounted using the default mount point `/mn
 
 #### Additional block volumes
 
-When needed extra disk spaces, you can attach an additional volume either on the managers, either on the workers or both. These volumes are automatically attached, formatted to [EXT4](https://en.wikipedia.org/wiki/Ext4) and mounted on the nodes. By default the volumes attached on a node are accessible with the paths `/mnt/data0`, `mnt/data1` and so on. You can override the default `/mnt/data` mount point by overriding the `manager_additional_volume_mount_point` and `worker_additional_volume_mount_point` variables.
-
-::: tip
-
-::: 
+When needed extra disk spaces, you can attach an additional volume either on the managers, either on the workers or both. These volumes are automatically attached, formatted to [EXT4](https://en.wikipedia.org/wiki/Ext4) and mounted on the nodes. By default the volumes are accessible through the mount point `/mnt/data`. You can override this default mount point by overriding the `manager_additional_volume_mount_point` and `worker_additional_volume_mount_point` variables.
 
 ### Network
 

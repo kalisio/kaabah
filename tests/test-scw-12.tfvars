@@ -12,10 +12,6 @@ manager_additional_volume_size = 100
 
 manager_additional_volume_mount_point = "/mnt/extra"
 
-manager_ips = [
-  "51.15.239.41"
-]
-
 manager_crontabs = [
   "tests/crontab"
 ]

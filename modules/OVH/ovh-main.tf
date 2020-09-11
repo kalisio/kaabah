@@ -1,5 +1,5 @@
 provider "openstack" {
-  version = "~> 1.22"
+  version = "~> 1.31"
 
   domain_name         = "default" # Alawys default for OVH
   alias               = "ovh" # Un alias

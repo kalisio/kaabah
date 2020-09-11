@@ -6,9 +6,9 @@ actionLink: /about/introduction
 features:
 - title: Cloud agnostic
   details: Build and operate your infrastructures either on Scaleway, AWS and OVH
-- title: Security first
-  details: Build a protected infrastructure and operate it using your own bastion
-- title: Easy to use
+- title: High availability 
+  details: Deploy highly available applications on your infrastructure
+- title: Easy to operate
   details: Manage your infrastructures with the simplicity of Docker Swarm
 footer: MIT Licensed | Copyright © 2018-2020 Kalisio
 ---

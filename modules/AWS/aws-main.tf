@@ -1,5 +1,5 @@
 provider "aws" {
-  version = "~> 2.0"
+  version = "~> 2.70"
 
   access_key = var.access_key
   secret_key = var.secret_key

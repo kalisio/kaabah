@@ -92,11 +92,11 @@ where `<WORKSPACE>` specify the name of the **Terraform** workspace.
 
 #### Operating system
 
-All the instances are created using the **Ubuntu Bionic** image provided by **AWS**, **OVH** and **Scaleway**.
+All the instances are created using the **Ubuntu 20.04 TLS** image provided by **AWS**, **OVH** and **Scaleway**.
 
 #### Docker
 
-**Kaabah** installs the version `19.03.2` of **Docker**.
+**Kaabah** installs the version `19.03.12` of **Docker**.
 
 ::: tip
 You can override the version using the [`docker_version`](../reference/configuration-variables.md#docker)

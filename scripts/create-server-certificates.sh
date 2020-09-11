@@ -3,6 +3,9 @@ MANAGER_PRIVATE_IP=$1
 
 TMP_DIR=/tmp/kaabah
 
+echo Generating server certificates 
+
+# Create docker engine certificates directory
 mkdir -p /etc/docker/tls
 
 # Copy CA public key
@@ -31,3 +34,4 @@ chmod 644 \
 # Clean temporary files
 rm $TMP_DIR/server.csr
 
+echo [ok] server certificates generated

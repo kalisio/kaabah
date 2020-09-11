@@ -28,7 +28,7 @@ locals {
   manager_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
   worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]
   worker_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
-  image = "Ubuntu Bionic"
+  image = "Ubuntu 20.04 Focal Fossa"
   architectures = {
     GP1-XS      = "x86_64"
     GP1-S       = "x86_64"

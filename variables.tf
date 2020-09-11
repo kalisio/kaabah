@@ -47,7 +47,7 @@ variable "key_name" {
 }
 
 variable "docker_version" {
-  default = "5:19.03.2~3-0~ubuntu-bionic"
+  default = "5:19.03.12~3-0~ubuntu-focal"
 }
 
 variable "docker_tls_ca_key" {

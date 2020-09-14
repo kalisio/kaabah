@@ -158,9 +158,7 @@ By default, **Kaabah** creates 2 security groups:
 **Kaabah** requires the use of a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host) to get connected to your instances.
 The implemented solution relies on the following architecture:
 
-
-![bastion architecture](./../assets/bastion-architecture.svg)
-
+![bastion architecture](./../assets/kaabah-bastion.svg)
 
 Your bastion instance must be instantiated in the same network of your cluster. The Security Groups rules allows the SSH traffic from the bastion.
 

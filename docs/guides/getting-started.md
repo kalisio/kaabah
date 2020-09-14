@@ -139,7 +139,7 @@ region = "eu-central-1"
 
 ssh_key = "../workspaces/master/test.pem"
 
-key_name = "tess"
+key_name = "test"
 
 manager_instance_count = 1
 

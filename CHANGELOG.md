@@ -18,32 +18,6 @@
 *  Remove unused variable docker_network (close [#146](https://github.com/kalisio/kaabah/pull/146)) ([8ece6249](https://github.com/kalisio/kaabah/commit/8ece624933018392d4660e7a26d4489dd11f655e))
 *  k-swarm-prune does not prune volumes on workers (close [#140](https://github.com/kalisio/kaabah/pull/140)) [skip ci] ([dcb31958](https://github.com/kalisio/kaabah/commit/dcb31958a4fd8625dd75ab139e0b3d3c2f053d91))
 
-##### Other Changes
-
-*  updated doc ([c26b1606](https://github.com/kalisio/kaabah/commit/c26b1606d560fec4ccca8099b831d0eda353d040))
-*  updated doc ([6aab980e](https://github.com/kalisio/kaabah/commit/6aab980e8a85d81df262051f56bffedef044215e))
-*  Upgrade Scaleway module to support the 1.16.0 of the Scaleway provider [#153](https://github.com/kalisio/kaabah/pull/153) ([fb15d2b1](https://github.com/kalisio/kaabah/commit/fb15d2b12bc96768c5e6c19b1ae7ef380be097c0))
-*  timeout errors on Scaleway (close [#86](https://github.com/kalisio/kaabah/pull/86)) ([a0cc19c0](https://github.com/kalisio/kaabah/commit/a0cc19c073f0db0c4e3d1577f929ce59629d691e))
-*  Upgrade to terraform 0.12 [#143](https://github.com/kalisio/kaabah/pull/143) ([0eb1c535](https://github.com/kalisio/kaabah/commit/0eb1c535ea5efe90d7770f5d1720b123cbbde7da))
-*  Upgrade to terraform 0.12 [#143](https://github.com/kalisio/kaabah/pull/143) ([62729718](https://github.com/kalisio/kaabah/commit/6272971883498f89ce7a25cceea654c7de2fb3c7))
-*  Upgrade Scaleway module to support the 1.16.0 of the Scaleway provider [#153](https://github.com/kalisio/kaabah/pull/153) ([fee42a57](https://github.com/kalisio/kaabah/commit/fee42a57a3279940e34cf7fbfba26ca7e32abfac))
-*  Allow to attach additional volumes to the manager instances [#152](https://github.com/kalisio/kaabah/pull/152) ([778fe4ac](https://github.com/kalisio/kaabah/commit/778fe4ac59e8ef62342507accbfc62d6375f518f))
-*  Enhance tests with multiple cluster topologies [#151](https://github.com/kalisio/kaabah/pull/151) ([aa35b124](https://github.com/kalisio/kaabah/commit/aa35b124160c3d8b6234cb0c53a5113ccd9826f1))
-*  Enhance tests with multiple cluster topologies [#151](https://github.com/kalisio/kaabah/pull/151) ([666c5a09](https://github.com/kalisio/kaabah/commit/666c5a0940d0982d4679c71e6422eb04ddb2cf9a))
-*  Allow to create a cluster with multiple managers [#147](https://github.com/kalisio/kaabah/pull/147) ([6a80e425](https://github.com/kalisio/kaabah/commit/6a80e4256be08a04a993a823ea923473b2907f7e))
-*  Enhance tests with multiple cluster topologoies [#151](https://github.com/kalisio/kaabah/pull/151) ([2bc3581d](https://github.com/kalisio/kaabah/commit/2bc3581d2bdac327154d17f02c30c511f3512ed5))
-*  Enhance tests with multiple cluster topologoies [#151](https://github.com/kalisio/kaabah/pull/151) ([7f794b2d](https://github.com/kalisio/kaabah/commit/7f794b2d18fe761219d057fe62a5feca7ae32ffd))
-*  Allow to create a cluster with multiple managers [#147](https://github.com/kalisio/kaabah/pull/147) ([e192c154](https://github.com/kalisio/kaabah/commit/e192c15412ea6b6ef913247c3a72bc39fefc3e88))
-*  Allow to create a cluster with multiple managers [#147](https://github.com/kalisio/kaabah/pull/147) ([2d8270b0](https://github.com/kalisio/kaabah/commit/2d8270b07529baf1e52b3d26e59c708da317585a))
-*  Use GlusterFS instead of SSHFS [#148](https://github.com/kalisio/kaabah/pull/148) ([3c72df7e](https://github.com/kalisio/kaabah/commit/3c72df7e93aabd282d5b4f1a5bc843ddb34418cb))
-*  Use GlusterFS instead of SSHFS [#148](https://github.com/kalisio/kaabah/pull/148) ([488725f7](https://github.com/kalisio/kaabah/commit/488725f745a94fec5b54ec685a16e77a1a24c082))
-*  Allow to create a cluster with multiple managers [#147](https://github.com/kalisio/kaabah/pull/147) ([9e065abb](https://github.com/kalisio/kaabah/commit/9e065abba9cd35725d7a6fb738802c73fb972034))
-*  Use GlusterFS instead of SSHFS [#148](https://github.com/kalisio/kaabah/pull/148) ([2d428417](https://github.com/kalisio/kaabah/commit/2d428417ed4f7f0ab4ecf07d2126614aab6238cd))
-*  Use GlusterFS instead of SSHFS [#148](https://github.com/kalisio/kaabah/pull/148) ([2663ec65](https://github.com/kalisio/kaabah/commit/2663ec65e7129398e45e290aa47493687a078ad9))
-*  Remove node label management (close [#149](https://github.com/kalisio/kaabah/pull/149)) [Skip ci] ([c857b0c4](https://github.com/kalisio/kaabah/commit/c857b0c4e3d4fc5624c0d89c14f77c6996501b72))
-*  Remove node label management [#149](https://github.com/kalisio/kaabah/pull/149) ([495a14f9](https://github.com/kalisio/kaabah/commit/495a14f909817ad44a4369d1f9d74e3cdbd1e357))
-* //github.com/kalisio/kaabah ([0529ccfe](https://github.com/kalisio/kaabah/commit/0529ccfe6c1bb819609b87d66c1dd0b3edaaaa93))
-
 ### 1.1.0 (2020-02-18)
 
 ##### New Features

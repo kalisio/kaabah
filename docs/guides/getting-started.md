@@ -98,12 +98,20 @@ export OS_PASSWORD="<PASSWORD>" # Horizon password
 4. Define your bastions configuration
 
 ``` bash
-$TF_VAR_bastion_ips = '{ AWS = "X.X.X.X", SCW = "Y.Y.Y.Y", OVH = "Z.Z.Z.Z" }'
-$TF_VAR_bastion_ssh_keys = '{ AWS = "aws.pem", SCW = "scw.pem", OVH = "ovh.pem" }'
-$TF_VAR_bastion_ssh_users = '{ AWS = "user", SCW = "user", OVH = "user" }'
+$export TF_VAR_bastion_ips = '{ AWS = "X.X.X.X", SCW = "Y.Y.Y.Y", OVH = "Z.Z.Z.Z" }'
+$export TF_VAR_bastion_ssh_keys = '{ AWS = "aws.pem", SCW = "scw.pem", OVH = "ovh.pem" }'
+$export TF_VAR_bastion_ssh_users = '{ AWS = "user", SCW = "user", OVH = "user" }'
 ```
 
-5. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
+5. Define your Certificate Authority files
+
+```bash
+$export TF_VAR_docker_tls_ca_key="../workspaces/master/ca.key"
+$export TF_VAR_docker_tls_ca_cert="../workspaces/master/ca.cert"
+$export TF_VAR_docker_tls_ca_pass="../workspaces/master/ca.pass"
+```
+
+6. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
 
 Create a file `backend.config` with the following properties:
 ```
@@ -112,7 +120,7 @@ region = "the region of the bucket"
 key    = "the key to the states"
 ```
 
-6. Initialize Terraform
+7. Initialize Terraform
 
 ```bash
 $terraform init -backend-config="path/to/your/backend.config"

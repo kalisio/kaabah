@@ -64,13 +64,17 @@ Assuming the current workspace is `app-dev`, then when applying such a configura
 * `1` manager node, `app-dev-manager`, of type `t2.small` with the public IP address `3.115.176.41`.
 * `3` worker nodes, `app-dev-worker-0`, `app-dev-worker-1` and `app-dev-worker-2`, of type of `t3.large`. To each worker is attached `2` optimized hard-disk (`sc1`) of `500`GB and these volumes are accessible through the mount points: `/mnt/data0` and `/mnt/data1`.
 
-**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure such as adding labels, running user scripts... Have a look at the complete list of [variables](../reference/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as an example.
+**Kaabah** exposes many more variables allowing you to customize in detail your infrastructure. Have a look at the complete list of [variables](../reference/configuration-variables.md) and the [tests](https://github.com/kalisio/kaabah/tree/master/tests) as examples.
 
 ## Cluster
 
 The **cluster** consists in of multiple Docker hosts which run in **swarm** mode and act as **Manager**, to manage membership and delegation, and as **Workers** which run the services. 
 
 ![swarm concept](./../assets/kaabah-swarm.svg)
+
+**Kaabah** let you build any kind of cluster topologies: 1 to many managers, 0 to many workers.
+
+![swarm topologies](./../assets/kaabah-topologies.svg)
 
 ### Instances
 

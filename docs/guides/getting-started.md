@@ -231,5 +231,5 @@ ubuntu@test-aws-manager:~$
 To destroy the created infrastructure, you can simply type the following command:
 
 ```bash
-$terraform apply -var-file="path/to/your/config.tfvars"
+$terraform destroy -var-file="path/to/your/config.tfvars"
 ```

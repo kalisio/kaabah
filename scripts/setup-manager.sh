@@ -1,44 +1,40 @@
-#!/bin/bash
-DOCKER_VERSION=$1
-MANAGER_PRIVATE_IP=$2
-LEADER_PRIVATE_IP=$3
+#!/usr/bin/env bash
+set -euo pipefail
+
+MANAGER_PRIVATE_IP=$1
+LEADER_PRIVATE_IP=$2
 
 TMP_DIR=/tmp/kaabah
 
-K_USER=${SUDO_USER:-$USER}
-if [ "$K_USER" != "root" ]; then
-  K_HOME=/home/$K_USER
-else
-  K_HOME=/root
-fi
-
 # Generate TLS certificates
 bash $TMP_DIR/create-server-certificates.sh $MANAGER_PRIVATE_IP
-bash $TMP_DIR/create-client-certificates.sh $K_USER $K_HOME
-rm $TMP_DIR/ca.*
+bash $TMP_DIR/create-client-certificates.sh
+rm -f $TMP_DIR/ca.*
 
 # Secure ssh key permissions
-chmod 600 $K_HOME/.ssh/ssh.pem
+chmod 600 $HOME/.ssh/ssh.pem
 
 # Setup Docker configuration to enable TLS protection
-mkdir -p /etc/systemd/system/docker.service.d
-cp $TMP_DIR/docker-configs/override.conf /etc/systemd/system/docker.service.d/.
+sudo mkdir -p /etc/systemd/system/docker.service.d
+sudo cp $TMP_DIR/docker-configs/override.conf /etc/systemd/system/docker.service.d/
 
-mkdir -p /etc/docker
+sudo mkdir -p /etc/docker
 export MANAGER_PRIVATE_IP
-envsubst < $TMP_DIR/docker-configs/manager.json.tpl > /etc/docker/daemon.json
+envsubst < $TMP_DIR/docker-configs/manager.json.tpl | sudo tee /etc/docker/daemon.json
+
+# Reload docker systemd unit
+sudo systemctl daemon-reload
+# And restart docker
+sudo systemctl restart docker
 
 export DOCKER_TLS_VERIFY=1
-export DOCKER_CERT_PATH=$K_HOME/.docker
+export DOCKER_CERT_PATH=$HOME/.docker
 export DOCKER_HOST=tcp://$MANAGER_PRIVATE_IP:2376
 
-echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" >> $K_HOME/.bash_profile
-echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" >> $K_HOME/.bash_profile
-echo "export DOCKER_HOST=$DOCKER_HOST" >> $K_HOME/.bash_profile
-echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" >> $K_HOME/.bash_profile 
-
-# Install docker
-bash $TMP_DIR/install-docker.sh $DOCKER_VERSION
+echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" | tee -a $HOME/.bash_profile
+echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" | tee -a $HOME/.bash_profile
+echo "export DOCKER_HOST=$DOCKER_HOST" | tee -a $HOME/.bash_profile
+echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" | tee -a $HOME/.bash_profile
 
 # Initialise swarm
 if [ "$LEADER_PRIVATE_IP" == "$MANAGER_PRIVATE_IP" ]; then
@@ -51,7 +47,7 @@ fi
 # Install helper commands
 for COMMAND in $TMP_DIR/k-*; do
   chmod +x $COMMAND
-  mv $COMMAND /usr/local/sbin/.
+  sudo mv $COMMAND /usr/local/sbin/.
 done
 
 

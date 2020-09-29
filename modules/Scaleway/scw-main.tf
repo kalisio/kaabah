@@ -54,7 +54,7 @@ locals {
     RENDER-S    = 400
   }
   device_names = [
-    "/dev/nbd2",
+    "/dev/sda",
     "/dev/nbd3",
     "/dev/nbd4",
     "/dev/nbd5",

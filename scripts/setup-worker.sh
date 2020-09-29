@@ -4,6 +4,8 @@ MANAGER_PRIVATE_IP=$2
 
 TMP_DIR=/tmp/kaabah
 
+cloud-init status --wait
+
 # Define the user and its home directory
 K_USER=${SUDO_USER:-$USER}
 if [ "$K_USER" != "root" ]; then

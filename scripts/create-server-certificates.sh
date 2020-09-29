@@ -1,19 +1,21 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
 MANAGER_PRIVATE_IP=$1
 
 TMP_DIR=/tmp/kaabah
 
-echo Generating server certificates 
+echo Generating server certificates
 
-# Create docker engine certificates directory
-mkdir -p /etc/docker/tls
+WORK_DIR=$TMP_DIR/server_certs
+mkdir -p $WORK_DIR
 
 # Copy CA public key
-cp $TMP_DIR/ca.cert /etc/docker/tls/ca.pem
+cp $TMP_DIR/ca.cert $WORK_DIR/ca.pem
 
 # Generate private key
 openssl req -new \
-  -newkey rsa:4096 -keyout /etc/docker/tls/key.pem -nodes \
+  -newkey rsa:4096 -keyout $WORK_DIR/key.pem -nodes \
   -out $TMP_DIR/server.csr -subj "/CN=$HOSTNAME"
 
 # Generate pulic key
@@ -22,16 +24,14 @@ openssl x509 -req \
   -days 1825 -sha256 \
   -in $TMP_DIR/server.csr -passin file:$TMP_DIR/ca.pass \
   -CA $TMP_DIR/ca.cert -CAkey $TMP_DIR/ca.key -CAcreateserial \
-  -out /etc/docker/tls/cert.pem \
+  -out $WORK_DIR/cert.pem \
   -extfile <(echo -e "${EXTFILE}")
-
-# Fix certificates permissions
-chmod 644 \
-  /etc/docker/tls/ca.pem \
-  /etc/docker/tls/key.pem \
-  /etc/docker/tls/cert.pem
 
 # Clean temporary files
 rm $TMP_DIR/server.csr
+# Fix certificates permissions
+chmod 644 $WORK_DIR/*.pem
+# And put to final location
+sudo cp -fR $WORK_DIR /etc/docker/tls
 
 echo [ok] server certificates generated

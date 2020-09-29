@@ -3,6 +3,7 @@ cloud_provider = "SCW"
 region = "fr-par"
 
 ssh_key = "../workspaces/master/test-scw.pem"
+ssh_user = "kalisio"
 
 manager_instance_count = 3
 

@@ -1,3 +1,17 @@
+data "template_cloudinit_config" "conf_worker" {
+  gzip          = false
+  base64_encode = false
+
+  part {
+       content_type = "text/cloud-config"
+       content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
+               user = var.ssh_user,
+               ssh_pubkey = var.ssh_pubkey,
+               docker_version = var.docker_version,
+               private_network_cidr = local.private_network_cidr })
+  }
+}
+
 resource "scaleway_instance_ip" "worker" {
   count = var.SCW ? var.worker_instance_count : 0
 }
@@ -9,6 +23,7 @@ resource "scaleway_instance_server" "worker" {
   type              = var.worker_instance_type
   security_group_id = scaleway_instance_security_group.worker_security_group.*.id[0]
   ip_id             = element(scaleway_instance_ip.worker.*.id, count.index)
+  cloud_init        = data.template_cloudinit_config.conf_worker.rendered
 
   root_volume {
     size_in_gb     = lookup(local.root_volume_size, var.worker_instance_type)
@@ -67,7 +82,7 @@ resource "scaleway_instance_server" "worker" {
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh \"${local.private_network_cidr}\"",
-      "bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${scaleway_instance_server.manager.0.private_ip}"
+      "bash ${local.tmp_dir}/setup-worker.sh ${scaleway_instance_server.manager.0.private_ip}"
     ]
   }
 }

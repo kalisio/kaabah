@@ -9,7 +9,7 @@ TMP_DIR=/tmp/kaabah
 # Generate TLS certificates
 bash $TMP_DIR/create-server-certificates.sh $MANAGER_PRIVATE_IP
 bash $TMP_DIR/create-client-certificates.sh
-rm -f $TMP_DIR/ca.*
+rm $TMP_DIR/ca.*
 
 # Secure ssh key permissions
 chmod 600 $HOME/.ssh/ssh.pem

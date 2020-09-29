@@ -55,14 +55,11 @@ locals {
   }
   device_names = [
     "/dev/sda",
-    "/dev/nbd3",
-    "/dev/nbd4",
-    "/dev/nbd5",
-    "/dev/nbd6",
-    "/dev/nbd7",
-    "/dev/nbd8",
-    "/dev/nbd9",
-    "/dev/nbd10",
-    "/dev/nbd11"
+    "/dev/sdb",
+    "/dev/sdc",
+    "/dev/sdd",
+    "/dev/sde",
+    "/dev/sdf",
+    "/dev/sdg"
   ]
 }

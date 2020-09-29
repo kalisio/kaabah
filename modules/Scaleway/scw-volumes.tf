@@ -21,7 +21,7 @@ resource "null_resource" "manager_volume_mountss" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index]} ${var.manager_additional_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[0]} ${var.manager_additional_volume_mount_point}"
     ]
   }
 
@@ -53,7 +53,7 @@ resource "null_resource" "worker_volume_mountss" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index]} ${var.worker_additional_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[0]} ${var.worker_additional_volume_mount_point}"
     ]
   }
 

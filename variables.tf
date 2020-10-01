@@ -73,7 +73,7 @@ variable "manager_instance_type" {
 }
 
 variable "manager_additional_volume_size" {
-  default = 150
+  default = 0
 }
 
 variable "manager_additional_volume_type" {
@@ -103,7 +103,7 @@ variable "worker_instance_type" {
 }
 
 variable "worker_additional_volume_size" {
-  default = 150
+  default = 0
 }
 
 variable "worker_additional_volume_type" {

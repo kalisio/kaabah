@@ -56,6 +56,7 @@ module "AWS" {
   bastion_ssh_key                       = var.bastion_ssh_keys["AWS"]
   bastion_ssh_user                      = var.bastion_ssh_users["AWS"]
   ssh_key                               = var.ssh_key
+  ssh_pubkey                            = file(replace(var.ssh_key, ".pem", ".pub"))
   ssh_user                              = var.ssh_user != "" ? var.ssh_user : "ubuntu"
   key_name                              = var.key_name
   docker_version                        = var.docker_version
@@ -89,6 +90,7 @@ module "OVH" {
   bastion_ssh_key                       = var.bastion_ssh_keys["OVH"]
   bastion_ssh_user                      = var.bastion_ssh_users["OVH"]
   ssh_key                               = var.ssh_key
+  ssh_pubkey                            = file(replace(var.ssh_key, ".pem", ".pub"))
   ssh_user                              = var.ssh_user != "" ? var.ssh_user : "ubuntu"
   key_name                              = var.key_name
   docker_version                        = var.docker_version

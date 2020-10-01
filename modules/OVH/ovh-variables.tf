@@ -12,6 +12,8 @@ variable "ssh_user" {}
 
 variable "ssh_key" {}
 
+variable "ssh_pubkey" {}
+
 variable "key_name" {}
 
 variable "docker_version" {}

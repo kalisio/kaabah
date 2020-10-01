@@ -11,7 +11,7 @@ resource "aws_ebs_volume" "manager_volumes" {
 
 resource "aws_volume_attachment" "manager_volume_attachements" {
   count            = var.AWS && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
-  device_name     = local.device_names[count.index]
+  device_name     = local.device_names[0]
   instance_id     = aws_instance.manager_instances.*.id[count.index]
   volume_id       = aws_ebs_volume.manager_volumes.*.id[count.index]
   force_detach    = true
@@ -55,7 +55,7 @@ resource "aws_ebs_volume" "worker_volumes" {
 
 resource "aws_volume_attachment" "worker_volume_attachements" {
   count         = var.AWS && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
-  device_name   = local.device_names[count.index]
+  device_name   = local.device_names[0]
   instance_id   = aws_instance.worker_instances.*.id[count.index]
   volume_id     = aws_ebs_volume.worker_volumes.*.id[count.index]
   force_detach  = true

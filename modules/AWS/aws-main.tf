@@ -23,8 +23,9 @@ locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "180s"
   image="ami-0c2b1c303a2e4cb49"
+  manager_instance_class = element(split(".", var.manager_instance_type), 0)
   worker_instance_class = element(split(".", var.worker_instance_type), 0)
-  manager_use_nvme_device = contains(local.nvme_list, local.worker_instance_class) ? true : false
+  manager_use_nvme_device = contains(local.nvme_list, local.manager_instance_class) ? true : false
   worker_use_nvme_device = contains(local.nvme_list, local.worker_instance_class) ? true : false
   device_names = [
     "/dev/sdf", 

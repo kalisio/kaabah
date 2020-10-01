@@ -7,8 +7,7 @@ data "template_cloudinit_config" "conf_manager" {
        content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
                user = var.ssh_user,
                ssh_pubkey = var.ssh_pubkey,
-               docker_version = var.docker_version,
-               private_network_cidr = local.private_network_cidr })
+               docker_version = var.docker_version })
   }
 }
 

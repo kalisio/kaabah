@@ -1,5 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
+
 FAILOVER_IP=$1
+
+# It happens that snap path is not present in PATH (yq is installed through snap)
+# Make sure it is here.
+PATH=$PATH:/snap/bin
 
 # Copy the file
 cp /etc/netplan/50-cloud-init.yaml 50-cloud-init.yaml
@@ -15,7 +21,7 @@ yq m -i 50-cloud-init.yaml ens3.yml
 rm ens3.yml
 
 # Copy the updated file
-mv 50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml 
+sudo mv 50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
 
 # Restart netplan
 sudo netplan apply

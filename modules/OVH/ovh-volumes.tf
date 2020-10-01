@@ -4,7 +4,6 @@ resource "openstack_blockstorage_volume_v2" "manager_volumes" {
   size          = var.manager_additional_volume_size
 }
 
-
 resource "openstack_compute_volume_attach_v2" "manager_volume_attachements" {
   count         = var.OVH && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
   region        = var.region
@@ -28,7 +27,7 @@ resource "null_resource" "manager_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index]} ${var.manager_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[0]} ${var.manager_additional_volume_mount_point}",
     ]
   }
 
@@ -67,7 +66,7 @@ resource "null_resource" "worker_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[count.index]} ${var.worker_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.device_names[0]} ${var.worker_additional_volume_mount_point}",
     ]
   }
 

@@ -14,7 +14,7 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager_instances.*.network.1.fixed_ip_v4)} ${join(" ", openstack_compute_instance_v2.worker_instances.*.network.1.fixed_ip_v4)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager_instances.*.network.1.fixed_ip_v4)} ${join(" ", openstack_compute_instance_v2.worker_instances.*.network.1.fixed_ip_v4)}\""
     ]
   }
 
@@ -42,7 +42,7 @@ resource "null_resource" "manager_gluster_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 
@@ -67,7 +67,7 @@ resource "null_resource" "worker_gluster_mount" {
 
    provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 

@@ -5,6 +5,19 @@ provider "openstack" {
   alias               = "ovh" # Un alias
 }
 
+data "template_cloudinit_config" "prerequisites_config" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+       content_type = "text/cloud-config"
+       content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
+               user = var.ssh_user,
+               ssh_pubkey = file(var.ssh_pubkey),
+               docker_version = var.docker_version })
+  }
+}
+
 locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "360s"

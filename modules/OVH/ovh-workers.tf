@@ -6,6 +6,7 @@ resource "openstack_compute_instance_v2" "worker_instances" {
   security_groups = [openstack_networking_secgroup_v2.worker_security_group.0.name]
   key_pair        = var.key_name
   region          = var.region
+  user_data       = data.template_cloudinit_config.prerequisites_config.rendered
   
   network {
     name = "Ext-Net"
@@ -71,9 +72,9 @@ resource "openstack_compute_instance_v2" "worker_instances" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",
-      "sudo bash  ${local.tmp_dir}/setup-private-ip.sh",
-      "sudo bash ${local.tmp_dir}/setup-worker.sh ${var.docker_version} ${openstack_compute_instance_v2.manager_instances.0.network.1.fixed_ip_v4}"
+      "bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",
+      "bash ${local.tmp_dir}/setup-private-ip.sh",
+      "bash ${local.tmp_dir}/setup-worker.sh ${openstack_compute_instance_v2.manager_instances.0.network.1.fixed_ip_v4}"
     ]
   }
 }

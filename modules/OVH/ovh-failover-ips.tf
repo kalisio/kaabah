@@ -19,7 +19,7 @@ resource "null_resource" "manager_failover_ips" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-failover-ip.sh ${var.manager_ips[count.index]}"
+      "bash ${local.tmp_dir}/setup-failover-ip.sh ${var.manager_ips[count.index]}"
     ]
   }
 

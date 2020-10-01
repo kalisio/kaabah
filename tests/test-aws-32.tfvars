@@ -4,6 +4,8 @@ region = "eu-central-1"
 
 ssh_key = "../workspaces/master/test-aws.pem"
 
+ssh_user = "kalisio"
+
 key_name = "test-aws"
 
 manager_instance_count = 3

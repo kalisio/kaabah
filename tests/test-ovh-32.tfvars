@@ -4,6 +4,8 @@ region = "GRA5"
 
 ssh_key = "../workspaces/master/test-ovh.pem"
 
+ssh_user = "kalisio"
+
 key_name = "test-ovh"
 
 manager_instance_count = 3

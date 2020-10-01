@@ -9,7 +9,7 @@ resource "scaleway_instance_server" "manager" {
   type              = var.manager_instance_type
   security_group_id = scaleway_instance_security_group.manager_security_group.*.id[0]
   ip_id             = length(var.manager_ips) > 0 ? var.manager_ips[count.index] : scaleway_instance_ip.manager.*.id[count.index]
-  cloud_init        = data.template_cloudinit_config.prerequisies_config.rendered
+  cloud_init        = data.template_cloudinit_config.prerequisites_config.rendered
 
   root_volume {
     size_in_gb     = lookup(local.root_volume_size, var.manager_instance_type)

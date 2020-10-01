@@ -14,7 +14,7 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.private_ip)} ${join(" ", aws_instance.worker_instances.*.private_ip)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.private_ip)} ${join(" ", aws_instance.worker_instances.*.private_ip)}\""
     ]
   }
 
@@ -42,7 +42,7 @@ resource "null_resource" "manager_gluster_mount" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 
@@ -67,7 +67,7 @@ resource "null_resource" "worker_gluster_mount" {
 
    provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
+      "bash ${local.tmp_dir}/mount-gluster-volume.sh ${var.gluster_share_volume_mount_point}"
     ]
   }
 

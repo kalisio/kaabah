@@ -33,7 +33,7 @@ resource "null_resource" "manager_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-block-volume.sh ${local.manager_use_nvme_device ? local.nvme_devices[count.index] : local.standard_devices[count.index]} ${var.manager_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.manager_use_nvme_device ? local.nvme_devices[0] : local.standard_devices[0]} ${var.manager_additional_volume_mount_point}",
     ]
   }
 
@@ -77,7 +77,7 @@ resource "null_resource" "worker_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/mount-block-volume.sh ${local.worker_use_nvme_device ? local.nvme_devices[count.index] : local.standard_devices[count.index]} ${var.worker_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.worker_use_nvme_device ? local.nvme_devices[0] : local.standard_devices[0]} ${var.worker_additional_volume_mount_point}",
     ]
   }
 

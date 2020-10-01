@@ -5,6 +5,7 @@ resource "aws_instance" "manager_instances" {
   availability_zone = var.availability_zone
   instance_type     = var.manager_instance_type
   security_groups   = [aws_security_group.manager_security_group.*.name[0]]
+  user_data         = data.template_cloudinit_config.prerequisites_config.rendered
 
   root_block_device {
     volume_type = "gp2"
@@ -66,8 +67,8 @@ resource "aws_instance" "manager_instances" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.*.cidr_block[0]}",
-      "sudo bash ${local.tmp_dir}/setup-manager.sh ${var.docker_version} ${self.private_ip} ${aws_instance.manager_instances.0.private_ip}",
+      "bash ${local.tmp_dir}/setup-prerequisites.sh ${aws_default_vpc.default_vpc.*.cidr_block[0]}",
+      "bash ${local.tmp_dir}/setup-manager.sh ${self.private_ip} ${aws_instance.manager_instances.0.private_ip}",
       "echo '127.0.0.1 ${terraform.workspace}-manager-${count.index}' | sudo tee -a /etc/hosts",
       "sudo hostnamectl set-hostname ${terraform.workspace}-manager-${count.index}"
     ]

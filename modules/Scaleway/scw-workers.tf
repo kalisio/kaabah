@@ -1,16 +1,3 @@
-data "template_cloudinit_config" "conf_worker" {
-  gzip          = false
-  base64_encode = false
-
-  part {
-       content_type = "text/cloud-config"
-       content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
-               user = var.ssh_user,
-               ssh_pubkey = var.ssh_pubkey,
-               docker_version = var.docker_version })
-  }
-}
-
 resource "scaleway_instance_ip" "worker" {
   count = var.SCW ? var.worker_instance_count : 0
 }
@@ -22,7 +9,7 @@ resource "scaleway_instance_server" "worker" {
   type              = var.worker_instance_type
   security_group_id = scaleway_instance_security_group.worker_security_group.*.id[0]
   ip_id             = element(scaleway_instance_ip.worker.*.id, count.index)
-  cloud_init        = data.template_cloudinit_config.conf_worker.rendered
+  cloud_init        = data.template_cloudinit_config.prerequisites_config.rendered
 
   root_volume {
     size_in_gb     = lookup(local.root_volume_size, var.worker_instance_type)

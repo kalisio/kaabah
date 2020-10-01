@@ -8,6 +8,19 @@ provider "scaleway" {
   zone            = var.availability_zone
 }
 
+data "template_cloudinit_config" "prerequisites_config" {
+  gzip          = true
+  base64_encode = true
+
+  part {
+       content_type = "text/cloud-config"
+       content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
+               user = var.ssh_user,
+               ssh_pubkey = file(var.ssh_pubkey),
+               docker_version = var.docker_version })
+  }
+}
+
 data "scaleway_image" "manager_image" {
   count        = var.SCW ? 1 : 0
   architecture = lookup(local.architectures, var.manager_instance_type)

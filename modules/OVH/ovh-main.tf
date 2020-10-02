@@ -29,13 +29,5 @@ locals {
   worker_tcp_ports = [ 2377, 7946, 22]
   worker_udp_ports = [ 7946, 4789 ]
   image = "Ubuntu 20.04"
-  device_names = [
-    "/dev/sdb",
-    "/dev/sdc",
-    "/dev/sdd",
-    "/dev/sde",
-    "/dev/sdf",
-    "/dev/sdg",
-    "/dev/sdh",
-  ]
+  additional_device_name = "/dev/sdb"
 }

@@ -11,7 +11,7 @@ resource "aws_ebs_volume" "manager_volumes" {
 
 resource "aws_volume_attachment" "manager_volume_attachements" {
   count            = var.AWS && var.manager_additional_volume_size > 0 ? var.manager_instance_count : 0
-  device_name     = local.device_names[0]
+  device_name     = local.additional_device_name
   instance_id     = aws_instance.manager_instances.*.id[count.index]
   volume_id       = aws_ebs_volume.manager_volumes.*.id[count.index]
   force_detach    = true
@@ -33,7 +33,7 @@ resource "null_resource" "manager_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.manager_use_nvme_device ? local.nvme_devices[0] : local.standard_devices[0]} ${var.manager_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.manager_use_nvme_device ? local.additional_nvme_device : local.additional_standard_device} ${var.manager_additional_volume_mount_point}",
     ]
   }
 
@@ -55,7 +55,7 @@ resource "aws_ebs_volume" "worker_volumes" {
 
 resource "aws_volume_attachment" "worker_volume_attachements" {
   count         = var.AWS && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
-  device_name   = local.device_names[0]
+  device_name   = local.additional_device_name
   instance_id   = aws_instance.worker_instances.*.id[count.index]
   volume_id     = aws_ebs_volume.worker_volumes.*.id[count.index]
   force_detach  = true
@@ -77,7 +77,7 @@ resource "null_resource" "worker_volume_mounts" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.worker_use_nvme_device ? local.nvme_devices[0] : local.standard_devices[0]} ${var.worker_additional_volume_mount_point}",
+      "bash ${local.tmp_dir}/mount-block-volume.sh ${local.worker_use_nvme_device ? local.additional_nvme_device : local.additional_standard_device} ${var.worker_additional_volume_mount_point}",
     ]
   }
 

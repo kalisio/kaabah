@@ -15,7 +15,7 @@ resource "scaleway_instance_server" "worker" {
     size_in_gb     = lookup(local.root_volume_size, var.worker_instance_type)
   }
 
-  additional_volume_ids = [scaleway_instance_volume.worker_volumess.*.id[count.index]]
+  additional_volume_ids = [scaleway_instance_volume.worker_volumes.*.id[count.index]]
 
   connection {
     type                = "ssh"

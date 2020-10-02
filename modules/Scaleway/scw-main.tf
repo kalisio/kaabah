@@ -9,8 +9,8 @@ provider "scaleway" {
 }
 
 data "template_cloudinit_config" "prerequisites_config" {
-  gzip          = true
-  base64_encode = true
+  gzip          = false
+  base64_encode = false
 
   part {
        content_type = "text/cloud-config"
@@ -42,6 +42,7 @@ locals {
   worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]
   worker_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
   image = "Ubuntu 20.04 Focal Fossa"
+  additional_device_name = "/dev/sda"
   architectures = {
     GP1-XS      = "x86_64"
     GP1-S       = "x86_64"
@@ -66,13 +67,4 @@ locals {
     DEV1-XL     = 120
     RENDER-S    = 400
   }
-  device_names = [
-    "/dev/sda",
-    "/dev/sdb",
-    "/dev/sdc",
-    "/dev/sdd",
-    "/dev/sde",
-    "/dev/sdf",
-    "/dev/sdg"
-  ]
 }

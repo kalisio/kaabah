@@ -15,7 +15,7 @@ resource "scaleway_instance_server" "manager" {
     size_in_gb     = lookup(local.root_volume_size, var.manager_instance_type)
   }
 
-  additional_volume_ids = [scaleway_instance_volume.manager_volumes.*.id[count.index]]
+  additional_volume_ids = length(scaleway_instance_volume.manager_volumes) > 0 ? [scaleway_instance_volume.manager_volumes.*.id[count.index]] : null
 
   connection {
     type        = "ssh"

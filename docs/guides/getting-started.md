@@ -31,7 +31,15 @@ When running **Kaabah** and to get connected to your instances, you must be awar
 In addition, **Kaabah** makes the assumption you already have a [**Bastion**](https://en.wikipedia.org/wiki/Bastion_host) installed for each providers. You must provide the information to access the bastions:
 * the public IP
 * the SSH private key
+* the SSH public key
 * the SSH user
+
+::: tip
+When needed, you can use the following command to retrieve the public key from the private key:
+```bash
+$ssh-keygen -y -f <key>.pem > <key>.pub
+```
+:::
 
 #### Network 
 

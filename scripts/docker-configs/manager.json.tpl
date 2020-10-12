@@ -3,7 +3,7 @@
   "metrics-addr" : "${MANAGER_PRIVATE_IP}:9323",
   "storage-driver" : "overlay2",
   "hosts": [
-    "tcp://0.0.0.0:2376",
+    "tcp://${MANAGER_PRIVATE_IP}:2376",
     "unix:///var/run/docker.sock"
   ],
   "tls": true,

@@ -31,10 +31,10 @@ export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=$HOME/.docker
 export DOCKER_HOST=tcp://$MANAGER_PRIVATE_IP:2376
 
-echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" | tee -a $HOME/.bash_profile
-echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" | tee -a $HOME/.bash_profile
-echo "export DOCKER_HOST=$DOCKER_HOST" | tee -a $HOME/.bash_profile
-echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" | tee -a $HOME/.bash_profile
+echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" | tee -a $HOME/.bashrc
+echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" | tee -a $HOME/.bashrc
+echo "export DOCKER_HOST=$DOCKER_HOST" | tee -a $HOME/.bashrc
+echo "export KAABAH_MANAGER_IP=$MANAGER_PRIVATE_IP" | tee -a $HOME/.bashrc
 
 # Initialise swarm
 if [ "$LEADER_PRIVATE_IP" == "$MANAGER_PRIVATE_IP" ]; then

@@ -73,7 +73,6 @@ resource "openstack_compute_instance_v2" "worker_instances" {
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",
-      "bash ${local.tmp_dir}/setup-private-ip.sh",
       "bash ${local.tmp_dir}/setup-worker.sh ${openstack_compute_instance_v2.manager_instances.0.network.1.fixed_ip_v4}"
     ]
   }

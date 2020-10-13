@@ -13,11 +13,11 @@ users:
 apt:
     preserve_sources_list: true
     sources:
-        glusterfs:
-            source: "ppa:gluster/glusterfs-7"
+        backports:
+            source: "deb http://deb.debian.org/debian $RELEASE-backports main"
         # docker is now installed through runcmd since apt module often fails fetching repository gpg key
         # docker:
-        #     source: "deb https://download.docker.com/linux/ubuntu $RELEASE stable"
+        #     source: "deb https://download.docker.com/linux/debian $RELEASE stable"
         #     keyid: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
 
 packages:
@@ -25,16 +25,17 @@ packages:
     - glusterfs-server
     - rclone
     - jq
+    - rsync
+    - tmux
+    - htop
+    - curl
+    - gnupg
     # see comment in apt module wrt. docker
-    # - [docker-ce, ${docker_version}]
-
-snap:
-    commands:
-        - [ 'install', 'yq' ]
+    # - [docker-ce, "${docker_version}"]
 
 runcmd:
     # Install docker: see comment in apt module wrt. docker
-    - 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -'
-    - 'echo "deb https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list'
+    - 'curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -'
+    - 'echo "deb https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list'
     - [ apt-get, update, -y]
-    - [ apt-get, install, -y, docker-ce=${docker_version}]
+    - [ apt-get, install, -y, "docker-ce=${docker_version}"]

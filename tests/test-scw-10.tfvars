@@ -13,7 +13,7 @@ manager_additional_volume_size = 100
 manager_additional_volume_mount_point = "/mnt/extra"
 
 manager_ips = [
-  "26531783-5867-4478-af27-dad75b51deeb"
+  "41e8eb86-faf9-4c01-8ef9-cf4da9ea1530"
 ]
 
 manager_crontabs = [

@@ -31,8 +31,6 @@ export DOCKER_TLS_VERIFY=1
 export DOCKER_CERT_PATH=$HOME/.docker
 export DOCKER_HOST=tcp://$MANAGER_PRIVATE_IP:2376
 
-# debian: /usr/local/sbin is not in PATH by default
-echo "export PATH=$PATH:/usr/local/sbin" | tee -a $HOME/.bashrc
 echo "export DOCKER_TLS_VERIFY=$DOCKER_TLS_VERIFY" | tee -a $HOME/.bashrc
 echo "export DOCKER_CERT_PATH=$DOCKER_CERT_PATH" | tee -a $HOME/.bashrc
 echo "export DOCKER_HOST=$DOCKER_HOST" | tee -a $HOME/.bashrc
@@ -49,7 +47,5 @@ fi
 # Install helper commands
 for COMMAND in $TMP_DIR/k-*; do
   chmod +x $COMMAND
-  sudo mv $COMMAND /usr/local/sbin/.
+  sudo mv $COMMAND /usr/local/bin
 done
-
-

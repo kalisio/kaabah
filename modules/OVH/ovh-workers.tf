@@ -22,7 +22,7 @@ resource "openstack_compute_instance_v2" "worker_instances" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = self.access_ip_v4
+    host                = self.network.1.fixed_ip_v4
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

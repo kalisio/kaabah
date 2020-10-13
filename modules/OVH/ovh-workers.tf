@@ -65,11 +65,6 @@ resource "openstack_compute_instance_v2" "worker_instances" {
     destination   = local.tmp_dir
   }
 
-  provisioner "file" {
-    source      = "modules/OVH/setup-private-ip.sh"
-    destination = "${local.tmp_dir}/setup-private-ip.sh"
-  }
-
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",

@@ -66,11 +66,6 @@ resource "openstack_compute_instance_v2" "manager_instances" {
   }
 
   provisioner "file" {
-    source      = "modules/OVH/setup-private-ip.sh"
-    destination = "${local.tmp_dir}/setup-private-ip.sh"
-  }
-
-  provisioner "file" {
     source      = "commands/"
     destination = local.tmp_dir
   }

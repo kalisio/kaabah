@@ -19,7 +19,7 @@ resource "null_resource" "manager_volume_mounts" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = openstack_compute_instance_v2.manager_instances.*.access_ip_v4[count.index]
+    host                = openstack_compute_instance_v2.manager_instances.*.network.1.fixed_ip_v4[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -58,7 +58,7 @@ resource "null_resource" "worker_volume_mounts" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = openstack_compute_instance_v2.worker_instances.*.access_ip_v4[count.index]
+    host                = openstack_compute_instance_v2.worker_instances.*.network.1.fixed_ip_v4[count.index]
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout

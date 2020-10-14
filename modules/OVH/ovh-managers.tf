@@ -22,7 +22,7 @@ resource "openstack_compute_instance_v2" "manager_instances" {
     bastion_host        = var.bastion_ip
     bastion_user        = var.bastion_ssh_user
     bastion_private_key = file(var.bastion_ssh_key)
-    host                = self.access_ip_v4
+    host                = self.network.1.fixed_ip_v4
     user                = var.ssh_user
     private_key         = file(var.ssh_key)
     timeout             = local.timeout
@@ -66,11 +66,6 @@ resource "openstack_compute_instance_v2" "manager_instances" {
   }
 
   provisioner "file" {
-    source      = "modules/OVH/setup-private-ip.sh"
-    destination = "${local.tmp_dir}/setup-private-ip.sh"
-  }
-
-  provisioner "file" {
     source      = "commands/"
     destination = local.tmp_dir
   }
@@ -78,7 +73,6 @@ resource "openstack_compute_instance_v2" "manager_instances" {
   provisioner "remote-exec" {
     inline = [
       "bash ${local.tmp_dir}/setup-prerequisites.sh ${data.openstack_networking_subnet_v2.private_subnet.*.cidr[0]}",
-      "bash ${local.tmp_dir}/setup-private-ip.sh",
       "bash ${local.tmp_dir}/setup-manager.sh ${self.network.1.fixed_ip_v4} ${openstack_compute_instance_v2.manager_instances.0.network.1.fixed_ip_v4}",
     ]
   }

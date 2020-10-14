@@ -47,7 +47,5 @@ fi
 # Install helper commands
 for COMMAND in $TMP_DIR/k-*; do
   chmod +x $COMMAND
-  sudo mv $COMMAND /usr/local/sbin/.
+  sudo mv $COMMAND /usr/local/bin
 done
-
-

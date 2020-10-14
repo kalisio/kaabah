@@ -47,7 +47,7 @@ variable "key_name" {
 }
 
 variable "docker_version" {
-  default = "5:19.03.12~3-0~ubuntu-focal"
+  default = "5:19.03.13~3-0~debian-buster"
 }
 
 variable "docker_tls_ca_key" {

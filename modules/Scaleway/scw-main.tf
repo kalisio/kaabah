@@ -25,12 +25,14 @@ data "scaleway_image" "manager_image" {
   count        = var.SCW ? 1 : 0
   architecture = lookup(local.architectures, var.manager_instance_type)
   name         = local.image
+  most_recent  = true
 }
 
 data "scaleway_image" "worker_image" {
   count        = var.SCW ? 1 : 0
   architecture = lookup(local.architectures, var.worker_instance_type)
   name         = local.image
+  most_recent  = true
 }
 
 locals {
@@ -41,7 +43,7 @@ locals {
   manager_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
   worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]
   worker_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
-  image = "Ubuntu 20.04 Focal Fossa"
+  image = "Debian Buster"
   additional_device_name = "/dev/sda"
   architectures = {
     GP1-XS      = "x86_64"

@@ -2,26 +2,17 @@
 set -euo pipefail
 
 FAILOVER_IP=$1
+IFACE_NAME=ens3
 
-# It happens that snap path is not present in PATH (yq is installed through snap)
-# Make sure it is here.
-PATH=$PATH:/snap/bin
+# Declare an additional network interface using failover ip
+echo "auto $IFACE_NAME" > failover_iface
+echo "allow-hotplug $IFACE_NAME" >> failover_iface
+echo "iface $IFACE_NAME inet static" >> failover_iface
+echo "  address $FAILOVER_IP/32" >> failover_iface
 
-# Copy the file
-cp /etc/netplan/50-cloud-init.yaml 50-cloud-init.yaml
+# Copy the interface definition
+sudo mv failover_iface /etc/network/interfaces.d
+sudo chown root:root /etc/network/interfaces.d/failover_iface
 
-# setup the failover ip if any
-# configure netplan
-echo "network:" > ens3.yml
-echo "    ethernets:" >> ens3.yml
-echo "        ens3:" >> ens3.yml
-echo "            addresses:" >> ens3.yml
-echo "            - $FAILOVER_IP/32" >> ens3.yml
-yq m -i 50-cloud-init.yaml ens3.yml
-rm ens3.yml
-
-# Copy the updated file
-sudo mv 50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
-
-# Restart netplan
-sudo netplan apply
+# Start interface
+# sudo ifup $IFACE_NAME

@@ -5,6 +5,9 @@
   "repository": {
     "url": "https://github.com/kalisio/kaabah"
   },
+  "bin": {
+    "kaabah": "index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "changelog": "changelog -x build,ci,chore,docs,other,perf,refactor,revert,style,test",
@@ -16,5 +19,9 @@
   "devDependencies": {
     "generate-changelog": "^1.7.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "commander": "^6.1.0",
+    "debug": "^4.2.0",
+    "shelljs": "^0.8.4"
+  }
 }

@@ -27,12 +27,14 @@ ca.cert
 ca.pass
 acme.json
 
-# States files
+# states files
 *.tfstate
 
-# Workspaces
-workspaces
+# backend file
+backend.tf
 
+# workspaces
+workspaces
 
 
 

@@ -4,7 +4,7 @@ sidebarDepth: 3
 
 # Tips
 
-## Ubuntu
+## Debian
 
 ### How to install Node.js (>8) & Yarn ?
 

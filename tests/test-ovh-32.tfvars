@@ -6,8 +6,6 @@ ssh_key = "../workspaces/master/test-ovh.pem"
 
 ssh_user = "kalisio"
 
-key_name = "test-ovh"
-
 manager_instance_count = 3
 
 manager_additional_volume_size = 250

@@ -14,8 +14,6 @@ variable "ssh_key" {}
 
 variable "ssh_pubkey" {}
 
-variable "key_name" {}
-
 variable "docker_version" {}
 
 variable "docker_tls_ca_key" {}

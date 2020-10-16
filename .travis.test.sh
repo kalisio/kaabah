@@ -13,7 +13,7 @@ sudo ln -s /opt/terraform/terraform /usr/bin/terraform
 rm -f terraform.zip
 
 # Initialize Terraform
-terraform init -backend-config="../workspaces/master/backend.config"
+node kaabah.js init "../workspaces/master/backend.tf"
 
  # Run terraform over the test workspaces
 terraform workspace select $WORKSPACE

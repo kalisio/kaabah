@@ -96,7 +96,7 @@ where `<WORKSPACE>` specify the name of the **Terraform** workspace.
 
 #### Operating system
 
-All the instances are created using the **Ubuntu 20.04 TLS** image provided by **AWS**, **OVH** and **Scaleway**.
+All the instances are based on the **Debian Buster** image provided by **AWS**, **OVH** and **Scaleway**.
 
 #### Docker
 

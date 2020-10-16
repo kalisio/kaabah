@@ -6,8 +6,6 @@ ssh_key = "../workspaces/master/test-aws.pem"
 
 ssh_user = "kalisio"
 
-key_name = "test-aws"
-
 manager_instance_type = "t2.small"
 
 manager_additional_volume_size = 500

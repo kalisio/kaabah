@@ -22,8 +22,6 @@ variable "ssh_key" {}
 
 variable "ssh_pubkey" {}
 
-variable "key_name" {}
-
 variable "instance_volume_size" {
   default = 50
 }

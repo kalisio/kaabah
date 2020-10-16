@@ -42,10 +42,6 @@ variable "ssh_user" {
   default = ""
 }
 
-variable "key_name" {
-  default = ""
-}
-
 variable "docker_version" {
   default = "5:19.03.13~3-0~debian-buster"
 }

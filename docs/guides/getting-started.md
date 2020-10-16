@@ -155,8 +155,6 @@ region = "eu-central-1"
 
 ssh_key = "../workspaces/master/test.pem"
 
-key_name = "test"
-
 manager_instance_count = 1
 
 manager_instance_type = "t2.small"

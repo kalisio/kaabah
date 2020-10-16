@@ -4,7 +4,6 @@ resource "openstack_compute_instance_v2" "manager_instances" {
   image_name        = local.image
   flavor_name       = var.manager_instance_type
   security_groups   = [openstack_networking_secgroup_v2.manager_security_group.*.name[0]]
-  key_pair          = var.key_name
   region            = var.region
   user_data         = data.template_cloudinit_config.prerequisites_config.rendered
 

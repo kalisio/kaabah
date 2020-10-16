@@ -1,6 +1,5 @@
 resource "aws_instance" "manager_instances" {
   count             = var.AWS ? var.manager_instance_count : 0
-  key_name          = var.key_name
   ami               = local.image
   availability_zone = var.availability_zone
   instance_type     = var.manager_instance_type

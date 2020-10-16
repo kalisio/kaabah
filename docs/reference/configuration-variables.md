@@ -35,7 +35,6 @@ sidebarDepth: 3
 |--- | --- |
 | `ssh_user` | The user to get connected to the instances. On **Scaleway** the default value is `root` and on **AWS** and **OVH** the default value is `ubuntu`. |
 | `ssh_key` | The path to the the ssh key required to get connected to the instances. There is no default value. |
-| `key_name` | The name of the ssh key to be used when creating the instance. The default value is `""`. This variable is ignored on **Scaleway**. |
 | `bastion_ip` | The IP address of the bastion to be used. The default value is the value of the `manager_ip` variable. |
 | `bastion_ssh_user` | The user to be used to get connected to the bastion. The default value is the value of the `ssh_user` variable. |
 | `bastion_ssh_key` | The private key to be used to get connected to the bastion. The default value is the value of the `ssh_key` variable. |

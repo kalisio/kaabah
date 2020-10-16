@@ -55,7 +55,6 @@ module "AWS" {
   ssh_key                               = var.ssh_key
   ssh_pubkey                            = replace(var.ssh_key, ".pem", ".pub")
   ssh_user                              = var.ssh_user != "" ? var.ssh_user : "ubuntu"
-  key_name                              = var.key_name
   docker_version                        = var.docker_version
   docker_tls_ca_key                     = var.docker_tls_ca_key
   docker_tls_ca_cert                    = var.docker_tls_ca_cert
@@ -89,7 +88,6 @@ module "OVH" {
   ssh_key                               = var.ssh_key
   ssh_pubkey                            = replace(var.ssh_key, ".pem", ".pub")
   ssh_user                              = var.ssh_user != "" ? var.ssh_user : "ubuntu"
-  key_name                              = var.key_name
   docker_version                        = var.docker_version
   docker_tls_ca_key                     = var.docker_tls_ca_key
   docker_tls_ca_cert                    = var.docker_tls_ca_cert

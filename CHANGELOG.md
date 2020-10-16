@@ -4,26 +4,13 @@
 
 *  Allow to configure the backend type (close [#164](https://github.com/kalisio/kaabah/pull/164)) [skip ci] ([61675175](https://github.com/kalisio/kaabah/commit/616751757d65120f5bfe2418ccf6c402b06febbc))
 *  Remove unsued key_name variable (close [#165](https://github.com/kalisio/kaabah/pull/165)) ([e798b12f](https://github.com/kalisio/kaabah/commit/e798b12f08ae5757d16235646083043614c290ad))
-*  use private ip to connect ovh instances (like with other providers). ([91c60cf6](https://github.com/kalisio/kaabah/commit/91c60cf6b8ed5ad461c38d585bf7a7def4875766))
-*  use private ip to connect ovh instances (like with other providers). ([a574be65](https://github.com/kalisio/kaabah/commit/a574be6574f5465dee6ebae8178af95c8a512c1d))
-
+*  Use private ip to connect ovh instances (like with other providers). ([91c60cf6](https://github.com/kalisio/kaabah/commit/91c60cf6b8ed5ad461c38d585bf7a7def4875766))
+  
 ##### Bug Fixes
 
-*  put kaabah tools in /usr/local/bin instead. ([8e03c525](https://github.com/kalisio/kaabah/commit/8e03c52582e7cabe709561dbccd9ea6c05ab8162))
-*  updated manager ip for scw test. ([c3f9d246](https://github.com/kalisio/kaabah/commit/c3f9d2461cf89e37e87f268e056da416d4ff4346))
-*  removed provisioned file that was removed earlier. ([4f3ab36a](https://github.com/kalisio/kaabah/commit/4f3ab36ace201c2454f7c881799efee20c4fc37a))
-*  use debian buster as base image, fixes [#162](https://github.com/kalisio/kaabah/pull/162) ([0473f148](https://github.com/kalisio/kaabah/commit/0473f148ec0a8477f94e367ed695a05387e75ca0))
+*  Put kaabah tools in /usr/local/bin instead. ([8e03c525](https://github.com/kalisio/kaabah/commit/8e03c52582e7cabe709561dbccd9ea6c05ab8162))
+*  Use Debian buster as base image, fixes [#162](https://github.com/kalisio/kaabah/pull/162) ([0473f148](https://github.com/kalisio/kaabah/commit/0473f148ec0a8477f94e367ed695a05387e75ca0))
 *  Default additional volume size is wrong (close [#161](https://github.com/kalisio/kaabah/pull/161)) [skip test] ([1043276d](https://github.com/kalisio/kaabah/commit/1043276d240d08289c573eaa413aee1cc91ea22e))
-
-##### Other Changes
-
-*  Allow to configure the backend type [#164](https://github.com/kalisio/kaabah/pull/164) [skip ci] ([1533170e](https://github.com/kalisio/kaabah/commit/1533170e3765a62e739d67543148ec0a0eb410c6))
-* //github.com/kalisio/kaabah ([b2bfdd25](https://github.com/kalisio/kaabah/commit/b2bfdd257f3f653c6b38c166ad95d05b331ecb55))
-*  Allow to configure the backend type [#164](https://github.com/kalisio/kaabah/pull/164) [skip ci] ([5dbd99fb](https://github.com/kalisio/kaabah/commit/5dbd99fb1a90397d9290918f041d8abf6dd2a244))
-*  ovh/failover ip. ([2aecb5dc](https://github.com/kalisio/kaabah/commit/2aecb5dc2c9b1ddb52c47bd99441eefe06df0b96))
-*  cleaned commands/k-leader-exec [skip test] ([25f6424c](https://github.com/kalisio/kaabah/commit/25f6424cc05192a5b7115061c9606221e40e6ddc))
-*  handle case when there's no additional volume. ([429da943](https://github.com/kalisio/kaabah/commit/429da9430ee0866278dc20bdd24d37ea18d0f503))
-*  updated content ([f835db10](https://github.com/kalisio/kaabah/commit/f835db1066cf3531dbd69055d9e6a8ceab3b6ebf))
 
 ## 2.0.0 (2020-09-14)
 

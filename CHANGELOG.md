@@ -3,7 +3,7 @@
 ##### New Features
 
 *  Allow to configure the backend type (close [#164](https://github.com/kalisio/kaabah/pull/164)) [skip ci] ([61675175](https://github.com/kalisio/kaabah/commit/616751757d65120f5bfe2418ccf6c402b06febbc))
-*  Remove unsued key_name variable (close [#165](https://github.com/kalisio/kaabah/pull/165)) ([e798b12f](https://github.com/kalisio/kaabah/commit/e798b12f08ae5757d16235646083043614c290ad))
+*  Remove unused key_name variable (close [#165](https://github.com/kalisio/kaabah/pull/165)) ([e798b12f](https://github.com/kalisio/kaabah/commit/e798b12f08ae5757d16235646083043614c290ad))
 *  Use private ip to connect ovh instances (like with other providers). ([91c60cf6](https://github.com/kalisio/kaabah/commit/91c60cf6b8ed5ad461c38d585bf7a7def4875766))
   
 ##### Bug Fixes

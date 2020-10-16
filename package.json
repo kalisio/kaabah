@@ -11,9 +11,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "changelog": "changelog -x build,ci,chore,docs,other,perf,refactor,revert,style,test",
-    "release:major": "npm run changelog -- -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md\" && npm version --force major",
-    "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md\" && npm version --force minor",
-    "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md\" && npm version --force patch",
+    "release:major": "npm run changelog -- -M && git add CHANGELOG.md && git commit -m \"updated CHANGELOG.md [skip ci]\" && git push && npm version --force major",
+    "release:minor": "npm run changelog -- -m && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force minor",
+    "release:patch": "npm run changelog -- -p && git add CHANGELOG.md && git commit -m \"Updated CHANGELOG.md [skip ci]\" && git push && npm version --force patch",
     "postversion": "git push origin --tags"
   },
   "devDependencies": {

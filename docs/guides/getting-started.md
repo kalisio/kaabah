@@ -64,8 +64,9 @@ If needed, follow this [guide](https://docs.aws.amazon.com/sdk-for-java/v1/devel
 ### Clone the Github repository
 
 ```bash
-$ git clone https://github.com/kalisio/kaabah.git
-$ cd kaabah
+$git clone https://github.com/kalisio/kaabah.git
+$cd kaabah
+$yarn install && yarn link
 ```
 
 ### Setup your Terraform environment
@@ -119,19 +120,29 @@ $export TF_VAR_docker_tls_ca_cert="../workspaces/master/ca.cert"
 $export TF_VAR_docker_tls_ca_pass="../workspaces/master/ca.pass"
 ```
 
-6. Define the [S3 backend](https://www.terraform.io/docs/backends/types/s3.html) properties 
+6. Define your backend 
 
-Create a file `backend.config` with the following properties:
+Create a file `backend.tf` with the following content:
+
 ```
-bucket = "the name of the bucket"
-region = "the region of the bucket"
-key    = "the key to the states"
+terraform {
+  backend "type" {
+    property_1 = "value1"
+    property_2 = "value2"
+  }
+}
 ```
 
-7. Initialize Terraform
+::: tip
+Please refer to the [Backends documentation](https://www.terraform.io/docs/backends/index.html) to learn more.
+:::
+
+7. Initialize Kaabah
+
+To initialize **Terraform** using the `backend.tf` file, use the following command:
 
 ```bash
-$terraform init -backend-config="path/to/your/backend.config"
+$kaabah init "path/to/your/backend.tf"
 ```
 
 ## Usage

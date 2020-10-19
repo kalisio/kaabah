@@ -1,3 +1,9 @@
+#### 2.1.1 (2020-10-19)
+
+##### Other Changes
+
+* 0 (public interface), fixes [#166](https://github.com/kalisio/kaabah/pull/166) ([ed909447](https://github.com/kalisio/kaabah/commit/ed909447d9a635dcf7218e33e705c6f88d6915d7))
+
 ### 2.1.0 (2020-10-16)
 
 ##### New Features

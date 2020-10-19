@@ -2,7 +2,7 @@
 set -euo pipefail
 
 FAILOVER_IP=$1
-IFACE_NAME=ens3
+IFACE_NAME=eth0:0
 
 # Declare an additional network interface using failover ip
 echo "auto $IFACE_NAME" > failover_iface
@@ -15,4 +15,4 @@ sudo mv failover_iface /etc/network/interfaces.d
 sudo chown root:root /etc/network/interfaces.d/failover_iface
 
 # Start interface
-# sudo ifup $IFACE_NAME
+sudo ifup $IFACE_NAME

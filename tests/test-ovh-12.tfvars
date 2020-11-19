@@ -37,6 +37,6 @@ worker_additional_volume_mount_point = "/mnt/extra"
 
 worker_user_scripts=[
   "tests/user-scripts/worker-0.sh",
-  "tests/user-scripts/worker-0.sh"
+  "tests/user-scripts/worker-1.sh"
 ]
 

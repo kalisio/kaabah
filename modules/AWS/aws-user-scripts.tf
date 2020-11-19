@@ -19,7 +19,7 @@ resource "null_resource" "manager_user_scripts" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/${basename(var.manager_user_scripts[count.index])}"
+      "bash ${local.tmp_dir}/${basename(var.manager_user_scripts[count.index])} manager ${count.index}"
     ]
   }
 
@@ -50,7 +50,7 @@ resource "null_resource" "worker_user_scripts" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"
+      "bash ${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])} worker ${count.index}"
     ]
   }
 

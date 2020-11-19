@@ -39,6 +39,7 @@ locals {
   tmp_dir = "/tmp/kaabah"
   timeout = "360s"
   private_network_cidr = "10.0.0.0/8"
+  # Ports 111, 2049, 32764, 32765, 32766, 32767, 32768, 32769 (tcp&udp) are required on, the server if using nfs server
   manager_tcp_ports = [ 2376, 2377, 7946, 24007, 24008, 49152, 22]
   manager_udp_ports = [ 7946, 4789, 24007, 24008, 49152 ]
   worker_tcp_ports = [ 2377, 7946, 24007, 24008, 49152, 22]

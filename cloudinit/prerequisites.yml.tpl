@@ -3,7 +3,7 @@ groups:
 
 users:
     - name: ${user}
-      groups: docker
+      groups: docker, adm
       lock_passwd: true
       sudo: 'ALL=(ALL) NOPASSWD: ALL'
       shell: /bin/bash

@@ -1,3 +1,10 @@
+#### 2.1.2 (2020-11-01)
+
+##### Bug Fixes
+
+*  Removed unused KAABAH_MANAGER_IP variable (close [#169](https://github.com/kalisio/kaabah/pull/169)) ([7859b236](https://github.com/kalisio/kaabah/commit/7859b2365b1bc1987c8fdc99b93652eb9334dcd7))
+*  Provisionned user should belong to the adm group (close [#168](https://github.com/kalisio/kaabah/pull/168)) [skip ci] ([507a77e4](https://github.com/kalisio/kaabah/commit/507a77e4fc2f33a301e4664366a5dc4329295ab5))
+
 #### 2.1.1 (2020-10-19)
 
 ##### Other Changes

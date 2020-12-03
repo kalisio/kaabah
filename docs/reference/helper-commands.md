@@ -101,6 +101,26 @@ $k-node-find 172.31.34.218
 87vv4tmksirt646er0l1jk66h
 ```
 
+## k-node-foreach
+
+### Description
+
+Executes the given command or script on each node.
+
+`usage: k-node-foreach [--worker|--manager] --command|-c <command>`
+`usage: k-node-foreach [--worker|--manager] --script|-s <script> [arguments...]`
+
+The `worker` and `manager` options allow you to filter the nodes according their role."
+
+### Example
+
+```bash
+# All nodes
+$k-node-foreach -c "echo 'foo bar' > foobar.txt"
+# Workers only
+$k-node-foreach --worker -c "echo 'foo bar' > foobar.txt"
+```
+
 ## k-service-check
 
 ### Description
@@ -329,39 +349,4 @@ Remove all unused containers, networks, dangling images and volumes
 
 ```bash
 $k-swarm-prune
-```
-
-## k-worker-foreach
-
-### Description
-
-Executes the given command or script on each worker
-
-`usage: k-worker-foreach --command|-c <command>`
-`usage: k-worker-foreach --script|-s <script> [arguments...]`
-
-### Example
-
-```bash
-$k-worker-foreach -c "echo 'foo bar' > foobar.txt"
-```
-
-## k-worker-list
-
-### Description
-
-Displays the worker nodes. If the options `--id-only` is defined, it returns the IDs of the workers.
-
-`usage: k-worker-list [--id-only|-i]`
-
-### Example
-
-```bash
-$k-worker-list
-ID                            HOSTNAME            STATUS              AVAILABILITY        MANAGER STATUS      ENGINE VERSION
-afwvqo2pv90jc5us3t8nvwzsd     ip-172-31-35-40     Ready               Active                                  18.03.1-ce
-wyo0dvb85bn0ziw58v0o8u4tl     ip-172-31-39-133    Ready               Active                                  18.03.1-ce
-$k-worker-list -i
-afwvqo2pv90jc5us3t8nvwzsd
-wyo0dvb85bn0ziw58v0o8u4tl
 ```

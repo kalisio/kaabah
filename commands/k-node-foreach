@@ -1,0 +1,44 @@
+
+#!/bin/bash
+
+usage() {
+  echo "usage: k-node-foreach [--worker|--manager] --command|-c <command>"
+  echo "usage: k-node-foreach [--worker|--manager] --script|-s <script> [arguments...]"
+}
+
+help() {
+  echo "Executes a command or a scrpipt on each node."
+  echo "The worker and manager options allow you to filter the nodes according their role."
+  usage
+}
+
+exec() {
+  NODES_IDS=`docker node ls $FILTER | grep Ready | grep Active | cut -d' ' -f1`
+  for NODE_ID in $NODES_IDS; do
+    if [ "$1" = "--command" ] || [ "$1" = "-c" ]; then
+      k-node-exec -c $NODE_ID "$2"
+    elif [ "$1" = "--script" ] || [ "$1" = "-s" ]; then
+      k-node-exec -s $NODE_ID "$2" "$3"
+    else
+      echo error: illegal argument $1
+      usage
+      exit 1
+    fi
+  done
+}
+
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+  echo error: illegal number of arguments
+  usage
+  exit 1
+fi
+
+case $1 in
+  -h|--help) help;;
+  --manager) FILTER="-f role=manager"; exec "$2" "$3" "$4";;
+  --worker) FILTER="-f role=worker";  exec "$2" "$3" "$4";;
+  -c|--command) exec --command "$2";;
+  -s|--script) exec --script "$2" "$3";;
+  *) echo error: unknonw argument "$1"; usage
+esac
+

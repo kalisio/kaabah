@@ -10,8 +10,7 @@ help() {
 }
 
 exec() {
-  docker system prune --volumes -f
-  k-worker-foreach -c "docker system prune --volumes -f"
+  k-node-foreach -c "docker system prune -f"
 }
 
 if [ "$#" -ne 0 ]; then

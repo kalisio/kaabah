@@ -108,6 +108,7 @@ $k-node-find 172.31.34.218
 Executes the given command or script on each node.
 
 `usage: k-node-foreach [--worker|--manager] --command|-c <command>`
+
 `usage: k-node-foreach [--worker|--manager] --script|-s <script> [arguments...]`
 
 The `worker` and `manager` options allow you to filter the nodes according their role."
@@ -341,7 +342,7 @@ shecw660oiaq        kaabah_traefik         replicated          1/1              
 
 ### Description
 
-Remove all unused containers, networks, dangling images and volumes
+Remove all unused containers, networks and dangling images.
 
 `usage: k-swarm-prune`
 

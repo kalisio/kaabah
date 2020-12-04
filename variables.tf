@@ -123,3 +123,6 @@ variable "rclone_conf" {
   default = ""
 }
 
+variable "nvm_version" {
+  default = "v0.37.2"
+}

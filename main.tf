@@ -39,6 +39,7 @@ module "Scaleway" {
   worker_user_scripts                   = var.worker_user_scripts
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
+  nvm_version                           = var.nvm_version
 }
 
 module "AWS" {
@@ -75,6 +76,7 @@ module "AWS" {
   worker_user_scripts                   = var.worker_user_scripts
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
+  nvm_version                           = var.nvm_version
 }
 
 module "OVH" {
@@ -108,5 +110,6 @@ module "OVH" {
   worker_user_scripts                   = var.worker_user_scripts
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
+  nvm_version                           = var.nvm_version
 }
 

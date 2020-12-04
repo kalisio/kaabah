@@ -67,3 +67,5 @@ variable "worker_user_scripts" {
 variable  "gluster_share_volume_mount_point" {}
 
 variable "rclone_conf" {}
+
+variable "nvm_version" {}

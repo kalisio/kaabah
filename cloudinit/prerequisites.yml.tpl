@@ -39,3 +39,5 @@ runcmd:
     - 'echo "deb https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list'
     - [ apt-get, update, -y]
     - [ apt-get, install, -y, "docker-ce=${docker_version}"]
+    # Install nvm for ${user}
+    - 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_version}/install.sh | sudo -i -u ${user} bash'

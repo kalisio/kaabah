@@ -15,7 +15,9 @@ data "template_cloudinit_config" "prerequisites_config" {
        content = templatefile("${path.cwd}/cloudinit/prerequisites.yml.tpl", {
                user = var.ssh_user,
                ssh_pubkey = file(var.ssh_pubkey),
-               docker_version = var.docker_version })
+               docker_version = var.docker_version,
+               nvm_version = var.nvm_version
+               })
   }
 }
 

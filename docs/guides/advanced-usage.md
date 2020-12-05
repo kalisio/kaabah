@@ -7,7 +7,7 @@ sidebarDepth: 3
 ## Customizing security groups 
 
 When creating a cluster, **Kaabah** crates [2 security groups](../guides/understanding-kaabah.md#security-groups) with pre-configured rules. However, you have the 
-capability to define additional inbound rules to each of these security groups using the following variables: 
+capability to declare additional inbound rules to each of these security groups using the following variables: 
 * `manager_additionnal_inboud_rules` that let's you add additional rules to the manager security group
 * `worker_additionnal_inboud_rules` that let's you add additional rules to the worker security group
 

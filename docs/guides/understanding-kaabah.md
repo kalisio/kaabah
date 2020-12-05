@@ -140,8 +140,8 @@ You can override this default mount point by overriding the `manager_additional_
 * on **Scaleway** it must be a [Flexible IP](https://www.scaleway.com/en/faq/servers/network/#-What-is-a-flexible-IP-address)
 * on **OVH** it must be a [Floating IP](https://www.ovhcloud.com/en/bare-metal/ip/)
 
-::: Warning
-On **OVH**, even if **Kaabahh** adds automatically a network interface to allow the binding of the **Floating IP** to this instance, you need to do manually this binding using the **OVH** interface.
+::: warning
+On **OVH**, even if **Kaabah** adds automatically a network interface to allow the binding of the **Floating IP** to this instance, you need to do manually this binding using the **OVH** interface.
 :::
 
 #### Security Groups
@@ -157,6 +157,10 @@ By default, **Kaabah** creates 2 security groups:
   * internal SSH traffic (port 22)
   * internal Docker swarm traffic
   * internal Gluster traffic
+
+::: tip
+**Kaabah** allows you to define additional inbound rules. Read more [here](../guides/advanced-usage.md#customizing-security-groups)
+:::
 
 ### Security
 

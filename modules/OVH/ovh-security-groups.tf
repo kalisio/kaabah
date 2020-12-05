@@ -1,4 +1,3 @@
-// Manager
 resource "openstack_networking_secgroup_v2" "manager_security_group" {
   count                 = var.OVH ? 1 : 0
   region                = var.region
@@ -18,7 +17,6 @@ resource "openstack_networking_secgroup_rule_v2" "manager_security_group_rules" 
     security_group_id   = openstack_networking_secgroup_v2.manager_security_group.*.id[0]
 }
 
-// Worker
 resource "openstack_networking_secgroup_v2" "worker_security_group" {
   count                   = var.OVH ? 1 : 0
   region                  = var.region

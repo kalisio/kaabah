@@ -4,6 +4,26 @@ sidebarDepth: 3
 
 # Advanced usage
 
+## Customizing security groups 
+
+When creating a cluster, **Kaabah** crates [2 security groups](../guides/understanding-kaabah.md#security-groups) with pre-configured rules. However, you have the 
+capability to define additional inbound rules to each of these security groups using the following variables: 
+* `manager_additionnal_inboud_rules` that let's you add additional rules to the manager security group
+* `worker_additionnal_inboud_rules` that let's you add additional rules to the worker security group
+
+The rules are defined using objects with the following attributes:
+* `protocol`: the protocol to be declared, it should be `tcp` or `udp`
+* `port`: the port to be opened
+* `cidr`: the CIDR block to be allowed. If you leave a blank string, **Kaabah** will automatically affect the CIDR associated to your private network.
+
+For instance, the following declaration enables incoming `tcp` traffic from the private network to the workers through the port `27017`:
+
+```
+worker_additionnal_inbound_rules = [
+  { protocol = "tcp", port = 111, cidr = "" }
+]
+```
+
 ## Using rclone
 
 **Kaabah** installs [rclone](https://https://rclone.org/) on each node of your cluster. By default, the configuration file is empty and you must configure it as you need it. Please refer to the official [guide](https://rclone.org/docs/#configure) to configure **rclone**.

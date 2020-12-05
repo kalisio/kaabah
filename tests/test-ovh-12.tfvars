@@ -10,6 +10,25 @@ manager_instance_count = 1
 
 manager_instance_type = "s1-4"
 
+manager_additionnal_inbound_rules = [
+  { protocol = "tcp", port = 111, cidr = "" },
+  { protocol = "udp", port = 111, cidr = "" },
+  { protocol = "tcp", port = 2049, cidr = "" },
+  { protocol = "udp", port = 2049, cidr = "" },
+  { protocol = "tcp", port = 32764, cidr = "" },
+  { protocol = "udp", port = 32764, cidr = "" },
+  { protocol = "tcp", port = 32765, cidr = "" },
+  { protocol = "udp", port = 32765, cidr = "" },
+  { protocol = "tcp", port = 32766, cidr = "" },
+  { protocol = "udp", port = 32766, cidr = "" },
+  { protocol = "tcp", port = 32767, cidr = "" },
+  { protocol = "udp", port = 32767, cidr = "" },
+  { protocol = "tcp", port = 32768, cidr = "" },
+  { protocol = "udp", port = 32768, cidr = "" },
+  { protocol = "tcp", port = 32769, cidr = "" },
+  { protocol = "udp", port = 32769, cidr = "" }
+]
+
 manager_additional_volume_size = 250
 
 manager_additional_volume_mount_point = "/mnt/extra"
@@ -30,6 +49,25 @@ manager_user_scripts = [
 worker_instance_count = 2
 
 worker_instance_type = "s1-4"
+
+worker_additionnal_inbound_rules = [
+  { protocol = "tcp", port = 111, cidr = "" },
+  { protocol = "udp", port = 111, cidr = "" },
+  { protocol = "tcp", port = 2049, cidr = "" },
+  { protocol = "udp", port = 2049, cidr = "" },
+  { protocol = "tcp", port = 32764, cidr = "" },
+  { protocol = "udp", port = 32764, cidr = "" },
+  { protocol = "tcp", port = 32765, cidr = "" },
+  { protocol = "udp", port = 32765, cidr = "" },
+  { protocol = "tcp", port = 32766, cidr = "" },
+  { protocol = "udp", port = 32766, cidr = "" },
+  { protocol = "tcp", port = 32767, cidr = "" },
+  { protocol = "udp", port = 32767, cidr = "" },
+  { protocol = "tcp", port = 32768, cidr = "" },
+  { protocol = "udp", port = 32768, cidr = "" },
+  { protocol = "tcp", port = 32769, cidr = "" },
+  { protocol = "udp", port = 32769, cidr = "" }
+]
 
 worker_additional_volume_size = 250
 

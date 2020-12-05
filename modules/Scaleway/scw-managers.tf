@@ -76,8 +76,4 @@ resource "scaleway_instance_server" "manager" {
       "bash ${local.tmp_dir}/setup-manager.sh ${self.private_ip} ${scaleway_instance_server.manager.0.private_ip}"
     ]
   }
-
-  /*depends_on = [ 
-    "scaleway_instance_security_group.manager"
-  ]*/
 }

@@ -16,6 +16,25 @@ manager_ips = [
   "51.210.84.111"
 ]
 
+manager_additionnal_inbound_rules = [
+  { protocol = "tcp", port = 111, cidr = "" },
+  { protocol = "udp", port = 111, cidr = "" },
+  { protocol = "tcp", port = 2049, cidr = "" },
+  { protocol = "udp", port = 2049, cidr = "" },
+  { protocol = "tcp", port = 32764, cidr = "" },
+  { protocol = "udp", port = 32764, cidr = "" },
+  { protocol = "tcp", port = 32765, cidr = "" },
+  { protocol = "udp", port = 32765, cidr = "" },
+  { protocol = "tcp", port = 32766, cidr = "" },
+  { protocol = "udp", port = 32766, cidr = "" },
+  { protocol = "tcp", port = 32767, cidr = "" },
+  { protocol = "udp", port = 32767, cidr = "" },
+  { protocol = "tcp", port = 32768, cidr = "" },
+  { protocol = "udp", port = 32768, cidr = "" },
+  { protocol = "tcp", port = 32769, cidr = "" },
+  { protocol = "udp", port = 32769, cidr = "" }
+]
+
 manager_crontabs = [
   "tests/crontab"
 ]

@@ -26,15 +26,19 @@ variable "manager_instance_count" {}
 
 variable "manager_instance_type" {}
 
+variable "manager_ips" {
+  type = list
+}
+
+variable "manager_inbound_rules" {
+  type = list(object({ protocol = string, port = number, cidr = string }))
+}
+
 variable "manager_additional_volume_size" {}
 
 variable "manager_additional_volume_type" {}
 
 variable "manager_additional_volume_mount_point" {}
-
-variable "manager_ips" {
-  type = list
-}
 
 variable "manager_crontabs" {
   type = list
@@ -47,6 +51,10 @@ variable "manager_user_scripts" {
 variable "worker_instance_type" {}
 
 variable "worker_instance_count" {}
+
+variable "worker_inbound_rules" {
+  type = list(object({ protocol = string, port = number, cidr = string }))
+}
 
 variable "worker_additional_volume_size" {}
 

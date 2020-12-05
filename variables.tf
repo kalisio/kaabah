@@ -68,6 +68,11 @@ variable "manager_instance_type" {
   default = ""
 }
 
+variable "manager_additionnal_inbound_rules" {
+  type    = list(object({ protocol = string, port = number, cidr = string }))
+  default = []
+}
+
 variable "manager_additional_volume_size" {
   default = 0
 }
@@ -96,6 +101,11 @@ variable "worker_instance_count" {
 
 variable "worker_instance_type" {
   default = ""
+}
+
+variable "worker_additionnal_inbound_rules" {
+  type    = list(object({ protocol = string, port = number, cidr = string }))
+  default = []
 }
 
 variable "worker_additional_volume_size" {

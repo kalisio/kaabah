@@ -6,6 +6,38 @@ provider "null" {
   version = "~> 2.1.2"
 }
 
+locals {
+  manager_default_inbound_rules = [
+    { protocol = "tcp", port = 80, cidr = "0.0.0.0/0" },
+    { protocol = "tcp", port = 443, cidr = "0.0.0.0/0" },
+    { protocol = "tcp", port = 2376, cidr = "" },
+    { protocol = "tcp", port = 2377, cidr = "" },
+    { protocol = "tcp", port = 7946, cidr = "" },
+    { protocol = "udp", port = 7946, cidr = "" },
+    { protocol = "udp", port = 4789, cidr = "" },
+    { protocol = "tcp", port = 24007, cidr = "" },
+    { protocol = "udp", port = 24007, cidr = "" },
+    { protocol = "tcp", port = 24008, cidr = "" },
+    { protocol = "udp", port = 24008, cidr = "" },
+    { protocol = "tcp", port = 49152, cidr = "" },
+    { protocol = "udp", port = 49152, cidr = "" },
+    { protocol = "tcp", port = 22, cidr = "" }
+  ]
+  worker_default_inbound_rules = [ 
+    { protocol = "tcp", port = 2377, cidr = "" },
+    { protocol = "tcp", port = 7946, cidr = "" },
+    { protocol = "udp", port = 7946, cidr = "" },
+    { protocol = "udp", port = 4789, cidr = "" },
+    { protocol = "tcp", port = 24007, cidr = "" },
+    { protocol = "udp", port = 24007, cidr = "" },
+    { protocol = "tcp", port = 24008, cidr = "" },
+    { protocol = "udp", port = 24008, cidr = "" },
+    { protocol = "tcp", port = 49152, cidr = "" },
+    { protocol = "udp", port = 49152, cidr = "" },
+    { protocol = "tcp", port = 22, cidr = "" }
+  ]
+}
+
 module "Scaleway" {
   source = "./modules/Scaleway"
 
@@ -28,12 +60,14 @@ module "Scaleway" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "DEV1-S"
   manager_ips                           = var.manager_ips
+  manager_inbound_rules                 = concat(local.manager_default_inbound_rules, var.manager_additionnal_inbound_rules)
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "DEV1-S"
+  worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
   worker_user_scripts                   = var.worker_user_scripts
@@ -63,6 +97,7 @@ module "AWS" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "t2.small"
   manager_ips                           = var.manager_ips
+  manager_inbound_rules                 = concat(local.manager_default_inbound_rules, var.manager_additionnal_inbound_rules)
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
@@ -70,6 +105,7 @@ module "AWS" {
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "t2.small"
+  worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
@@ -97,6 +133,7 @@ module "OVH" {
   manager_instance_count                = var.manager_instance_count
   manager_instance_type                 = var.manager_instance_type != "" ? var.manager_instance_type : "s1-2"
   manager_ips                           = var.manager_ips
+  manager_inbound_rules                 = concat(local.manager_default_inbound_rules, var.manager_additionnal_inbound_rules)
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
@@ -104,6 +141,7 @@ module "OVH" {
   manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "s1-2"
+  worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point

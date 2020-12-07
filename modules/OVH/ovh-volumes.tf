@@ -2,6 +2,7 @@ resource "openstack_blockstorage_volume_v2" "manager_volumes" {
   count         = var.OVH  && var.manager_additional_volume_size > 0 ?  var.manager_instance_count : 0
   region        = var.region  
   size          = var.manager_additional_volume_size
+  volume_type   = var.manager_additional_volume_type
 }
 
 resource "openstack_compute_volume_attach_v2" "manager_volume_attachements" {
@@ -40,6 +41,7 @@ resource "openstack_blockstorage_volume_v2" "worker_volumes" {
   count         = var.OVH && var.worker_additional_volume_size > 0 ? var.worker_instance_count : 0
   region        = var.region  
   size          = var.worker_additional_volume_size
+  volume_type   = var.worker_additional_volume_type
 }
 
 

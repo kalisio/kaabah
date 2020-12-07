@@ -45,12 +45,6 @@ manager_crontabs = [
   "tests/crontab"
 ]
 
-manager_user_scripts = [
-  "tests/user-scripts/manager-0.sh", 
-  "tests/user-scripts/manager-1.sh", 
-  "tests/user-scripts/manager-2.sh"
-]
-
 worker_instance_type = "t3.large"
 
 worker_instance_count = 2
@@ -78,8 +72,4 @@ worker_additional_volume_size = 500
 
 worker_additional_volume_mount_point = "/mnt/extra"
 
-worker_user_scripts=[
-  "tests/user-scripts/worker-0.sh",
-  "tests/user-scripts/worker-1.sh"
-]
-
+user_script = "tests/user-script.sh"

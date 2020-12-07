@@ -90,11 +90,6 @@ variable "manager_crontabs" {
   default = []
 }
 
-variable "manager_user_scripts" {
-  type    = list(string)
-  default = []
-}
-
 variable "worker_instance_count" {
   default = 0
 }
@@ -120,9 +115,8 @@ variable "worker_additional_volume_mount_point" {
   default = "/mnt/data"
 }
 
-variable "worker_user_scripts" {
-  type    = list(string)
-  default = []
+variable "user_script" {
+  default = ""
 }
 
 variable "gluster_share_volume_mount_point" {

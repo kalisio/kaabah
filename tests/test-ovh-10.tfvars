@@ -39,6 +39,4 @@ manager_crontabs = [
   "tests/crontab"
 ]
 
-manager_user_scripts = [
-  "tests/user-scripts/manager-0.sh"
-]
+user_script = "tests/user-script.sh"

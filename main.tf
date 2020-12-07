@@ -64,13 +64,12 @@ module "Scaleway" {
   manager_additional_volume_size        = var.manager_additional_volume_size
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
-  manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "DEV1-S"
   worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
-  worker_user_scripts                   = var.worker_user_scripts
+  user_script                           = var.user_script
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
@@ -102,14 +101,13 @@ module "AWS" {
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.manager_additional_volume_type : "sc1"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
-  manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "t2.small"
   worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
-  worker_user_scripts                   = var.worker_user_scripts
+  user_script                           = var.user_script
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
@@ -138,14 +136,13 @@ module "OVH" {
   manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.manager_additional_volume_type : "classic"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
-  manager_user_scripts                  = var.manager_user_scripts
   worker_instance_count                 = var.worker_instance_count
   worker_instance_type                  = var.worker_instance_type != "" ? var.worker_instance_type : "s1-2"
   worker_inbound_rules                  = concat(local.worker_default_inbound_rules, var.worker_additionnal_inbound_rules)
   worker_additional_volume_size         = var.worker_additional_volume_size
   worker_additional_volume_type         = var.worker_additional_volume_type != "" ? var.worker_additional_volume_type : "classic"
   worker_additional_volume_mount_point  = var.worker_additional_volume_mount_point
-  worker_user_scripts                   = var.worker_user_scripts
+  user_script                           = var.user_script
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version

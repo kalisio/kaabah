@@ -1,5 +1,5 @@
-resource "null_resource" "manager_user_script" {
-  count = var.OVH && length(var.manager_user_scripts) > 0 ? var.manager_instance_count : 0
+resource "null_resource" "manager_user_scripts" {
+  count = var.OVH && var.user_script != "" ? var.manager_instance_count : 0
 
   connection {
     type                = "ssh"
@@ -13,13 +13,13 @@ resource "null_resource" "manager_user_script" {
   }
 
   provisioner "file" {
-    source      = var.manager_user_scripts[count.index]
-    destination = "${local.tmp_dir}/${basename(var.manager_user_scripts[count.index])}"
+    source      = var.user_script
+    destination = "${local.tmp_dir}/${basename(var.user_script)}"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/${basename(var.manager_user_scripts[count.index])} manager ${count.index}"
+      "bash ${local.tmp_dir}/${basename(var.user_script)} manager ${count.index}"
     ]
   }
 
@@ -30,7 +30,7 @@ resource "null_resource" "manager_user_script" {
 }
 
 resource "null_resource" "worker_user_scripts" {
-  count = var.OVH && length(var.worker_user_scripts) > 0 ? var.worker_instance_count : 0
+  count = var.OVH && var.user_script != "" ? var.worker_instance_count : 0
 
   connection {
     type                = "ssh"
@@ -44,17 +44,17 @@ resource "null_resource" "worker_user_scripts" {
   }
 
   provisioner "file" {
-    source      = var.worker_user_scripts[count.index]
-    destination = "${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])}"
+    source      = var.user_script
+    destination = "${local.tmp_dir}/${basename(var.user_script)}"
   }
   
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/${basename(var.worker_user_scripts[count.index])} worker ${count.index}"
+      "bash ${local.tmp_dir}/${basename(var.user_script)} worker ${count.index}"
     ]
   }
 
   depends_on = [
-    null_resource.manager_user_script
+    null_resource.manager_user_scripts
   ]
 }

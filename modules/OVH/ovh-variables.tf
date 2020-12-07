@@ -44,10 +44,6 @@ variable "manager_crontabs" {
   type = list
 }
 
-variable "manager_user_scripts" {
-  type = list
-}
-
 variable "worker_instance_type" {}
 
 variable "worker_instance_count" {}
@@ -62,11 +58,9 @@ variable "worker_additional_volume_type" {}
 
 variable "worker_additional_volume_mount_point" {}
 
-variable "worker_user_scripts" {
-  type = list
-}
+variable "user_script" {}
 
-variable  "gluster_share_volume_mount_point" {}
+variable "gluster_share_volume_mount_point" {}
 
 variable "rclone_conf" {}
 

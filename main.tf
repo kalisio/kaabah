@@ -99,7 +99,7 @@ module "AWS" {
   manager_ips                           = var.manager_ips
   manager_inbound_rules                 = concat(local.manager_default_inbound_rules, var.manager_additionnal_inbound_rules)
   manager_additional_volume_size        = var.manager_additional_volume_size
-  manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.worker_additional_volume_type : "sc1"
+  manager_additional_volume_type        = var.manager_additional_volume_type != "" ? var.manager_additional_volume_type : "sc1"
   manager_additional_volume_mount_point = var.manager_additional_volume_mount_point
   manager_crontabs                      = var.manager_crontabs
   manager_user_scripts                  = var.manager_user_scripts

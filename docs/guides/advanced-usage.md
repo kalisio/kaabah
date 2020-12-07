@@ -18,7 +18,7 @@ The rules are defined using objects with the following attributes:
 
 For instance, the following declaration enables incoming `tcp` traffic from the private network to the workers through the port `27017`:
 
-```
+```js
 worker_additionnal_inbound_rules = [
   { protocol = "tcp", port = 27017, cidr = "" }
 ]

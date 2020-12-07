@@ -20,7 +20,7 @@ For instance, the following declaration enables incoming `tcp` traffic from the 
 
 ```
 worker_additionnal_inbound_rules = [
-  { protocol = "tcp", port = 111, cidr = "" }
+  { protocol = "tcp", port = 27017, cidr = "" }
 ]
 ```
 

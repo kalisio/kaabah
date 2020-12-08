@@ -15,17 +15,6 @@
 *  k-swarm-prune is not executed on reachable managers (close [#167](https://github.com/kalisio/kaabah/pull/167)) [skip test] ([15e7d5e3](https://github.com/kalisio/kaabah/commit/15e7d5e3a8d8ced056498abf69bde15e6b4f9eb1))
 *  call the proper user script from workers in ovh tests. ([1378824c](https://github.com/kalisio/kaabah/commit/1378824c7c10541b0e7eccdf40f60c7e0930e472))
 
-##### Other Changes
-
-*  no nvm check for now, it fails, needs investigations. ([3e274a38](https://github.com/kalisio/kaabah/commit/3e274a382bddaa31735ae06f9b7d4f19fe8f79d3))
-*  replace manager_user_scripts and worker_user_scripts with a single user_script [#175](https://github.com/kalisio/kaabah/pull/175) ([d8ed8d5a](https://github.com/kalisio/kaabah/commit/d8ed8d5aadf4c58cd10fe24539d69849bccff2e1))
-*  Volume type is not taken into account in OVH module [#174](https://github.com/kalisio/kaabah/pull/174) [skip ci] ([0848dc4f](https://github.com/kalisio/kaabah/commit/0848dc4f96e26e57479b566f8e81faa96b6af0f7))
-* //github.com/kalisio/kaabah ([4ee3a323](https://github.com/kalisio/kaabah/commit/4ee3a3238f9a3639b69b5ae1a320576fa9519ca0))
-*  Volume type is not taken into account in OVH module [#174](https://github.com/kalisio/kaabah/pull/174) [skip ci] ([fa4f4981](https://github.com/kalisio/kaabah/commit/fa4f498164609526199a0779876d682c2345a4d6))
-*  Allow to specify additional security group rules [#171](https://github.com/kalisio/kaabah/pull/171) ([3178254d](https://github.com/kalisio/kaabah/commit/3178254d73872fcdf4dbc81f89efbe0fd7bcc0dc))
-* kalisio/kaabah ([3277d8b5](https://github.com/kalisio/kaabah/commit/3277d8b5f8aadf9d167db021bfdf679044519c9c))
-*  deleted package-lock.json [skip ci] ([6d8fcb9d](https://github.com/kalisio/kaabah/commit/6d8fcb9dfa4168c321a169e1b025e35b8ba8f61d))
-
 #### 2.1.2 (2020-11-01)
 
 ##### Bug Fixes

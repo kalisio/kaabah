@@ -130,3 +130,7 @@ variable "rclone_conf" {
 variable "nvm_version" {
   default = "v0.37.2"
 }
+
+variable "yq_version" {
+  default = "3.4.1"
+}

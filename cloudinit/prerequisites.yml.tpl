@@ -40,4 +40,7 @@ runcmd:
     - [ apt-get, update, -y]
     - [ apt-get, install, -y, "docker-ce=${docker_version}"]
     # Install nvm for ${user}
-    - 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_version}/install.sh | sudo -i -u ${user} bash'
+    - 'curl -L -o- https://raw.githubusercontent.com/nvm-sh/nvm/${nvm_version}/install.sh | sudo -i -u ${user} bash'
+    # Install yq globally
+    - 'curl -L -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/${yq_version}/yq_linux_amd64'
+    - 'chmod +x /usr/local/bin/yq'

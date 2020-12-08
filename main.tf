@@ -73,6 +73,7 @@ module "Scaleway" {
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
+  yq_version                            = var.yq_version
 }
 
 module "AWS" {
@@ -111,6 +112,7 @@ module "AWS" {
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
+  yq_version                            = var.yq_version
 }
 
 module "OVH" {
@@ -146,5 +148,6 @@ module "OVH" {
   gluster_share_volume_mount_point      = var.gluster_share_volume_mount_point
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
+  yq_version                            = var.yq_version
 }
 

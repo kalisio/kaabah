@@ -17,6 +17,7 @@ data "template_cloudinit_config" "prerequisites_config" {
                ssh_pubkey = file(var.ssh_pubkey),
                docker_version = var.docker_version,
                nvm_version = var.nvm_version
+               yq_version = var.yq_version
                })
   }
 }

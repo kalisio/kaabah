@@ -24,9 +24,45 @@ worker_additionnal_inbound_rules = [
 ]
 ```
 
+## Using user script
+
+**Kaabah** allows you to run a user script when creating the cluster. The same script is executed once an instance is created, however **Kaabah** provides you with: 
+* the type, whether it is a manager or a worker
+* the index, according the type
+
+It is up to you to write the script according to the provided hypothesis. For instance, the following script will install [Kargo](https://kalisio.github.io/kargo/) 
+once the first manager node (e.g. leader) is created:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+KIND=$1
+INDEX=$2
+INFRASTRUCTURE=sample
+
+if [ "$KIND" = "manager" ]; then
+    if [ $INDEX -eq 0 ]; then
+        # install kargo
+        cd /mnt/share
+
+        # clone Kargo and corresponding workspace
+        git clone https://github.com/kalisio/kargo > /dev/null
+        git clone -b $INFRASTRUCTURE https:/<secret>@github.com/kalisio/kargo-workspaces kargo/workspaces/$INFRASTRUCTURE > /dev/null
+
+        # setup kargo
+        cd kargo
+        ./kargo use workspaces/$INFRASTRUCTURE
+        ./kargo configure
+    fi
+# elif [ "$KIND" = "worker" ]; then
+fi
+```
+
 ## Using rclone
 
-**Kaabah** installs [rclone](https://https://rclone.org/) on each node of your cluster. By default, the configuration file is empty and you must configure it as you need it. Please refer to the official [guide](https://rclone.org/docs/#configure) to configure **rclone**.
+**Kaabah** installs [rclone](https://https://rclone.org/) on each node of your cluster. By default, the configuration file is empty and you must configure it as you 
+need it. Please refer to the official [guide](https://rclone.org/docs/#configure) to configure **rclone**.
 However you can tell **Kaabah** to provision an already defined configuration using the variable `rclone_conf` in your configuration file:
 
 ```bash

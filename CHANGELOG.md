@@ -1,3 +1,31 @@
+### 2.2.0 (2020-12-08)
+
+##### New Features
+
+*  Replace terraform variables 'manager_user_scripts' and 'worker_user_scripts' with a single 'user_script' (close [#175](https://github.com/kalisio/kaabah/pull/175)) ([1cba2b67](https://github.com/kalisio/kaabah/commit/1cba2b6785fefabfbed94b7eaae657575dbd6e19))
+*  add yq to prerequisites (close [#176](https://github.com/kalisio/kaabah/pull/176)). ([cfc85a70](https://github.com/kalisio/kaabah/commit/cfc85a705a96db38a72116d7a328f17c48ec070b))
+*  OVH provider understands manager_additional_volume_type and worker_additional_volume_type (close [#174](https://github.com/kalisio/kaabah/pull/174)) ([7c0321c9](https://github.com/kalisio/kaabah/commit/7c0321c9d835509db27dfece255c119797c4da10))
+*  Allow to specify additional security group rules (close [#171](https://github.com/kalisio/kaabah/pull/171)) ([b486808b](https://github.com/kalisio/kaabah/commit/b486808b49ad395ef48bdd0cbe86ac3d6ca2c425))
+*  install nvm as a prerequisite (close [#173](https://github.com/kalisio/kaabah/pull/173)). ([9d4db272](https://github.com/kalisio/kaabah/commit/9d4db27216460d8cdcd4556eb0d950fc60b5a707))
+*  Provide an helper command that allows to execute a command/script on each node (close [#172](https://github.com/kalisio/kaabah/pull/172)) [skip ci] ([968f80a7](https://github.com/kalisio/kaabah/commit/968f80a7886002259c67dff8a2f689f090b20df0))
+*  user scripts are now called with parameters (instance kind and index) ([7f42fab1](https://github.com/kalisio/kaabah/commit/7f42fab1d83484c9415d1ed0c1eddb557b69b619))
+
+##### Bug Fixes
+
+*  k-swarm-prune is not executed on reachable managers (close [#167](https://github.com/kalisio/kaabah/pull/167)) [skip test] ([15e7d5e3](https://github.com/kalisio/kaabah/commit/15e7d5e3a8d8ced056498abf69bde15e6b4f9eb1))
+*  call the proper user script from workers in ovh tests. ([1378824c](https://github.com/kalisio/kaabah/commit/1378824c7c10541b0e7eccdf40f60c7e0930e472))
+
+##### Other Changes
+
+*  no nvm check for now, it fails, needs investigations. ([3e274a38](https://github.com/kalisio/kaabah/commit/3e274a382bddaa31735ae06f9b7d4f19fe8f79d3))
+*  replace manager_user_scripts and worker_user_scripts with a single user_script [#175](https://github.com/kalisio/kaabah/pull/175) ([d8ed8d5a](https://github.com/kalisio/kaabah/commit/d8ed8d5aadf4c58cd10fe24539d69849bccff2e1))
+*  Volume type is not taken into account in OVH module [#174](https://github.com/kalisio/kaabah/pull/174) [skip ci] ([0848dc4f](https://github.com/kalisio/kaabah/commit/0848dc4f96e26e57479b566f8e81faa96b6af0f7))
+* //github.com/kalisio/kaabah ([4ee3a323](https://github.com/kalisio/kaabah/commit/4ee3a3238f9a3639b69b5ae1a320576fa9519ca0))
+*  Volume type is not taken into account in OVH module [#174](https://github.com/kalisio/kaabah/pull/174) [skip ci] ([fa4f4981](https://github.com/kalisio/kaabah/commit/fa4f498164609526199a0779876d682c2345a4d6))
+*  Allow to specify additional security group rules [#171](https://github.com/kalisio/kaabah/pull/171) ([3178254d](https://github.com/kalisio/kaabah/commit/3178254d73872fcdf4dbc81f89efbe0fd7bcc0dc))
+* kalisio/kaabah ([3277d8b5](https://github.com/kalisio/kaabah/commit/3277d8b5f8aadf9d167db021bfdf679044519c9c))
+*  deleted package-lock.json [skip ci] ([6d8fcb9d](https://github.com/kalisio/kaabah/commit/6d8fcb9dfa4168c321a169e1b025e35b8ba8f61d))
+
 #### 2.1.2 (2020-11-01)
 
 ##### Bug Fixes

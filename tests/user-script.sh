@@ -28,5 +28,3 @@ fi
 
 # Check docker is available
 docker version
-# Check nvm is available
-nvm --version

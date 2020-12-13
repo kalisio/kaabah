@@ -7,7 +7,7 @@ usage() {
 }
 
 help() {
-  echo "Executes a command or a scrpipt on each node."
+  echo "Executes a command or a script on each node."
   echo "The worker and manager options allow you to filter the nodes according their role."
   usage
 }

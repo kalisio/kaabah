@@ -8,6 +8,10 @@ ssh_user = "kalisio"
 
 manager_instance_type = "DEV1-S"
 
+manager_ips = [
+  "41e8eb86-faf9-4c01-8ef9-cf4da9ea1530"
+]
+
 manager_additionnal_inbound_rules = [
   { protocol = "tcp", port = 111, cidr = "" },
   { protocol = "udp", port = 111, cidr = "" },
@@ -30,10 +34,6 @@ manager_additionnal_inbound_rules = [
 manager_additional_volume_size = 100
 
 manager_additional_volume_mount_point = "/mnt/extra"
-
-manager_ips = [
-  "41e8eb86-faf9-4c01-8ef9-cf4da9ea1530"
-]
 
 manager_crontabs = [
   "tests/crontab"

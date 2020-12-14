@@ -1,3 +1,9 @@
+#### 2.2.1 (2020-12-14)
+
+##### Bug Fixes
+
+*  k-node-foreach contains invalid \r character (close [#178](https://github.com/kalisio/kaabah/pull/178)) ([157350b3](https://github.com/kalisio/kaabah/commit/157350b3b6d42db63074f8e7065261afb1e812a6))
+
 ### 2.2.0 (2020-12-08)
 
 ##### New Features

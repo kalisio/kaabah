@@ -18,7 +18,7 @@ jobs:
   - stage: TEST
     language: node_js
     node_js:
-    - '10'
+    - '12.16'
     services:
     - docker
     script: bash .travis.test.sh ovh
@@ -30,7 +30,7 @@ jobs:
   - stage: DOC
     language: node_js
     node_js:
-    - '10'
+    - '12.16'
     install: true
     script: bash .travis.doc.sh
     deploy:

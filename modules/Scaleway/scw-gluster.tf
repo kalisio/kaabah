@@ -20,9 +20,6 @@ resource "null_resource" "manager_gluster_create" {
 
   depends_on = [
     null_resource.manager_hosts
-    // scaleway_instance_server.manager,
-    // scaleway_instance_server.worker # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
-    //null_resource.worker_volume_mounts
   ]
 }
 

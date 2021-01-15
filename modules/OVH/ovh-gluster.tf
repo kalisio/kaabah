@@ -19,8 +19,7 @@ resource "null_resource" "manager_gluster_create" {
   }
 
   depends_on = [
-    openstack_compute_instance_v2.manager_instances, 
-    openstack_compute_instance_v2.worker_instances,
+    null_resource.manager_hosts,
     null_resource.manager_volume_mounts,
     null_resource.worker_volume_mounts
   ]

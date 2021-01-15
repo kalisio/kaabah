@@ -14,13 +14,12 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.private_ip)} ${join(" ", aws_instance.worker_instances.*.private_ip)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.name)} ${join(" ", aws_instance.worker_instances.*.name)}\""
     ]
   }
 
   depends_on = [
-    aws_instance.manager_instances, 
-    aws_instance.worker_instances, 
+    null_resource.manager_hosts,
     null_resource.manager_volume_mounts,
     null_resource.worker_volume_mounts
   ]

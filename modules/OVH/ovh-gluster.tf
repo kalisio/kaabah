@@ -14,7 +14,7 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager_instances.*.network.1.fixed_ip_v4)} ${join(" ", openstack_compute_instance_v2.worker_instances.*.network.1.fixed_ip_v4)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", openstack_compute_instance_v2.manager_instances.*.name)} ${join(" ", openstack_compute_instance_v2.worker_instances.*.name)}\""
     ]
   }
 

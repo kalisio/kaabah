@@ -14,13 +14,14 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", scaleway_instance_server.manager.*.private_ip)} ${join(" ", scaleway_instance_server.worker.*.private_ip)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", scaleway_instance_server.manager.*.name)} ${join(" ", scaleway_instance_server.worker.*.name)}\""
     ]
   }
 
   depends_on = [
-    scaleway_instance_server.manager,
-    scaleway_instance_server.worker # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
+    null_resource.manager_hosts
+    // scaleway_instance_server.manager,
+    // scaleway_instance_server.worker # Ensure dependency to the workers (https://github.com/kalisio/kaabah/issues/102)
     //null_resource.worker_volume_mounts
   ]
 }

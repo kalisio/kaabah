@@ -14,7 +14,7 @@ resource "null_resource" "manager_gluster_create" {
 
   provisioner "remote-exec" {
     inline = [
-      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.name)} ${join(" ", aws_instance.worker_instances.*.name)}\""
+      "bash ${local.tmp_dir}/setup-gluster-volume.sh \"${join(" ", aws_instance.manager_instances.*.tags.Name)} ${join(" ", aws_instance.worker_instances.*.tags.Name)}\""
     ]
   }
 

@@ -19,8 +19,12 @@ resource "null_resource" "manager_hosts" {
 
   provisioner "remote-exec" {
     inline = [
-      "printf \"\\n%{ for host in scaleway_instance_server.manager }${host.private_ip}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
-      "printf \"\\n%{ for host in scaleway_instance_server.worker }${host.private_ip}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
+      <<-EOT
+      printf "%{ for host in scaleway_instance_server.manager }${host.private_ip}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      %{ if var.worker_instance_count > 0 }
+        printf "%{ for host in scaleway_instance_server.worker }${host.private_ip}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      %{ endif }
+      EOT
     ]
   }
 }
@@ -46,8 +50,10 @@ resource "null_resource" "worker_hosts" {
 
   provisioner "remote-exec" {
     inline = [
-      "printf \"\\n%{ for host in scaleway_instance_server.manager }${host.private_ip}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
-      "printf \"\\n%{ for host in scaleway_instance_server.worker }${host.private_ip}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
+      <<-EOT
+      printf "%{ for host in scaleway_instance_server.manager }${host.private_ip}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      printf "%{ for host in scaleway_instance_server.worker }${host.private_ip}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      EOT
     ]
   }
 }

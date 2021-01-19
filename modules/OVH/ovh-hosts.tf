@@ -19,8 +19,12 @@ resource "null_resource" "manager_hosts" {
 
   provisioner "remote-exec" {
     inline = [
-      "printf \"\\n%{ for host in openstack_compute_instance_v2.manager_instances }${host.network.1.fixed_ip_v4}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
-      "printf \"\\n%{ for host in openstack_compute_instance_v2.worker_instances }${host.network.1.fixed_ip_v4}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
+      <<-EOT
+      printf "%{ for host in openstack_compute_instance_v2.manager_instances }${host.network.1.fixed_ip_v4}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      %{ if var.worker_instance_count > 0 }
+        printf "%{ for host in openstack_compute_instance_v2.worker_instances }${host.network.1.fixed_ip_v4}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      %{ endif }
+      EOT
     ]
   }
 }
@@ -46,8 +50,10 @@ resource "null_resource" "worker_hosts" {
 
   provisioner "remote-exec" {
     inline = [
-      "printf \"\\n%{ for host in openstack_compute_instance_v2.manager_instances }${host.network.1.fixed_ip_v4}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
-      "printf \"\\n%{ for host in openstack_compute_instance_v2.worker_instances }${host.network.1.fixed_ip_v4}\\t${host.name}\\n%{ endfor ~} \" | sudo tee -a /etc/hosts",
+      <<-EOT
+      printf "%{ for host in openstack_compute_instance_v2.manager_instances }${host.network.1.fixed_ip_v4}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      printf "%{ for host in openstack_compute_instance_v2.worker_instances }${host.network.1.fixed_ip_v4}\t${host.name}\n%{ endfor }" | sudo tee -a /etc/hosts
+      EOT
     ]
   }
 }

@@ -10,7 +10,7 @@ features:
   details: Deploy highly available applications on your infrastructure
 - title: Easy to operate
   details: Manage your infrastructures with the simplicity of Docker Swarm
-footer: MIT Licensed | Copyright © 2018-2020 Kalisio
+footer: MIT Licensed | Copyright © 2018-20xx Kalisio
 ---
 
 <center>

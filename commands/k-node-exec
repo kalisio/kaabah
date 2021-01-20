@@ -39,11 +39,11 @@ exec_script()
   setup_ssh_agent
 
   # Provision the script
-  scp -o StrictHostKeyChecking=no "$SCRIPT" $K_USER@$NODE_IP:/tmp
+  scp -q -o StrictHostKeyChecking=no "$SCRIPT" $K_USER@$NODE_IP:/tmp
 
   # Run the script
   REMOTE_SCRIPT=/tmp/`basename $SCRIPT`
-  exec_command $NODE_IP "$REMOTE_SCRIPT $ARGUMENTS"
+  exec_command $NODE_IP "chmod u+x $REMOTE_SCRIPT && $REMOTE_SCRIPT $ARGUMENTS"
 }
 
 if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then

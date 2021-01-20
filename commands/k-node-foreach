@@ -27,7 +27,7 @@ exec() {
   done
 }
 
-if [ "$#" -ne 2 ] && [ "$#" -ne 3 ]; then
+if [ "$#" -ne 2 ] && [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
   echo error: illegal number of arguments
   usage
   exit 1

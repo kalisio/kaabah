@@ -1,3 +1,18 @@
+### 2.3.0 (2021-01-25)
+
+##### New Features
+
+* Create gluster share using managers/workers names instead of ip (close [#181](https://github.com/kalisio/kaabah/issues/181)) ([4f5e134](https://github.com/kalisio/kaabah/commit/4f5e13473ec2489d86b74edf0d370faaabc8d41d))
+* Update /etc/hosts with managers/workers private ips (close [#180](https://github.com/kalisio/kaabah/issues/180)). ([62872ab](https://github.com/kalisio/kaabah/commit/62872ab964b001f9d801da52cefb2badaa73a8e6))
+
+##### Bug Fixes
+
+*  k-node-exec must give exec permissions to the script before running it. [skip test] [skip doc] ([6ca07761](https://github.com/kalisio/kaabah/commit/6ca077618c325a578c7b3c3d3d50cefb166e2dc5))
+*  k-node-foreach can have up to 4 args when using -s flag [skip test] [skip doc] ([ca3f59f8](https://github.com/kalisio/kaabah/commit/ca3f59f8be9695ef31c130d68d464ffaee17d5d4))
+*  handle case when there's no worker. ([3a8bf04c](https://github.com/kalisio/kaabah/commit/3a8bf04c12fdcab7c5c9d3faf5e7b3c2d9c6d84c))
+*  fetch AWS instance name properly everywhere. ([6d5878c3](https://github.com/kalisio/kaabah/commit/6d5878c3c24238e85ed3bd3368979f2f763b5640))
+*  fetch AWS instance names. ([91ed3517](https://github.com/kalisio/kaabah/commit/91ed351740ee0dd5495b13be49fb628ba0a37989))
+
 #### 2.2.1 (2020-12-14)
 
 ##### Bug Fixes

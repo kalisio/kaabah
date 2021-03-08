@@ -10,24 +10,12 @@ help() {
   usage
 }
 
-setup_ssh_agent() {
-  if [ "$K_USER" == "root" ]; then
-    K_HOME=/root
-  else
-    K_HOME=/home/$K_USER
-  fi
-  eval "$(ssh-agent -s)" > /dev/null
-  ssh-add $K_HOME/.ssh/ssh.pem > /dev/null 2>&1
-}
-
 exec_command()
 {
   NODE_IP=$1
   COMMAND=$2
   
-  setup_ssh_agent
-
-  ssh -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$COMMAND"
+  ssh -i $HOME/.ssh/ssh.pem -o StrictHostKeyChecking=no $K_USER@$NODE_IP "$COMMAND"
 }
 
 exec_script()
@@ -36,10 +24,8 @@ exec_script()
   SCRIPT=$2
   ARGUMENTS=$3
   
-  setup_ssh_agent
-
   # Provision the script
-  scp -q -o StrictHostKeyChecking=no "$SCRIPT" $K_USER@$NODE_IP:/tmp
+  scp -i $HOME/.ssh/ssh.pem -q -o StrictHostKeyChecking=no "$SCRIPT" $K_USER@$NODE_IP:/tmp
 
   # Run the script
   REMOTE_SCRIPT=/tmp/`basename $SCRIPT`

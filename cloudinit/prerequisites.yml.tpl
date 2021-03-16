@@ -30,6 +30,7 @@ packages:
     - htop
     - curl
     - gnupg
+    - wait-for-it
     # see comment in apt module wrt. docker
     # - [docker-ce, "${docker_version}"]
 

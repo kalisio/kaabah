@@ -3,11 +3,11 @@ set -euo pipefail
 
 NODES=$1
 
-CRATE_NODE_LIST=
+CREATE_NODE_LIST=
 SHARE_NODE_LIST=
 for NODE in $NODES; do
   sudo gluster peer probe $NODE
-  CRATE_NODE_LIST="$CRATE_NODE_LIST $NODE:/glusterfs/volume0/brick0"
+  CREATE_NODE_LIST="$CREATE_NODE_LIST $NODE:/glusterfs/volume0/brick0"
   SHARE_NODE_LIST="$SHARE_NODE_LIST,$NODE"
 done
 
@@ -18,10 +18,10 @@ sudo gluster pool list
 NB_NODES=`echo $NODES | wc -w`
 if [ "$NB_NODES" != "1" ]; then
   echo "Creating share volume in replicated mode"
-  sudo gluster volume create share replica `echo $NODES | wc -w` transport tcp $CRATE_NODE_LIST force
+  sudo gluster volume create share replica `echo $NODES | wc -w` transport tcp $CREATE_NODE_LIST force
 else
   echo "Creating share volume in distributed mode"
-  sudo gluster volume create share transport tcp $CRATE_NODE_LIST force
+  sudo gluster volume create share transport tcp $CREATE_NODE_LIST force
 fi
 
 # Start the volume

@@ -1,44 +1,143 @@
-
 #!/bin/bash
+set -uo pipefail
 
 usage() {
-  echo "usage: k-node-foreach [--worker|--manager] --command|-c <command>"
-  echo "usage: k-node-foreach [--worker|--manager] --script|-s <script> [arguments...]"
+  echo "usage: $0 [-p] [-w | -m] -c command [nodes ...]"
+  echo "usage: $0 [-p] [-w | -m] -s command [nodes ...]"
+  echo
+  echo "options:"
+  echo "  p   Run in parallel on all nodes, $0 will wait for"
+  echo "      completion of every execution."
+  echo "      Without this flag, commands will be run sequentially."
+  echo "  w   Run on workers only."
+  echo "  m   Run on managers only."
+  echo "  c   Run <command> command on the selected nodes (you should use double"
+  echo "      quotes around the whole command if it contains spaces)."
+  echo "  s   Run local <command> script file on the selected nodes."
+  echo
+  echo "<nodes> is an optionnal list of node names where to run the command."
+  echo "If <nodes> is empty and neither -w nor -m flags are set, it will run"
+  echo "<command> on all known nodes."
 }
 
 help() {
-  echo "Executes a command or a script on each node."
-  echo "The worker and manager options allow you to filter the nodes according their role."
+  echo "Run commands or local script file on nodes."
+  echo
   usage
 }
 
-exec() {
-  NODES_IDS=`docker node ls $FILTER | grep Ready | grep Active | cut -d' ' -f1`
-  for NODE_ID in $NODES_IDS; do
-    if [ "$1" = "--command" ] || [ "$1" = "-c" ]; then
-      k-node-exec -c $NODE_ID "$2"
-    elif [ "$1" = "--script" ] || [ "$1" = "-s" ]; then
-      k-node-exec -s $NODE_ID "$2" "$3"
-    else
-      echo error: illegal argument $1
-      usage
-      exit 1
-    fi
+exec_sequential() {
+  NODES=${1}
+  COMMAND_OR_SCRIPT=${2}
+  ARG=${3}
+
+  for NODE in ${NODES}; do
+    k-node-exec ${COMMAND_OR_SCRIPT} ${NODE} "${ARG}"
   done
 }
 
-if [ "$#" -ne 2 ] && [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
-  echo error: illegal number of arguments
-  usage
-  exit 1
+exec_parallel() {
+  NODES=${1}
+  COMMAND_OR_SCRIPT=${2}
+  ARG=${3}
+
+  # Temp directory where to write command logs
+  LOG_ROOT=$(mktemp --directory --tmpdir)
+  LOG_FILES=""
+
+  WAIT_PIDS=""
+  for NODE in ${NODES}; do
+    LOG_STDOUT=${LOG_ROOT}/${NODE}.stdout.log
+    LOG_STDERR=${LOG_ROOT}/${NODE}.stderr.log
+    k-node-exec ${COMMAND_OR_SCRIPT} ${NODE} "${ARG}" 1>${LOG_STDOUT} 2>${LOG_STDERR} &
+    LOG_FILES="${LOG_FILES} ${LOG_STDOUT} ${LOG_STDERR}"
+    WAIT_PIDS="${WAIT_PIDS} ${!}"
+  done
+
+  # Monitor logs (in background)
+  tail -f ${LOG_FILES} &
+  TAIL_PID=${!}
+
+  # Wait for commands to end and check everybody finished ok
+  NUM_FAILS=0
+  for PID in ${WAIT_PIDS}; do
+    wait ${PID}
+    if [ ${?} -ne 0 ]; then
+      ((NUM_FAILS=NUM_FAILS+1))
+    fi
+  done
+
+  # Stop log monitoring
+  kill -STOP ${TAIL_PID}
+
+  # if some command failed, keep logs
+  if [ ${NUM_FAILS} -ne 0 ]; then
+    echo "Some remote command failed, execution logs kept in ${LOG_ROOT}"
+    return 1
+  fi
+
+  # Drop logs
+  rm -fR ${LOG_ROOT}
+}
+
+COMMAND_OPT=""
+SCRIPT_OPT=""
+PARALLEL_OPT=0
+WORKER_OPT=0
+MANAGER_OPT=0
+
+# Parse options
+while getopts "hwmpc:s:" OPT; do
+  case "${OPT}" in
+    h) help && exit 0 ;;
+    w) WORKER_OPT=1 ;;
+    m) MANAGER_OPT=1 ;;
+    p) PARALLEL_OPT=1 ;;
+    c) COMMAND_OPT=${OPTARG} ;;
+    s) SCRIPT_OPT=${OPTARG} ;;
+    *) usage && exit 1 ;;
+  esac
+done
+
+shift $((OPTIND-1))
+
+# Parse optionnal nodes
+NODES=""
+while ((${#})); do
+  NODES="${NODES} ${1}"
+  shift
+done
+
+# Check proper usage
+if [ -z "${COMMAND_OPT}" ] && [ -z "${SCRIPT_OPT}" ]; then
+  usage && exit 1;
+fi
+if [ -n "${COMMAND_OPT}" ] && [ -n "${SCRIPT_OPT}" ]; then
+  usage && exit 1;
 fi
 
-case $1 in
-  -h|--help) help;;
-  --manager) FILTER="-f role=manager"; exec "$2" "$3" "$4";;
-  --worker) FILTER="-f role=worker";  exec "$2" "$3" "$4";;
-  -c|--command) exec --command "$2";;
-  -s|--script) exec --script "$2" "$3";;
-  *) echo error: unknonw argument "$1"; usage
-esac
+DOCKER_FILTER=""
+if [ "${WORKER_OPT}" -ne 0 ]; then
+  DOCKER_FILTER="--filter role=worker"
+fi
+if [ "${MANAGER_OPT}" -ne 0 ]; then
+  DOCKER_FILTER="--filter role=manager"
+fi
 
+if [ -n "${COMMAND_OPT}" ]; then
+  COMMAND_OR_SCRIPT="-c"
+  ARG="${COMMAND_OPT}"
+else
+  COMMAND_OR_SCRIPT="-s"
+  ARG="${SCRIPT_OPT}"
+fi
+
+if [ -z "${NODES}" ]; then
+  NODES=$(docker node ls ${DOCKER_FILTER} --format "{{.Hostname}}")
+fi
+
+if [ ${PARALLEL_OPT} -eq 0 ]; then
+  exec_sequential "${NODES}" ${COMMAND_OR_SCRIPT} "${ARG}"
+else
+  exec_parallel "${NODES}" ${COMMAND_OR_SCRIPT} "${ARG}"
+fi

@@ -134,3 +134,7 @@ variable "nvm_version" {
 variable "yq_version" {
   default = "3.4.1"
 }
+
+variable "skip_gluster" {
+  default = false
+}

@@ -79,3 +79,5 @@ variable "rclone_conf" {}
 variable "nvm_version" {}
 
 variable "yq_version" {}
+
+variable "skip_gluster" {}

@@ -1,5 +1,5 @@
 resource "null_resource" "manager_gluster_create" {
-  count = var.AWS ? 1 : 0
+  count = var.AWS && (var.skip_gluster == false) ? 1 : 0
 
   connection {
     type                = "ssh"
@@ -26,7 +26,7 @@ resource "null_resource" "manager_gluster_create" {
 }
 
 resource "null_resource" "manager_gluster_mount" {
-  count = var.AWS ? var.manager_instance_count : 0
+  count = var.AWS && (var.skip_gluster == false) ? var.manager_instance_count : 0
 
   connection {
     type                = "ssh"
@@ -51,7 +51,7 @@ resource "null_resource" "manager_gluster_mount" {
 }
 
 resource "null_resource" "worker_gluster_mount" {
-  count = var.AWS ? var.worker_instance_count : 0
+  count = var.AWS && (var.skip_gluster == false) ? var.worker_instance_count : 0
 
   connection {
     type                = "ssh"

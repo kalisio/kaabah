@@ -74,6 +74,7 @@ module "Scaleway" {
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
   yq_version                            = var.yq_version
+  skip_gluster                          = var.skip_gluster
 }
 
 module "AWS" {
@@ -113,6 +114,7 @@ module "AWS" {
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
   yq_version                            = var.yq_version
+  skip_gluster                          = var.skip_gluster
 }
 
 module "OVH" {
@@ -149,5 +151,6 @@ module "OVH" {
   rclone_conf                           = var.rclone_conf
   nvm_version                           = var.nvm_version
   yq_version                            = var.yq_version
+  skip_gluster                          = var.skip_gluster
 }
 

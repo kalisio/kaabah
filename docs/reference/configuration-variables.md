@@ -46,9 +46,9 @@ sidebarDepth: 3
 | `gluster_share_volume_mount_point` | The mount point used to mount the volume **share** created by **Gluster**. The default value is `/mnt/share`. |
 | `skip_gluster` | A boolean to skip the **Gluster** shared volume setup. Defaults to `false`.
 | `rclone_conf` | The path to the **rclone** configuration you want to provision on the nodes. The default values is `""`. |
-| `user_script` | The user scripts to be executed when the instances are created. It must be the file path to the script. Refer to the section [Using user script](../../docs/guides/advanced-usage.md#using-user-script) to learn more. The default value is ``. |
+| `user_script` | The user scripts to be executed when the instances are created. It must be the file path to the script. Refer to the section [Using user script](../../docs/guides/advanced-usage.md#using-user-script) to learn more. The default value is `""`. |
 | `nvm_version` | The version of the [**nvm**](https://github.com/nvm-sh/nvm) tool to install. |
-| yq_version` | The version of the [**yq**](https://mikefarah.gitbook.io/yq/) tool to install |
+| `yq_version` | The version of the [**yq**](https://mikefarah.gitbook.io/yq/) tool to install. |
 
 ### Manager
 

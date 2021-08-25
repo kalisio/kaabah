@@ -1,7 +1,7 @@
 [![kaabah](https://s3.eu-central-1.amazonaws.com/kalisioscope/kaabah/kaabah-logo-black-512x168.png)](https://kalisio.github.io/kaabah/)
 
 [![Latest Release](https://img.shields.io/github/v/tag/kalisio/kaabah?sort=semver&label=latest)](https://github.com/kalisio/kaabah/releases)
-[![Build Status](https://travis-ci.com/kalisio/kaabah.png?branch=master)](https://travis-ci.com/kalisio/kaabah)
+[![Build Status](https://app.travis-ci.com/kalisio/kaabah.svg?branch=master)](https://app.travis-ci.com/kalisio/kaabah)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _A Terraform solution to design, build and operate Docker Swarm infrastructures_

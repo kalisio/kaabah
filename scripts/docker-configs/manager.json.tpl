@@ -10,5 +10,9 @@
   "tlsverify": true,
   "tlscacert": "/etc/docker/tls/ca.pem",
   "tlscert": "/etc/docker/tls/cert.pem",
-  "tlskey": "/etc/docker/tls/key.pem"
+  "tlskey": "/etc/docker/tls/key.pem",
+  "log-driver": "journald",
+  "log-opts": {
+    "labels": "com.docker.swarm.service.name"
+  }
 }

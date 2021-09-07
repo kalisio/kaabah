@@ -1,3 +1,7 @@
 {
-  "storage-driver" : "overlay2"
+  "storage-driver" : "overlay2",
+  "log-driver": "journald",
+  "log-opts": {
+    "labels": "com.docker.swarm.service.name"
+  }
 }

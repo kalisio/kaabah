@@ -12,6 +12,9 @@ users:
 
 apt:
     preserve_sources_list: true
+    # Required since buster is now oldstable, apt requires explicit confirmation
+    # Can be removed when we decide to use stable again
+    conf: 'Acquire::AllowReleaseInfoChange::Suite "true";'
     sources:
         backports:
             source: "deb http://deb.debian.org/debian $RELEASE-backports main"

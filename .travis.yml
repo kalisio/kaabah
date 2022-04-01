@@ -23,9 +23,9 @@ jobs:
     - docker
     script: bash .travis.test.sh ovh
   - # added to TEST stage
-    script: bash .travis.test.sh scw
+    # script: bash .travis.test.sh scw
   - # added to TEST stage
-    script: bash .travis.test.sh aws
+    # script: bash .travis.test.sh aws
 
   - stage: DOC
     language: node_js

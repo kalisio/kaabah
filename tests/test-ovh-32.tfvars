@@ -8,7 +8,7 @@ ssh_user = "kalisio"
 
 manager_instance_count = 3
 
-manager_additional_volume_size = 50
+manager_additional_volume_size = 33
 
 manager_additional_volume_mount_point = "/mnt/extra"
 
@@ -68,7 +68,7 @@ worker_additionnal_inbound_rules = [
   { protocol = "udp", port = 32769, cidr = "" }
 ]
 
-worker_additional_volume_size = 50
+worker_additional_volume_size = 33
 
 worker_additional_volume_mount_point = "/mnt/extra"
 

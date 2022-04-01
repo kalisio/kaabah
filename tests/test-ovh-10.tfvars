@@ -8,7 +8,7 @@ ssh_user = "kalisio"
 
 manager_instance_type = "s1-4"
 
-manager_additional_volume_size = 250
+manager_additional_volume_size = 50
 
 manager_additional_volume_mount_point = "/mnt/extra"
 

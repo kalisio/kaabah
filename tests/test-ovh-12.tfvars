@@ -29,7 +29,7 @@ manager_additionnal_inbound_rules = [
   { protocol = "udp", port = 32769, cidr = "" }
 ]
 
-manager_additional_volume_size = 250
+manager_additional_volume_size = 50
 
 manager_additional_volume_mount_point = "/mnt/extra"
 
@@ -65,7 +65,7 @@ worker_additionnal_inbound_rules = [
   { protocol = "udp", port = 32769, cidr = "" }
 ]
 
-worker_additional_volume_size = 250
+worker_additional_volume_size = 50
 
 worker_additional_volume_mount_point = "/mnt/extra"
 
